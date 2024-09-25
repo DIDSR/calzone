@@ -1,0 +1,41 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "calzone"
+version = "0.1.0"
+description = "A package for calibration measurement and analysis"
+authors = [
+    {name = "Kwok Lung Jason Fan", email = "kwoklung.fan@fda.hhs.gov"},
+]
+license = {text = "MIT"}
+readme = "README.md"
+requires-python = ">=3.7"
+classifiers = [
+    "Development Status :: development",
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    "numpy",
+    "scipy",
+    "matplotlib",
+    "statsmodels",
+]
+
+[project.urls]
+"Homepage" = "None"
+
+[project.scripts]
+calzone = "calzone.cli:main"
+
+[tool.setuptools]
+packages = ["calzone"]
+
+[tool.pytest.ini_options]
+addopts = "-v --cov=calzone"
+testpaths = [
+    "tests",
+]

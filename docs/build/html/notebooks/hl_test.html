@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hosmer-Lemeshow test (HL test) &mdash; calzone develop documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../_static/nbsphinx-code-cells.css?v=2aa19091" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=16816911"></script>
+        <script src="../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="COX calibration analysis" href="cox.html" />
+    <link rel="prev" title="Exepected Calibration Error(ECE) and Maximum Calibration Error (MCE)" href="ece_mce.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            calzone
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Welcome to calzone documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reliability_diagram.html">Reliability diagram</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ece_mce.html">Exepected Calibration Error(ECE) and Maximum Calibration Error (MCE)</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Hosmer-Lemeshow test (HL test)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#Theoretical-Background">Theoretical Background</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Pros-of-HL-test">Pros of HL test</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Cons-of-HL-Test">Cons of HL Test</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Calculating-HL-test-statistics-and-p-value-with-calzone">Calculating HL test statistics and p-value with calzone</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Size-of-HL-test">Size of HL test</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Reference">Reference</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="cox.html">COX calibration analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../modules.html">calzone</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">calzone</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Hosmer-Lemeshow test (HL test)</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/notebooks/hl_test.ipynb.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="Hosmer-Lemeshow-test-(HL-test)">
+<h1>Hosmer-Lemeshow test (HL test)<a class="headerlink" href="#Hosmer-Lemeshow-test-(HL-test)" title="Link to this heading"></a></h1>
+<section id="Theoretical-Background">
+<h2>Theoretical Background<a class="headerlink" href="#Theoretical-Background" title="Link to this heading"></a></h2>
+<p>The Hosmer-Lemeshow test (HL Test) is a statistical test that can be used to assess the calibration of a probabilitics model. The test works by dividing the predicted probabilities into groups (typically deciles) and comparing the observed and expected frequencies of events in each group. A non-significant p-value (usually greater than 0.05) indicates we cannot reject the hypothesis that the model is well-calibrated, while a significant p-value suggests that the opposite. The Hosmer-Lemeshow
+test widely used in the literature and industy since it is simple to implement and interpret.</p>
+<p>In order to calculate the Hosmer-Lemeshow test statistic, we need to first determine the binning scheme used to divide the predicted probabilities into groups. Conventionally, the predicted probabilities are divided into 10 equal-width bins. We will label the equal-width binning Hosmer-Lemeshow test as HL-H and equal-count binning Hosmer-Lemeshow test as HL-C. The Hosmer-Lemeshow test statistic is then calculated as follows:</p>
+<div class="math notranslate nohighlight">
+\[\text{HL} = \sum_{m=1}^{M} \left[\frac{(O_{1,m}-E_{1,m})^2}{E_{1,m}} + \frac{(O_{0,m}-E_{0,m})^2}{E_{0,m}}\right]  = \sum_{m=1}^{M} \frac{(O_{1,m}-E_{1,m})^2}{E_{1,m}(1-\frac{E_{1,m}}{N_m})} \sim \chi^2_{M-2}\]</div>
+<p>where <span class="math notranslate nohighlight">\(E_{1,m}\)</span> is the expected number of class 1 events in the <span class="math notranslate nohighlight">\(\text{m}^{th}\)</span> bin, <span class="math notranslate nohighlight">\(O_{1,m}\)</span> is the observed number of class 1 events in the <span class="math notranslate nohighlight">\(\text{m}^{th}\)</span> bin, <span class="math notranslate nohighlight">\(N_m\)</span> is the total number of observations in the <span class="math notranslate nohighlight">\(\text{m}^{th}\)</span> bin, and <span class="math notranslate nohighlight">\(M\)</span> is the number of bins. The HL test statistic is distributed as a chi-squared distribution with <span class="math notranslate nohighlight">\(M-2\)</span> degrees of freedom. We can then use this test statistic to calculate the p-value for the test and determine
+whether we can reject the null hypothesis that the model is well-calibrated.</p>
+</section>
+<section id="Pros-of-HL-test">
+<h2>Pros of HL test<a class="headerlink" href="#Pros-of-HL-test" title="Link to this heading"></a></h2>
+<p>The Hosmer-Lemeshow test offers several advantages in assessing the calibration. It is a non-parametric test, meaning it does not require any assumptions about the distribution of the predicted probabilities and it provides statistical meaning to the resulting test statistic. It is also very inituitive and easy to understand since it is just a chi-square based test. It can be calculated from the result of the reliability diagram. HL test is widely used in the literature as a validation method
+for model calibration.</p>
+</section>
+<section id="Cons-of-HL-Test">
+<h2>Cons of HL Test<a class="headerlink" href="#Cons-of-HL-Test" title="Link to this heading"></a></h2>
+<p>Many studies have show that the HL test is not a ideal way to examine the calibration of a model. The biggest problem is that the HL test depend on the binning scheme used. Whether equal-width or equal-count binning and the number of bins used can affect the results of the HL test. It is shown that the standard 10 equal-width bins often have the wrong size and low statistical power. Therefore, it is recommended to not use the HL test to examine the calibration of a model. However, the HL test is
+still a useful tool to quickly check the calibration of a model and provide a reference for the calibration of a model.</p>
+</section>
+<section id="Calculating-HL-test-statistics-and-p-value-with-calzone">
+<h2>Calculating HL test statistics and p-value with calzone<a class="headerlink" href="#Calculating-HL-test-statistics-and-p-value-with-calzone" title="Link to this heading"></a></h2>
+<p>There are again two ways to calculate the HL test statistics and p-value with calzone. One is to call the function explicitly, and the other is to use the calzone.metrics.CalibrationMetrics class.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">calzone.utils</span> <span class="kn">import</span> <span class="n">reliability_diagram</span><span class="p">,</span><span class="n">data_loader</span>
+<span class="kn">from</span> <span class="nn">calzone.metrics</span> <span class="kn">import</span> <span class="n">hosmer_lemeshow_test</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="c1">### loading the data</span>
+<span class="n">wellcal_dataloader</span> <span class="o">=</span> <span class="n">data_loader</span><span class="p">(</span><span class="n">data_path</span><span class="o">=</span><span class="s2">&quot;../../../example_data/simulated_welldata.csv&quot;</span><span class="p">)</span>
+
+<span class="c1">### calculating the HL-H TS</span>
+<span class="n">reliability</span><span class="p">,</span><span class="n">confindence</span><span class="p">,</span><span class="n">bin_edges</span><span class="p">,</span><span class="n">bin_counts</span> <span class="o">=</span> <span class="n">reliability_diagram</span><span class="p">(</span><span class="n">wellcal_dataloader</span><span class="o">.</span><span class="n">labels</span><span class="p">,</span><span class="n">wellcal_dataloader</span><span class="o">.</span><span class="n">probs</span><span class="p">,</span><span class="n">num_bins</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">class_to_plot</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">is_equal_freq</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="n">HL_H_ts</span><span class="p">,</span><span class="n">HL_H_p</span><span class="p">,</span><span class="n">df</span> <span class="o">=</span> <span class="n">hosmer_lemeshow_test</span><span class="p">(</span><span class="n">reliability</span><span class="p">,</span><span class="n">confindence</span><span class="p">,</span><span class="n">bin_count</span><span class="o">=</span><span class="n">bin_counts</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;HL-H Test Statistic: &quot;</span><span class="p">,</span><span class="n">HL_H_ts</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;HL-H p-value: &quot;</span><span class="p">,</span><span class="n">HL_H_p</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+HL-H Test Statistic:  8.884991559088098
+HL-H p-value:  0.35209071874348785
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### similar for HL-C model</span>
+<span class="n">reliability</span><span class="p">,</span><span class="n">confindence</span><span class="p">,</span><span class="n">bin_edges</span><span class="p">,</span><span class="n">bin_counts</span> <span class="o">=</span> <span class="n">reliability_diagram</span><span class="p">(</span><span class="n">wellcal_dataloader</span><span class="o">.</span><span class="n">labels</span><span class="p">,</span><span class="n">wellcal_dataloader</span><span class="o">.</span><span class="n">probs</span><span class="p">,</span><span class="n">num_bins</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">class_to_plot</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">is_equal_freq</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">HL_C_ts</span><span class="p">,</span><span class="n">HL_C_p</span><span class="p">,</span><span class="n">df</span> <span class="o">=</span> <span class="n">hosmer_lemeshow_test</span><span class="p">(</span><span class="n">reliability</span><span class="p">,</span><span class="n">confindence</span><span class="p">,</span><span class="n">bin_count</span><span class="o">=</span><span class="n">bin_counts</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;HL-C Test Statistic: &quot;</span><span class="p">,</span><span class="n">HL_C_ts</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;HL-C p-value: &quot;</span><span class="p">,</span><span class="n">HL_C_p</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+HL-C Test Statistic:  3.694947603203135
+HL-C p-value:  0.8835446575708198
+</pre></div></div>
+</div>
+<p>We can see the result from equal-width binning and equal-count binning are different. We will demostrate how to use the calzone.metrics.CalibrationMetrics class.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### using the CalibrationMetrics class</span>
+<span class="kn">from</span> <span class="nn">calzone.metrics</span> <span class="kn">import</span> <span class="n">CalibrationMetrics</span>
+<span class="n">calmetrics</span> <span class="o">=</span> <span class="n">CalibrationMetrics</span><span class="p">(</span><span class="n">class_to_calculate</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">calmetrics</span><span class="o">.</span><span class="n">calculate_metrics</span><span class="p">(</span><span class="n">wellcal_dataloader</span><span class="o">.</span><span class="n">labels</span><span class="p">,</span> <span class="n">wellcal_dataloader</span><span class="o">.</span><span class="n">probs</span><span class="p">,</span> <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;HL-H&#39;</span><span class="p">,</span> <span class="s1">&#39;HL-C&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+{&#39;HL-H score&#39;: 8.884991559088098,
+ &#39;HL-H p-value&#39;: 0.35209071874348785,
+ &#39;HL-C score&#39;: 3.694947603203135,
+ &#39;HL-C p-value&#39;: 0.8835446575708198}
+</pre></div></div>
+</div>
+</section>
+<section id="Size-of-HL-test">
+<h2>Size of HL test<a class="headerlink" href="#Size-of-HL-test" title="Link to this heading"></a></h2>
+<p>We will show HL having the wrong size. The power of HL test will be demostrated in the Power section of the next notebook. We will need to generate fake data.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### The size of HL Test</span>
+<span class="kn">from</span> <span class="nn">calzone.utils</span> <span class="kn">import</span> <span class="n">fake_binary_data_generator</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">123</span><span class="p">)</span>
+<span class="n">fakedata_generator</span> <span class="o">=</span> <span class="n">fake_binary_data_generator</span><span class="p">(</span><span class="n">alpha_val</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">beta_val</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">cal_metrics</span> <span class="o">=</span> <span class="n">CalibrationMetrics</span><span class="p">()</span>
+<span class="n">sample_size</span> <span class="o">=</span> <span class="mi">1000</span>
+<span class="n">simulation_size</span> <span class="o">=</span> <span class="mi">1000</span>
+<span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="c1"># generate data</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">simulation_size</span><span class="p">):</span>
+    <span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">fakedata_generator</span><span class="o">.</span><span class="n">generate_data</span><span class="p">(</span><span class="n">sample_size</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">tempresult</span> <span class="o">=</span> <span class="n">cal_metrics</span><span class="o">.</span><span class="n">calculate_metrics</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;HL-H&#39;</span><span class="p">,</span> <span class="s1">&#39;HL-C&#39;</span><span class="p">],</span><span class="n">return_numpy</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">keys</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">tempresult</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+        <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">tempresult</span><span class="o">.</span><span class="n">values</span><span class="p">())))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">tempresult</span> <span class="o">=</span> <span class="n">cal_metrics</span><span class="o">.</span><span class="n">calculate_metrics</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;HL-H&#39;</span><span class="p">,</span> <span class="s1">&#39;HL-C&#39;</span><span class="p">],</span><span class="n">return_numpy</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tempresult</span><span class="p">)</span>
+<span class="n">results</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### Showing the size of the model</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="n">hl_h_pvalue</span> <span class="o">=</span> <span class="n">results</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">hl_c_pvalue</span> <span class="o">=</span> <span class="n">results</span><span class="p">[:,</span><span class="mi">3</span><span class="p">]</span>
+<span class="n">size_h</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">hl_h_pvalue</span> <span class="o">&lt;</span> <span class="mf">0.05</span><span class="p">)</span>
+<span class="n">size_c</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">hl_c_pvalue</span> <span class="o">&lt;</span> <span class="mf">0.05</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The size of HL-H is :&quot;</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">size_h</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The size of HL-C is :&quot;</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">size_c</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+The size of HL-H is : 0.086
+The size of HL-C is : 0.103
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">value</span><span class="p">,</span><span class="n">_</span><span class="p">,</span><span class="n">_</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">hl_h_pvalue</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Equal-width binning&#39;</span><span class="p">,</span><span class="n">histtype</span><span class="o">=</span><span class="s1">&#39;step&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">vlines</span><span class="p">(</span><span class="n">size_h</span><span class="p">,</span><span class="n">ymin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">ymax</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">value</span><span class="p">),</span><span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;Size of equal-width bin ($\alpha=0.05$) = &#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">size_h</span><span class="p">,</span><span class="mi">3</span><span class="p">)),</span><span class="n">colors</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper right&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;p-value&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Density&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;P-value distribution of the HL test&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Text(0.5, 1.0, &#39;P-value distribution of the HL test&#39;)
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_hl_test_13_1.png" src="../_images/notebooks_hl_test_13_1.png" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">value</span><span class="p">,</span><span class="n">_</span><span class="p">,</span><span class="n">_</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">hl_c_pvalue</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Equal-count binning&#39;</span><span class="p">,</span><span class="n">histtype</span><span class="o">=</span><span class="s1">&#39;step&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">vlines</span><span class="p">(</span><span class="n">size_c</span><span class="p">,</span><span class="n">ymin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">ymax</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">value</span><span class="p">),</span><span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;Size of equal-count bin ($\alpha=0.05$) = &#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">size_c</span><span class="p">,</span><span class="mi">3</span><span class="p">)),</span><span class="n">colors</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper right&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;p-value&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Density&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;P-value distribution of the HL test&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Text(0.5, 1.0, &#39;P-value distribution of the HL test&#39;)
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_hl_test_14_1.png" src="../_images/notebooks_hl_test_14_1.png" />
+</div>
+</div>
+<p>We can see that both the equal-width and the equal-count method have the incorrect size.</p>
+</section>
+<section id="Reference">
+<h2>Reference<a class="headerlink" href="#Reference" title="Link to this heading"></a></h2>
+<p>Hosmer, D. W., &amp; Lemesbow, S. (1980). Goodness of fit tests for the multiple logistic regression model. Communications in statistics-Theory and Methods, 9(10), 1043-1069.</p>
+<p>Hosmer, D. W., Hosmer, T., Cessie, S. L., &amp; Lemeshow, S. (1997). A COMPARISON OF GOODNESS-OF-FIT TESTS FOR THE LOGISTIC REGRESSION MODEL. 16.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="ece_mce.html" class="btn btn-neutral float-left" title="Exepected Calibration Error(ECE) and Maximum Calibration Error (MCE)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="cox.html" class="btn btn-neutral float-right" title="COX calibration analysis" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Kwok Lung Jason Fan.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

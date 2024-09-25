@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Reliability diagram &mdash; calzone develop documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../_static/nbsphinx-code-cells.css?v=2aa19091" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=16816911"></script>
+        <script src="../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Exepected Calibration Error(ECE) and Maximum Calibration Error (MCE)" href="ece_mce.html" />
+    <link rel="prev" title="Quick Start" href="quickstart.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            calzone
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Welcome to calzone documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick Start</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Reliability diagram</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ece_mce.html">Exepected Calibration Error(ECE) and Maximum Calibration Error (MCE)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hl_test.html">Hosmer-Lemeshow test (HL test)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cox.html">COX calibration analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../modules.html">calzone</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">calzone</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Reliability diagram</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/notebooks/reliability_diagram.ipynb.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="Reliability-diagram">
+<h1>Reliability diagram<a class="headerlink" href="#Reliability-diagram" title="Link to this heading"></a></h1>
+<p>Reliability Diagram is a tool to visualize the calibration of a model given a set of data. It groups the data into bins and plots the accuracy of each bin against the average predicted value for that bin. The reliability diagram can be plotted for top-class prediction only or for a given class. The calzone package provides a function to calculate and plot the reliability diagram.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### Import the necessary libraries and load the data</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">calzone.utils</span> <span class="kn">import</span> <span class="n">reliability_diagram</span><span class="p">,</span><span class="n">data_loader</span>
+<span class="kn">from</span> <span class="nn">calzone.vis</span> <span class="kn">import</span> <span class="n">plot_reliability_diagram</span>
+<span class="c1">### loading the data</span>
+<span class="n">wellcal_dataloader</span> <span class="o">=</span> <span class="n">data_loader</span><span class="p">(</span><span class="n">data_path</span><span class="o">=</span><span class="s2">&quot;../../../example_data/simulated_welldata.csv&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### Create and plot the top-class well calibrated data</span>
+<span class="n">reliability</span><span class="p">,</span><span class="n">confindence</span><span class="p">,</span><span class="n">bin_edges</span><span class="p">,</span><span class="n">bin_counts</span> <span class="o">=</span> <span class="n">reliability_diagram</span><span class="p">(</span><span class="n">wellcal_dataloader</span><span class="o">.</span><span class="n">labels</span><span class="p">,</span> <span class="n">wellcal_dataloader</span><span class="o">.</span><span class="n">probs</span><span class="p">,</span> <span class="n">num_bins</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span><span class="n">class_to_plot</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="c1">#clasto plot is None mean calcuate for top-class</span>
+<span class="c1"># Plot the reliability diagram</span>
+<span class="n">plot_reliability_diagram</span><span class="p">(</span><span class="n">reliability</span><span class="p">,</span><span class="n">confindence</span><span class="p">,</span><span class="n">bin_counts</span><span class="p">,</span><span class="n">error_bar</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;Top class reliability diagram for well calibrated data&#39;</span><span class="p">)</span>
+<br/></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_reliability_diagram_3_0.png" src="../_images/notebooks_reliability_diagram_3_0.png" />
+</div>
+</div>
+<p>Since we have a binary classification problem, The mean predicted probability will not go below 0.5 for top-class reliability diagram. We will proceed to plot the class 1 reliability diagram.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### Create and plot the class 1 well calibrated data</span>
+<span class="n">reliability</span><span class="p">,</span><span class="n">confindence</span><span class="p">,</span><span class="n">bin_edges</span><span class="p">,</span><span class="n">bin_counts</span> <span class="o">=</span> <span class="n">reliability_diagram</span><span class="p">(</span><span class="n">wellcal_dataloader</span><span class="o">.</span><span class="n">labels</span><span class="p">,</span> <span class="n">wellcal_dataloader</span><span class="o">.</span><span class="n">probs</span><span class="p">,</span> <span class="n">num_bins</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span><span class="n">class_to_plot</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="c1"># Plot the reliability diagram</span>
+<span class="n">plot_reliability_diagram</span><span class="p">(</span><span class="n">reliability</span><span class="p">,</span><span class="n">confindence</span><span class="p">,</span><span class="n">bin_counts</span><span class="p">,</span><span class="n">error_bar</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;Class 1 reliability diagram for well calibrated data&#39;</span><span class="p">)</span>
+<br/></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_reliability_diagram_5_0.png" src="../_images/notebooks_reliability_diagram_5_0.png" />
+</div>
+</div>
+<p>Class-by-class reliability diagram reveal more information about the model’s calibbration. The top-class reliability diagram could be misleading as it could shows reasonable calibration for the top-class, but the model could be overconfident for the other classes. We can demonstrate in the following example.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[40]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### We will artificially drop the prevalence of class 1</span>
+<span class="c1"># The top-class reliability diagram will still look good</span>
+<span class="c1"># But the class-1 reliability diagram will be very bad</span>
+<span class="kn">from</span> <span class="nn">calzone.utils</span> <span class="kn">import</span> <span class="n">softmax_to_logits</span>
+<span class="kn">from</span> <span class="nn">scipy.special</span> <span class="kn">import</span> <span class="n">softmax</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="n">test_dataloader</span> <span class="o">=</span> <span class="n">data_loader</span><span class="p">(</span><span class="n">data_path</span><span class="o">=</span><span class="s2">&quot;../../../example_data/simulated_welldata.csv&quot;</span><span class="p">)</span>
+<span class="n">class_1_index</span> <span class="o">=</span> <span class="p">(</span><span class="n">test_dataloader</span><span class="o">.</span><span class="n">labels</span><span class="o">==</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># We will drop 50% of class 1 samples</span>
+<span class="n">class_1_samples</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">class_1_index</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">drop_indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">class_1_samples</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">class_1_samples</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">),</span> <span class="n">replace</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="n">mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">test_dataloader</span><span class="o">.</span><span class="n">labels</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>
+<span class="n">mask</span><span class="p">[</span><span class="n">drop_indices</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+
+<span class="n">test_dataloader</span><span class="o">.</span><span class="n">labels</span> <span class="o">=</span> <span class="n">test_dataloader</span><span class="o">.</span><span class="n">labels</span><span class="p">[</span><span class="n">mask</span><span class="p">]</span>
+<span class="n">test_dataloader</span><span class="o">.</span><span class="n">probs</span> <span class="o">=</span> <span class="n">test_dataloader</span><span class="o">.</span><span class="n">probs</span><span class="p">[</span><span class="n">mask</span><span class="p">]</span>
+<span class="n">test_dataloader</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">test_dataloader</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">mask</span><span class="p">]</span>
+<br/></pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[42]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### Create and plot the top-class reliability diagram</span>
+<span class="n">reliability</span><span class="p">,</span><span class="n">confindence</span><span class="p">,</span><span class="n">bin_edges</span><span class="p">,</span><span class="n">bin_counts</span> <span class="o">=</span> <span class="n">reliability_diagram</span><span class="p">(</span><span class="n">test_dataloader</span><span class="o">.</span><span class="n">labels</span><span class="p">,</span> <span class="n">test_dataloader</span><span class="o">.</span><span class="n">probs</span><span class="p">,</span> <span class="n">num_bins</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span><span class="n">class_to_plot</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<span class="n">plot_reliability_diagram</span><span class="p">(</span><span class="n">reliability</span><span class="p">,</span><span class="n">confindence</span><span class="p">,</span><span class="n">bin_counts</span><span class="p">,</span><span class="n">error_bar</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;Top class reliability diagram for mis calibrated data&#39;</span><span class="p">)</span>
+<br/></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_reliability_diagram_8_0.png" src="../_images/notebooks_reliability_diagram_8_0.png" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[43]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### Create and plot the class-by-class reliability diagram</span>
+<span class="n">reliability_0</span><span class="p">,</span><span class="n">confindence_0</span><span class="p">,</span><span class="n">bin_edges</span><span class="p">,</span><span class="n">bin_counts_0</span> <span class="o">=</span> <span class="n">reliability_diagram</span><span class="p">(</span><span class="n">test_dataloader</span><span class="o">.</span><span class="n">labels</span><span class="p">,</span> <span class="n">test_dataloader</span><span class="o">.</span><span class="n">probs</span><span class="p">,</span> <span class="n">num_bins</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span><span class="n">class_to_plot</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">reliability_1</span><span class="p">,</span><span class="n">confindence_1</span><span class="p">,</span><span class="n">bin_edges</span><span class="p">,</span><span class="n">bin_counts_1</span> <span class="o">=</span> <span class="n">reliability_diagram</span><span class="p">(</span><span class="n">test_dataloader</span><span class="o">.</span><span class="n">labels</span><span class="p">,</span> <span class="n">test_dataloader</span><span class="o">.</span><span class="n">probs</span><span class="p">,</span> <span class="n">num_bins</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span><span class="n">class_to_plot</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">reliability</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">((</span><span class="n">reliability_0</span><span class="p">,</span><span class="n">reliability_1</span><span class="p">))</span>
+<span class="n">confindence</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">((</span><span class="n">confindence_0</span><span class="p">,</span><span class="n">confindence_1</span><span class="p">))</span>
+<span class="n">bin_counts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">((</span><span class="n">bin_counts_0</span><span class="p">,</span><span class="n">bin_counts_1</span><span class="p">))</span>
+<span class="n">plot_reliability_diagram</span><span class="p">(</span><span class="n">reliability</span><span class="p">,</span><span class="n">confindence</span><span class="p">,</span><span class="n">bin_counts</span><span class="p">,</span><span class="n">error_bar</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;class-by-class reliability diagram for mis calibrated data&#39;</span><span class="p">,</span><span class="n">custom_colors</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span><span class="s1">&#39;red&#39;</span><span class="p">])</span>
+<br/></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_reliability_diagram_9_0.png" src="../_images/notebooks_reliability_diagram_9_0.png" />
+</div>
+</div>
+<p>The example shows us that the prevalence shift in the testing data could lead to mis-calibration in a posterior sense. The calzone provide a method to calibrate it. The prevalence is not related to the model and the model could still have the correct likelihood ratio. See more discussion in the prevalence adjustment section.</p>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="quickstart.html" class="btn btn-neutral float-left" title="Quick Start" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="ece_mce.html" class="btn btn-neutral float-right" title="Exepected Calibration Error(ECE) and Maximum Calibration Error (MCE)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Kwok Lung Jason Fan.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

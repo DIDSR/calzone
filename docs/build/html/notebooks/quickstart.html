@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quick Start &mdash; calzone develop documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../_static/nbsphinx-code-cells.css?v=2aa19091" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=16816911"></script>
+        <script src="../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Reliability diagram" href="reliability_diagram.html" />
+    <link rel="prev" title="Welcome to calzone documentation" href="../index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            calzone
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Welcome to calzone documentation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Quick Start</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#Installation">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Command-line-interface">Command line interface</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="reliability_diagram.html">Reliability diagram</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ece_mce.html">Exepected Calibration Error(ECE) and Maximum Calibration Error (MCE)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hl_test.html">Hosmer-Lemeshow test (HL test)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cox.html">COX calibration analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../modules.html">calzone</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">calzone</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Quick Start</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/notebooks/quickstart.ipynb.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="Quick-Start">
+<h1>Quick Start<a class="headerlink" href="#Quick-Start" title="Link to this heading"></a></h1>
+<p>The tutorial provides a quick start to the calzone package. Including the installation and the basic command line interface useage.</p>
+<section id="Installation">
+<h2>Installation<a class="headerlink" href="#Installation" title="Link to this heading"></a></h2>
+<p>calzone dependencies are numpy, scipy, statsmodels and matplotlib. If you are experienced developer, you probably already have numpy, scipy and matplolib installed. If you don’t have a package install, you can install them with conda</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">install</span> <span class="n">numpy</span>
+<span class="n">conda</span> <span class="n">install</span> <span class="n">scipy</span>
+<span class="n">conda</span> <span class="n">install</span> <span class="n">matplotlib</span>
+<span class="n">conda</span> <span class="n">install</span> <span class="n">statsmodels</span>
+</pre></div>
+</div>
+</div>
+<p>Alternatively, you can install the dependencies with pip</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">numpy</span>
+<span class="n">pip</span> <span class="n">install</span> <span class="n">scipy</span>
+<span class="n">pip</span> <span class="n">install</span> <span class="n">matplotlib</span>
+<span class="n">pip</span> <span class="n">install</span> <span class="n">statsmodels</span>
+</pre></div>
+</div>
+</div>
+<p>Then, you can process to install the calzone package from github if you only want to use the calculator inside you python script:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">e</span> <span class="s2">&quot;git+https://github.com/DIDSR/OCS-Uncertainty-Quantification.git@develop#egg=calzone&amp;subdirectory=calzone&quot;</span>
+</pre></div>
+</div>
+</div>
+<p>If you want to run the command line interface or GUI interface, you need to clone the github repository. Notice that the GUI interface require install nicegui using <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">nicegui</span></code>.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">DIDSR</span><span class="o">/</span><span class="n">OCS</span><span class="o">-</span><span class="n">Uncertainty</span><span class="o">-</span><span class="n">Quantification</span><span class="o">.</span><span class="n">git</span>
+<span class="n">cd</span> <span class="n">OCS</span><span class="o">-</span><span class="n">Uncertainty</span><span class="o">-</span><span class="n">Quantification</span><span class="o">/</span>
+<span class="n">git</span> <span class="n">checkout</span> <span class="n">develop</span>
+<span class="n">cd</span> <span class="n">calzone</span><span class="o">/</span>
+<span class="c1"># install calzone</span>
+<span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">e</span> <span class="o">.</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="Command-line-interface">
+<h2>Command line interface<a class="headerlink" href="#Command-line-interface" title="Link to this heading"></a></h2>
+<p>First, you need to prepare your dataset in a specified format. The dataset should be a CSV file with the following columns:</p>
+<p>proba_0, proba_1, …, proba_n, label</p>
+<p>where n &gt;= 1.</p>
+<p>Or if you have subgroups, the dataset should be a CSV file with the following columns:</p>
+<p>proba_0, proba_1, …, proba_n, subgroup_1, subgroup_2, …, subgroup_m, label</p>
+<p>where n &gt;= 1 and m &gt;= 1.</p>
+<p>The program also works if your csv file has no header.It will assume the first [:-1] columns are the probabilities and the last column is the label.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### For illuration purpose , I will use build-in class to generate fake data. Do not run this cell in real case.</span>
+<span class="c1">### A well-calibrated dataset and miscalibrated dataset are provided in the example folder</span>
+<span class="kn">from</span> <span class="nn">calzone.utils</span> <span class="kn">import</span> <span class="n">fake_binary_data_generator</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">123</span><span class="p">)</span>
+<span class="n">fakedata_generator</span> <span class="o">=</span> <span class="n">fake_binary_data_generator</span><span class="p">(</span><span class="n">alpha_val</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">beta_val</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">X</span><span class="p">,</span> <span class="n">y_true</span> <span class="o">=</span> <span class="n">fakedata_generator</span><span class="o">.</span><span class="n">generate_data</span><span class="p">(</span><span class="mi">5000</span><span class="p">)</span>
+<span class="n">X2</span><span class="p">,</span> <span class="n">y_true2</span> <span class="o">=</span> <span class="n">fakedata_generator</span><span class="o">.</span><span class="n">generate_data</span><span class="p">(</span><span class="mi">5000</span><span class="p">)</span>
+<span class="n">X2</span> <span class="o">=</span> <span class="n">fakedata_generator</span><span class="o">.</span><span class="n">linear_miscal</span><span class="p">(</span><span class="n">X2</span><span class="p">,</span> <span class="n">miscal_scale</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">column_stack</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">X</span><span class="p">)</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">y_true</span><span class="p">)</span><span class="o">.</span><span class="n">tolist</span><span class="p">()))</span>
+<span class="n">df_miscal</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">column_stack</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">X2</span><span class="p">)</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">y_true2</span><span class="p">)</span><span class="o">.</span><span class="n">tolist</span><span class="p">()))</span>
+<span class="n">np</span><span class="o">.</span><span class="n">savetxt</span><span class="p">(</span><span class="s2">&quot;../../../example_data/simulated_welldata.csv&quot;</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="s2">&quot;,&quot;</span><span class="p">,</span><span class="n">header</span><span class="o">=</span><span class="s2">&quot;proba_0,proba_1,label&quot;</span><span class="p">,</span> <span class="n">comments</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+<span class="n">np</span><span class="o">.</span><span class="n">savetxt</span><span class="p">(</span><span class="s2">&quot;../../../example_data/simulated_misdata.csv&quot;</span><span class="p">,</span> <span class="n">df_miscal</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="s2">&quot;,&quot;</span><span class="p">,</span><span class="n">header</span><span class="o">=</span><span class="s2">&quot;proba_0,proba_1,label&quot;</span><span class="p">,</span> <span class="n">comments</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+
+
+<span class="c1">### Create data for subgroup analysis</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="c1"># Create dataframes for each subgroup</span>
+<span class="n">df_A</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;proba_0&#39;</span><span class="p">:</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="s1">&#39;proba_1&#39;</span><span class="p">:</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;subgroup&#39;</span><span class="p">:</span> <span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;label&#39;</span><span class="p">:</span> <span class="n">y_true</span><span class="p">})</span>
+<span class="n">df_B</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;proba_0&#39;</span><span class="p">:</span> <span class="n">X2</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="s1">&#39;proba_1&#39;</span><span class="p">:</span> <span class="n">X2</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;subgroup&#39;</span><span class="p">:</span> <span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="s1">&#39;label&#39;</span><span class="p">:</span> <span class="n">y_true2</span><span class="p">})</span>
+
+<span class="c1"># Merge the dataframes</span>
+<span class="n">df_merged</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">df_A</span><span class="p">,</span> <span class="n">df_B</span><span class="p">],</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># Rename the &#39;subgroup&#39; column to &#39;subgroup_1&#39;</span>
+<span class="n">df_merged</span> <span class="o">=</span> <span class="n">df_merged</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;subgroup&#39;</span><span class="p">:</span> <span class="s1">&#39;subgroup_1&#39;</span><span class="p">})</span>
+<span class="n">df_merged</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;../../../example_data/simulated_data_subgroup.csv&#39;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>To use CLI, you can use the script in the calzone directory. The program will save the metrics into the output csv file with the CI(if you turn on boostrap). The program will also save the relibaility diagram if you apply –plot flag. There is an optional flag –prevalence_adjustment which try to derive the original model prevalence and apply prevalence adjustment. See more on prevalence adjustment in the prevalecne adjustment notebook.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">run</span> ../../../cal_metrics.py \
+<span class="o">--</span><span class="n">csv_file</span> <span class="s1">&#39;../../../example_data/simulated_welldata.csv&#39;</span> \
+<span class="o">--</span><span class="n">metrics</span> <span class="nb">all</span> \
+<span class="o">--</span><span class="n">n_bootstrap</span> <span class="mi">1000</span> \
+<span class="o">--</span><span class="n">bootstrap_ci</span> <span class="mf">0.95</span> \
+<span class="o">--</span><span class="n">class_to_calculate</span> <span class="mi">1</span> \
+<span class="o">--</span><span class="n">num_bins</span> <span class="mi">10</span> \
+<span class="o">--</span><span class="n">save_metrics</span> <span class="s1">&#39;../../../example_data/simulated_welldata_result.csv&#39;</span> \
+<span class="o">--</span><span class="n">plot</span> \
+<span class="o">--</span><span class="n">plot_bins</span> <span class="mi">10</span> \
+<span class="o">--</span><span class="n">save_plot</span> <span class="s1">&#39;../../../example_data/simulated_welldata_result.png&#39;</span> \
+<span class="o">--</span><span class="n">verbose</span> \
+<span class="o">--</span><span class="n">save_diagram_output</span> <span class="s1">&#39;../../../example_data/simulated_welldata_diagram_output.csv&#39;</span>
+<span class="c1">### save_diagram_output only when you want to save the reliability diagram output</span>
+<span class="c1">#--prevalence_adjustment # only when you want to apply prevalence adjustment</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Metrics with bootstrap confidence intervals:
+SpiegelhalterZ score: 0.3763269161877356 (-1.603613349898115, 2.1195692915140842)
+SpiegelhalterZ p-value: 0.7066738713391099 (0.02740573771102403, 0.9657489361940078)
+ECE-H topclass: 0.009608653731328977 (0.006881144608156694, 0.02207861923719637)
+ECE-H: 0.01208775955804901 (0.010125783319610454, 0.025630821670215406)
+MCE-H topclass: 0.03926468843081976 (0.017648955641595406, 0.07918442046164621)
+MCE-H: 0.04848338618970194 (0.032674207430204064, 0.10716662345104105)
+HL-H score: 8.884991559088098 (6.384199867739332, 35.46341807242115)
+HL-H p-value: 0.35209071874348785 (2.2012199427551284e-05, 0.604279185767974)
+ECE-C topclass: 0.009458033653818828 (0.007227391695708015, 0.021043957006202253)
+ECE-C: 0.008733966945443138 (0.0073236897701535, 0.021457480953428507)
+MCE-C topclass: 0.020515047600205505 (0.018971283079500224, 0.06853232954702118)
+MCE-C: 0.02324031223486256 (0.01845185163306699, 0.07276183481590619)
+HL-C score: 3.694947603203135 (4.646854216678091, 29.591141305679923)
+HL-C p-value: 0.8835446575708198 (0.0002495988290144469, 0.7945639276874291)
+COX coef: 0.9942499557748269 (0.94595523211605, 1.0534981852267626)
+COX intercept: -0.04497652296600376 (-0.125006890435001, 0.033105874999345704)
+COX coef lowerci: 0.9372902801721911 (0.8918690537878544, 0.9932845800748495)
+COX coef upperci: 1.0512096313774626 (1.0000414104442459, 1.113711790378676)
+COX intercept lowerci: -0.12348577118577644 (-0.20393450982858224, -0.045935000981323734)
+COX intercept upperci: 0.03353272525376893 (-0.04638480996929449, 0.11215343240142558)
+COX ICI: 0.005610391483826338 (0.0011738204773717184, 0.015621304502734504)
+Loess ICI: 0.00558856942568957 (0.0030916796585739384, 0.014918055562815842)
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_quickstart_15_1.png" src="../_images/notebooks_quickstart_15_1.png" />
+</div>
+</div>
+<p>We can also test it on a miscalibrated dataset</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">run</span> ../../../cal_metrics.py \
+<span class="o">--</span><span class="n">csv_file</span> <span class="s1">&#39;../../../example_data/simulated_misdata.csv&#39;</span> \
+<span class="o">--</span><span class="n">metrics</span> <span class="nb">all</span> \
+<span class="o">--</span><span class="n">n_bootstrap</span> <span class="mi">1000</span> \
+<span class="o">--</span><span class="n">bootstrap_ci</span> <span class="mf">0.95</span> \
+<span class="o">--</span><span class="n">class_to_calculate</span> <span class="mi">1</span> \
+<span class="o">--</span><span class="n">num_bins</span> <span class="mi">10</span> \
+<span class="o">--</span><span class="n">save_metrics</span> <span class="s1">&#39;../../../example_data/simulated_misdata_result.csv&#39;</span> \
+<span class="o">--</span><span class="n">plot</span> \
+<span class="o">--</span><span class="n">plot_bins</span> <span class="mi">10</span> \
+<span class="o">--</span><span class="n">save_plot</span> <span class="s1">&#39;../../../example_data/simulated_misdata_result.png&#39;</span> \
+<span class="o">--</span><span class="n">verbose</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Metrics with bootstrap confidence intervals:
+SpiegelhalterZ score: 27.93575342117766 (24.553503484914785, 31.060334596907616)
+SpiegelhalterZ p-value: 0.0 (0.0, 0.0)
+ECE-H topclass: 0.07658928982434714 (0.06699143488896285, 0.08739584595447071)
+ECE-H: 0.0765892898243467 (0.06740019522275334, 0.0879033917230482)
+MCE-H topclass: 0.1327565894838103 (0.1095494309442624, 0.1758673765980299)
+MCE-H: 0.16250572519432438 (0.1308314635289712, 0.23440589439711934)
+HL-H score: 910.4385762101924 (706.2513276162414, 1164.583647025705)
+HL-H p-value: 0.0 (0.0, 0.0)
+ECE-C topclass: 0.07429481165606829 (0.06558393058008768, 0.08419357459372527)
+ECE-C: 0.07479369479609524 (0.06493481908896855, 0.08528405183455497)
+MCE-C topclass: 0.14090872416947742 (0.12706661610420833, 0.1842917646565223)
+MCE-C: 0.14045600565696226 (0.11820901303548768, 0.18354400007770558)
+HL-C score: 2246.1714434139853 (1401.1005696383986, 3861.316024518002)
+HL-C p-value: 0.0 (0.0, 0.0)
+COX coef: 0.5071793536874274 (0.47945014705040373, 0.5396100860576253)
+COX intercept: 0.00037947714112375366 (-0.08135577772703736, 0.07584336018180761)
+COX coef lowerci: 0.47838663128188996 (0.4521569298895262, 0.508878025336953)
+COX coef upperci: 0.5359720760929648 (0.5064865470829102, 0.5703421467782975)
+COX intercept lowerci: -0.07796623141885761 (-0.16015391601991216, -0.0016661503016653684)
+COX intercept upperci: 0.07872518570110512 (-0.0017097745134775943, 0.1540680887155315)
+COX ICI: 0.07746407648179383 (0.06905861501848216, 0.08530777626379776)
+Loess ICI: 0.06991428582761099 (0.061311375221746144, 0.07840516864044425)
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_quickstart_17_1.png" src="../_images/notebooks_quickstart_17_1.png" />
+</div>
+</div>
+<p>If your data has subgroup in it, simply run the script with the same argument as the one above. It will automatically detect the subgroup and generate the corresponding plots and metrics for each subgroup as well as the overall plot and metrics.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">run</span> ../../../cal_metrics.py \
+<span class="o">--</span><span class="n">csv_file</span> <span class="s1">&#39;../../../example_data/simulated_data_subgroup.csv&#39;</span> \
+<span class="o">--</span><span class="n">metrics</span> <span class="nb">all</span> \
+<span class="o">--</span><span class="n">n_bootstrap</span> <span class="mi">1000</span> \
+<span class="o">--</span><span class="n">bootstrap_ci</span> <span class="mf">0.95</span> \
+<span class="o">--</span><span class="n">class_to_calculate</span> <span class="mi">1</span> \
+<span class="o">--</span><span class="n">num_bins</span> <span class="mi">10</span> \
+<span class="o">--</span><span class="n">save_metrics</span> <span class="s1">&#39;../../../example_data/simulated_data_subgroup_result.csv&#39;</span> \
+<span class="o">--</span><span class="n">plot</span> \
+<span class="o">--</span><span class="n">plot_bins</span> <span class="mi">10</span> \
+<span class="o">--</span><span class="n">save_plot</span> <span class="s1">&#39;../../../example_data/simulated_data_subgroup_result.png&#39;</span> \
+<span class="o">--</span><span class="n">verbose</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Metrics with bootstrap confidence intervals:
+SpiegelhalterZ score: 18.326500460344757 (15.841131427963065, 21.028387854445885)
+SpiegelhalterZ p-value: 0.0 (0.0, 0.0)
+ECE-H topclass: 0.04154425366233608 (0.0350640096248618, 0.04860267222710708)
+ECE-H: 0.041606274177861564 (0.03646444832752443, 0.049047520209094246)
+MCE-H topclass: 0.05506859806121056 (0.04283764547965133, 0.0886881565635812)
+MCE-H: 0.06291857721845223 (0.05336056858182051, 0.11008283146222686)
+HL-H score: 429.7315889789045 (332.6271533923783, 582.1253913518294)
+HL-H p-value: 0.0 (0.0, 0.0)
+ECE-C topclass: 0.04153827551437989 (0.03517658565769018, 0.04825727331034017)
+ECE-C: 0.03813373547517625 (0.03238733766569023, 0.04586972445913394)
+MCE-C topclass: 0.06521747269553313 (0.05583599047657967, 0.09562883514207232)
+MCE-C: 0.06426881466822676 (0.05436280819859965, 0.08868821719671957)
+HL-C score: 1138.8421218049589 (750.5374234457612, 1822.9768966528834)
+HL-C p-value: 0.0 (0.0, 0.0)
+COX coef: 0.6682652785932737 (0.6377422272876363, 0.6979781223574826)
+COX intercept: -0.019974208464277905 (-0.07641403419148829, 0.029909026450025706)
+COX coef lowerci: 0.6406305507074329 (0.6113529656388178, 0.6690529216857001)
+COX coef upperci: 0.6959000064791144 (0.6641644425340401, 0.7268685398286904)
+COX intercept lowerci: -0.07427409213097665 (-0.1311582233827514, -0.023855150007767296)
+COX intercept upperci: 0.03432567520242083 (-0.022326937825103595, 0.08460618866398185)
+COX ICI: 0.04920919519153327 (0.04370102760038256, 0.05552996881298199)
+Loess ICI: 0.03714791811671051 (0.032123207105547155, 0.04284938631939736)
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_quickstart_19_1.png" src="../_images/notebooks_quickstart_19_1.png" />
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Metrics for subgroup_subgroup_1_group_A with bootstrap confidence intervals:
+SpiegelhalterZ score: 0.3763269161877356 (-1.5092779690706706, 2.458674763298663)
+SpiegelhalterZ p-value: 0.7066738713391099 (0.013160051949992825, 0.971829857386528)
+ECE-H topclass: 0.009608653731328977 (0.006842561308326626, 0.0216759555605201)
+ECE-H: 0.01208775955804901 (0.01060656665679796, 0.024957799672009853)
+MCE-H topclass: 0.03926468843081976 (0.0175164165573558, 0.07466670240033217)
+MCE-H: 0.04848338618970194 (0.034276685663868524, 0.10254452172034444)
+HL-H score: 8.884991559088098 (7.047189909361673, 34.29714596044007)
+HL-H p-value: 0.35209071874348785 (3.588641654310443e-05, 0.5315503820797794)
+ECE-C topclass: 0.009458033653818828 (0.007570500055432073, 0.02083126999065909)
+ECE-C: 0.008733966945443138 (0.007809715246307818, 0.021472610482226206)
+MCE-C topclass: 0.020515047600205505 (0.018742878067858244, 0.07108663452415294)
+MCE-C: 0.02324031223486256 (0.019734768147890068, 0.07181064429452369)
+HL-C score: 3.694947603203135 (4.8300336510021555, 28.801470439074716)
+HL-C p-value: 0.8835446575708198 (0.0003435766084428166, 0.775577230400553)
+COX coef: 0.9942499557748269 (0.9380604090598297, 1.0499577294024633)
+COX intercept: -0.04497652296600376 (-0.1273369158584951, 0.031855384349524056)
+COX coef lowerci: 0.9372902801721911 (0.8843262824466473, 0.9894282617128798)
+COX coef upperci: 1.0512096313774626 (0.9917643774309992, 1.1107020892220771)
+COX intercept lowerci: -0.12348577118577644 (-0.20677116855479155, -0.0464584906109031)
+COX intercept upperci: 0.03353272525376893 (-0.04701811400627404, 0.11035919179791744)
+COX ICI: 0.005610391483826338 (0.0013074483204167438, 0.016135407656307877)
+Loess ICI: 0.00558856942568957 (0.0034792482528868984, 0.015652782992537643)
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_quickstart_19_3.png" src="../_images/notebooks_quickstart_19_3.png" />
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Metrics for subgroup_subgroup_1_group_B with bootstrap confidence intervals:
+SpiegelhalterZ score: 27.93575342117766 (24.655635445265563, 31.007011545313702)
+SpiegelhalterZ p-value: 0.0 (0.0, 0.0)
+ECE-H topclass: 0.07658928982434714 (0.06767317235346118, 0.08617961033983587)
+ECE-H: 0.0765892898243467 (0.06815452785695023, 0.08667597334231446)
+MCE-H topclass: 0.1327565894838103 (0.11124071811000401, 0.17512271198856846)
+MCE-H: 0.16250572519432438 (0.12935018516398958, 0.233630111040171)
+HL-H score: 910.4385762101924 (725.059731631332, 1166.3129615768669)
+HL-H p-value: 0.0 (0.0, 0.0)
+ECE-C topclass: 0.07429481165606829 (0.06562125680699027, 0.08423231303218821)
+ECE-C: 0.07479369479609524 (0.06448646659799447, 0.08486596362346915)
+MCE-C topclass: 0.14090872416947742 (0.1261186358576846, 0.1806841069633693)
+MCE-C: 0.14045600565696226 (0.11565642370632341, 0.17766016001880133)
+HL-C score: 2246.1714434139853 (1421.9976188703433, 3816.506036227791)
+HL-C p-value: 0.0 (0.0, 0.0)
+COX coef: 0.5071793536874274 (0.4809292477879276, 0.5395583525631903)
+COX intercept: 0.00037947714112375366 (-0.07698864343361732, 0.08608463652785796)
+COX coef lowerci: 0.47838663128188996 (0.4536776697954507, 0.5087194183926773)
+COX coef upperci: 0.5359720760929648 (0.5081598768888337, 0.5703290925455823)
+COX intercept lowerci: -0.07796623141885761 (-0.1549963410167483, 0.006824091385299392)
+COX intercept upperci: 0.07872518570110512 (0.0019145874724368094, 0.1651848164970659)
+COX ICI: 0.07746407648179383 (0.06963571146851712, 0.08480315661962332)
+Loess ICI: 0.06991428582761099 (0.06184275628974981, 0.07813681762734823)
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_quickstart_19_5.png" src="../_images/notebooks_quickstart_19_5.png" />
+</div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../index.html" class="btn btn-neutral float-left" title="Welcome to calzone documentation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="reliability_diagram.html" class="btn btn-neutral float-right" title="Reliability diagram" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Kwok Lung Jason Fan.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
