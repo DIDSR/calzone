@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Spiegelhalter’s Z-test &mdash; calzone develop documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../_static/nbsphinx-code-cells.css?v=2aa19091" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=16816911"></script>
+        <script src="../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="calzone" href="../modules.html" />
+    <link rel="prev" title="Integrated Calibration Index (ICI)" href="ici.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            calzone
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Welcome to calzone documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reliability_diagram.html">Reliability diagram</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ece_mce.html">Exepected Calibration Error(ECE) and Maximum Calibration Error (MCE)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hl_test.html">Hosmer-Lemeshow test (HL test)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cox.html">COX calibration analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ici.html">Integrated Calibration Index (ICI)</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Spiegelhalter’s Z-test</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#Theoretical-background">Theoretical background</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Pros-of-Spiegelhalter's-Z-test">Pros of Spiegelhalter’s Z test</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Cons-of-Spiegelhalter's-Z-test">Cons of Spiegelhalter’s Z test</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Calculating-the-Spieegelhalter-Z-score-and-p-value-using-calzone">Calculating the Spieegelhalter Z score and p-value using calzone</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Testing-the-size-of-Spiegelhalter's-z-test">Testing the size of Spiegelhalter’s z test</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Reference">Reference</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../modules.html">calzone</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">calzone</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Spiegelhalter’s Z-test</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/notebooks/spiegelhalter_z.ipynb.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="Spiegelhalter's-Z-test">
+<h1>Spiegelhalter’s Z-test<a class="headerlink" href="#Spiegelhalter's-Z-test" title="Link to this heading"></a></h1>
+<section id="Theoretical-background">
+<h2>Theoretical background<a class="headerlink" href="#Theoretical-background" title="Link to this heading"></a></h2>
+<p>Spiegelhalter’s Z-test is a statistical test that test whether a probabilitistic model is calibrated. It is named after the statistician David Spiegelhalter, who proposed it in 1986. It is a non-parametric test that does not require any binning.</p>
+<p>The Spiegelhalter’s Z-test was inspired by the facts that the brier score (mean squred error) can be decomposed into reliability and resolution. In fact, any proper scoring rule can be decomposed into reliability and resolution, as shown by Brocker (2008). For example, the cross-entropy can be decomposed into KL-divergence(reliability) and entropy(resolution).</p>
+<p>The Brier score can be decomposed into reliability and resolution as follows:</p>
+<div class="math notranslate nohighlight">
+\[B = \frac{1}{N} \sum_{i=1}^N (x_i - p_i)^2 = \frac{1}{N} \sum_{i=1}^N (x_i - p_i)(1-2p_i) + \frac{1}{N} \sum_{i=1}^N p_i(1-p_i)\]</div>
+<p>Where the first term measure the reliability/calibration and the second term measure the resolution/discrimination.</p>
+<p>The Variance of the Brier score is:</p>
+<div class="math notranslate nohighlight">
+\[\text{Var}(B) = \frac{1}{N^2} \sum_{i=1}^N (1-2p_i)^2 p_i (1-p_i)\]</div>
+<p>and the Speigelhalter’s Z-test is defined as:</p>
+<div class="math notranslate nohighlight">
+\[Z = \frac{B - E(B)}{\sqrt{\text{Var}(B)}} = \frac{ \sum_{i=1}^N (x_i - p_i)(1-2p_i)}{\sum_{i=1}^N (1-2p_i)^2 p_i (1-p_i)}\]</div>
+<p>and <span class="math notranslate nohighlight">\(Z\)</span> is approximately standard normal distributed under the null hypothesis of calibration. Spiegelhalter’s Z-test has the right size in many situations and it is powerful in many situations. We recommend to use Spiegelhalter’s Z-test to test the calibration of probabilistic models.</p>
+</section>
+<section id="Pros-of-Spiegelhalter's-Z-test">
+<h2>Pros of Spiegelhalter’s Z test<a class="headerlink" href="#Pros-of-Spiegelhalter's-Z-test" title="Link to this heading"></a></h2>
+<p>Spiegelhalter’s Z test is a statistical test which can provides statistical evidence that the null hypothesis (well-calibrated) is true or false. It is a non-parametrics test and doesn’t require any hyperparameter tuning. It also doesn’t require any binning of data which is extremely useful compared to Hosmer-Lemeshow test.</p>
+</section>
+<section id="Cons-of-Spiegelhalter's-Z-test">
+<h2>Cons of Spiegelhalter’s Z test<a class="headerlink" href="#Cons-of-Spiegelhalter's-Z-test" title="Link to this heading"></a></h2>
+<p>The power of Spiegelhalter’s Z test is limited for some cases of miscalibration, such as prevalence shift. However, it is in general a very powerful test.</p>
+</section>
+<section id="Calculating-the-Spieegelhalter-Z-score-and-p-value-using-calzone">
+<h2>Calculating the Spieegelhalter Z score and p-value using calzone<a class="headerlink" href="#Calculating-the-Spieegelhalter-Z-score-and-p-value-using-calzone" title="Link to this heading"></a></h2>
+<p>We can call functions from the calzone package to calculate the Spiegelhalter Z score and p-value directly.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">calzone.utils</span> <span class="kn">import</span> <span class="n">reliability_diagram</span><span class="p">,</span><span class="n">data_loader</span>
+<span class="kn">from</span> <span class="nn">calzone.metrics</span> <span class="kn">import</span> <span class="n">spiegelhalter_z_test</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="n">wellcal_dataloader</span> <span class="o">=</span> <span class="n">data_loader</span><span class="p">(</span><span class="n">data_path</span><span class="o">=</span><span class="s2">&quot;../../../example_data/simulated_welldata.csv&quot;</span><span class="p">)</span>
+<span class="n">z</span><span class="p">,</span><span class="n">p_value</span> <span class="o">=</span> <span class="n">spiegelhalter_z_test</span><span class="p">(</span><span class="n">wellcal_dataloader</span><span class="o">.</span><span class="n">labels</span><span class="p">,</span><span class="n">wellcal_dataloader</span><span class="o">.</span><span class="n">probs</span><span class="p">,</span><span class="n">class_to_calculate</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Z-score: </span><span class="si">{</span><span class="n">z</span><span class="si">}</span><span class="s2">, p-value: </span><span class="si">{</span><span class="n">p_value</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Z-score: 0.3763269161877356, p-value: 0.7066738713391099
+</pre></div></div>
+</div>
+<p>We can also use the CalibrationMetrics class</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">calzone.metrics</span> <span class="kn">import</span> <span class="n">CalibrationMetrics</span>
+<span class="n">calmetrics</span> <span class="o">=</span> <span class="n">CalibrationMetrics</span><span class="p">(</span><span class="n">class_to_calculate</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">calmetrics</span><span class="o">.</span><span class="n">calculate_metrics</span><span class="p">(</span><span class="n">wellcal_dataloader</span><span class="o">.</span><span class="n">labels</span><span class="p">,</span> <span class="n">wellcal_dataloader</span><span class="o">.</span><span class="n">probs</span><span class="p">,</span> <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;SpiegelhalterZ&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+{&#39;SpiegelhalterZ score&#39;: 0.3763269161877356,
+ &#39;SpiegelhalterZ p-value&#39;: 0.7066738713391099}
+</pre></div></div>
+</div>
+</section>
+<section id="Testing-the-size-of-Spiegelhalter's-z-test">
+<h2>Testing the size of Spiegelhalter’s z test<a class="headerlink" href="#Testing-the-size-of-Spiegelhalter's-z-test" title="Link to this heading"></a></h2>
+<p>Like to HL test, we can check whether the Spiegelhalter’s z test has the correct size.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### The size of HL Test</span>
+<span class="kn">from</span> <span class="nn">calzone.utils</span> <span class="kn">import</span> <span class="n">fake_binary_data_generator</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">123</span><span class="p">)</span>
+<span class="n">fakedata_generator</span> <span class="o">=</span> <span class="n">fake_binary_data_generator</span><span class="p">(</span><span class="n">alpha_val</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">beta_val</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">cal_metrics</span> <span class="o">=</span> <span class="n">CalibrationMetrics</span><span class="p">()</span>
+<span class="n">sample_size</span> <span class="o">=</span> <span class="mi">1000</span>
+<span class="n">simulation_size</span> <span class="o">=</span> <span class="mi">10000</span>
+<span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="c1"># generate data</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">simulation_size</span><span class="p">):</span>
+    <span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">fakedata_generator</span><span class="o">.</span><span class="n">generate_data</span><span class="p">(</span><span class="n">sample_size</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">tempresult</span> <span class="o">=</span> <span class="n">cal_metrics</span><span class="o">.</span><span class="n">calculate_metrics</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;SpiegelhalterZ&#39;</span><span class="p">],</span><span class="n">return_numpy</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">keys</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">tempresult</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+        <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">tempresult</span><span class="o">.</span><span class="n">values</span><span class="p">())))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">tempresult</span> <span class="o">=</span> <span class="n">cal_metrics</span><span class="o">.</span><span class="n">calculate_metrics</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;SpiegelhalterZ&#39;</span><span class="p">],</span><span class="n">return_numpy</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tempresult</span><span class="p">)</span>
+<span class="n">results</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### Showing the size of the model</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="n">z_scores</span> <span class="o">=</span> <span class="n">results</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">p_values</span> <span class="o">=</span> <span class="n">results</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">size</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">p_values</span> <span class="o">&lt;</span> <span class="mf">0.05</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The size of Spiegelhalter&#39;s z test is :&quot;</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">size</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+The size of Spiegelhalter&#39;s z test is : 0.049
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">value</span><span class="p">,</span><span class="n">_</span><span class="p">,</span><span class="n">_</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">p_values</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;p-value&#39;</span><span class="p">,</span><span class="n">histtype</span><span class="o">=</span><span class="s1">&#39;step&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">vlines</span><span class="p">(</span><span class="n">size</span><span class="p">,</span><span class="n">ymin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">ymax</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">value</span><span class="p">),</span><span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;Size($\alpha=0.05$) = &#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">size</span><span class="p">,</span><span class="mi">3</span><span class="p">)),</span><span class="n">colors</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper right&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;p-value&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Density&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;P-value distribution of the Spiegelhalter&#39;s z test&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Text(0.5, 1.0, &#34;P-value distribution of the Spiegelhalter&#39;s z test&#34;)
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_spiegelhalter_z_10_1.png" src="../_images/notebooks_spiegelhalter_z_10_1.png" />
+</div>
+</div>
+<p>We can see that Spiegelhalter’s Z test has a accurate size.</p>
+</section>
+<section id="Reference">
+<h2>Reference<a class="headerlink" href="#Reference" title="Link to this heading"></a></h2>
+<p>Spiegelhalter, D. J. (1986). Probabilistic prediction in patient management and clinical trials.</p>
+<p>Bröcker, J. (2009). Reliability, Sufficiency, and the Decomposition of Proper Scores. Quarterly Journal of the Royal Meteorological Society, 135(643), 1512–1519. <a class="reference external" href="https://doi.org/10.1002/qj.456">https://doi.org/10.1002/qj.456</a></p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="ici.html" class="btn btn-neutral float-left" title="Integrated Calibration Index (ICI)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../modules.html" class="btn btn-neutral float-right" title="calzone" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Kwok Lung Jason Fan.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

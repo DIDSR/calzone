@@ -24,7 +24,9 @@
         <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" /> 
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Spiegelhalter’s Z-test" href="spiegelhalter_z.html" />
+    <link rel="prev" title="COX calibration analysis" href="cox.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -47,13 +49,23 @@
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../index.html">Welcome to calzone documentation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick Start</a></li>
 <li class="toctree-l1"><a class="reference internal" href="reliability_diagram.html">Reliability diagram</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ece_mce.html">Exepected Calibration Error(ECE) and Maximum Calibration Error (MCE)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="hl_test.html">Hosmer-Lemeshow test (HL test)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cox.html">COX calibration analysis</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Integrated Calibration Index (ICI)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#Theoretical-Background">Theoretical Background</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Pros-of-ICI">Pros of ICI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Cons-of-ICI">Cons of ICI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Calculating-LOESS-ICI-and-COX-ICI-using-calzone">Calculating LOESS ICI and COX ICI using calzone</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Visualization-of-the-fitted-curve">Visualization of the fitted curve</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Reference">Reference</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="spiegelhalter_z.html">Spiegelhalter’s Z-test</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../modules.html">calzone</a></li>
 </ul>
 
@@ -86,8 +98,8 @@
 <section id="Theoretical-Background">
 <h2>Theoretical Background<a class="headerlink" href="#Theoretical-Background" title="Link to this heading"></a></h2>
 <p>Integrated Calibration Index (ICI) is esstentially the same as expected calibration error (ECE) in terms of the idea. They both try to measure the average deviation of the predicted probabilities from the true probabilities. However, ECE are calculated by grouping the samples into bins and then calculating the weighted average of the deviation of the mean predicted probabilities from the emperical accurary. ICI, on the other hand, is calculated by fitting a smooth curve using the samples itself
-and therefore doesn’t require binning. However, the choice of the curve fitting method can affect the result and is arbitrary. The most common choice is to locally estimated scatterplot smoothing(LOESS). People also use other methods such as polynomial fitting and spline fitting. Interestingly, not much people has looked into using COX regression result to calculate ICI which is implemented in calzone. Notice that the Cox-ICI can be way off from the truth if the logistic regression is not a good
-fit.</p>
+and therefore doesn’t require binning. However, the choice of the curve fitting method can affect the result and is arbitrary. The most common choice is to locally estimated scatterplot smoothing(LOESS) (Cleveland, 1979). People also use other methods such as polynomial fitting and spline fitting. Interestingly, not much people has looked into using COX regression result to calculate ICI which is implemented in calzone. Notice that the Cox-ICI can be way off from the truth if the logistic
+regression is not a good fit.</p>
 <p>The formula for ICI is:</p>
 <div class="math notranslate nohighlight">
 \[\text{ICI} = \int_0^1 |\mathbb{S}(p)-p| \, dF_{\hat{P}}(p)\]</div>
@@ -250,6 +262,7 @@ Text(0.5, 1.0, &#39;Calibration Curve&#39;)
 </section>
 <section id="Reference">
 <h2>Reference<a class="headerlink" href="#Reference" title="Link to this heading"></a></h2>
+<p>Cleveland, W.S. (1979) “Robust Locally Weighted Regression and Smoothing Scatterplots”. Journal of the American Statistical Association 74 (368): 829-836.</p>
 <p>Austin, P. C., &amp; Steyerberg, E. W. (2019). The Integrated Calibration Index (ICI) and related metrics for quantifying the calibration of logistic regression models. Statistics in Medicine, 38(21), 4051–4065. <a class="reference external" href="https://doi.org/10.1002/sim.8281">https://doi.org/10.1002/sim.8281</a></p>
 <p>Huang, Y., Li, W., Macheret, F., Gabriel, R. A., &amp; Ohno-Machado, L. (2020). A tutorial on calibration measurements and calibration models for clinical prediction models. Journal of the American Medical Informatics Association, 27(4), 621–633. <a class="reference external" href="https://doi.org/10.1093/jamia/ocz228">https://doi.org/10.1093/jamia/ocz228</a></p>
 </section>
@@ -258,7 +271,10 @@ Text(0.5, 1.0, &#39;Calibration Curve&#39;)
 
            </div>
           </div>
-          <footer>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="cox.html" class="btn btn-neutral float-left" title="COX calibration analysis" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="spiegelhalter_z.html" class="btn btn-neutral float-right" title="Spiegelhalter’s Z-test" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
 
   <hr/>
 
