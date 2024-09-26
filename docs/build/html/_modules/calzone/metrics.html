@@ -231,7 +231,7 @@
 
 <div class="viewcode-block" id="cox_regression_analysis">
 <a class="viewcode-back" href="../../calzone.html#calzone.metrics.cox_regression_analysis">[docs]</a>
-<span class="k">def</span> <span class="nf">cox_regression_analysis</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_proba</span><span class="p">,</span> <span class="n">epsilon</span><span class="o">=</span><span class="mf">1e-10</span><span class="p">,</span> <span class="n">class_to_calculate</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">print_results</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">fix_intercept</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">fix_slope</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">cox_regression_analysis</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_proba</span><span class="p">,</span> <span class="n">epsilon</span><span class="o">=</span><span class="mf">1e-10</span><span class="p">,</span> <span class="n">class_to_calculate</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">print_results</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">fix_intercept</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">fix_slope</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Perform Cox regression analysis for classification calibration.</span>
 
@@ -299,7 +299,7 @@
 
 <div class="viewcode-block" id="cal_ICI_cox">
 <a class="viewcode-back" href="../../calzone.html#calzone.metrics.cal_ICI_cox">[docs]</a>
-<span class="k">def</span> <span class="nf">cal_ICI_cox</span><span class="p">(</span><span class="n">coef</span><span class="p">,</span> <span class="n">intercept</span><span class="p">,</span> <span class="n">y_proba</span><span class="p">,</span> <span class="n">class_to_calculate</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">epsilon</span><span class="o">=</span><span class="mf">1e-10</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">cal_ICI_cox</span><span class="p">(</span><span class="n">coef</span><span class="p">,</span> <span class="n">intercept</span><span class="p">,</span> <span class="n">y_proba</span><span class="p">,</span> <span class="n">class_to_calculate</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">epsilon</span><span class="o">=</span><span class="mf">1e-10</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Calculate the Integrated Calibration Index (ICI) for a given Cox regression model.</span>
 
@@ -337,7 +337,7 @@
 
 <div class="viewcode-block" id="lowess_regression_analysis">
 <a class="viewcode-back" href="../../calzone.html#calzone.metrics.lowess_regression_analysis">[docs]</a>
-<span class="k">def</span> <span class="nf">lowess_regression_analysis</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_proba</span><span class="p">,</span> <span class="n">epsilon</span><span class="o">=</span><span class="mf">1e-10</span><span class="p">,</span> <span class="n">class_to_calculate</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">span</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">delta</span><span class="o">=</span><span class="mf">0.001</span><span class="p">,</span> <span class="n">it</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">lowess_regression_analysis</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_proba</span><span class="p">,</span> <span class="n">epsilon</span><span class="o">=</span><span class="mf">1e-10</span><span class="p">,</span> <span class="n">class_to_calculate</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">span</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">delta</span><span class="o">=</span><span class="mf">0.001</span><span class="p">,</span> <span class="n">it</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Perform Lowess regression analysis for classification calibration.</span>
 
@@ -482,7 +482,7 @@
 
 <div class="viewcode-block" id="CalibrationMetrics.calculate_metrics">
 <a class="viewcode-back" href="../../calzone.html#calzone.metrics.CalibrationMetrics.calculate_metrics">[docs]</a>
-    <span class="k">def</span> <span class="nf">calculate_metrics</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">y_true</span><span class="p">,</span> <span class="n">y_proba</span><span class="p">,</span> <span class="n">metrics</span><span class="p">,</span> <span class="n">perform_pervalance_adjustment</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">return_numpy</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">calculate_metrics</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">y_true</span><span class="p">,</span> <span class="n">y_proba</span><span class="p">,</span> <span class="n">metrics</span><span class="p">,</span> <span class="n">perform_pervalance_adjustment</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">return_numpy</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Calculate the specified calibration metrics.</span>
 
@@ -507,6 +507,7 @@
 <span class="sd">            metrics (list of str or &#39;all&#39;): List of metric names to calculate. If &#39;all&#39;, calculates all available metrics.</span>
 <span class="sd">            perform_pervalance_adjustment (bool, optional): Whether to perform prevalence adjustment. Defaults to False.</span>
 <span class="sd">            return_numpy (bool, optional): Whether to return the results as a numpy array. Defaults to False.</span>
+<span class="sd">            **kwargs: Additional keyword arguments to pass to the metric calculation functions.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            dict or numpy.ndarray: A dictionary containing the calculated metrics, or a numpy array if return_numpy is True.</span>
@@ -582,19 +583,19 @@
 
             <span class="c1"># Cox regression analysis</span>
             <span class="k">elif</span> <span class="n">metric</span> <span class="o">==</span> <span class="s1">&#39;COX&#39;</span><span class="p">:</span>
-                <span class="n">coef</span><span class="p">,</span> <span class="n">intercept</span><span class="p">,</span> <span class="n">coef_ci</span><span class="p">,</span> <span class="n">intercept_ci</span> <span class="o">=</span> <span class="n">cox_regression_analysis</span><span class="p">(</span><span class="n">y_true</span><span class="o">=</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_proba</span><span class="o">=</span><span class="n">y_proba</span><span class="p">)</span>
+                <span class="n">coef</span><span class="p">,</span> <span class="n">intercept</span><span class="p">,</span> <span class="n">coef_ci</span><span class="p">,</span> <span class="n">intercept_ci</span> <span class="o">=</span> <span class="n">cox_regression_analysis</span><span class="p">(</span><span class="n">y_true</span><span class="o">=</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_proba</span><span class="o">=</span><span class="n">y_proba</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
                 <span class="n">results</span><span class="p">[</span><span class="s1">&#39;COX coef&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">coef</span>
                 <span class="n">results</span><span class="p">[</span><span class="s1">&#39;COX intercept&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">intercept</span>
                 <span class="n">results</span><span class="p">[</span><span class="s1">&#39;COX coef lowerci&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">coef_ci</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
                 <span class="n">results</span><span class="p">[</span><span class="s1">&#39;COX coef upperci&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">coef_ci</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
                 <span class="n">results</span><span class="p">[</span><span class="s1">&#39;COX intercept lowerci&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">intercept_ci</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
                 <span class="n">results</span><span class="p">[</span><span class="s1">&#39;COX intercept upperci&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">intercept_ci</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-                <span class="n">ICI</span> <span class="o">=</span> <span class="n">cal_ICI_cox</span><span class="p">(</span><span class="n">coef</span><span class="p">,</span> <span class="n">intercept</span><span class="p">,</span> <span class="n">y_proba</span><span class="p">,</span> <span class="n">class_to_calculate</span><span class="o">=</span><span class="n">class_to_calculate</span><span class="p">)</span>
+                <span class="n">ICI</span> <span class="o">=</span> <span class="n">cal_ICI_cox</span><span class="p">(</span><span class="n">coef</span><span class="p">,</span> <span class="n">intercept</span><span class="p">,</span> <span class="n">y_proba</span><span class="p">,</span> <span class="n">class_to_calculate</span><span class="o">=</span><span class="n">class_to_calculate</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
                 <span class="n">results</span><span class="p">[</span><span class="s1">&#39;COX ICI&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ICI</span>
 
             <span class="c1"># Loess regression analysis</span>
             <span class="k">elif</span> <span class="n">metric</span> <span class="o">==</span> <span class="s1">&#39;Loess&#39;</span><span class="p">:</span>
-                <span class="n">loess_ICI</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">lowess_regression_analysis</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_proba</span><span class="p">,</span> <span class="n">class_to_calculate</span><span class="o">=</span><span class="n">class_to_calculate</span><span class="p">)</span>
+                <span class="n">loess_ICI</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">lowess_regression_analysis</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_proba</span><span class="p">,</span> <span class="n">class_to_calculate</span><span class="o">=</span><span class="n">class_to_calculate</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
                 <span class="n">results</span><span class="p">[</span><span class="s1">&#39;Loess ICI&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">loess_ICI</span>
 
         <span class="c1"># Convert results to numpy array if requested</span>
@@ -606,7 +607,7 @@
 
 <div class="viewcode-block" id="CalibrationMetrics.bootstrap">
 <a class="viewcode-back" href="../../calzone.html#calzone.metrics.CalibrationMetrics.bootstrap">[docs]</a>
-    <span class="k">def</span> <span class="nf">bootstrap</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">y_true</span><span class="p">,</span> <span class="n">y_proba</span><span class="p">,</span> <span class="n">metrics</span><span class="p">,</span> <span class="n">perform_pervalance_adjustment</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">n_samples</span><span class="o">=</span><span class="mi">1000</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">bootstrap</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">y_true</span><span class="p">,</span> <span class="n">y_proba</span><span class="p">,</span> <span class="n">metrics</span><span class="p">,</span> <span class="n">perform_pervalance_adjustment</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">n_samples</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Run bootstrap and return a numpy structured array with correct field names.</span>
 
@@ -620,6 +621,7 @@
 <span class="sd">            metrics (list of str): List of metric names to calculate.</span>
 <span class="sd">            perform_pervalance_adjustment (bool, optional): Whether to perform prevalence adjustment for each bootstrap sample. Defaults to False.</span>
 <span class="sd">            n_samples (int, optional): Number of bootstrap samples to generate. Defaults to 1000.</span>
+<span class="sd">            **kwargs: Additional keyword arguments to pass to the metric calculation functions.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            numpy.ndarray: A structured array containing the bootstrapped metrics. Each field in the array</span>
@@ -637,11 +639,11 @@
 
             <span class="c1"># Calculate metrics for the first sample to get the keys</span>
             <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-                <span class="n">sample_results</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">calculate_metrics</span><span class="p">(</span><span class="n">y_true_sample</span><span class="p">,</span> <span class="n">y_proba_sample</span><span class="p">,</span> <span class="n">metrics</span><span class="p">,</span> <span class="n">perform_pervalance_adjustment</span><span class="o">=</span><span class="n">perform_pervalance_adjustment</span><span class="p">,</span> <span class="n">return_numpy</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+                <span class="n">sample_results</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">calculate_metrics</span><span class="p">(</span><span class="n">y_true_sample</span><span class="p">,</span> <span class="n">y_proba_sample</span><span class="p">,</span> <span class="n">metrics</span><span class="p">,</span> <span class="n">perform_pervalance_adjustment</span><span class="o">=</span><span class="n">perform_pervalance_adjustment</span><span class="p">,</span> <span class="n">return_numpy</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
                 <span class="n">keys</span> <span class="o">=</span> <span class="n">sample_results</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
                 <span class="n">sample_results</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">sample_results</span><span class="o">.</span><span class="n">values</span><span class="p">()))</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">sample_results</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">calculate_metrics</span><span class="p">(</span><span class="n">y_true_sample</span><span class="p">,</span> <span class="n">y_proba_sample</span><span class="p">,</span> <span class="n">metrics</span><span class="p">,</span> <span class="n">perform_pervalance_adjustment</span><span class="o">=</span><span class="n">perform_pervalance_adjustment</span><span class="p">,</span> <span class="n">return_numpy</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+                <span class="n">sample_results</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">calculate_metrics</span><span class="p">(</span><span class="n">y_true_sample</span><span class="p">,</span> <span class="n">y_proba_sample</span><span class="p">,</span> <span class="n">metrics</span><span class="p">,</span> <span class="n">perform_pervalance_adjustment</span><span class="o">=</span><span class="n">perform_pervalance_adjustment</span><span class="p">,</span> <span class="n">return_numpy</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
             
             <span class="n">bootstrap_results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sample_results</span><span class="p">)</span>
 

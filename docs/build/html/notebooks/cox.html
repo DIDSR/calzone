@@ -7,6 +7,7 @@
   <title>COX calibration analysis &mdash; calzone develop documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../_static/nbsphinx-code-cells.css?v=2aa19091" />
 
   
   <!--[if lt IE 9]>
@@ -56,6 +57,11 @@
 <li class="toctree-l1"><a class="reference internal" href="hl_test.html">Hosmer-Lemeshow test (HL test)</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">COX calibration analysis</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#Theoretical-Background">Theoretical Background</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Pros-of-Cox-calibration-analysis">Pros of Cox calibration analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Cons-of-Cox-calibration-analysis">Cons of Cox calibration analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Calculating-Cox-slope-and-intercept-with-calzone">Calculating Cox slope and intercept with calzone</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Size-of-COX-slope-and-intecept-test">Size of COX slope and intecept test</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#References">References</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../modules.html">calzone</a></li>
@@ -89,11 +95,253 @@
 <h1>COX calibration analysis<a class="headerlink" href="#COX-calibration-analysis" title="Link to this heading"></a></h1>
 <section id="Theoretical-Background">
 <h2>Theoretical Background<a class="headerlink" href="#Theoretical-Background" title="Link to this heading"></a></h2>
-<p>Cox calibration analysis is both a logistic recalibration technique and a method to examine the current calibration of a model. To perform the analysis, we first need to fit a new logistic regression model using logit(log odds, aka <span class="math notranslate nohighlight">\(\log\frac{\hat{p}}{1-\hat{p}}\)</span>) as the predictor variable and the outcome the predictor variable.</p>
+<p>Cox calibration analysis is both a logistic recalibration technique and a method to examine the current calibration of a model.To perform the analysis, we first need to fit a new logistic regression model using logit(log odds, aka <span class="math notranslate nohighlight">\(\log\frac{\hat{p}}{1-\hat{p}}\)</span>) as the predictor variable and the outcome the predictor variable.</p>
 <div class="math notranslate nohighlight">
 \[p_{new} = \frac{1}{1+e^{-(a + b \cdot \log\frac{\hat{p}}{1-\hat{p}})}}\]</div>
-<p>In the case of perfect calibration, <span class="math notranslate nohighlight">\(P(Y=1|p=\hat{p}) = \hat{p}\)</span> and the new probability <span class="math notranslate nohighlight">\(p_{new}\)</span> is equal to the original probability <span class="math notranslate nohighlight">\(\hat{p}\)</span>. That means <span class="math notranslate nohighlight">\(a=0\)</span> and <span class="math notranslate nohighlight">\(b=1\)</span>. If <span class="math notranslate nohighlight">\(b&gt;1\)</span>, the model is over-confidence at high probabilities and under-confidence at low probabilities. If <span class="math notranslate nohighlight">\(b&lt;1\)</span>, the model is under-confidence at high probabilities and over-confidence at low probabilities. If <span class="math notranslate nohighlight">\(a&gt;0\)</span>, the model is over-confidence at all probabilities. If
-<span class="math notranslate nohighlight">\(a&lt;0\)</span>, the model is under-confidence at all probabilities.</p>
+<p>In the case of perfect calibration, <span class="math notranslate nohighlight">\(P(Y=1|p=\hat{p}) = \hat{p}\)</span> and the new probability <span class="math notranslate nohighlight">\(p_{new}\)</span> is equal to the original probability <span class="math notranslate nohighlight">\(\hat{p}\)</span>. That means <span class="math notranslate nohighlight">\(a=0\)</span> and <span class="math notranslate nohighlight">\(b=1\)</span>. If <span class="math notranslate nohighlight">\(b&gt;1\)</span>, the model is under-confidence at high probabilities and over-confidence at low probabilities for the class-of-interest. If <span class="math notranslate nohighlight">\(b&lt;1\)</span>, the model is over-confidence at high probabilities and under-confidence at low probabilities for the class-of-interest. If <span class="math notranslate nohighlight">\(a&gt;0\)</span>, the
+model is over-confidence at all probabilities for the class-of-interest. If <span class="math notranslate nohighlight">\(a&lt;0\)</span>, the model is under-confidence at all probabilities for the class-of-interest. The confidence interval of <span class="math notranslate nohighlight">\(a\)</span> and <span class="math notranslate nohighlight">\(b\)</span> can be used to guide the calibration of the model. The user can also choose to fix <span class="math notranslate nohighlight">\(a=0\)</span> and fit for <span class="math notranslate nohighlight">\(b\)</span> only and vice versa, then there will be not interaction between <span class="math notranslate nohighlight">\(a\)</span> and <span class="math notranslate nohighlight">\(b\)</span> and the confidence interval can be used as a statistical test to test for
+perfect calibration.</p>
+</section>
+<section id="Pros-of-Cox-calibration-analysis">
+<h2>Pros of Cox calibration analysis<a class="headerlink" href="#Pros-of-Cox-calibration-analysis" title="Link to this heading"></a></h2>
+<p>Cox calibration analysis doesn’t depend on binning of data, which is a big advantage since common metrics such as ECE/MCE and HL test all depend on binning and we have shown that changging binning can lead to different results. We can also use it to perform statistical tests by fixing <span class="math notranslate nohighlight">\(a\)</span> to 0 and test whether <span class="math notranslate nohighlight">\(b=1\)</span> and the other way around to test for perfect calibration. Also, the fitted value of <span class="math notranslate nohighlight">\(a\)</span> and <span class="math notranslate nohighlight">\(b\)</span> can tell us how the model is miscalibrated, whether is a
+overall under or over-confidence or it is over-confident in some range and under-confident in another range. For example, if the <span class="math notranslate nohighlight">\(a\)</span> doesn’t close to 0 while <span class="math notranslate nohighlight">\(b\)</span> is close to 1, it means that it is likely due to prevalence shift. See more details in the prevalence adjustment notebook.</p>
+</section>
+<section id="Cons-of-Cox-calibration-analysis">
+<h2>Cons of Cox calibration analysis<a class="headerlink" href="#Cons-of-Cox-calibration-analysis" title="Link to this heading"></a></h2>
+<p>Cox Calibration analysis can only access weak calibration and there only capture a certain type of miscalibration (general over/underconfident). A model can have a <span class="math notranslate nohighlight">\(a=0\)</span> and <span class="math notranslate nohighlight">\(b=1\)</span> and still be miscalibrated.</p>
+</section>
+<section id="Calculating-Cox-slope-and-intercept-with-calzone">
+<h2>Calculating Cox slope and intercept with calzone<a class="headerlink" href="#Calculating-Cox-slope-and-intercept-with-calzone" title="Link to this heading"></a></h2>
+<p>There are two ways to calculate the Cox slope and intercept. Calling the Cox function give you more control on the calculation, including fixing <span class="math notranslate nohighlight">\(a=0\)</span> or <span class="math notranslate nohighlight">\(b=1\)</span>.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">calzone.utils</span> <span class="kn">import</span> <span class="n">reliability_diagram</span><span class="p">,</span><span class="n">data_loader</span>
+<span class="kn">from</span> <span class="nn">calzone.metrics</span> <span class="kn">import</span> <span class="n">cox_regression_analysis</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="c1">### loading the data</span>
+<span class="n">wellcal_dataloader</span> <span class="o">=</span> <span class="n">data_loader</span><span class="p">(</span><span class="n">data_path</span><span class="o">=</span><span class="s2">&quot;../../../example_data/simulated_welldata.csv&quot;</span><span class="p">)</span>
+
+<span class="c1">### calculating cox slope and intercept</span>
+<span class="n">cox_slope</span><span class="p">,</span> <span class="n">cox_intercept</span><span class="p">,</span><span class="n">cox_slope_ci</span><span class="p">,</span><span class="n">cox_intercept_ci</span> <span class="o">=</span> <span class="n">cox_regression_analysis</span><span class="p">(</span><span class="n">wellcal_dataloader</span><span class="o">.</span><span class="n">labels</span><span class="p">,</span> <span class="n">wellcal_dataloader</span><span class="o">.</span><span class="n">probs</span><span class="p">,</span><span class="n">class_to_calculate</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">print_results</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+                           Logit Regression Results
+==============================================================================
+Dep. Variable:                      y   No. Observations:                 5000
+Model:                          Logit   Df Residuals:                     4998
+Method:                           MLE   Df Model:                            1
+Date:                Thu, 26 Sep 2024   Pseudo R-squ.:                  0.4438
+Time:                        09:40:42   Log-Likelihood:                -1927.5
+converged:                       True   LL-Null:                       -3465.6
+Covariance Type:            nonrobust   LLR p-value:                     0.000
+==============================================================================
+                 coef    std err          z      P&gt;|z|      [0.025      0.975]
+------------------------------------------------------------------------------
+const         -0.0450      0.040     -1.123      0.262      -0.123       0.034
+x1             0.9942      0.029     34.212      0.000       0.937       1.051
+==============================================================================
+</pre></div></div>
+</div>
+<p>You can also fix the intercept <span class="math notranslate nohighlight">\(a=0\)</span> by using the <code class="docutils literal notranslate"><span class="pre">fix_intercept=True</span></code> option. Similarly, you can fix the slope <span class="math notranslate nohighlight">\(b=1\)</span> by using the <code class="docutils literal notranslate"><span class="pre">fix_slope=True</span></code> option.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### fixing intercept and calculating cox slope</span>
+<span class="n">cox_slope</span><span class="p">,</span> <span class="n">cox_intercept</span><span class="p">,</span><span class="n">cox_slope_ci</span><span class="p">,</span><span class="n">cox_intercept_ci</span> <span class="o">=</span> <span class="n">cox_regression_analysis</span><span class="p">(</span><span class="n">wellcal_dataloader</span><span class="o">.</span><span class="n">labels</span><span class="p">,</span> <span class="n">wellcal_dataloader</span><span class="o">.</span><span class="n">probs</span><span class="p">,</span><span class="n">class_to_calculate</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">fix_intercept</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">print_results</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Warning: Maximum number of iterations has been exceeded.
+         Current function value: 0.385628
+         Iterations: 0
+                           Logit Regression Results
+==============================================================================
+Dep. Variable:                      y   No. Observations:                 5000
+Model:                          Logit   Df Residuals:                     4999
+Method:                           MLE   Df Model:                            0
+Date:                Thu, 26 Sep 2024   Pseudo R-squ.:                  0.4436
+Time:                        09:51:09   Log-Likelihood:                -1928.1
+converged:                      False   LL-Null:                       -3465.6
+Covariance Type:            nonrobust   LLR p-value:                       nan
+==============================================================================
+                 coef    std err          z      P&gt;|z|      [0.025      0.975]
+------------------------------------------------------------------------------
+const               0          0        nan        nan           0           0
+x1             0.9939      0.029     34.210      0.000       0.937       1.051
+==============================================================================
+
+Model has been estimated subject to linear equality constraints.
+</pre></div></div>
+</div>
+<p>Alternatively, we can use the CalibrationMetrics class to compute the COX slope and intercept.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">calzone.metrics</span> <span class="kn">import</span> <span class="n">CalibrationMetrics</span>
+<span class="n">calmetrics</span> <span class="o">=</span> <span class="n">CalibrationMetrics</span><span class="p">()</span>
+<span class="n">calmetrics</span><span class="o">.</span><span class="n">calculate_metrics</span><span class="p">(</span><span class="n">wellcal_dataloader</span><span class="o">.</span><span class="n">labels</span><span class="p">,</span> <span class="n">wellcal_dataloader</span><span class="o">.</span><span class="n">probs</span><span class="p">,</span> <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;COX&#39;</span><span class="p">],</span><span class="n">print_results</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+                           Logit Regression Results
+==============================================================================
+Dep. Variable:                      y   No. Observations:                 5000
+Model:                          Logit   Df Residuals:                     4998
+Method:                           MLE   Df Model:                            1
+Date:                Thu, 26 Sep 2024   Pseudo R-squ.:                  0.4438
+Time:                        10:14:45   Log-Likelihood:                -1927.5
+converged:                       True   LL-Null:                       -3465.6
+Covariance Type:            nonrobust   LLR p-value:                     0.000
+==============================================================================
+                 coef    std err          z      P&gt;|z|      [0.025      0.975]
+------------------------------------------------------------------------------
+const         -0.0450      0.040     -1.123      0.262      -0.123       0.034
+x1             0.9942      0.029     34.212      0.000       0.937       1.051
+==============================================================================
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+{&#39;COX coef&#39;: 0.9942499557748269,
+ &#39;COX intercept&#39;: -0.04497652296600376,
+ &#39;COX coef lowerci&#39;: 0.9372902801721911,
+ &#39;COX coef upperci&#39;: 1.0512096313774626,
+ &#39;COX intercept lowerci&#39;: -0.12348577118577644,
+ &#39;COX intercept upperci&#39;: 0.03353272525376893,
+ &#39;COX ICI&#39;: 0.005610391483826338}
+</pre></div></div>
+</div>
+<p>The resulting COX slope and intercept can be used to calibrate the model but it is beyond the scope of this package.</p>
+</section>
+<section id="Size-of-COX-slope-and-intecept-test">
+<h2>Size of COX slope and intecept test<a class="headerlink" href="#Size-of-COX-slope-and-intecept-test" title="Link to this heading"></a></h2>
+<p>Although Cox calibration analysis is usually only used to estimate the overall calibration trend, the resulting estimates of the slope and intercept can also be used to test whether the model is well calibrated (moderate calibration). We will do a demostrate on the size of the slope and intercept test below</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### The size of slope test</span>
+<span class="kn">from</span> <span class="nn">calzone.utils</span> <span class="kn">import</span> <span class="n">fake_binary_data_generator</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">123</span><span class="p">)</span>
+<span class="n">fakedata_generator</span> <span class="o">=</span> <span class="n">fake_binary_data_generator</span><span class="p">(</span><span class="n">alpha_val</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">beta_val</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">cal_metrics</span> <span class="o">=</span> <span class="n">CalibrationMetrics</span><span class="p">()</span>
+<span class="n">sample_size</span> <span class="o">=</span> <span class="mi">1000</span>
+<span class="n">simulation_size</span> <span class="o">=</span> <span class="mi">1000</span>
+<span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="c1"># generate data</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">simulation_size</span><span class="p">):</span>
+    <span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">fakedata_generator</span><span class="o">.</span><span class="n">generate_data</span><span class="p">(</span><span class="n">sample_size</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">tempresult</span> <span class="o">=</span> <span class="n">cal_metrics</span><span class="o">.</span><span class="n">calculate_metrics</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;COX&#39;</span><span class="p">],</span><span class="n">return_numpy</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">fix_intercept</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="c1">#we need to fix the intercept to be 0</span>
+        <span class="n">keys</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">tempresult</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+        <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">tempresult</span><span class="o">.</span><span class="n">values</span><span class="p">())))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">tempresult</span> <span class="o">=</span> <span class="n">cal_metrics</span><span class="o">.</span><span class="n">calculate_metrics</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;COX&#39;</span><span class="p">],</span><span class="n">return_numpy</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">fix_intercept</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="c1">#we need to fix the intercept to be 0</span>
+        <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tempresult</span><span class="p">)</span>
+<span class="n">results</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
+<br/></pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Cox_slope</span> <span class="o">=</span> <span class="n">results</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">Cox_slope_lowerci</span> <span class="o">=</span> <span class="n">results</span><span class="p">[:,</span><span class="mi">2</span><span class="p">]</span>
+<span class="n">Cox_slope_upperci</span> <span class="o">=</span> <span class="n">results</span><span class="p">[:,</span><span class="mi">3</span><span class="p">]</span>
+<span class="n">chance</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">logical_and</span><span class="p">(</span><span class="n">Cox_slope_lowerci</span><span class="o">&lt;=</span><span class="mi">1</span><span class="p">,</span> <span class="n">Cox_slope_upperci</span><span class="o">&gt;=</span><span class="mi">1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;The size of the Cox slope test is: &#39;</span><span class="p">,</span> <span class="mi">1</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">chance</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+The size of the Cox slope test is:  0.039000000000000035
+</pre></div></div>
+</div>
+<p>We can also do the intercept test:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### The size of intercept test</span>
+<span class="kn">from</span> <span class="nn">calzone.utils</span> <span class="kn">import</span> <span class="n">fake_binary_data_generator</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">123</span><span class="p">)</span>
+<span class="n">fakedata_generator</span> <span class="o">=</span> <span class="n">fake_binary_data_generator</span><span class="p">(</span><span class="n">alpha_val</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">beta_val</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">cal_metrics</span> <span class="o">=</span> <span class="n">CalibrationMetrics</span><span class="p">()</span>
+<span class="n">sample_size</span> <span class="o">=</span> <span class="mi">1000</span>
+<span class="n">simulation_size</span> <span class="o">=</span> <span class="mi">1000</span>
+<span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="c1"># generate data</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">simulation_size</span><span class="p">):</span>
+    <span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">fakedata_generator</span><span class="o">.</span><span class="n">generate_data</span><span class="p">(</span><span class="n">sample_size</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">tempresult</span> <span class="o">=</span> <span class="n">cal_metrics</span><span class="o">.</span><span class="n">calculate_metrics</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;COX&#39;</span><span class="p">],</span><span class="n">return_numpy</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">fix_slope</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="c1">#we need to fix the slope to be 1</span>
+        <span class="n">keys</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">tempresult</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+        <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">tempresult</span><span class="o">.</span><span class="n">values</span><span class="p">())))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">tempresult</span> <span class="o">=</span> <span class="n">cal_metrics</span><span class="o">.</span><span class="n">calculate_metrics</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;COX&#39;</span><span class="p">],</span><span class="n">return_numpy</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">fix_slope</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="c1">#we need to fix the slope to be 1</span>
+        <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tempresult</span><span class="p">)</span>
+<span class="n">results</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Cox_intercept</span> <span class="o">=</span> <span class="n">results</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">Cox_intercept_lowerci</span> <span class="o">=</span> <span class="n">results</span><span class="p">[:,</span><span class="mi">4</span><span class="p">]</span>
+<span class="n">Cox_intercept_upperci</span> <span class="o">=</span> <span class="n">results</span><span class="p">[:,</span><span class="mi">5</span><span class="p">]</span>
+<span class="n">chance</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">logical_and</span><span class="p">(</span><span class="n">Cox_intercept_lowerci</span><span class="o">&lt;=</span><span class="mi">0</span><span class="p">,</span> <span class="n">Cox_intercept_upperci</span><span class="o">&gt;=</span><span class="mi">0</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;The size of the Cox intercept test is: &#39;</span><span class="p">,</span> <span class="mi">1</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">chance</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+The size of the Cox intercept test is:  0.05600000000000005
+</pre></div></div>
+</div>
+<p>Both test doesn’t have the exact size but it is closer than the HL test.</p>
+</section>
+<section id="References">
+<h2>References<a class="headerlink" href="#References" title="Link to this heading"></a></h2>
+<p>Cox, D. R. (1958). Two Further Applications of a Model for Binary Regression.</p>
+<p>Calster, B. V., &amp; Steyerberg, E. W. (2018). Calibration of Prognostic Risk Scores. In R. S. Kenett, N. T. Longford, W. W. Piegorsch, &amp; F. Ruggeri (Eds.), Wiley StatsRef: Statistics Reference Online (1st ed., pp. 1–10). Wiley. <a class="reference external" href="https://doi.org/10.1002/9781118445112.stat08078">https://doi.org/10.1002/9781118445112.stat08078</a></p>
+<p>Huang, Y., Li, W., Macheret, F., Gabriel, R. A., &amp; Ohno-Machado, L. (2020). A tutorial on calibration measurements and calibration models for clinical prediction models. Journal of the American Medical Informatics Association, 27(4), 621–633. <a class="reference external" href="https://doi.org/10.1093/jamia/ocz228">https://doi.org/10.1093/jamia/ocz228</a></p>
 </section>
 </section>
 

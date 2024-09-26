@@ -140,7 +140,7 @@ def spiegelhalter_z_test(y_true, y_proba, class_to_calculate=1):
     return z_score, p_value
 
 
-def cox_regression_analysis(y_true, y_proba, epsilon=1e-10, class_to_calculate=1, print_results=False, fix_intercept=False, fix_slope=False):
+def cox_regression_analysis(y_true, y_proba, epsilon=1e-10, class_to_calculate=1, print_results=False, fix_intercept=False, fix_slope=False, **kwargs):
     """
     Perform Cox regression analysis for classification calibration.
 
@@ -205,7 +205,7 @@ def cox_regression_analysis(y_true, y_proba, epsilon=1e-10, class_to_calculate=1
     return coef, intercept, coef_ci, intercept_ci
 
 
-def cal_ICI_cox(coef, intercept, y_proba, class_to_calculate=1, epsilon=1e-10):
+def cal_ICI_cox(coef, intercept, y_proba, class_to_calculate=1, epsilon=1e-10, **kwargs):
     """
     Calculate the Integrated Calibration Index (ICI) for a given Cox regression model.
 
@@ -240,7 +240,7 @@ def cal_ICI_cox(coef, intercept, y_proba, class_to_calculate=1, epsilon=1e-10):
     ICI = np.mean(np.abs(transformed_proba - proba_clipped))
 
     return ICI
-def lowess_regression_analysis(y_true, y_proba, epsilon=1e-10, class_to_calculate=1, span=0.5, delta=0.001, it=0):
+def lowess_regression_analysis(y_true, y_proba, epsilon=1e-10, class_to_calculate=1, span=0.5, delta=0.001, it=0, **kwargs):
     """
     Perform Lowess regression analysis for classification calibration.
 
@@ -368,7 +368,7 @@ class CalibrationMetrics():
         self.class_to_calculate = class_to_calculate
         self.num_bins = num_bins
 
-    def calculate_metrics(self, y_true, y_proba, metrics, perform_pervalance_adjustment=False, return_numpy=False):
+    def calculate_metrics(self, y_true, y_proba, metrics, perform_pervalance_adjustment=False, return_numpy=False, **kwargs):
         """
         Calculate the specified calibration metrics.
 
@@ -393,6 +393,7 @@ class CalibrationMetrics():
             metrics (list of str or 'all'): List of metric names to calculate. If 'all', calculates all available metrics.
             perform_pervalance_adjustment (bool, optional): Whether to perform prevalence adjustment. Defaults to False.
             return_numpy (bool, optional): Whether to return the results as a numpy array. Defaults to False.
+            **kwargs: Additional keyword arguments to pass to the metric calculation functions.
 
         Returns:
             dict or numpy.ndarray: A dictionary containing the calculated metrics, or a numpy array if return_numpy is True.
@@ -468,19 +469,19 @@ class CalibrationMetrics():
 
             # Cox regression analysis
             elif metric == 'COX':
-                coef, intercept, coef_ci, intercept_ci = cox_regression_analysis(y_true=y_true, y_proba=y_proba)
+                coef, intercept, coef_ci, intercept_ci = cox_regression_analysis(y_true=y_true, y_proba=y_proba, **kwargs)
                 results['COX coef'] = coef
                 results['COX intercept'] = intercept
                 results['COX coef lowerci'] = coef_ci[0]
                 results['COX coef upperci'] = coef_ci[1]
                 results['COX intercept lowerci'] = intercept_ci[0]
                 results['COX intercept upperci'] = intercept_ci[1]
-                ICI = cal_ICI_cox(coef, intercept, y_proba, class_to_calculate=class_to_calculate)
+                ICI = cal_ICI_cox(coef, intercept, y_proba, class_to_calculate=class_to_calculate, **kwargs)
                 results['COX ICI'] = ICI
 
             # Loess regression analysis
             elif metric == 'Loess':
-                loess_ICI, _, _ = lowess_regression_analysis(y_true, y_proba, class_to_calculate=class_to_calculate)
+                loess_ICI, _, _ = lowess_regression_analysis(y_true, y_proba, class_to_calculate=class_to_calculate, **kwargs)
                 results['Loess ICI'] = loess_ICI
 
         # Convert results to numpy array if requested
@@ -489,7 +490,7 @@ class CalibrationMetrics():
 
         return results
 
-    def bootstrap(self, y_true, y_proba, metrics, perform_pervalance_adjustment=False, n_samples=1000):
+    def bootstrap(self, y_true, y_proba, metrics, perform_pervalance_adjustment=False, n_samples=1000, **kwargs):
         """
         Run bootstrap and return a numpy structured array with correct field names.
 
@@ -503,6 +504,7 @@ class CalibrationMetrics():
             metrics (list of str): List of metric names to calculate.
             perform_pervalance_adjustment (bool, optional): Whether to perform prevalence adjustment for each bootstrap sample. Defaults to False.
             n_samples (int, optional): Number of bootstrap samples to generate. Defaults to 1000.
+            **kwargs: Additional keyword arguments to pass to the metric calculation functions.
 
         Returns:
             numpy.ndarray: A structured array containing the bootstrapped metrics. Each field in the array
@@ -520,11 +522,11 @@ class CalibrationMetrics():
 
             # Calculate metrics for the first sample to get the keys
             if i == 0:
-                sample_results = self.calculate_metrics(y_true_sample, y_proba_sample, metrics, perform_pervalance_adjustment=perform_pervalance_adjustment, return_numpy=False)
+                sample_results = self.calculate_metrics(y_true_sample, y_proba_sample, metrics, perform_pervalance_adjustment=perform_pervalance_adjustment, return_numpy=False, **kwargs)
                 keys = sample_results.keys()
                 sample_results = np.array(list(sample_results.values()))
             else:
-                sample_results = self.calculate_metrics(y_true_sample, y_proba_sample, metrics, perform_pervalance_adjustment=perform_pervalance_adjustment, return_numpy=True)
+                sample_results = self.calculate_metrics(y_true_sample, y_proba_sample, metrics, perform_pervalance_adjustment=perform_pervalance_adjustment, return_numpy=True, **kwargs)
             
             bootstrap_results.append(sample_results)
 
