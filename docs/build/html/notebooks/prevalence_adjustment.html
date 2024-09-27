@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Prevalence adjustment &mdash; calzone develop documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../_static/nbsphinx-code-cells.css?v=2aa19091" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=16816911"></script>
+        <script src="../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="calzone" href="../modules.html" />
+    <link rel="prev" title="Spiegelhalter’s Z-test" href="spiegelhalter_z.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            calzone
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Welcome to calzone documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="metrics_summary.html">Summary and guide for calibration metrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reliability_diagram.html">Reliability diagram</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ece_mce.html">Exepected Calibration Error(ECE) and Maximum Calibration Error (MCE)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hl_test.html">Hosmer-Lemeshow test (HL test)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cox.html">COX calibration analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ici.html">Integrated Calibration Index (ICI)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="spiegelhalter_z.html">Spiegelhalter’s Z-test</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Prevalence adjustment</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#Preform-prevalence-adjustment-in-calzone">Preform prevalence adjustment in calzone</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Prevalence-adjustment-and-constant-shift-in-logit-of-class-of-interest">Prevalence adjustment and constant shift in logit of class-of-interest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#References">References</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../modules.html">calzone</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">calzone</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Prevalence adjustment</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/notebooks/prevalence_adjustment.ipynb.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="Prevalence-adjustment">
+<h1>Prevalence adjustment<a class="headerlink" href="#Prevalence-adjustment" title="Link to this heading"></a></h1>
+<p>In this notebook, we will discuss how prevalence will affect the calibration of the model in a binary classification problem and how to adjust for prevalence differences.</p>
+<p>When we dicuss calibration, we usually refer to whether the probability output by the model match the posterior probability of the true outcome.</p>
+<div class="math notranslate nohighlight">
+\[P(D=1|\hat{p} = p) = p ,\forall p \in [0,1]\]</div>
+<p>where <span class="math notranslate nohighlight">\(\hat{p}\)</span> is the predicted probability of the true outcome being 1.</p>
+<p>However, the posterior probability of the true outcome being 1 depends on the prevalence of the outcome 1. Using Bayes’ theorem, we can derive the following relationship:</p>
+<div class="math notranslate nohighlight">
+\[P(D=1|\hat{p} = p) = \frac{P(\hat{p} = p|D=1)P(D=1)}{P(\hat{p} = p)}\]</div>
+<p>The term <span class="math notranslate nohighlight">\(P(\hat{p} = p|D=1)\)</span> is independent of prevalence for a given model. The term <span class="math notranslate nohighlight">\(P(D=1)\)</span> is the prevalence of the outcome 1. The term <span class="math notranslate nohighlight">\(P(\hat{p} = p)\)</span> is the marginal probability of the predicted probability being <span class="math notranslate nohighlight">\(p\)</span> and implicitly depends on the prevalence of the true outcome. We can expand the denominator using the fact that <span class="math notranslate nohighlight">\(P(\hat{p} = p) = P(\hat{p} = p|D=1)\eta + P(\hat{p} = p|D=0)(1-\eta)\)</span>. Futher rearrange the above equation will lead to the
+following equation:</p>
+<div class="math notranslate nohighlight">
+\[P(D=1|\hat{p}=p) = \frac{\text{LR}(p) \times \eta}{\text{LR}(p) \times \eta + 1 - \eta}\]</div>
+<p>where <span class="math notranslate nohighlight">\(\text{LR}(p) = \frac{P(\hat{p} = p|D=1)}{P(\hat{p} = p|D=0)}\)</span> is the likelihood ratio of the predicted probability being <span class="math notranslate nohighlight">\(p\)</span> given the true outcome being 1 and 0 respectively, and <span class="math notranslate nohighlight">\(\eta\)</span> is the prevalence of the outcome 1.</p>
+<p>The liklehood ratio is independent of the prevalence, so that the model can be calibrated for a specific prevalence but will become mis-calibrated for a different prevalence. We can such model is “intrinsically calibrated”, meaning that the likelihood ratio of the model with a specifice prevalence produced a correct posterior probability of the true outcome being 1.</p>
+<p>A intrinsically calibrated model can be adopted to a population with a different prevalence but the same probability distribtuion within class. To adjust for prevalence differences, we rely on the fact that the likelihood ratio is independent of the prevalence. We can use the following equation to adjust the predicted probability of the true outcome being 1 for a different prevalence:</p>
+<div class="math notranslate nohighlight">
+\[P(D=1|\hat{p}=p) = \frac{\eta LR(p)}{\eta LR(p) + (1-\eta)} = p\]</div>
+<div class="math notranslate nohighlight">
+\[LR(p) = \frac{p}{1-p} \cdot \frac{1-\eta}{\eta}\]</div>
+<div class="math notranslate nohighlight">
+\[P'(D=1|\hat{p}=p) = \frac{\eta' LR(p)}{\eta' LR(p) + (1-\eta')} = \frac{\eta'/(1-\eta')}{(1/p-1)(\eta/(1-\eta))} = p'\]</div>
+<p>where <span class="math notranslate nohighlight">\(\eta\)</span> is the prevalence of the derivated population(aka the population which the model is calibrated) and <span class="math notranslate nohighlight">\(\eta'\)</span> is the prevalence of the outcome 1 in the new population. We will refer the <span class="math notranslate nohighlight">\(p'\)</span> as the adjusted probability.</p>
+<p>In practice, we might have a dataset with the true label(which we can calculate the prevalence <span class="math notranslate nohighlight">\(\eta\)</span>) and predicted probability of the true outcome being 1. We can search for the derivated prevalence <span class="math notranslate nohighlight">\(\eta\)</span> that minimizes cross entropy loss between the adjusted probability <span class="math notranslate nohighlight">\(p'\)</span> and the posterior probability of the true outcome being 1.</p>
+<div class="math notranslate nohighlight">
+\[\min_{\eta} \sum_{i=1}^{N} \left(y_i \log(p_i') + (1-y_i) \log(1-p_i')\right)\]</div>
+<p>Notice minimizing cross entropy loss with respect of <span class="math notranslate nohighlight">\(\eta\)</span> is equivalent to minimizing the KL divergence since the prevalence adjustment is a monotonic transformation and doesn’t affec the resolution component of the cross-entropy loss.</p>
+<section id="Preform-prevalence-adjustment-in-calzone">
+<h2>Preform prevalence adjustment in calzone<a class="headerlink" href="#Preform-prevalence-adjustment-in-calzone" title="Link to this heading"></a></h2>
+<p>We will demonstrate how to perform prevalence adjustment in calzone. The first method is to find optimal prevalence first and apply the adjustment.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">##</span>
+
+<span class="kn">from</span> <span class="nn">calzone.utils</span> <span class="kn">import</span> <span class="n">find_optimal_prevalence</span><span class="p">,</span><span class="n">apply_prevalence_adjustment</span><span class="p">,</span><span class="n">data_loader</span><span class="p">,</span><span class="n">fake_binary_data_generator</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="c1"># We generate data and drop the prevalence</span>
+
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">123</span><span class="p">)</span>
+<span class="n">fakedata_generator</span> <span class="o">=</span> <span class="n">fake_binary_data_generator</span><span class="p">(</span><span class="n">alpha_val</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">beta_val</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">fakedata_generator</span><span class="o">.</span><span class="n">generate_data</span><span class="p">(</span><span class="mi">5000</span><span class="p">)</span>
+<span class="c1">### drop half the outcome 1 prevalence</span>
+<span class="n">class_1_index</span> <span class="o">=</span> <span class="p">(</span><span class="n">y</span><span class="o">==</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">class_1_samples</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">class_1_index</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">drop_indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">class_1_samples</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">class_1_samples</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">),</span> <span class="n">replace</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="n">mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>
+<span class="n">mask</span><span class="p">[</span><span class="n">drop_indices</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+
+<span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="p">[</span><span class="n">mask</span><span class="p">]</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="n">mask</span><span class="p">]</span>
+<span class="n">optimal_prevalence</span><span class="p">,</span><span class="n">adjusted_p</span> <span class="o">=</span> <span class="n">find_optimal_prevalence</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">class_to_calculate</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Dataset prevalence: &quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">y</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Derived prevalence: &quot;</span><span class="p">,</span> <span class="n">optimal_prevalence</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Dataset prevalence:  0.3300531914893617
+Derived prevalence:  0.49863799264980607
+</pre></div></div>
+</div>
+<p>The function return both the derived prevalence and the adjusted probability. We can also use the derived prevalence adjustment factor to perform the adjustment mannually.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### Prevalence Adjustment</span>
+<span class="kn">from</span> <span class="nn">calzone.metrics</span> <span class="kn">import</span> <span class="n">lowess_regression_analysis</span>
+<span class="n">proba_adjust</span> <span class="o">=</span> <span class="n">apply_prevalence_adjustment</span><span class="p">(</span><span class="n">optimal_prevalence</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">class_to_calculate</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Loess ICI before prevalence adjustment: &#39;</span><span class="p">,</span> <span class="n">lowess_regression_analysis</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">class_to_calculate</span><span class="o">=</span><span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Loess ICI after prevalence adjustment: &#39;</span><span class="p">,</span> <span class="n">lowess_regression_analysis</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">proba_adjust</span><span class="p">,</span> <span class="n">class_to_calculate</span><span class="o">=</span><span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Loess ICI before prevalence adjustment:  0.07961758926734244
+Loess ICI after prevalence adjustment:  0.008745511902314453
+</pre></div></div>
+</div>
+<p>calzone also provides a argument to perform prevalence adjustment directly from the CalibrationMetrics class.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### We calculate the Calibration metrics before and after prevalence adjustment</span>
+<span class="kn">from</span> <span class="nn">calzone.metrics</span> <span class="kn">import</span> <span class="n">CalibrationMetrics</span>
+<span class="n">calmetrics</span> <span class="o">=</span> <span class="n">CalibrationMetrics</span><span class="p">()</span>
+<span class="n">before_prevalence</span> <span class="o">=</span> <span class="n">calmetrics</span><span class="o">.</span><span class="n">calculate_metrics</span><span class="p">(</span><span class="n">y</span><span class="p">,</span><span class="n">X</span><span class="p">,</span> <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;ECE-H&#39;</span><span class="p">,</span><span class="s1">&#39;COX&#39;</span><span class="p">,</span><span class="s1">&#39;Loess&#39;</span><span class="p">],</span><span class="n">perform_pervalance_adjustment</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">after_prevalence</span> <span class="o">=</span> <span class="n">calmetrics</span><span class="o">.</span><span class="n">calculate_metrics</span><span class="p">(</span><span class="n">y</span><span class="p">,</span><span class="n">X</span><span class="p">,</span> <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;ECE-H&#39;</span><span class="p">,</span><span class="s1">&#39;COX&#39;</span><span class="p">,</span><span class="s1">&#39;Loess&#39;</span><span class="p">],</span><span class="n">perform_pervalance_adjustment</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">before_prevalence</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;before adjustment:&#39;</span><span class="p">,</span><span class="n">before_prevalence</span><span class="p">[</span><span class="n">key</span><span class="p">],</span><span class="s1">&#39;, after adjustment:&#39;</span><span class="p">,</span><span class="n">after_prevalence</span><span class="p">[</span><span class="n">key</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+ECE-H topclass
+before adjustment: 0.014081013182402267 , after adjustment: 0.010355911839501922
+ECE-H
+before adjustment: 0.0841517729106883 , after adjustment: 0.013671230516636386
+COX coef
+before adjustment: 0.9400481147756811 , after adjustment: 0.9400481147756811
+COX intercept
+before adjustment: -0.6897839569176842 , after adjustment: -0.029403495083063648
+COX coef lowerci
+before adjustment: 0.8754203499121679 , after adjustment: 0.8754203499121678
+COX coef upperci
+before adjustment: 1.0046758796391944 , after adjustment: 1.0046758796391944
+COX intercept lowerci
+before adjustment: -0.7837388214288888 , after adjustment: -0.12775157222121533
+COX intercept upperci
+before adjustment: -0.5958290924064796 , after adjustment: 0.06894458205508802
+COX ICI
+before adjustment: 0.0841517733462589 , after adjustment: 0.007508966220374058
+Loess ICI
+before adjustment: 0.07961758926734244 , after adjustment: 0.008745511902314453
+</pre></div></div>
+</div>
+</section>
+<section id="Prevalence-adjustment-and-constant-shift-in-logit-of-class-of-interest">
+<h2>Prevalence adjustment and constant shift in logit of class-of-interest<a class="headerlink" href="#Prevalence-adjustment-and-constant-shift-in-logit-of-class-of-interest" title="Link to this heading"></a></h2>
+<p>In the section, we will prove that the prevalence shift is equivalent to a constant shift in logit of class-of-interest. In other words, prevalence adjustment can be done by addint a constant to the logit of class-of-interest. For the calibrated case, the likelihood ratio of the two classes is:</p>
+<div class="math notranslate nohighlight">
+\[LR(p) = \frac{\frac{e^{x_2}}{e^{x_1} + e^{x_2}}}{\frac{e^{x_1}}{e^{x_1} + e^{x_2}}} \cdot \frac{1-\eta}{\eta} = e^{x_2 - x_1} \cdot \frac{1-\eta}{\eta}\]</div>
+<p>Assumer we add a constant <span class="math notranslate nohighlight">\(c\)</span> to the logit of class-of-interest (<span class="math notranslate nohighlight">\(x_2\)</span> here), the likelihood ratio becomes:</p>
+<div class="math notranslate nohighlight">
+\[LR'(p) = e^{x_2 - x_1 + c} \cdot \frac{1-\eta}{\eta}\]</div>
+<p>And the posterior probability becomes:</p>
+<div class="math notranslate nohighlight">
+\[P'(D=1|\hat{p}=p) = \frac{\eta LR'(p)}{\eta LR'(p) + (1-\eta)} = \frac{\eta LR(p) \cdot e^c}{\eta LR(p) \cdot e^c + (1-\eta)}\]</div>
+<p>Which is equivalent to the posterior probability after prevalence adjustment:</p>
+<div class="math notranslate nohighlight">
+\[\frac{\eta' LR(p)}{\eta' LR(p) + (1-\eta')}\]</div>
+<p>By setting</p>
+<div class="math notranslate nohighlight">
+\[\eta' = \frac{1}{1 + e^a \left(\frac{1-\eta}{\eta}\right)}\]</div>
+<p>Therefore, prevalence adjustment is equivalent to a constant shift in logit of class-of-interest.</p>
+</section>
+<section id="References">
+<h2>References<a class="headerlink" href="#References" title="Link to this heading"></a></h2>
+<p>Chen, W., Sahiner, B., Samuelson, F., Pezeshk, A., &amp; Petrick, N. (2018). Calibration of medical diagnostic classifier scores to the probability of disease. Statistical Methods in Medical Research, 27(5), 1394–1409. <a class="reference external" href="https://doi.org/10.1177/0962280216661371">https://doi.org/10.1177/0962280216661371</a></p>
+<p>Gu, W., &amp; Pepe, M. S. (2011). Estimating the diagnostic likelihood ratio of a continuous marker. Biostatistics, 12(1), 87–101. <a class="reference external" href="https://doi.org/10.1093/biostatistics/kxq045">https://doi.org/10.1093/biostatistics/kxq045</a></p>
+<p>Tian, J., Liu, Y.-C., Glaser, N., Hsu, Y.-C., &amp; Kira, Z. (2020). Posterior Re-calibration for Imbalanced Datasets (No. arXiv:2010.11820). arXiv. http://arxiv.org/abs/2010.11820</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="spiegelhalter_z.html" class="btn btn-neutral float-left" title="Spiegelhalter’s Z-test" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../modules.html" class="btn btn-neutral float-right" title="calzone" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Kwok Lung Jason Fan.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

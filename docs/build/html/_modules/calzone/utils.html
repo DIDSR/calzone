@@ -46,12 +46,14 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../index.html">Welcome to calzone documentation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../notebooks/quickstart.html">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../notebooks/metrics_summary.html">Summary and guide for calibration metrics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../notebooks/reliability_diagram.html">Reliability diagram</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../notebooks/ece_mce.html">Exepected Calibration Error(ECE) and Maximum Calibration Error (MCE)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../notebooks/hl_test.html">Hosmer-Lemeshow test (HL test)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../notebooks/cox.html">COX calibration analysis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../notebooks/ici.html">Integrated Calibration Index (ICI)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../notebooks/spiegelhalter_z.html">Spiegelhalter’s Z-test</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../notebooks/prevalence_adjustment.html">Prevalence adjustment</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../modules.html">calzone</a></li>
 </ul>
 
@@ -290,11 +292,11 @@
     <span class="k">return</span> <span class="n">y_true</span><span class="p">[</span><span class="n">normal_row</span><span class="p">],</span> <span class="n">y_predict</span><span class="p">[</span><span class="n">normal_row</span><span class="p">],</span> <span class="n">y_proba</span><span class="p">[</span><span class="n">normal_row</span><span class="p">]</span></div>
 
 
-<div class="viewcode-block" id="test_prevalence_adjustment">
-<a class="viewcode-back" href="../../calzone.html#calzone.utils.test_prevalence_adjustment">[docs]</a>
-<span class="k">def</span> <span class="nf">test_prevalence_adjustment</span><span class="p">(</span><span class="n">adjusted_prevalence</span><span class="p">,</span> <span class="n">y_true</span><span class="p">,</span> <span class="n">y_proba</span><span class="p">,</span> <span class="n">class_to_calculate</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+<div class="viewcode-block" id="apply_prevalence_adjustment">
+<a class="viewcode-back" href="../../calzone.html#calzone.utils.apply_prevalence_adjustment">[docs]</a>
+<span class="k">def</span> <span class="nf">apply_prevalence_adjustment</span><span class="p">(</span><span class="n">adjusted_prevalence</span><span class="p">,</span> <span class="n">y_true</span><span class="p">,</span> <span class="n">y_proba</span><span class="p">,</span> <span class="n">class_to_calculate</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Test the prevalence adjustment method.</span>
+<span class="sd">    Apply the prevalence adjustment method.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        adjusted_prevalence (float): The adjusted prevalence to test.</span>
@@ -330,7 +332,7 @@
 <span class="sd">    Returns:</span>
 <span class="sd">        float: Calculated loss value.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">adjusted_y_proba</span> <span class="o">=</span> <span class="n">test_prevalence_adjustment</span><span class="p">(</span><span class="n">adjusted_prevalence</span><span class="p">,</span> <span class="n">y_true</span><span class="p">,</span> <span class="n">y_proba</span><span class="p">,</span> <span class="n">class_to_calculate</span><span class="p">)</span>
+    <span class="n">adjusted_y_proba</span> <span class="o">=</span> <span class="n">apply_prevalence_adjustment</span><span class="p">(</span><span class="n">adjusted_prevalence</span><span class="p">,</span> <span class="n">y_true</span><span class="p">,</span> <span class="n">y_proba</span><span class="p">,</span> <span class="n">class_to_calculate</span><span class="p">)</span>
     <span class="n">loss</span> <span class="o">=</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">y_true</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">adjusted_y_proba</span><span class="p">[:,</span> <span class="n">class_to_calculate</span><span class="p">])</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">y_true</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">adjusted_y_proba</span><span class="p">[:,</span> <span class="n">class_to_calculate</span><span class="p">]))</span>
     <span class="k">return</span> <span class="n">loss</span></div>
 
@@ -357,7 +359,7 @@
         <span class="k">return</span> <span class="n">loss</span><span class="p">(</span><span class="n">adjusted_prevalence</span><span class="p">,</span> <span class="n">y_true</span><span class="p">,</span> <span class="n">y_proba</span><span class="p">,</span> <span class="n">class_to_calculate</span><span class="p">)</span>
 
     <span class="n">result</span> <span class="o">=</span> <span class="n">minimize_scalar</span><span class="p">(</span><span class="n">objective</span><span class="p">,</span> <span class="n">bounds</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;bounded&#39;</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">result</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">test_prevalence_adjustment</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">y_true</span><span class="p">,</span> <span class="n">y_proba</span><span class="p">,</span> <span class="n">class_to_calculate</span><span class="p">)</span></div>
+    <span class="k">return</span> <span class="n">result</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">apply_prevalence_adjustment</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">y_true</span><span class="p">,</span> <span class="n">y_proba</span><span class="p">,</span> <span class="n">class_to_calculate</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="data_loader">
 <a class="viewcode-back" href="../../calzone.html#calzone.utils.data_loader">[docs]</a>

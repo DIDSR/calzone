@@ -23,7 +23,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="calzone package" href="calzone.html" />
-    <link rel="prev" title="Spiegelhalter’s Z-test" href="notebooks/spiegelhalter_z.html" /> 
+    <link rel="prev" title="Prevalence adjustment" href="notebooks/prevalence_adjustment.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -49,12 +49,14 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="index.html">Welcome to calzone documentation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="notebooks/quickstart.html">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/metrics_summary.html">Summary and guide for calibration metrics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="notebooks/reliability_diagram.html">Reliability diagram</a></li>
 <li class="toctree-l1"><a class="reference internal" href="notebooks/ece_mce.html">Exepected Calibration Error(ECE) and Maximum Calibration Error (MCE)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="notebooks/hl_test.html">Hosmer-Lemeshow test (HL test)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="notebooks/cox.html">COX calibration analysis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="notebooks/ici.html">Integrated Calibration Index (ICI)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="notebooks/spiegelhalter_z.html">Spiegelhalter’s Z-test</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/prevalence_adjustment.html">Prevalence adjustment</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">calzone</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="calzone.html">calzone package</a></li>
 </ul>
@@ -111,6 +113,7 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="calzone.html#module-calzone.utils">calzone.utils module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="calzone.html#calzone.utils.apply_prevalence_adjustment"><code class="docutils literal notranslate"><span class="pre">apply_prevalence_adjustment()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="calzone.html#calzone.utils.data_loader"><code class="docutils literal notranslate"><span class="pre">data_loader</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="calzone.html#calzone.utils.data_loader.data_path"><code class="docutils literal notranslate"><span class="pre">data_loader.data_path</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="calzone.html#calzone.utils.data_loader.Header"><code class="docutils literal notranslate"><span class="pre">data_loader.Header</span></code></a></li>
@@ -139,7 +142,6 @@
 <li class="toctree-l3"><a class="reference internal" href="calzone.html#calzone.utils.reliability_diagram"><code class="docutils literal notranslate"><span class="pre">reliability_diagram()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="calzone.html#calzone.utils.removing_nan"><code class="docutils literal notranslate"><span class="pre">removing_nan()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="calzone.html#calzone.utils.softmax_to_logits"><code class="docutils literal notranslate"><span class="pre">softmax_to_logits()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="calzone.html#calzone.utils.test_prevalence_adjustment"><code class="docutils literal notranslate"><span class="pre">test_prevalence_adjustment()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="calzone.html#module-calzone.vis">calzone.vis module</a><ul>
@@ -158,7 +160,7 @@
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="notebooks/spiegelhalter_z.html" class="btn btn-neutral float-left" title="Spiegelhalter’s Z-test" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="notebooks/prevalence_adjustment.html" class="btn btn-neutral float-left" title="Prevalence adjustment" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="calzone.html" class="btn btn-neutral float-right" title="calzone package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 

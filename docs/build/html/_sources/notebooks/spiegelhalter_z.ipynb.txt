@@ -47,7 +47,7 @@
    "source": [
     "## Cons of Spiegelhalter's Z test\n",
     "\n",
-    "The power of Spiegelhalter's Z test is limited for some cases of miscalibration, such as prevalence shift. However, it is in general a very powerful test. "
+    "The power of Spiegelhalter's Z test is limited for some cases of miscalibration, such as prevalence shift. However, it is a very powerful test for many other cases of miscalibration."
    ]
   },
   {

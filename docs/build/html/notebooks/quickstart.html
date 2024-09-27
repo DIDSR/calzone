@@ -25,7 +25,7 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Reliability diagram" href="reliability_diagram.html" />
+    <link rel="next" title="Summary and guide for calibration metrics" href="metrics_summary.html" />
     <link rel="prev" title="Welcome to calzone documentation" href="../index.html" /> 
 </head>
 
@@ -56,12 +56,14 @@
 <li class="toctree-l2"><a class="reference internal" href="#Command-line-interface">Command line interface</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="metrics_summary.html">Summary and guide for calibration metrics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="reliability_diagram.html">Reliability diagram</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ece_mce.html">Exepected Calibration Error(ECE) and Maximum Calibration Error (MCE)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="hl_test.html">Hosmer-Lemeshow test (HL test)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cox.html">COX calibration analysis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ici.html">Integrated Calibration Index (ICI)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="spiegelhalter_z.html">Spiegelhalter’s Z-test</a></li>
+<li class="toctree-l1"><a class="reference internal" href="prevalence_adjustment.html">Prevalence adjustment</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../modules.html">calzone</a></li>
 </ul>
 
@@ -150,6 +152,7 @@
 <p>Or if you have subgroups, the dataset should be a CSV file with the following columns:</p>
 <p>proba_0, proba_1, …, proba_n, subgroup_1, subgroup_2, …, subgroup_m, label</p>
 <p>where n &gt;= 1 and m &gt;= 1.</p>
+<p>In the case of multi-class, you need to specify the class-of-interest, and the problem will be treated as 1-vs-all binary classification. To test the full calibration of the whole model, you need to test the calibration of each class.</p>
 <p>The program also works if your csv file has no header.It will assume the first [:-1] columns are the probabilities and the last column is the label.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
@@ -441,7 +444,7 @@ Loess ICI: 0.06991428582761099 (0.061850098951911264, 0.07819154012392127)
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="../index.html" class="btn btn-neutral float-left" title="Welcome to calzone documentation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="reliability_diagram.html" class="btn btn-neutral float-right" title="Reliability diagram" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="metrics_summary.html" class="btn btn-neutral float-right" title="Summary and guide for calibration metrics" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

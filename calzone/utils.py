@@ -196,9 +196,9 @@ def removing_nan(y_true, y_predict, y_proba):
     normal_row = np.logical_not(np.clip(np.isnan(y_proba).sum(axis=1), 0, 1))
     return y_true[normal_row], y_predict[normal_row], y_proba[normal_row]
 
-def test_prevalence_adjustment(adjusted_prevalence, y_true, y_proba, class_to_calculate=1):
+def apply_prevalence_adjustment(adjusted_prevalence, y_true, y_proba, class_to_calculate=1):
     """
-    Test the prevalence adjustment method.
+    Apply the prevalence adjustment method.
 
     Args:
         adjusted_prevalence (float): The adjusted prevalence to test.
@@ -231,7 +231,7 @@ def loss(adjusted_prevalence, y_true, y_proba, class_to_calculate=1):
     Returns:
         float: Calculated loss value.
     """
-    adjusted_y_proba = test_prevalence_adjustment(adjusted_prevalence, y_true, y_proba, class_to_calculate)
+    adjusted_y_proba = apply_prevalence_adjustment(adjusted_prevalence, y_true, y_proba, class_to_calculate)
     loss = -np.mean(y_true * np.log(adjusted_y_proba[:, class_to_calculate]) + (1 - y_true) * np.log(1 - adjusted_y_proba[:, class_to_calculate]))
     return loss
 
@@ -255,7 +255,7 @@ def find_optimal_prevalence(y_true, y_proba, class_to_calculate=1, epsilon=1e-10
         return loss(adjusted_prevalence, y_true, y_proba, class_to_calculate)
 
     result = minimize_scalar(objective, bounds=(0, 1), method='bounded')
-    return result.x, test_prevalence_adjustment(result.x, y_true, y_proba, class_to_calculate)
+    return result.x, apply_prevalence_adjustment(result.x, y_true, y_proba, class_to_calculate)
 class data_loader():
     """
     A class for loading and preprocessing data from a CSV file.

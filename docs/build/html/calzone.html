@@ -48,12 +48,14 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="index.html">Welcome to calzone documentation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="notebooks/quickstart.html">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/metrics_summary.html">Summary and guide for calibration metrics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="notebooks/reliability_diagram.html">Reliability diagram</a></li>
 <li class="toctree-l1"><a class="reference internal" href="notebooks/ece_mce.html">Exepected Calibration Error(ECE) and Maximum Calibration Error (MCE)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="notebooks/hl_test.html">Hosmer-Lemeshow test (HL test)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="notebooks/cox.html">COX calibration analysis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="notebooks/ici.html">Integrated Calibration Index (ICI)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="notebooks/spiegelhalter_z.html">Spiegelhalter’s Z-test</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/prevalence_adjustment.html">Prevalence adjustment</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="modules.html">calzone</a><ul class="current">
 <li class="toctree-l2 current"><a class="current reference internal" href="#">calzone package</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#submodules">Submodules</a></li>
@@ -71,6 +73,7 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#module-calzone.utils">calzone.utils module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#calzone.utils.apply_prevalence_adjustment"><code class="docutils literal notranslate"><span class="pre">apply_prevalence_adjustment()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#calzone.utils.data_loader"><code class="docutils literal notranslate"><span class="pre">data_loader</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#calzone.utils.fake_binary_data_generator"><code class="docutils literal notranslate"><span class="pre">fake_binary_data_generator</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#calzone.utils.find_optimal_prevalence"><code class="docutils literal notranslate"><span class="pre">find_optimal_prevalence()</span></code></a></li>
@@ -79,7 +82,6 @@
 <li class="toctree-l4"><a class="reference internal" href="#calzone.utils.reliability_diagram"><code class="docutils literal notranslate"><span class="pre">reliability_diagram()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#calzone.utils.removing_nan"><code class="docutils literal notranslate"><span class="pre">removing_nan()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#calzone.utils.softmax_to_logits"><code class="docutils literal notranslate"><span class="pre">softmax_to_logits()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#calzone.utils.test_prevalence_adjustment"><code class="docutils literal notranslate"><span class="pre">test_prevalence_adjustment()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#module-calzone.vis">calzone.vis module</a><ul>
@@ -507,6 +509,25 @@ them to observed outcomes.</p>
 <section id="module-calzone.utils">
 <span id="calzone-utils-module"></span><h2>calzone.utils module<a class="headerlink" href="#module-calzone.utils" title="Link to this heading"></a></h2>
 <p>Uitlity functions for the Calibration Measure package.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="calzone.utils.apply_prevalence_adjustment">
+<span class="sig-prename descclassname"><span class="pre">calzone.utils.</span></span><span class="sig-name descname"><span class="pre">apply_prevalence_adjustment</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">adjusted_prevalence</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_true</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_proba</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">class_to_calculate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/calzone/utils.html#apply_prevalence_adjustment"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#calzone.utils.apply_prevalence_adjustment" title="Link to this definition"></a></dt>
+<dd><p>Apply the prevalence adjustment method.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>adjusted_prevalence</strong> (<em>float</em>) – The adjusted prevalence to test.</p></li>
+<li><p><strong>y_true</strong> (<em>array-like</em>) – True labels.</p></li>
+<li><p><strong>y_proba</strong> (<em>array-like</em>) – Predicted probabilities.</p></li>
+<li><p><strong>class_to_calculate</strong> (<em>int</em>) – The class index to adjust. Default is 1.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>numpy.ndarray</strong> – Adjusted probabilities.</p>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py class">
 <dt class="sig sig-object py" id="calzone.utils.data_loader">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">calzone.utils.</span></span><span class="sig-name descname"><span class="pre">data_loader</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/calzone/utils.html#data_loader"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#calzone.utils.data_loader" title="Link to this definition"></a></dt>
@@ -872,25 +893,6 @@ applies a linear scaling, and then converts back to probabilities.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>numpy.ndarray</strong> – Computed logits.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="calzone.utils.test_prevalence_adjustment">
-<span class="sig-prename descclassname"><span class="pre">calzone.utils.</span></span><span class="sig-name descname"><span class="pre">test_prevalence_adjustment</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">adjusted_prevalence</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_true</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_proba</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">class_to_calculate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/calzone/utils.html#test_prevalence_adjustment"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#calzone.utils.test_prevalence_adjustment" title="Link to this definition"></a></dt>
-<dd><p>Test the prevalence adjustment method.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>adjusted_prevalence</strong> (<em>float</em>) – The adjusted prevalence to test.</p></li>
-<li><p><strong>y_true</strong> (<em>array-like</em>) – True labels.</p></li>
-<li><p><strong>y_proba</strong> (<em>array-like</em>) – Predicted probabilities.</p></li>
-<li><p><strong>class_to_calculate</strong> (<em>int</em>) – The class index to adjust. Default is 1.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>numpy.ndarray</strong> – Adjusted probabilities.</p>
 </dd>
 </dl>
 </dd></dl>

@@ -26,6 +26,7 @@ We hope you find calzone useful in your machine learning and data science projec
 
    self
    notebooks/quickstart.ipynb
+   notebooks/metrics_summary.ipynb
    notebooks/reliability_diagram.ipynb
    notebooks/ece_mce.ipynb
    notebooks/hl_test.ipynb
