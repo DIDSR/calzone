@@ -34,4 +34,5 @@ We hope you find calzone useful in your machine learning and data science projec
    notebooks/ici.ipynb
    notebooks/spiegelhalter_z.ipynb
    notebooks/prevalence_adjustment.ipynb
+   notebooks/subgroup.ipynb
    modules

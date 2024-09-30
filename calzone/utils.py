@@ -311,6 +311,14 @@ class data_loader():
             self.data = np.loadtxt(self.data_path, delimiter=',',skiprows=1,dtype=str)
             self.probs = self.data[:, :-len(self.subgroups)-1].astype(float)
             self.labels = self.data[:, -1:].astype(int)
+            self.subgroups_class = []
+            self.subgroups_index = []
+            for i, subgroup in enumerate(self.subgroups):
+                self.subgroups_class.append( np.unique(self.data[:, self.subgroup_indices[i]]))
+                indices = []
+                for j, subgroup_class in enumerate(self.subgroups_class[i]):
+                    indices.append(np.where(self.data[:, self.subgroup_indices[i]] == subgroup_class)[0])
+                self.subgroups_index.append(indices)
                   
 class fake_binary_data_generator():
     """A class for generating fake binary data and applying miscalibration.

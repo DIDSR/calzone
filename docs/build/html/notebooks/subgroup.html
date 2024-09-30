@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Subgroup analysis &mdash; calzone develop documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../_static/nbsphinx-code-cells.css?v=2aa19091" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=16816911"></script>
+        <script src="../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="calzone" href="../modules.html" />
+    <link rel="prev" title="Prevalence adjustment" href="prevalence_adjustment.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            calzone
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Welcome to calzone documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="metrics_summary.html">Summary and guide for calibration metrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reliability_diagram.html">Reliability diagram</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ece_mce.html">Exepected Calibration Error(ECE) and Maximum Calibration Error (MCE)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hl_test.html">Hosmer-Lemeshow test (HL test)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cox.html">COX calibration analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ici.html">Integrated Calibration Index (ICI)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="spiegelhalter_z.html">Spiegelhalter’s Z-test</a></li>
+<li class="toctree-l1"><a class="reference internal" href="prevalence_adjustment.html">Prevalence adjustment</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Subgroup analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../modules.html">calzone</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">calzone</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Subgroup analysis</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/notebooks/subgroup.ipynb.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="Subgroup-analysis">
+<h1>Subgroup analysis<a class="headerlink" href="#Subgroup-analysis" title="Link to this heading"></a></h1>
+<p>In many real-world applications, we are not just interested in the calibration of the overall population, but also interested in the calibration for subgroups within the population. calzone provides a simple way to perform subgroup analysis given some data input format. In order to perform subgroup analysis, the input csv file should contain the following columns:</p>
+<p>proba_0, proba_1, …, proba_n, subgroup_1, subgroup_2, …, subgroup_m, label</p>
+<p>where n &gt;= 1 and m &gt;= 1.</p>
+<p>In this example, we will use the example simulated dataset in the calzone package with only one subgroup field and two subgroups. See quickstart for more details.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### import the packages and read the data</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">calzone.utils</span> <span class="kn">import</span> <span class="n">data_loader</span>
+<span class="kn">from</span> <span class="nn">calzone.metrics</span> <span class="kn">import</span> <span class="n">CalibrationMetrics</span>
+
+<span class="n">dataset</span> <span class="o">=</span> <span class="n">data_loader</span><span class="p">(</span><span class="s1">&#39;../../../example_data/simulated_data_subgroup.csv&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Whether the dataset has subgroup:&quot;</span><span class="p">,</span><span class="n">dataset</span><span class="o">.</span><span class="n">have_subgroup</span><span class="p">)</span>
+
+<span class="c1">### Create the CalibrationMetrics class</span>
+<span class="n">metrics_cal</span> <span class="o">=</span> <span class="n">CalibrationMetrics</span><span class="p">(</span><span class="n">class_to_calculate</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Whether the dataset has subgroup: True
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### subgroup analysis for each group</span>
+<span class="c1">### You can preform other analysis during the loop (eg. plotting the reliability diagram etc)</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">subgroup_column</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">subgroup_indices</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;subgroup </span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">j</span><span class="p">,</span><span class="n">subgroup_class</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">subgroups_class</span><span class="p">[</span><span class="n">i</span><span class="p">]):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;subgroup </span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2"> class </span><span class="si">{</span><span class="n">subgroup_class</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">proba</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">probs</span><span class="p">[</span><span class="n">dataset</span><span class="o">.</span><span class="n">subgroups_index</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">],:]</span>
+        <span class="n">label</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">labels</span><span class="p">[</span><span class="n">dataset</span><span class="o">.</span><span class="n">subgroups_index</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]]</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">metrics_cal</span><span class="o">.</span><span class="n">calculate_metrics</span><span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="n">proba</span><span class="p">,</span><span class="n">metrics</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">metric</span> <span class="ow">in</span> <span class="n">result</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">metric</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">result</span><span class="p">[</span><span class="n">metric</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+subgroup 1
+subgroup 1 class A
+SpiegelhalterZ score: 0.3763269161877356
+SpiegelhalterZ p-value: 0.7066738713391099
+ECE-H topclass: 0.009608653731328977
+ECE-H: 0.01208775955804901
+MCE-H topclass: 0.03926468843081976
+MCE-H: 0.04848338618970194
+HL-H score: 8.884991559088098
+HL-H p-value: 0.35209071874348785
+ECE-C topclass: 0.009458033653818828
+ECE-C: 0.008733966945443138
+MCE-C topclass: 0.020515047600205505
+MCE-C: 0.02324031223486256
+HL-C score: 3.694947603203135
+HL-C p-value: 0.8835446575708198
+COX coef: 0.9942499557748269
+COX intercept: -0.04497652296600376
+COX coef lowerci: 0.9372902801721911
+COX coef upperci: 1.0512096313774626
+COX intercept lowerci: -0.12348577118577644
+COX intercept upperci: 0.03353272525376893
+COX ICI: 0.005610391483826338
+Loess ICI: 0.00558856942568957
+subgroup 1 class B
+SpiegelhalterZ score: 27.93575342117766
+SpiegelhalterZ p-value: 0.0
+ECE-H topclass: 0.07658928982434714
+ECE-H: 0.0765892898243467
+MCE-H topclass: 0.1327565894838103
+MCE-H: 0.16250572519432438
+HL-H score: 910.4385762101924
+HL-H p-value: 0.0
+ECE-C topclass: 0.07429481165606829
+ECE-C: 0.07479369479609524
+MCE-C topclass: 0.14090872416947742
+MCE-C: 0.14045600565696226
+HL-C score: 2246.1714434139853
+HL-C p-value: 0.0
+COX coef: 0.5071793536874274
+COX intercept: 0.00037947714112375366
+COX coef lowerci: 0.47838663128188996
+COX coef upperci: 0.5359720760929648
+COX intercept lowerci: -0.07796623141885761
+COX intercept upperci: 0.07872518570110512
+COX ICI: 0.07746407648179383
+Loess ICI: 0.06991428582761099
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### An alernative way to do the same thing is through command line interface</span>
+
+<span class="o">%</span><span class="k">run</span> ../../../cal_metrics.py \
+<span class="o">--</span><span class="n">csv_file</span> <span class="s1">&#39;../../../example_data/simulated_data_subgroup.csv&#39;</span> \
+<span class="o">--</span><span class="n">metrics</span> <span class="nb">all</span> \
+<span class="o">--</span><span class="n">class_to_calculate</span> <span class="mi">1</span> \
+<span class="o">--</span><span class="n">num_bins</span> <span class="mi">10</span> \
+<span class="o">--</span><span class="n">verbose</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Metrics:
+SpiegelhalterZ score: 18.326500460344757
+SpiegelhalterZ p-value: 0.0
+ECE-H topclass: 0.04154425366233608
+ECE-H: 0.041606274177861564
+MCE-H topclass: 0.05506859806121056
+MCE-H: 0.06291857721845223
+HL-H score: 429.7315889789045
+HL-H p-value: 0.0
+ECE-C topclass: 0.04153827551437989
+ECE-C: 0.03813373547517625
+MCE-C topclass: 0.06521747269553313
+MCE-C: 0.06426881466822676
+HL-C score: 1138.8421218049589
+HL-C p-value: 0.0
+COX coef: 0.6682652785932737
+COX intercept: -0.019974208464277905
+COX coef lowerci: 0.6406305507074329
+COX coef upperci: 0.6959000064791144
+COX intercept lowerci: -0.07427409213097665
+COX intercept upperci: 0.03432567520242083
+COX ICI: 0.04920919519153327
+Loess ICI: 0.03714791811671051
+Metrics for subgroup subgroup_1_group_A:
+SpiegelhalterZ score: 0.3763269161877356
+SpiegelhalterZ p-value: 0.7066738713391099
+ECE-H topclass: 0.009608653731328977
+ECE-H: 0.01208775955804901
+MCE-H topclass: 0.03926468843081976
+MCE-H: 0.04848338618970194
+HL-H score: 8.884991559088098
+HL-H p-value: 0.35209071874348785
+ECE-C topclass: 0.009458033653818828
+ECE-C: 0.008733966945443138
+MCE-C topclass: 0.020515047600205505
+MCE-C: 0.02324031223486256
+HL-C score: 3.694947603203135
+HL-C p-value: 0.8835446575708198
+COX coef: 0.9942499557748269
+COX intercept: -0.04497652296600376
+COX coef lowerci: 0.9372902801721911
+COX coef upperci: 1.0512096313774626
+COX intercept lowerci: -0.12348577118577644
+COX intercept upperci: 0.03353272525376893
+COX ICI: 0.005610391483826338
+Loess ICI: 0.00558856942568957
+Metrics for subgroup subgroup_1_group_B:
+SpiegelhalterZ score: 27.93575342117766
+SpiegelhalterZ p-value: 0.0
+ECE-H topclass: 0.07658928982434714
+ECE-H: 0.0765892898243467
+MCE-H topclass: 0.1327565894838103
+MCE-H: 0.16250572519432438
+HL-H score: 910.4385762101924
+HL-H p-value: 0.0
+ECE-C topclass: 0.07429481165606829
+ECE-C: 0.07479369479609524
+MCE-C topclass: 0.14090872416947742
+MCE-C: 0.14045600565696226
+HL-C score: 2246.1714434139853
+HL-C p-value: 0.0
+COX coef: 0.5071793536874274
+COX intercept: 0.00037947714112375366
+COX coef lowerci: 0.47838663128188996
+COX coef upperci: 0.5359720760929648
+COX intercept lowerci: -0.07796623141885761
+COX intercept upperci: 0.07872518570110512
+COX ICI: 0.07746407648179383
+Loess ICI: 0.06991428582761099
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="prevalence_adjustment.html" class="btn btn-neutral float-left" title="Prevalence adjustment" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../modules.html" class="btn btn-neutral float-right" title="calzone" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Kwok Lung Jason Fan.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

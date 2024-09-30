@@ -189,14 +189,12 @@ def main():
         perform_calculation(probs=loader.probs, labels=loader.labels, args=args, suffix="")
     else:
         perform_calculation(probs=loader.probs, labels=loader.labels, args=args, suffix="")
-        for i, subgroup in enumerate(loader.subgroups):
-            groups = np.unique(loader.data[:, loader.subgroup_indices[i]])
-            for group in groups:
-                subgroup_data = loader.data[loader.data[:, loader.subgroup_indices[i]] == group]
-                probs_group = subgroup_data[:, :-len(loader.subgroups)-1].astype(float)
-                labels_group = subgroup_data[:, -1:].astype(int)
-                perform_calculation(probs=probs_group, labels=labels_group,
-                                    args=args, suffix=f"subgroup_{subgroup}_group_{group}")
+        for i,subgroup_column in enumerate(loader.subgroup_indices):
+            for j,subgroup_class in enumerate(loader.subgroups_class[i]):
+                proba = loader.probs[loader.subgroups_index[i][j],:]
+                label = loader.labels[loader.subgroups_index[i][j]]
+                perform_calculation(probs=proba, labels=label,
+                                    args=args, suffix=f"subgroup_{i+1}_group_{subgroup_class}")
 
 if __name__ == "__main__":
     main()
