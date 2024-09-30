@@ -13,50 +13,25 @@
    "source": [
     "## Theoretical Background\n",
     "\n",
-    "Cox calibration analysis is both a logistic recalibration technique and a method to examine the current calibration of a model.To perform the analysis, we first need to fit a new logistic regression model using logit(log odds, aka $\\log\\frac{\\hat{p}}{1-\\hat{p}}$) as the predictor variable and the outcome the predictor variable. \n",
+    "Cox calibration analysis is both a logistic recalibration technique and a method to examine the current calibration of a model. To perform the analysis, we first need to fit a new logistic regression model using logit (log odds, aka $\\log\\frac{\\hat{p}}{1-\\hat{p}}$) as the predictor variable and the outcome as the target variable. \n",
     "\n",
     "$$\n",
     "p_{new} = \\frac{1}{1+e^{-(a + b \\cdot \\log\\frac{\\hat{p}}{1-\\hat{p}})}}\n",
     "$$\n",
     "\n",
-    "In the case of perfect calibration, $P(Y=1|p=\\hat{p}) = \\hat{p}$ and the new probability $p_{new}$ is equal to the original probability $\\hat{p}$. That means $a=0$ and $b=1$. If $b>1$, the model is under-confidence at high probabilities and over-confidence at low probabilities for the class-of-interest.  If $b<1$, the model is over-confidence at high probabilities and under-confidence at low probabilities for the class-of-interest. If $a>0$, the model is over-confidence at all probabilities for the class-of-interest.  If $a<0$, the model is under-confidence at all probabilities for the class-of-interest. The confidence interval of $a$ and $b$ can be used to guide the calibration of the model. The user can also choose to fix $a=0$ and fit for $b$ only and vice versa, then there will be not interaction between $a$ and $b$ and the confidence interval can be used as a statistical test to test for perfect calibration. "
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "metadata": {},
-   "source": [
+    "In the case of perfect calibration, $P(Y=1|p=\\hat{p}) = \\hat{p}$ and the new probability $p_{new}$ is equal to the original probability $\\hat{p}$. That means $a=0$ and $b=1$. If $b>1$, the model is under-confident at high probabilities and over-confident at low probabilities for the class-of-interest. If $b<1$, the model is over-confident at high probabilities and under-confident at low probabilities for the class-of-interest. If $a>0$, the model is over-confident at all probabilities for the class-of-interest. If $a<0$, the model is under-confident at all probabilities for the class-of-interest. The confidence interval of $a$ and $b$ can be used to guide the calibration of the model. The user can also choose to fix $a=0$ and fit for $b$ only and vice versa, then there will be no interaction between $a$ and $b$ and the confidence interval can be used as a statistical test to test for perfect calibration. \n",
+    "\n",
+    "\n",
     "## Pros of Cox calibration analysis\n",
     "\n",
-    "Cox calibration analysis doesn't depend on binning of data, which is a big advantage since common metrics such as ECE/MCE and HL test all depend on binning and we have shown that changging binning can lead to different results. We can also use it to perform statistical tests by fixing $a$ to 0 and test whether $b=1$ and the other way around to test for perfect calibration. Also, the fitted value of $a$ and $b$ can tell us how the model is miscalibrated, whether is a overall under or over-confidence or it is over-confident in some range and under-confident in another range. For example, if the $a$ doesn't close to 0 while $b$ is close to 1, it means that it is likely due to prevalence shift. See more details in the prevalence adjustment notebook."
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "metadata": {},
-   "source": [
-    "## Cons of Cox calibration analysis"
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "metadata": {},
-   "source": [
-    "Cox Calibration analysis can only access weak calibration and there only capture a certain type of miscalibration (general over/underconfident). A model can have a $a=0$ and $b=1$ and still be miscalibrated."
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "metadata": {},
-   "source": [
-    "## Calculating Cox slope and intercept with calzone"
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "metadata": {},
-   "source": [
-    "There are two ways to calculate the Cox slope and intercept. Calling the Cox function give you more control on the calculation, including fixing $a=0$ or $b=1$."
+    "Cox calibration analysis doesn't depend on binning of data, which is a big advantage since common metrics such as ECE/MCE and HL test all depend on binning and we have shown that changing binning can lead to different results. We can also use it to perform statistical tests by fixing $a$ to 0 and test whether $b=1$ and the other way around to test for perfect calibration. Also, the fitted values of $a$ and $b$ can tell us how the model is miscalibrated, whether it is an overall under- or over-confidence or if it is over-confident in some ranges and under-confident in others. For example, if $a$ is not close to 0 while $b$ is close to 1, it likely indicates a prevalence shift. See more details in the prevalence adjustment notebook.\n",
+    "\n",
+    "## Cons of Cox calibration analysis\n",
+    "\n",
+    "Cox Calibration analysis can only assess weak calibration and only captures certain types of miscalibration (general over/under-confidence). A model can have $a=0$ and $b=1$ and still be miscalibrated.\n",
+    "\n",
+    "## Calculating Cox slope and intercept with calzone\n",
+    "There are two ways to calculate the Cox slope and intercept. Calling the Cox function gives you more control over the calculation, including fixing $a=0$ or $b=1$."
    ]
   },
   {

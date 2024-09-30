@@ -50,7 +50,7 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../index.html">Welcome to calzone documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Welcome to the documentation for calzone</a></li>
 <li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick Start</a></li>
 <li class="toctree-l1"><a class="reference internal" href="metrics_summary.html">Summary and guide for calibration metrics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="reliability_diagram.html">Reliability diagram</a></li>
@@ -100,24 +100,24 @@
 <h1>Integrated Calibration Index (ICI)<a class="headerlink" href="#Integrated-Calibration-Index-(ICI)" title="Link to this heading"></a></h1>
 <section id="Theoretical-Background">
 <h2>Theoretical Background<a class="headerlink" href="#Theoretical-Background" title="Link to this heading"></a></h2>
-<p>Integrated Calibration Index (ICI) is esstentially the same as expected calibration error (ECE) in terms of the idea. They both try to measure the average deviation of the predicted probabilities from the true probabilities. However, ECE are calculated by grouping the samples into bins and then calculating the weighted average of the deviation of the mean predicted probabilities from the emperical accurary. ICI, on the other hand, is calculated by fitting a smooth curve using the samples itself
-and therefore doesn’t require binning. However, the choice of the curve fitting method can affect the result and is arbitrary. The most common choice is to locally estimated scatterplot smoothing(LOESS) (Cleveland, 1979). People also use other methods such as polynomial fitting and spline fitting. Interestingly, not much people has looked into using COX regression result to calculate ICI which is implemented in calzone. Notice that the Cox-ICI can be way off from the truth if the logistic
+<p>Integrated Calibration Index (ICI) is essentially the same as expected calibration error (ECE) in terms of the idea. They both try to measure the average deviation of the predicted probabilities from the true probabilities. However, ECE is calculated by grouping the samples into bins and then calculating the weighted average of the deviation of the mean predicted probabilities from the empirical accuracy. ICI, on the other hand, is calculated by fitting a smooth curve using the samples itself
+and therefore doesn’t require binning. However, the choice of the curve fitting method can affect the result and is arbitrary. The most common choice is locally estimated scatterplot smoothing (LOESS) (Cleveland, 1979). People also use other methods such as polynomial fitting and spline fitting. Interestingly, not many people have looked into using COX regression results to calculate ICI, which is implemented in calzone. Notice that the Cox-ICI can be way off from the truth if the logistic
 regression is not a good fit.</p>
 <p>The formula for ICI is:</p>
 <div class="math notranslate nohighlight">
 \[\text{ICI} = \int_0^1 |\mathbb{S}(p)-p| \, dF_{\hat{P}}(p)\]</div>
-<p>where <span class="math notranslate nohighlight">\(\mathbb{S}(p)\)</span> is the fitted function and <span class="math notranslate nohighlight">\(F_{\hat{P}}(p)\)</span> is the cumulative distribution function of the emperical probabilities. In the actual implementation, we calculate</p>
+<p>where <span class="math notranslate nohighlight">\(\mathbb{S}(p)\)</span> is the fitted function and <span class="math notranslate nohighlight">\(F_{\hat{P}}(p)\)</span> is the cumulative distribution function of the empirical probabilities. In the actual implementation, we calculate</p>
 <div class="math notranslate nohighlight">
 \[\text{ICI} = \frac{1}{N} \sum_{i=1}^N  |\mathbb{S}(p_i)-p_i|\]</div>
 <p>where <span class="math notranslate nohighlight">\(p_i\)</span> is the predicted probability of the <span class="math notranslate nohighlight">\(i\)</span>-th sample.</p>
 </section>
 <section id="Pros-of-ICI">
 <h2>Pros of ICI<a class="headerlink" href="#Pros-of-ICI" title="Link to this heading"></a></h2>
-<p>The main advantage of ICI is that it skips the need of binning while still giving you a easily interpretable metrics. It is essentially the same as ECE and can be interpreted as the average deviation from the true probability. ICI can caputre any type of miscalibartion if the calibration curve is well-described by fitting method.</p>
+<p>The main advantage of ICI is that it skips the need for binning while still giving you an easily interpretable metric. It is essentially the same as ECE and can be interpreted as the average deviation from the true probability. ICI can capture any type of miscalibration if the calibration curve is well-described by the fitting method.</p>
 </section>
 <section id="Cons-of-ICI">
 <h2>Cons of ICI<a class="headerlink" href="#Cons-of-ICI" title="Link to this heading"></a></h2>
-<p>The main disadvantage of ICI is the need of the fitting method. locally estimated scatterplot smoothing(LOESS) is a non-parametric regression method that fits a smooth line through the data. It is the most common method used in ICI. However, it still requires hyperparameters like the span(window width) which could affect the fitting result and ICI greatly.</p>
+<p>The main disadvantage of ICI is the need for a fitting method. Locally estimated scatterplot smoothing (LOESS) is a non-parametric regression method that fits a smooth line through the data. It is the most common method used in ICI. However, it still requires hyperparameters like the span (window width) which could affect the fitting result and ICI greatly.</p>
 </section>
 <section id="Calculating-LOESS-ICI-and-COX-ICI-using-calzone">
 <h2>Calculating LOESS ICI and COX ICI using calzone<a class="headerlink" href="#Calculating-LOESS-ICI-and-COX-ICI-using-calzone" title="Link to this heading"></a></h2>
@@ -259,7 +259,7 @@ Text(0.5, 1.0, &#39;Calibration Curve&#39;)
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_ici_9_1.png" src="../_images/notebooks_ici_9_1.png" />
+<img alt="../_images/notebooks_ici_8_1.png" src="../_images/notebooks_ici_8_1.png" />
 </div>
 </div>
 </section>

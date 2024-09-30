@@ -50,7 +50,7 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../index.html">Welcome to calzone documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Welcome to the documentation for calzone</a></li>
 <li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick Start</a></li>
 <li class="toctree-l1"><a class="reference internal" href="metrics_summary.html">Summary and guide for calibration metrics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="reliability_diagram.html">Reliability diagram</a></li>
@@ -100,8 +100,8 @@
 <h1>Hosmer-Lemeshow test (HL test)<a class="headerlink" href="#Hosmer-Lemeshow-test-(HL-test)" title="Link to this heading"></a></h1>
 <section id="Theoretical-Background">
 <h2>Theoretical Background<a class="headerlink" href="#Theoretical-Background" title="Link to this heading"></a></h2>
-<p>The Hosmer-Lemeshow test (HL Test) is a statistical test that can be used to assess the calibration of a probabilitics model. The test works by dividing the predicted probabilities into groups (typically deciles) and comparing the observed and expected frequencies of events in each group. A non-significant p-value (usually greater than 0.05) indicates we cannot reject the hypothesis that the model is well-calibrated, while a significant p-value suggests that the opposite. The Hosmer-Lemeshow
-test widely used in the literature and industy since it is simple to implement and interpret.</p>
+<p>The Hosmer-Lemeshow test (HL Test) is a statistical test that can be used to assess the calibration of a probabilistic model. The test works by dividing the predicted probabilities into groups (typically deciles) and comparing the observed and expected frequencies of events in each group. A non-significant p-value (usually greater than 0.05) indicates we cannot reject the hypothesis that the model is well-calibrated, while a significant p-value suggests the opposite. The Hosmer-Lemeshow test is
+widely used in the literature and industry since it is simple to implement and interpret.</p>
 <p>In order to calculate the Hosmer-Lemeshow test statistic, we need to first determine the binning scheme used to divide the predicted probabilities into groups. Conventionally, the predicted probabilities are divided into 10 equal-width bins. We will label the equal-width binning Hosmer-Lemeshow test as HL-H and equal-count binning Hosmer-Lemeshow test as HL-C. The Hosmer-Lemeshow test statistic is then calculated as follows:</p>
 <div class="math notranslate nohighlight">
 \[\text{HL} = \sum_{m=1}^{M} \left[\frac{(O_{1,m}-E_{1,m})^2}{E_{1,m}} + \frac{(O_{0,m}-E_{0,m})^2}{E_{0,m}}\right]  = \sum_{m=1}^{M} \frac{(O_{1,m}-E_{1,m})^2}{E_{1,m}(1-\frac{E_{1,m}}{N_m})} \sim \chi^2_{M-2}\]</div>
@@ -110,13 +110,13 @@ whether we can reject the null hypothesis that the model is well-calibrated.</p>
 </section>
 <section id="Pros-of-HL-test">
 <h2>Pros of HL test<a class="headerlink" href="#Pros-of-HL-test" title="Link to this heading"></a></h2>
-<p>The Hosmer-Lemeshow test offers several advantages in assessing the calibration. It is a non-parametric test, meaning it does not require any assumptions about the distribution of the predicted probabilities and it provides statistical meaning to the resulting test statistic. It is also very inituitive and easy to understand since it is just a chi-square based test. It can be calculated from the result of the reliability diagram. HL test is widely used in the literature as a validation method
+<p>The Hosmer-Lemeshow test offers several advantages in assessing calibration. It is a non-parametric test, meaning it does not require any assumptions about the distribution of the predicted probabilities, and it provides statistical meaning to the resulting test statistic. It is also very intuitive and easy to understand since it is just a chi-square based test. It can be calculated from the result of the reliability diagram. The HL test is widely used in the literature as a validation method
 for model calibration.</p>
 </section>
 <section id="Cons-of-HL-Test">
 <h2>Cons of HL Test<a class="headerlink" href="#Cons-of-HL-Test" title="Link to this heading"></a></h2>
-<p>Many studies have show that the HL test is not a ideal way to examine the calibration of a model. The biggest problem is that the HL test depend on the binning scheme used. Whether equal-width or equal-count binning and the number of bins used can affect the results of the HL test. It is shown that the standard 10 equal-width bins often have the wrong size and low statistical power. Therefore, it is recommended to not use the HL test to examine the calibration of a model. However, the HL test is
-still a useful tool to quickly check the calibration of a model and provide a reference for the calibration of a model.</p>
+<p>Many studies have shown that the HL test is not an ideal way to examine the calibration of a model. The biggest problem is that the HL test depends on the binning scheme used. Whether equal-width or equal-count binning and the number of bins used can affect the results of the HL test. It is shown that the standard 10 equal-width bins often have the wrong size and low statistical power. Therefore, it is recommended not to use the HL test to examine the calibration of a model. However, the HL test
+is still a useful tool to quickly check the calibration of a model and provide a reference for the calibration of a model.</p>
 </section>
 <section id="Calculating-HL-test-statistics-and-p-value-with-calzone">
 <h2>Calculating HL test statistics and p-value with calzone<a class="headerlink" href="#Calculating-HL-test-statistics-and-p-value-with-calzone" title="Link to this heading"></a></h2>

@@ -50,7 +50,7 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../index.html">Welcome to calzone documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Welcome to the documentation for calzone</a></li>
 <li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick Start</a></li>
 <li class="toctree-l1"><a class="reference internal" href="metrics_summary.html">Summary and guide for calibration metrics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="reliability_diagram.html">Reliability diagram</a></li>
@@ -100,8 +100,8 @@
 <h1>Spiegelhalter’s Z-test<a class="headerlink" href="#Spiegelhalter's-Z-test" title="Link to this heading"></a></h1>
 <section id="Theoretical-background">
 <h2>Theoretical background<a class="headerlink" href="#Theoretical-background" title="Link to this heading"></a></h2>
-<p>Spiegelhalter’s Z-test is a statistical test that test whether a probabilitistic model is calibrated. It is named after the statistician David Spiegelhalter, who proposed it in 1986. It is a non-parametric test that does not require any binning.</p>
-<p>The Spiegelhalter’s Z-test was inspired by the facts that the brier score (mean squred error) can be decomposed into reliability and resolution. In fact, any proper scoring rule can be decomposed into reliability and resolution, as shown by Brocker (2008). For example, the cross-entropy can be decomposed into KL-divergence(reliability) and entropy(resolution).</p>
+<p>Spiegelhalter’s Z-test is a statistical test that tests whether a probabilistic model is calibrated. It is named after the statistician David Spiegelhalter, who proposed it in 1986. It is a non-parametric test that does not require any binning.</p>
+<p>The Spiegelhalter’s Z-test was inspired by the fact that the Brier score (mean squared error) can be decomposed into reliability and resolution. In fact, any proper scoring rule can be decomposed into reliability and resolution, as shown by Brocker (2008). For example, the cross-entropy can be decomposed into KL-divergence (reliability) and entropy (resolution).</p>
 <p>The Brier score can be decomposed into reliability and resolution as follows:</p>
 <div class="math notranslate nohighlight">
 \[B = \frac{1}{N} \sum_{i=1}^N (x_i - p_i)^2 = \frac{1}{N} \sum_{i=1}^N (x_i - p_i)(1-2p_i) + \frac{1}{N} \sum_{i=1}^N p_i(1-p_i)\]</div>
@@ -112,11 +112,11 @@
 <p>and the Speigelhalter’s Z-test is defined as:</p>
 <div class="math notranslate nohighlight">
 \[Z = \frac{B - E(B)}{\sqrt{\text{Var}(B)}} = \frac{ \sum_{i=1}^N (x_i - p_i)(1-2p_i)}{\sum_{i=1}^N (1-2p_i)^2 p_i (1-p_i)}\]</div>
-<p>and <span class="math notranslate nohighlight">\(Z\)</span> is approximately standard normal distributed under the null hypothesis of calibration. Spiegelhalter’s Z-test has the right size in many situations and it is powerful in many situations. We recommend to use Spiegelhalter’s Z-test to test the calibration of probabilistic models.</p>
+<p>and <span class="math notranslate nohighlight">\(Z\)</span> is approximately standard normal distributed under the null hypothesis of calibration. Spiegelhalter’s Z-test has the right size in many situations and it is powerful in many situations. We recommend using Spiegelhalter’s Z-test to test the calibration of probabilistic models.</p>
 </section>
 <section id="Pros-of-Spiegelhalter's-Z-test">
 <h2>Pros of Spiegelhalter’s Z test<a class="headerlink" href="#Pros-of-Spiegelhalter's-Z-test" title="Link to this heading"></a></h2>
-<p>Spiegelhalter’s Z test is a statistical test which can provides statistical evidence that the null hypothesis (well-calibrated) is true or false. It is a non-parametrics test and doesn’t require any hyperparameter tuning. It also doesn’t require any binning of data which is extremely useful compared to Hosmer-Lemeshow test.</p>
+<p>Spiegelhalter’s Z test is a statistical test which can provide statistical evidence that the null hypothesis (well-calibrated) is true or false. It is a non-parametric test and doesn’t require any hyperparameter tuning. It also doesn’t require any binning of data, which is extremely useful compared to the Hosmer-Lemeshow test.</p>
 </section>
 <section id="Cons-of-Spiegelhalter's-Z-test">
 <h2>Cons of Spiegelhalter’s Z test<a class="headerlink" href="#Cons-of-Spiegelhalter's-Z-test" title="Link to this heading"></a></h2>
@@ -245,7 +245,7 @@ Text(0.5, 1.0, &#34;P-value distribution of the Spiegelhalter&#39;s z test&#34;)
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_spiegelhalter_z_10_1.png" src="../_images/notebooks_spiegelhalter_z_10_1.png" />
+<img alt="../_images/notebooks_spiegelhalter_z_9_1.png" src="../_images/notebooks_spiegelhalter_z_9_1.png" />
 </div>
 </div>
 <p>We can see that Spiegelhalter’s Z test has a accurate size.</p>

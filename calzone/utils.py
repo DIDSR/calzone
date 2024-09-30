@@ -271,10 +271,11 @@ class data_loader():
         data (numpy.ndarray): Raw data loaded from the CSV file.
         probs (numpy.ndarray): Probability values extracted from the data.
         labels (numpy.ndarray): Label values extracted from the data.
+        subgroups_class (list): List of unique subgroup classes for each subgroup, if present.
+        subgroups_index (list): List of indices for each subgroup class, if present.
 
     Methods:
-        __init__(self, data_path): Initializes the data_loader object and loads data from a csv file.
-            If there is header,it must be in: proba_0,proba_1,...,subgroup_1(optional),subgroup_2(optional),...label. If no header, then the columns must be in the order of proba_0,proba_1,...,label
+        __init__(self, data_path): Initializes the data_loader object and loads data from a CSV file.
     """
 
     def __init__(self, data_path):
@@ -289,6 +290,11 @@ class data_loader():
         2. Checks for the presence of subgroup information.
         3. Loads the data based on the presence or absence of subgroup information.
         4. Extracts probability values and labels from the loaded data.
+        5. If subgroups are present, extracts subgroup classes and their indices.
+
+        Note:
+        - If there is a header, it must be in the format: proba_0,proba_1,...,subgroup_1(optional),subgroup_2(optional),...,label
+        - If there is no header, the columns must be in the order of proba_0,proba_1,...,label
         """
         self.data_path = data_path
         self.Header = np.loadtxt(self.data_path, delimiter=',', max_rows=1, dtype=str)

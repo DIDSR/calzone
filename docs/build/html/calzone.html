@@ -46,7 +46,7 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="index.html">Welcome to calzone documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html">Welcome to the documentation for calzone</a></li>
 <li class="toctree-l1"><a class="reference internal" href="notebooks/quickstart.html">Quick Start</a></li>
 <li class="toctree-l1"><a class="reference internal" href="notebooks/metrics_summary.html">Summary and guide for calibration metrics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="notebooks/reliability_diagram.html">Reliability diagram</a></li>
@@ -623,11 +623,32 @@ them to observed outcomes.</p>
 </dl>
 </dd></dl>
 
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calzone.utils.data_loader.subgroups_class">
+<span class="sig-name descname"><span class="pre">subgroups_class</span></span><a class="headerlink" href="#calzone.utils.data_loader.subgroups_class" title="Link to this definition"></a></dt>
+<dd><p>List of unique subgroup classes for each subgroup, if present.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calzone.utils.data_loader.subgroups_index">
+<span class="sig-name descname"><span class="pre">subgroups_index</span></span><a class="headerlink" href="#calzone.utils.data_loader.subgroups_index" title="Link to this definition"></a></dt>
+<dd><p>List of indices for each subgroup class, if present.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="calzone.utils.data_loader.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/calzone/utils.html#data_loader.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#calzone.utils.data_loader.__init__" title="Link to this definition"></a></dt>
-<dd><p>Initializes the data_loader object and loads data from a csv file.
-If there is header,it must be in: proba_0,proba_1,…,subgroup_1(optional),subgroup_2(optional),…label. If no header, then the columns must be in the order of proba_0,proba_1,…,label</p>
+<dd><p>Initializes the data_loader object and loads data from a CSV file.</p>
 </dd></dl>
 
 <dl class="py method">
@@ -643,7 +664,11 @@ If there is header,it must be in: proba_0,proba_1,…,subgroup_1(optional),subgr
 1. Loads the header from the CSV file.
 2. Checks for the presence of subgroup information.
 3. Loads the data based on the presence or absence of subgroup information.
-4. Extracts probability values and labels from the loaded data.</p>
+4. Extracts probability values and labels from the loaded data.
+5. If subgroups are present, extracts subgroup classes and their indices.</p>
+<p>Note:
+- If there is a header, it must be in the format: proba_0,proba_1,…,subgroup_1(optional),subgroup_2(optional),…,label
+- If there is no header, the columns must be in the order of proba_0,proba_1,…,label</p>
 </dd></dl>
 
 </dd></dl>
