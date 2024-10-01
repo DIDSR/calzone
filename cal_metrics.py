@@ -80,12 +80,12 @@ def print_metrics(result, keys, n_bootstrap, suffix):
                         f"Metrics for {suffix} with bootstrap confidence intervals:")
         print(print_header)
         for i, num in enumerate(keys):
-            print(f"{num}: {result[0][i]}", f"({result[1][i]}, {result[2][i]})")
+            print(f"{num}: {np.format_float_positional(result[0][i],3)}", f"({np.format_float_positional(result[1][i],3)}, {np.format_float_positional(result[2][i],3)})")
     else:
         print_header = "Metrics:" if suffix == "" else f"Metrics for subgroup {suffix}:"
         print(print_header)
         for i, num in enumerate(keys):
-            print(f"{num}: {result[0][i]}")
+            print(f"{num}: {np.format_float_positional(result[0][i],3)}")
 
 def save_metrics_to_csv(result, keys, save_metrics, suffix):
     """

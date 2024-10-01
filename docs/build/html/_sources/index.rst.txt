@@ -20,6 +20,9 @@ Key features of calzone include:
 * Provides graphical user interface for easy calculation
 * Provides command line interface scripts for batch processing
 
+To accurately assess the calibration of machine learning models, it is essential to have a comprehensive and reprensative dataset with sufficient coverage of the prediction space. The calibration metrics is not meaningful if the dataset is not representative of true intended population.
+
+
 We hope you find calzone useful in your machine learning and data science projects!
 
 .. toctree::

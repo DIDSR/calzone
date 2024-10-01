@@ -189,7 +189,7 @@
 </div>
 <p>To use CLI, you can use the script in the calzone directory. The program will save the metrics into the output csv file with the CI(if you turn on boostrap). The program will also save the relibaility diagram if you apply –plot flag. There is an optional flag –prevalence_adjustment which try to derive the original model prevalence and apply prevalence adjustment. See more on prevalence adjustment in the prevalecne adjustment notebook.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">run</span> ../../../cal_metrics.py \
@@ -216,28 +216,28 @@
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 Metrics with bootstrap confidence intervals:
-SpiegelhalterZ score: 0.3763269161877356 (-1.5807699880994444, 2.395927423238484)
-SpiegelhalterZ p-value: 0.7066738713391099 (0.01657902492986192, 0.9714240967050577)
-ECE-H topclass: 0.009608653731328977 (0.006237296592901701, 0.021363377084910293)
-ECE-H: 0.01208775955804901 (0.010662158686019193, 0.02511708040454675)
-MCE-H topclass: 0.03926468843081976 (0.016489481574476408, 0.0763983896743262)
-MCE-H: 0.04848338618970194 (0.034247525285896856, 0.1074403870211145)
-HL-H score: 8.884991559088098 (7.391861851849875, 34.05795071824684)
-HL-H p-value: 0.35209071874348785 (3.9657229660833296e-05, 0.49500303134624424)
-ECE-C topclass: 0.009458033653818828 (0.00721331682837393, 0.020941041355055263)
-ECE-C: 0.008733966945443138 (0.007839328136793722, 0.021823858875608868)
-MCE-C topclass: 0.020515047600205505 (0.018278548269587185, 0.072061934281328)
-MCE-C: 0.02324031223486256 (0.02026915149707693, 0.07130018652739761)
-HL-C score: 3.694947603203135 (4.778215978353737, 28.66601701179518)
-HL-C p-value: 0.8835446575708198 (0.00036285300293075476, 0.7809963478704446)
-COX coef: 0.9942499557748269 (0.9400358978567009, 1.0538900864764944)
-COX intercept: -0.04497652296600376 (-0.12608851895091105, 0.030645581091986857)
-COX coef lowerci: 0.9372902801721911 (0.8863598429433421, 0.9935549251466841)
-COX coef upperci: 1.0512096313774626 (0.9937119527700597, 1.1144111096266702)
-COX intercept lowerci: -0.12348577118577644 (-0.2045210185183726, -0.04884658843002879)
-COX intercept upperci: 0.03353272525376893 (-0.047669103797523225, 0.10892713454651742)
-COX ICI: 0.005610391483826338 (0.001367595459558788, 0.015813067984001113)
-Loess ICI: 0.00558856942568957 (0.0035837944583534116, 0.015569004772809241)
+SpiegelhalterZ score: 0.376 (-1.615, 2.515)
+SpiegelhalterZ p-value: 0.707 (0.010, 0.973)
+ECE-H topclass: 0.01 (0.006, 0.022)
+ECE-H: 0.012 (0.011, 0.025)
+MCE-H topclass: 0.039 (0.016, 0.076)
+MCE-H: 0.048 (0.033, 0.105)
+HL-H score: 8.885 (6.789, 34.674)
+HL-H p-value: 0.352 (0.000, 0.56)
+ECE-C topclass: 0.009 (0.008, 0.021)
+ECE-C: 0.009 (0.008, 0.022)
+MCE-C topclass: 0.021 (0.019, 0.068)
+MCE-C: 0.023 (0.02, 0.071)
+HL-C score: 3.695 (4.484, 30.483)
+HL-C p-value: 0.884 (0.000, 0.811)
+COX coef: 0.994 (0.938, 1.053)
+COX intercept: -0.045 (-0.125, 0.028)
+COX coef lowerci: 0.937 (0.884, 0.993)
+COX coef upperci: 1.051 (0.992, 1.113)
+COX intercept lowerci: -0.123 (-0.204, -0.051)
+COX intercept upperci: 0.034 (-0.047, 0.106)
+COX ICI: 0.006 (0.001, 0.016)
+Loess ICI: 0.006 (0.003, 0.016)
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
@@ -249,7 +249,7 @@ Loess ICI: 0.00558856942568957 (0.0035837944583534116, 0.015569004772809241)
 </div>
 <p>We can also test it on a miscalibrated dataset</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">run</span> ../../../cal_metrics.py \
@@ -273,28 +273,28 @@ Loess ICI: 0.00558856942568957 (0.0035837944583534116, 0.015569004772809241)
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 Metrics with bootstrap confidence intervals:
-SpiegelhalterZ score: 27.93575342117766 (24.839219624348278, 30.96864965466825)
-SpiegelhalterZ p-value: 0.0 (0.0, 0.0)
-ECE-H topclass: 0.07658928982434714 (0.06804004301206772, 0.08592504653855504)
-ECE-H: 0.0765892898243467 (0.06908364720616232, 0.08706668363498338)
-MCE-H topclass: 0.1327565894838103 (0.1072993386569483, 0.17370691765648233)
-MCE-H: 0.16250572519432438 (0.12906539767215233, 0.2321783714888279)
-HL-H score: 910.4385762101924 (716.4295175706912, 1150.8612337604823)
-HL-H p-value: 0.0 (0.0, 0.0)
-ECE-C topclass: 0.07429481165606829 (0.06631382877661166, 0.08385320903282655)
-ECE-C: 0.07479369479609524 (0.06521419240394898, 0.08451549201546268)
-MCE-C topclass: 0.14090872416947742 (0.1269495376864691, 0.1823624107494838)
-MCE-C: 0.14045600565696226 (0.11794558748818013, 0.18126150855551718)
-HL-C score: 2246.1714434139853 (1438.8321063523322, 3877.6343314327746)
-HL-C p-value: 0.0 (0.0, 0.0)
-COX coef: 0.5071793536874274 (0.4801908709799625, 0.5371356153517065)
-COX intercept: 0.00037947714112375366 (-0.08073966311023521, 0.0761029609538567)
-COX coef lowerci: 0.47838663128188996 (0.45286446098549943, 0.5066968534389735)
-COX coef upperci: 0.5359720760929648 (0.5075172809744255, 0.5675767072412716)
-COX intercept lowerci: -0.07796623141885761 (-0.15892100700345876, -0.0021211909057935567)
-COX intercept upperci: 0.07872518570110512 (-0.002883279534568299, 0.15497864009963908)
-COX ICI: 0.07746407648179383 (0.0699401829701191, 0.08483057095432332)
-Loess ICI: 0.06991428582761099 (0.06243802716414971, 0.07792482943302832)
+SpiegelhalterZ score: 27.936 (24.343, 31.373)
+SpiegelhalterZ p-value: 0. (0., 0.)
+ECE-H topclass: 0.077 (0.067, 0.087)
+ECE-H: 0.077 (0.068, 0.088)
+MCE-H topclass: 0.133 (0.107, 0.176)
+MCE-H: 0.163 (0.13, 0.235)
+HL-H score: 910.439 (711.575, 1170.693)
+HL-H p-value: 0. (0., 0.)
+ECE-C topclass: 0.074 (0.066, 0.085)
+ECE-C: 0.075 (0.064, 0.086)
+MCE-C topclass: 0.141 (0.126, 0.183)
+MCE-C: 0.140 (0.114, 0.180)
+HL-C score: 2246.171 (1415.309, 3702.911)
+HL-C p-value: 0. (0., 0.)
+COX coef: 0.507 (0.478, 0.540)
+COX intercept: 0.000 (-0.073, 0.079)
+COX coef lowerci: 0.478 (0.451, 0.509)
+COX coef upperci: 0.536 (0.506, 0.571)
+COX intercept lowerci: -0.078 (-0.153, 0.001)
+COX intercept upperci: 0.079 (0.006, 0.157)
+COX ICI: 0.077 (0.069, 0.086)
+Loess ICI: 0.07 (0.061, 0.079)
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
@@ -306,7 +306,7 @@ Loess ICI: 0.06991428582761099 (0.06243802716414971, 0.07792482943302832)
 </div>
 <p>If your data has subgroup in it, simply run the script with the same argument as the one above. It will automatically detect the subgroup and generate the corresponding plots and metrics for each subgroup as well as the overall plot and metrics.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">run</span> ../../../cal_metrics.py \
@@ -330,28 +330,28 @@ Loess ICI: 0.06991428582761099 (0.06243802716414971, 0.07792482943302832)
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 Metrics with bootstrap confidence intervals:
-SpiegelhalterZ score: 18.326500460344757 (15.794425720424307, 21.009071137218545)
-SpiegelhalterZ p-value: 0.0 (0.0, 0.0)
-ECE-H topclass: 0.04154425366233608 (0.035162680250315326, 0.0487781595899893)
-ECE-H: 0.041606274177861564 (0.03626017371676395, 0.04928029387732635)
-MCE-H topclass: 0.05506859806121056 (0.04331485568122394, 0.0869230686941801)
-MCE-H: 0.06291857721845223 (0.055158065643750864, 0.1088686317831368)
-HL-H score: 429.7315889789045 (335.11578816644203, 584.729042436792)
-HL-H p-value: 0.0 (0.0, 0.0)
-ECE-C topclass: 0.04153827551437989 (0.0350890066069272, 0.04856089519450712)
-ECE-C: 0.03813373547517625 (0.032491644045163894, 0.045650280882645645)
-MCE-C topclass: 0.06521747269553313 (0.05538089768555629, 0.09135243436267283)
-MCE-C: 0.06426881466822676 (0.0524336589658407, 0.08557007576047433)
-HL-C score: 1138.8421218049589 (779.57729419585, 1844.1495866997284)
-HL-C p-value: 0.0 (0.0, 0.0)
-COX coef: 0.6682652785932737 (0.6376363393291222, 0.698284205879076)
-COX intercept: -0.019974208464277905 (-0.07259504882210963, 0.029599851982521252)
-COX coef lowerci: 0.6406305507074329 (0.6112991311932316, 0.6695298013752479)
-COX coef upperci: 0.6959000064791144 (0.6639371384689254, 0.7270409599651828)
-COX intercept lowerci: -0.07427409213097665 (-0.12690719196074965, -0.024841617955210976)
-COX intercept upperci: 0.03432567520242083 (-0.018508443419824, 0.08404132192025349)
-COX ICI: 0.04920919519153327 (0.043787105751604743, 0.055358521699168745)
-Loess ICI: 0.03714791811671051 (0.03217363679849129, 0.042959241554897304)
+SpiegelhalterZ score: 18.327 (15.680, 20.858)
+SpiegelhalterZ p-value: 0. (0., 0.)
+ECE-H topclass: 0.042 (0.035, 0.048)
+ECE-H: 0.042 (0.036, 0.049)
+MCE-H topclass: 0.055 (0.043, 0.085)
+MCE-H: 0.063 (0.054, 0.109)
+HL-H score: 429.732 (332.85, 565.169)
+HL-H p-value: 0. (0., 0.)
+ECE-C topclass: 0.042 (0.034, 0.048)
+ECE-C: 0.038 (0.032, 0.046)
+MCE-C topclass: 0.065 (0.055, 0.092)
+MCE-C: 0.064 (0.054, 0.087)
+HL-C score: 1138.842 (748.777, 1819.374)
+HL-C p-value: 0. (0., 0.)
+COX coef: 0.668 (0.641, 0.699)
+COX intercept: -0.02 (-0.072, 0.033)
+COX coef lowerci: 0.641 (0.614, 0.670)
+COX coef upperci: 0.696 (0.667, 0.728)
+COX intercept lowerci: -0.074 (-0.127, -0.021)
+COX intercept upperci: 0.034 (-0.017, 0.088)
+COX ICI: 0.049 (0.043, 0.055)
+Loess ICI: 0.037 (0.032, 0.043)
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -366,29 +366,29 @@ Loess ICI: 0.03714791811671051 (0.03217363679849129, 0.042959241554897304)
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-Metrics for subgroup_subgroup_1_group_A with bootstrap confidence intervals:
-SpiegelhalterZ score: 0.3763269161877356 (-1.5359800860884125, 2.2488155422979013)
-SpiegelhalterZ p-value: 0.7066738713391099 (0.017995824692690548, 0.9811170221289532)
-ECE-H topclass: 0.009608653731328977 (0.006371686227273764, 0.020742746570495938)
-ECE-H: 0.01208775955804901 (0.011044543089461385, 0.024940242096806318)
-MCE-H topclass: 0.03926468843081976 (0.017372239183410455, 0.07700143962593547)
-MCE-H: 0.04848338618970194 (0.03372598502185041, 0.1071291778699107)
-HL-H score: 8.884991559088098 (7.273487544511223, 34.59989369427734)
-HL-H p-value: 0.35209071874348785 (3.163091828276566e-05, 0.5074334636323794)
-ECE-C topclass: 0.009458033653818828 (0.006979976658399776, 0.021851164000168777)
-ECE-C: 0.008733966945443138 (0.007430067110742732, 0.022551490154444104)
-MCE-C topclass: 0.020515047600205505 (0.018219924040503894, 0.07211048818162254)
-MCE-C: 0.02324031223486256 (0.01836219827883755, 0.07494846883030193)
-HL-C score: 3.694947603203135 (4.463322959421996, 29.686169126996635)
-HL-C p-value: 0.8835446575708198 (0.00024018587691761187, 0.8130911614465999)
-COX coef: 0.9942499557748269 (0.9422764136724134, 1.050320033718177)
-COX intercept: -0.04497652296600376 (-0.13507122757050333, 0.028473118082186832)
-COX coef lowerci: 0.9372902801721911 (0.8881665143597783, 0.990042882142572)
-COX coef upperci: 1.0512096313774626 (0.9964322263358387, 1.1107244514433876)
-COX intercept lowerci: -0.12348577118577644 (-0.21427495404581, -0.05121479263374603)
-COX intercept upperci: 0.03353272525376893 (-0.05618593939957331, 0.10736750052916791)
-COX ICI: 0.005610391483826338 (0.0012704000932522589, 0.016924501594340554)
-Loess ICI: 0.00558856942568957 (0.003497155055262744, 0.016499714598338253)
+Metrics for subgroup_1_group_A with bootstrap confidence intervals:
+SpiegelhalterZ score: 0.376 (-1.654, 2.308)
+SpiegelhalterZ p-value: 0.707 (0.017, 0.978)
+ECE-H topclass: 0.01 (0.006, 0.022)
+ECE-H: 0.012 (0.010, 0.026)
+MCE-H topclass: 0.039 (0.017, 0.076)
+MCE-H: 0.048 (0.034, 0.103)
+HL-H score: 8.885 (6.74, 36.214)
+HL-H p-value: 0.352 (0.000, 0.565)
+ECE-C topclass: 0.009 (0.007, 0.021)
+ECE-C: 0.009 (0.008, 0.022)
+MCE-C topclass: 0.021 (0.017, 0.070)
+MCE-C: 0.023 (0.019, 0.072)
+HL-C score: 3.695 (4.792, 30.155)
+HL-C p-value: 0.884 (0.000, 0.78)
+COX coef: 0.994 (0.942, 1.056)
+COX intercept: -0.045 (-0.130, 0.031)
+COX coef lowerci: 0.937 (0.888, 0.996)
+COX coef upperci: 1.051 (0.996, 1.117)
+COX intercept lowerci: -0.123 (-0.21, -0.048)
+COX intercept upperci: 0.034 (-0.051, 0.109)
+COX ICI: 0.006 (0.001, 0.016)
+Loess ICI: 0.006 (0.003, 0.016)
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -403,29 +403,29 @@ Loess ICI: 0.00558856942568957 (0.003497155055262744, 0.016499714598338253)
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-Metrics for subgroup_subgroup_1_group_B with bootstrap confidence intervals:
-SpiegelhalterZ score: 27.93575342117766 (24.631422604718676, 31.175300518712312)
-SpiegelhalterZ p-value: 0.0 (0.0, 0.0)
-ECE-H topclass: 0.07658928982434714 (0.06765650178979271, 0.08636225848567715)
-ECE-H: 0.0765892898243467 (0.06852580643902269, 0.08669733313597802)
-MCE-H topclass: 0.1327565894838103 (0.10843309437791786, 0.17516961720016064)
-MCE-H: 0.16250572519432438 (0.1295497608714206, 0.23249785199476106)
-HL-H score: 910.4385762101924 (716.6807269435134, 1156.9707806779575)
-HL-H p-value: 0.0 (0.0, 0.0)
-ECE-C topclass: 0.07429481165606829 (0.0659985856593326, 0.08416749740577707)
-ECE-C: 0.07479369479609524 (0.06521943504742775, 0.08470642937718316)
-MCE-C topclass: 0.14090872416947742 (0.12372092623207283, 0.18193866660299501)
-MCE-C: 0.14045600565696226 (0.11493943681645637, 0.18157672352633192)
-HL-C score: 2246.1714434139853 (1393.1748036207835, 3900.3906228529886)
-HL-C p-value: 0.0 (0.0, 0.0)
-COX coef: 0.5071793536874274 (0.48074131755453936, 0.5385266728248089)
-COX intercept: 0.00037947714112375366 (-0.07316782105361933, 0.07676792988571908)
-COX coef lowerci: 0.47838663128188996 (0.45352953055147033, 0.5079374001974469)
-COX coef upperci: 0.5359720760929648 (0.5079531045576083, 0.5691128113574112)
-COX intercept lowerci: -0.07796623141885761 (-0.15155906016392062, -0.0021166814160488317)
-COX intercept upperci: 0.07872518570110512 (0.005271547438392142, 0.15547081843759372)
-COX ICI: 0.07746407648179383 (0.06971536169847894, 0.08510873852221089)
-Loess ICI: 0.06991428582761099 (0.061850098951911264, 0.07819154012392127)
+Metrics for subgroup_1_group_B with bootstrap confidence intervals:
+SpiegelhalterZ score: 27.936 (25.005, 31.623)
+SpiegelhalterZ p-value: 0. (0., 0.)
+ECE-H topclass: 0.077 (0.068, 0.087)
+ECE-H: 0.077 (0.069, 0.088)
+MCE-H topclass: 0.133 (0.110, 0.177)
+MCE-H: 0.163 (0.128, 0.233)
+HL-H score: 910.439 (725.654, 1174.481)
+HL-H p-value: 0. (0., 0.)
+ECE-C topclass: 0.074 (0.066, 0.085)
+ECE-C: 0.075 (0.066, 0.086)
+MCE-C topclass: 0.141 (0.128, 0.182)
+MCE-C: 0.140 (0.117, 0.182)
+HL-C score: 2246.171 (1484.448, 3735.649)
+HL-C p-value: 0. (0., 0.)
+COX coef: 0.507 (0.479, 0.536)
+COX intercept: 0.000 (-0.076, 0.083)
+COX coef lowerci: 0.478 (0.451, 0.506)
+COX coef upperci: 0.536 (0.506, 0.566)
+COX intercept lowerci: -0.078 (-0.155, 0.005)
+COX intercept upperci: 0.079 (0.003, 0.161)
+COX ICI: 0.077 (0.070, 0.085)
+Loess ICI: 0.07 (0.063, 0.079)
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
