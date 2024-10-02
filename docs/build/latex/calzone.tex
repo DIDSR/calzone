@@ -65,7 +65,7 @@
 
 
 \title{calzone}
-\date{Oct 01, 2024}
+\date{Oct 02, 2024}
 \release{develop}
 \author{Kwok Lung Jason Fan}
 \newcommand{\sphinxlogo}{\vbox{}}
@@ -90,7 +90,7 @@
 calzone is a Python package for calculation of various calibration metrics. This work is credited to Kwok Lung (Jason) Fan and Qian Cao.
 
 \sphinxAtStartPar
-The calzone package provides a suite of tools for assessing and improving the calibration of machine learning models, particularly in binary classification tasks. It offers various calibration metrics, methods for generating and manipulating calibration data, and visualization tools for reliability diagrams. Whether you’re working on model evaluation, uncertainty quantification, or improving the reliability of probabilistic predictions, calzone offers the utilities you need.
+The calzone package provides a suite of tools for assessing and improving the calibration of machine learning models, particularly in binary classification tasks. It offers various calibration metrics and visualization tools for reliability diagrams.
 
 \sphinxAtStartPar
 Key features of calzone include:
@@ -113,10 +113,6 @@ Subgroup analysis for calibration metrics
 
 \item {} 
 \sphinxAtStartPar
-Provides graphical user interface for easy calculation
-
-\item {} 
-\sphinxAtStartPar
 Provides command line interface scripts for batch processing
 
 \end{itemize}
@@ -125,7 +121,7 @@ Provides command line interface scripts for batch processing
 To accurately assess the calibration of machine learning models, it is essential to have a comprehensive and reprensative dataset with sufficient coverage of the prediction space. The calibration metrics is not meaningful if the dataset is not representative of true intended population.
 
 \sphinxAtStartPar
-We hope you find calzone useful in your machine learning and data science projects!
+We hope you find calzone useful in your machine learning projects!
 
 \sphinxstepscope
 
@@ -230,33 +226,14 @@ The program also works if your csv file has no header.It will assume the first {
 \begin{sphinxuseclass}{nblast}
 {
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
-\llap{\color{nbsphinxin}[2]:\,\hspace{\fboxrule}\hspace{\fboxsep}}\PYG{c+c1}{\PYGZsh{}\PYGZsh{}\PYGZsh{} For illuration purpose , I will use build\PYGZhy{}in class to generate fake data. Do not run this cell in real case.}
-\PYG{c+c1}{\PYGZsh{}\PYGZsh{}\PYGZsh{} A well\PYGZhy{}calibrated dataset and miscalibrated dataset are provided in the example folder}
-\PYG{k+kn}{from} \PYG{n+nn}{calzone}\PYG{n+nn}{.}\PYG{n+nn}{utils} \PYG{k+kn}{import} \PYG{n}{fake\PYGZus{}binary\PYGZus{}data\PYGZus{}generator}
-\PYG{k+kn}{import} \PYG{n+nn}{numpy} \PYG{k}{as} \PYG{n+nn}{np}
-\PYG{n}{np}\PYG{o}{.}\PYG{n}{random}\PYG{o}{.}\PYG{n}{seed}\PYG{p}{(}\PYG{l+m+mi}{123}\PYG{p}{)}
-\PYG{n}{fakedata\PYGZus{}generator} \PYG{o}{=} \PYG{n}{fake\PYGZus{}binary\PYGZus{}data\PYGZus{}generator}\PYG{p}{(}\PYG{n}{alpha\PYGZus{}val}\PYG{o}{=}\PYG{l+m+mf}{0.5}\PYG{p}{,} \PYG{n}{beta\PYGZus{}val}\PYG{o}{=}\PYG{l+m+mf}{0.5}\PYG{p}{)}
-\PYG{n}{X}\PYG{p}{,} \PYG{n}{y\PYGZus{}true} \PYG{o}{=} \PYG{n}{fakedata\PYGZus{}generator}\PYG{o}{.}\PYG{n}{generate\PYGZus{}data}\PYG{p}{(}\PYG{l+m+mi}{5000}\PYG{p}{)}
-\PYG{n}{X2}\PYG{p}{,} \PYG{n}{y\PYGZus{}true2} \PYG{o}{=} \PYG{n}{fakedata\PYGZus{}generator}\PYG{o}{.}\PYG{n}{generate\PYGZus{}data}\PYG{p}{(}\PYG{l+m+mi}{5000}\PYG{p}{)}
-\PYG{n}{X2} \PYG{o}{=} \PYG{n}{fakedata\PYGZus{}generator}\PYG{o}{.}\PYG{n}{linear\PYGZus{}miscal}\PYG{p}{(}\PYG{n}{X2}\PYG{p}{,} \PYG{n}{miscal\PYGZus{}scale}\PYG{o}{=}\PYG{l+m+mi}{2}\PYG{p}{)}
-\PYG{n}{df} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{column\PYGZus{}stack}\PYG{p}{(}\PYG{p}{(}\PYG{n}{np}\PYG{o}{.}\PYG{n}{array}\PYG{p}{(}\PYG{n}{X}\PYG{p}{)}\PYG{o}{.}\PYG{n}{tolist}\PYG{p}{(}\PYG{p}{)}\PYG{p}{,} \PYG{n}{np}\PYG{o}{.}\PYG{n}{array}\PYG{p}{(}\PYG{n}{y\PYGZus{}true}\PYG{p}{)}\PYG{o}{.}\PYG{n}{tolist}\PYG{p}{(}\PYG{p}{)}\PYG{p}{)}\PYG{p}{)}
-\PYG{n}{df\PYGZus{}miscal} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{column\PYGZus{}stack}\PYG{p}{(}\PYG{p}{(}\PYG{n}{np}\PYG{o}{.}\PYG{n}{array}\PYG{p}{(}\PYG{n}{X2}\PYG{p}{)}\PYG{o}{.}\PYG{n}{tolist}\PYG{p}{(}\PYG{p}{)}\PYG{p}{,} \PYG{n}{np}\PYG{o}{.}\PYG{n}{array}\PYG{p}{(}\PYG{n}{y\PYGZus{}true2}\PYG{p}{)}\PYG{o}{.}\PYG{n}{tolist}\PYG{p}{(}\PYG{p}{)}\PYG{p}{)}\PYG{p}{)}
-\PYG{n}{np}\PYG{o}{.}\PYG{n}{savetxt}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{../../../example\PYGZus{}data/simulated\PYGZus{}welldata.csv}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,} \PYG{n}{df}\PYG{p}{,} \PYG{n}{delimiter}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{,}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,}\PYG{n}{header}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{proba\PYGZus{}0,proba\PYGZus{}1,label}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,} \PYG{n}{comments}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
-\PYG{n}{np}\PYG{o}{.}\PYG{n}{savetxt}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{../../../example\PYGZus{}data/simulated\PYGZus{}misdata.csv}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,} \PYG{n}{df\PYGZus{}miscal}\PYG{p}{,} \PYG{n}{delimiter}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{,}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,}\PYG{n}{header}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{proba\PYGZus{}0,proba\PYGZus{}1,label}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,} \PYG{n}{comments}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
+\llap{\color{nbsphinxin}[6]:\,\hspace{\fboxrule}\hspace{\fboxsep}}\PYG{c+c1}{\PYGZsh{}\PYGZsh{}\PYGZsh{} For illuration purpose , I will the functions in the helper.py in the local directory}
 
 
-\PYG{c+c1}{\PYGZsh{}\PYGZsh{}\PYGZsh{} Create data for subgroup analysis}
-\PYG{k+kn}{import} \PYG{n+nn}{pandas} \PYG{k}{as} \PYG{n+nn}{pd}
-\PYG{c+c1}{\PYGZsh{} Create dataframes for each subgroup}
-\PYG{n}{df\PYGZus{}A} \PYG{o}{=} \PYG{n}{pd}\PYG{o}{.}\PYG{n}{DataFrame}\PYG{p}{(}\PYG{p}{\PYGZob{}}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{proba\PYGZus{}0}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{:} \PYG{n}{X}\PYG{p}{[}\PYG{p}{:}\PYG{p}{,} \PYG{l+m+mi}{0}\PYG{p}{]}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{proba\PYGZus{}1}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{:} \PYG{n}{X}\PYG{p}{[}\PYG{p}{:}\PYG{p}{,} \PYG{l+m+mi}{1}\PYG{p}{]}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{subgroup}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{:} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{A}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{label}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{:} \PYG{n}{y\PYGZus{}true}\PYG{p}{\PYGZcb{}}\PYG{p}{)}
-\PYG{n}{df\PYGZus{}B} \PYG{o}{=} \PYG{n}{pd}\PYG{o}{.}\PYG{n}{DataFrame}\PYG{p}{(}\PYG{p}{\PYGZob{}}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{proba\PYGZus{}0}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{:} \PYG{n}{X2}\PYG{p}{[}\PYG{p}{:}\PYG{p}{,} \PYG{l+m+mi}{0}\PYG{p}{]}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{proba\PYGZus{}1}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{:} \PYG{n}{X2}\PYG{p}{[}\PYG{p}{:}\PYG{p}{,} \PYG{l+m+mi}{1}\PYG{p}{]}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{subgroup}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{:} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{B}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{label}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{:} \PYG{n}{y\PYGZus{}true2}\PYG{p}{\PYGZcb{}}\PYG{p}{)}
+\PYG{k+kn}{from} \PYG{n+nn}{helper} \PYG{k+kn}{import} \PYG{o}{*} \PYG{c+c1}{\PYGZsh{}import local helper functions for example data generation}
 
-\PYG{c+c1}{\PYGZsh{} Merge the dataframes}
-\PYG{n}{df\PYGZus{}merged} \PYG{o}{=} \PYG{n}{pd}\PYG{o}{.}\PYG{n}{concat}\PYG{p}{(}\PYG{p}{[}\PYG{n}{df\PYGZus{}A}\PYG{p}{,} \PYG{n}{df\PYGZus{}B}\PYG{p}{]}\PYG{p}{,} \PYG{n}{ignore\PYGZus{}index}\PYG{o}{=}\PYG{k+kc}{True}\PYG{p}{)}
-
-\PYG{c+c1}{\PYGZsh{} Rename the \PYGZsq{}subgroup\PYGZsq{} column to \PYGZsq{}subgroup\PYGZus{}1\PYGZsq{}}
-\PYG{n}{df\PYGZus{}merged} \PYG{o}{=} \PYG{n}{df\PYGZus{}merged}\PYG{o}{.}\PYG{n}{rename}\PYG{p}{(}\PYG{n}{columns}\PYG{o}{=}\PYG{p}{\PYGZob{}}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{subgroup}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{:} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{subgroup\PYGZus{}1}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{\PYGZcb{}}\PYG{p}{)}
-\PYG{n}{df\PYGZus{}merged}\PYG{o}{.}\PYG{n}{to\PYGZus{}csv}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{../../../example\PYGZus{}data/simulated\PYGZus{}data\PYGZus{}subgroup.csv}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{,} \PYG{n}{index}\PYG{o}{=}\PYG{k+kc}{False}\PYG{p}{)}
+\PYG{n}{generate\PYGZus{}wellcal\PYGZus{}data}\PYG{p}{(}\PYG{l+m+mi}{5000}\PYG{p}{,}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{../../../example\PYGZus{}data/simulated\PYGZus{}welldata.csv}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,}\PYG{n}{alpha\PYGZus{}val}\PYG{o}{=}\PYG{l+m+mf}{0.5}\PYG{p}{,} \PYG{n}{beta\PYGZus{}val}\PYG{o}{=}\PYG{l+m+mf}{0.5}\PYG{p}{,}\PYG{n}{random\PYGZus{}seed}\PYG{o}{=}\PYG{l+m+mi}{123}\PYG{p}{)}
+\PYG{n}{generate\PYGZus{}miscal\PYGZus{}data}\PYG{p}{(}\PYG{l+m+mi}{5000}\PYG{p}{,}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{../../../example\PYGZus{}data/simulated\PYGZus{}misdata.csv}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,} \PYG{n}{miscal\PYGZus{}scale}\PYG{o}{=}\PYG{l+m+mi}{2}\PYG{p}{,}\PYG{n}{alpha\PYGZus{}val}\PYG{o}{=}\PYG{l+m+mf}{0.5}\PYG{p}{,} \PYG{n}{beta\PYGZus{}val}\PYG{o}{=}\PYG{l+m+mf}{0.5}\PYG{p}{,}\PYG{n}{random\PYGZus{}seed}\PYG{o}{=}\PYG{l+m+mi}{123}\PYG{p}{)}
+\PYG{n}{generate\PYGZus{}subgroup\PYGZus{}data}\PYG{p}{(}\PYG{l+m+mi}{5000}\PYG{p}{,}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{../../../example\PYGZus{}data/simulated\PYGZus{}data\PYGZus{}subgroup.csv}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,}\PYG{n}{miscal\PYGZus{}scale}\PYG{o}{=}\PYG{l+m+mi}{2}\PYG{p}{,}\PYG{n}{alpha\PYGZus{}val}\PYG{o}{=}\PYG{l+m+mf}{0.5}\PYG{p}{,} \PYG{n}{beta\PYGZus{}val}\PYG{o}{=}\PYG{l+m+mf}{0.5}\PYG{p}{,}\PYG{n}{random\PYGZus{}seed}\PYG{o}{=}\PYG{l+m+mi}{123}\PYG{p}{)}
 \end{sphinxVerbatim}
 }
 
@@ -268,7 +245,80 @@ To use CLI, you can use the script in the calzone directory. The program will sa
 \begin{sphinxuseclass}{nbinput}
 {
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
-\llap{\color{nbsphinxin}[4]:\,\hspace{\fboxrule}\hspace{\fboxsep}}\PYG{o}{\PYGZpc{}}\PYG{k}{run} ../../../cal\PYGZus{}metrics.py \PYGZbs{}
+\llap{\color{nbsphinxin}[7]:\,\hspace{\fboxrule}\hspace{\fboxsep}}\PYG{c+c1}{\PYGZsh{} Use \PYGZhy{}h to see the help message and options}
+\PYG{o}{\PYGZpc{}}\PYG{k}{run} ../../../cal\PYGZus{}metrics.py \PYGZhy{}h
+\end{sphinxVerbatim}
+}
+
+\end{sphinxuseclass}
+\begin{sphinxuseclass}{nboutput}
+\begin{sphinxuseclass}{nblast}
+{
+
+\kern-\sphinxverbatimsmallskipamount\kern-\baselineskip
+\kern+\FrameHeightAdjust\kern-\fboxrule
+\vspace{\nbsphinxcodecellspacing}
+
+\sphinxsetup{VerbatimColor={named}{white}}
+\begin{sphinxuseclass}{output_area}
+\begin{sphinxuseclass}{}
+
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+usage: cal\_metrics.py [-h] [--csv\_file CSV\_FILE] [--metrics METRICS]
+                      [--prevalence\_adjustment] [--n\_bootstrap N\_BOOTSTRAP]
+                      [--bootstrap\_ci BOOTSTRAP\_CI]
+                      [--class\_to\_calculate CLASS\_TO\_CALCULATE]
+                      [--num\_bins NUM\_BINS] [--save\_metrics SAVE\_METRICS]
+                      [--plot] [--plot\_bins PLOT\_BINS] [--save\_plot SAVE\_PLOT]
+                      [--save\_diagram\_output SAVE\_DIAGRAM\_OUTPUT] [--verbose]
+
+Calculate calibration metrics and visualize reliability diagram.
+
+options:
+  -h, --help            show this help message and exit
+  --csv\_file CSV\_FILE   Path to the input CSV file. (If there is header,it
+                        must be in: proba\_0,proba\_1,{\ldots},subgroup\_1(optional),s
+                        ubgroup\_2(optional),{\ldots}label. If no header, then the
+                        columns must be in the order of
+                        proba\_0,proba\_1,{\ldots},label)
+  --metrics METRICS     Comma-separated list of specific metrics to calculate
+                        (SpiegelhalterZ,ECE-H,MCE-H,HL-H,ECE-C,MCE-C,HL-
+                        C,COX,Loess,all). Default: all
+  --prevalence\_adjustment
+                        Perform prevalence adjustment (default: False)
+  --n\_bootstrap N\_BOOTSTRAP
+                        Number of bootstrap samples (default: 0)
+  --bootstrap\_ci BOOTSTRAP\_CI
+                        Bootstrap confidence interval (default: 0.95)
+  --class\_to\_calculate CLASS\_TO\_CALCULATE
+                        Class to calculate metrics for (default: 1)
+  --num\_bins NUM\_BINS   Number of bins for ECE/MCE/HL calculations (default:
+                        10)
+  --save\_metrics SAVE\_METRICS
+                        Save the metrics to a csv file
+  --plot                Plot reliability diagram (default: False)
+  --plot\_bins PLOT\_BINS
+                        Number of bins for reliability diagram
+  --save\_plot SAVE\_PLOT
+                        Save the plot to a file
+  --save\_diagram\_output SAVE\_DIAGRAM\_OUTPUT
+                        Save the reliability diagram output to a file
+  --verbose             Print verbose output
+\end{sphinxVerbatim}
+
+
+
+\end{sphinxuseclass}
+\end{sphinxuseclass}
+}
+
+\end{sphinxuseclass}
+\end{sphinxuseclass}
+\begin{sphinxuseclass}{nbinput}
+{
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+\llap{\color{nbsphinxin}[8]:\,\hspace{\fboxrule}\hspace{\fboxsep}}\PYG{o}{\PYGZpc{}}\PYG{k}{run} ../../../cal\PYGZus{}metrics.py \PYGZbs{}
 \PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZhy{}}\PYG{n}{csv\PYGZus{}file} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{../../../example\PYGZus{}data/simulated\PYGZus{}welldata.csv}\PYG{l+s+s1}{\PYGZsq{}} \PYGZbs{}
 \PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZhy{}}\PYG{n}{metrics} \PYG{n+nb}{all} \PYGZbs{}
 \PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZhy{}}\PYG{n}{n\PYGZus{}bootstrap} \PYG{l+m+mi}{1000} \PYGZbs{}
@@ -301,28 +351,28 @@ To use CLI, you can use the script in the calzone directory. The program will sa
 
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 Metrics with bootstrap confidence intervals:
-SpiegelhalterZ score: 0.376 (-1.615, 2.515)
-SpiegelhalterZ p-value: 0.707 (0.010, 0.973)
-ECE-H topclass: 0.01 (0.006, 0.022)
+SpiegelhalterZ score: 0.376 (-1.581, 2.396)
+SpiegelhalterZ p-value: 0.707 (0.017, 0.971)
+ECE-H topclass: 0.01 (0.006, 0.021)
 ECE-H: 0.012 (0.011, 0.025)
 MCE-H topclass: 0.039 (0.016, 0.076)
-MCE-H: 0.048 (0.033, 0.105)
-HL-H score: 8.885 (6.789, 34.674)
-HL-H p-value: 0.352 (0.000, 0.56)
-ECE-C topclass: 0.009 (0.008, 0.021)
+MCE-H: 0.048 (0.034, 0.107)
+HL-H score: 8.885 (7.392, 34.058)
+HL-H p-value: 0.352 (0.000, 0.495)
+ECE-C topclass: 0.009 (0.007, 0.021)
 ECE-C: 0.009 (0.008, 0.022)
-MCE-C topclass: 0.021 (0.019, 0.068)
-MCE-C: 0.023 (0.02, 0.071)
-HL-C score: 3.695 (4.484, 30.483)
-HL-C p-value: 0.884 (0.000, 0.811)
-COX coef: 0.994 (0.938, 1.053)
-COX intercept: -0.045 (-0.125, 0.028)
-COX coef lowerci: 0.937 (0.884, 0.993)
-COX coef upperci: 1.051 (0.992, 1.113)
-COX intercept lowerci: -0.123 (-0.204, -0.051)
-COX intercept upperci: 0.034 (-0.047, 0.106)
+MCE-C topclass: 0.021 (0.018, 0.072)
+MCE-C: 0.023 (0.020, 0.071)
+HL-C score: 3.695 (4.778, 28.666)
+HL-C p-value: 0.884 (0.000, 0.781)
+COX coef: 0.994 (0.940, 1.054)
+COX intercept: -0.045 (-0.126, 0.031)
+COX coef lowerci: 0.937 (0.886, 0.994)
+COX coef upperci: 1.051 (0.994, 1.114)
+COX intercept lowerci: -0.123 (-0.205, -0.049)
+COX intercept upperci: 0.034 (-0.048, 0.109)
 COX ICI: 0.006 (0.001, 0.016)
-Loess ICI: 0.006 (0.003, 0.016)
+Loess ICI: 0.006 (0.004, 0.016)
 \end{sphinxVerbatim}
 
 
@@ -343,7 +393,7 @@ Loess ICI: 0.006 (0.003, 0.016)
 
 \begin{sphinxuseclass}{output_area}
 \begin{sphinxuseclass}{}
-\noindent\sphinxincludegraphics[width=702\sphinxpxdimen,height=530\sphinxpxdimen]{{notebooks_quickstart_15_1}.png}
+\noindent\sphinxincludegraphics[width=702\sphinxpxdimen,height=530\sphinxpxdimen]{{notebooks_quickstart_16_1}.png}
 
 \end{sphinxuseclass}
 \end{sphinxuseclass}
@@ -357,7 +407,7 @@ We can also test it on a miscalibrated dataset
 \begin{sphinxuseclass}{nbinput}
 {
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
-\llap{\color{nbsphinxin}[5]:\,\hspace{\fboxrule}\hspace{\fboxsep}}\PYG{o}{\PYGZpc{}}\PYG{k}{run} ../../../cal\PYGZus{}metrics.py \PYGZbs{}
+\llap{\color{nbsphinxin}[9]:\,\hspace{\fboxrule}\hspace{\fboxsep}}\PYG{o}{\PYGZpc{}}\PYG{k}{run} ../../../cal\PYGZus{}metrics.py \PYGZbs{}
 \PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZhy{}}\PYG{n}{csv\PYGZus{}file} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{../../../example\PYGZus{}data/simulated\PYGZus{}misdata.csv}\PYG{l+s+s1}{\PYGZsq{}} \PYGZbs{}
 \PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZhy{}}\PYG{n}{metrics} \PYG{n+nb}{all} \PYGZbs{}
 \PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZhy{}}\PYG{n}{n\PYGZus{}bootstrap} \PYG{l+m+mi}{1000} \PYGZbs{}
@@ -387,28 +437,28 @@ We can also test it on a miscalibrated dataset
 
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 Metrics with bootstrap confidence intervals:
-SpiegelhalterZ score: 27.936 (24.343, 31.373)
+SpiegelhalterZ score: 29.626 (26.37, 33.185)
 SpiegelhalterZ p-value: 0. (0., 0.)
-ECE-H topclass: 0.077 (0.067, 0.087)
-ECE-H: 0.077 (0.068, 0.088)
-MCE-H topclass: 0.133 (0.107, 0.176)
-MCE-H: 0.163 (0.13, 0.235)
-HL-H score: 910.439 (711.575, 1170.693)
+ECE-H topclass: 0.081 (0.073, 0.091)
+ECE-H: 0.081 (0.073, 0.092)
+MCE-H topclass: 0.151 (0.127, 0.202)
+MCE-H: 0.168 (0.145, 0.244)
+HL-H score: 1027.940 (818.524, 1292.977)
 HL-H p-value: 0. (0., 0.)
-ECE-C topclass: 0.074 (0.066, 0.085)
-ECE-C: 0.075 (0.064, 0.086)
-MCE-C topclass: 0.141 (0.126, 0.183)
-MCE-C: 0.140 (0.114, 0.180)
-HL-C score: 2246.171 (1415.309, 3702.911)
+ECE-C topclass: 0.079 (0.069, 0.09)
+ECE-C: 0.08 (0.07, 0.091)
+MCE-C topclass: 0.168 (0.141, 0.204)
+MCE-C: 0.158 (0.139, 0.203)
+HL-C score: 1857.584 (1355.637, 3341.319)
 HL-C p-value: 0. (0., 0.)
-COX coef: 0.507 (0.478, 0.540)
-COX intercept: 0.000 (-0.073, 0.079)
-COX coef lowerci: 0.478 (0.451, 0.509)
-COX coef upperci: 0.536 (0.506, 0.571)
-COX intercept lowerci: -0.078 (-0.153, 0.001)
-COX intercept upperci: 0.079 (0.006, 0.157)
-COX ICI: 0.077 (0.069, 0.086)
-Loess ICI: 0.07 (0.061, 0.079)
+COX coef: 0.497 (0.470, 0.524)
+COX intercept: -0.045 (-0.125, 0.038)
+COX coef lowerci: 0.469 (0.443, 0.494)
+COX coef upperci: 0.526 (0.497, 0.554)
+COX intercept lowerci: -0.123 (-0.203, -0.041)
+COX intercept upperci: 0.034 (-0.046, 0.116)
+COX ICI: 0.078 (0.071, 0.085)
+Loess ICI: 0.074 (0.065, 0.083)
 \end{sphinxVerbatim}
 
 
@@ -429,7 +479,7 @@ Loess ICI: 0.07 (0.061, 0.079)
 
 \begin{sphinxuseclass}{output_area}
 \begin{sphinxuseclass}{}
-\noindent\sphinxincludegraphics[width=702\sphinxpxdimen,height=530\sphinxpxdimen]{{notebooks_quickstart_17_1}.png}
+\noindent\sphinxincludegraphics[width=702\sphinxpxdimen,height=530\sphinxpxdimen]{{notebooks_quickstart_18_1}.png}
 
 \end{sphinxuseclass}
 \end{sphinxuseclass}
@@ -443,7 +493,7 @@ If your data has subgroup in it, simply run the script with the same argument as
 \begin{sphinxuseclass}{nbinput}
 {
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
-\llap{\color{nbsphinxin}[6]:\,\hspace{\fboxrule}\hspace{\fboxsep}}\PYG{o}{\PYGZpc{}}\PYG{k}{run} ../../../cal\PYGZus{}metrics.py \PYGZbs{}
+\llap{\color{nbsphinxin}[10]:\,\hspace{\fboxrule}\hspace{\fboxsep}}\PYG{o}{\PYGZpc{}}\PYG{k}{run} ../../../cal\PYGZus{}metrics.py \PYGZbs{}
 \PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZhy{}}\PYG{n}{csv\PYGZus{}file} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{../../../example\PYGZus{}data/simulated\PYGZus{}data\PYGZus{}subgroup.csv}\PYG{l+s+s1}{\PYGZsq{}} \PYGZbs{}
 \PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZhy{}}\PYG{n}{metrics} \PYG{n+nb}{all} \PYGZbs{}
 \PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZhy{}}\PYG{n}{n\PYGZus{}bootstrap} \PYG{l+m+mi}{1000} \PYGZbs{}
@@ -473,27 +523,27 @@ If your data has subgroup in it, simply run the script with the same argument as
 
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 Metrics with bootstrap confidence intervals:
-SpiegelhalterZ score: 18.327 (15.680, 20.858)
+SpiegelhalterZ score: 18.327 (15.794, 21.009)
 SpiegelhalterZ p-value: 0. (0., 0.)
-ECE-H topclass: 0.042 (0.035, 0.048)
+ECE-H topclass: 0.042 (0.035, 0.049)
 ECE-H: 0.042 (0.036, 0.049)
-MCE-H topclass: 0.055 (0.043, 0.085)
-MCE-H: 0.063 (0.054, 0.109)
-HL-H score: 429.732 (332.85, 565.169)
+MCE-H topclass: 0.055 (0.043, 0.087)
+MCE-H: 0.063 (0.055, 0.109)
+HL-H score: 429.732 (335.116, 584.729)
 HL-H p-value: 0. (0., 0.)
-ECE-C topclass: 0.042 (0.034, 0.048)
+ECE-C topclass: 0.042 (0.035, 0.049)
 ECE-C: 0.038 (0.032, 0.046)
-MCE-C topclass: 0.065 (0.055, 0.092)
-MCE-C: 0.064 (0.054, 0.087)
-HL-C score: 1138.842 (748.777, 1819.374)
+MCE-C topclass: 0.065 (0.055, 0.091)
+MCE-C: 0.064 (0.052, 0.086)
+HL-C score: 1138.842 (779.577, 1844.15)
 HL-C p-value: 0. (0., 0.)
-COX coef: 0.668 (0.641, 0.699)
-COX intercept: -0.02 (-0.072, 0.033)
-COX coef lowerci: 0.641 (0.614, 0.670)
-COX coef upperci: 0.696 (0.667, 0.728)
-COX intercept lowerci: -0.074 (-0.127, -0.021)
-COX intercept upperci: 0.034 (-0.017, 0.088)
-COX ICI: 0.049 (0.043, 0.055)
+COX coef: 0.668 (0.638, 0.698)
+COX intercept: -0.02 (-0.073, 0.03)
+COX coef lowerci: 0.641 (0.611, 0.67)
+COX coef upperci: 0.696 (0.664, 0.727)
+COX intercept lowerci: -0.074 (-0.127, -0.025)
+COX intercept upperci: 0.034 (-0.019, 0.084)
+COX ICI: 0.049 (0.044, 0.055)
 Loess ICI: 0.037 (0.032, 0.043)
 \end{sphinxVerbatim}
 
@@ -514,7 +564,7 @@ Loess ICI: 0.037 (0.032, 0.043)
 
 \begin{sphinxuseclass}{output_area}
 \begin{sphinxuseclass}{}
-\noindent\sphinxincludegraphics[width=702\sphinxpxdimen,height=530\sphinxpxdimen]{{notebooks_quickstart_19_1}.png}
+\noindent\sphinxincludegraphics[width=702\sphinxpxdimen,height=530\sphinxpxdimen]{{notebooks_quickstart_20_1}.png}
 
 \end{sphinxuseclass}
 \end{sphinxuseclass}
@@ -535,27 +585,27 @@ Loess ICI: 0.037 (0.032, 0.043)
 
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 Metrics for subgroup\_1\_group\_A with bootstrap confidence intervals:
-SpiegelhalterZ score: 0.376 (-1.654, 2.308)
-SpiegelhalterZ p-value: 0.707 (0.017, 0.978)
-ECE-H topclass: 0.01 (0.006, 0.022)
-ECE-H: 0.012 (0.010, 0.026)
-MCE-H topclass: 0.039 (0.017, 0.076)
-MCE-H: 0.048 (0.034, 0.103)
-HL-H score: 8.885 (6.74, 36.214)
-HL-H p-value: 0.352 (0.000, 0.565)
-ECE-C topclass: 0.009 (0.007, 0.021)
-ECE-C: 0.009 (0.008, 0.022)
-MCE-C topclass: 0.021 (0.017, 0.070)
-MCE-C: 0.023 (0.019, 0.072)
-HL-C score: 3.695 (4.792, 30.155)
-HL-C p-value: 0.884 (0.000, 0.78)
-COX coef: 0.994 (0.942, 1.056)
-COX intercept: -0.045 (-0.130, 0.031)
-COX coef lowerci: 0.937 (0.888, 0.996)
-COX coef upperci: 1.051 (0.996, 1.117)
-COX intercept lowerci: -0.123 (-0.21, -0.048)
-COX intercept upperci: 0.034 (-0.051, 0.109)
-COX ICI: 0.006 (0.001, 0.016)
+SpiegelhalterZ score: 0.376 (-1.536, 2.249)
+SpiegelhalterZ p-value: 0.707 (0.018, 0.981)
+ECE-H topclass: 0.01 (0.006, 0.021)
+ECE-H: 0.012 (0.011, 0.025)
+MCE-H topclass: 0.039 (0.017, 0.077)
+MCE-H: 0.048 (0.034, 0.107)
+HL-H score: 8.885 (7.273, 34.6)
+HL-H p-value: 0.352 (0.000, 0.507)
+ECE-C topclass: 0.009 (0.007, 0.022)
+ECE-C: 0.009 (0.007, 0.023)
+MCE-C topclass: 0.021 (0.018, 0.072)
+MCE-C: 0.023 (0.018, 0.075)
+HL-C score: 3.695 (4.463, 29.686)
+HL-C p-value: 0.884 (0.000, 0.813)
+COX coef: 0.994 (0.942, 1.050)
+COX intercept: -0.045 (-0.135, 0.028)
+COX coef lowerci: 0.937 (0.888, 0.990)
+COX coef upperci: 1.051 (0.996, 1.111)
+COX intercept lowerci: -0.123 (-0.214, -0.051)
+COX intercept upperci: 0.034 (-0.056, 0.107)
+COX ICI: 0.006 (0.001, 0.017)
 Loess ICI: 0.006 (0.003, 0.016)
 \end{sphinxVerbatim}
 
@@ -576,7 +626,7 @@ Loess ICI: 0.006 (0.003, 0.016)
 
 \begin{sphinxuseclass}{output_area}
 \begin{sphinxuseclass}{}
-\noindent\sphinxincludegraphics[width=702\sphinxpxdimen,height=545\sphinxpxdimen]{{notebooks_quickstart_19_3}.png}
+\noindent\sphinxincludegraphics[width=702\sphinxpxdimen,height=545\sphinxpxdimen]{{notebooks_quickstart_20_3}.png}
 
 \end{sphinxuseclass}
 \end{sphinxuseclass}
@@ -597,28 +647,28 @@ Loess ICI: 0.006 (0.003, 0.016)
 
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 Metrics for subgroup\_1\_group\_B with bootstrap confidence intervals:
-SpiegelhalterZ score: 27.936 (25.005, 31.623)
+SpiegelhalterZ score: 27.936 (24.631, 31.175)
 SpiegelhalterZ p-value: 0. (0., 0.)
-ECE-H topclass: 0.077 (0.068, 0.087)
-ECE-H: 0.077 (0.069, 0.088)
-MCE-H topclass: 0.133 (0.110, 0.177)
-MCE-H: 0.163 (0.128, 0.233)
-HL-H score: 910.439 (725.654, 1174.481)
+ECE-H topclass: 0.077 (0.068, 0.086)
+ECE-H: 0.077 (0.069, 0.087)
+MCE-H topclass: 0.133 (0.108, 0.175)
+MCE-H: 0.163 (0.13, 0.232)
+HL-H score: 910.439 (716.681, 1156.971)
 HL-H p-value: 0. (0., 0.)
-ECE-C topclass: 0.074 (0.066, 0.085)
-ECE-C: 0.075 (0.066, 0.086)
-MCE-C topclass: 0.141 (0.128, 0.182)
-MCE-C: 0.140 (0.117, 0.182)
-HL-C score: 2246.171 (1484.448, 3735.649)
+ECE-C topclass: 0.074 (0.066, 0.084)
+ECE-C: 0.075 (0.065, 0.085)
+MCE-C topclass: 0.141 (0.124, 0.182)
+MCE-C: 0.140 (0.115, 0.182)
+HL-C score: 2246.171 (1393.175, 3900.391)
 HL-C p-value: 0. (0., 0.)
-COX coef: 0.507 (0.479, 0.536)
-COX intercept: 0.000 (-0.076, 0.083)
-COX coef lowerci: 0.478 (0.451, 0.506)
-COX coef upperci: 0.536 (0.506, 0.566)
-COX intercept lowerci: -0.078 (-0.155, 0.005)
-COX intercept upperci: 0.079 (0.003, 0.161)
-COX ICI: 0.077 (0.070, 0.085)
-Loess ICI: 0.07 (0.063, 0.079)
+COX coef: 0.507 (0.481, 0.539)
+COX intercept: 0.000 (-0.073, 0.077)
+COX coef lowerci: 0.478 (0.454, 0.508)
+COX coef upperci: 0.536 (0.508, 0.569)
+COX intercept lowerci: -0.078 (-0.152, -0.002)
+COX intercept upperci: 0.079 (0.005, 0.155)
+COX ICI: 0.077 (0.07, 0.085)
+Loess ICI: 0.07 (0.062, 0.078)
 \end{sphinxVerbatim}
 
 
@@ -639,7 +689,7 @@ Loess ICI: 0.07 (0.063, 0.079)
 
 \begin{sphinxuseclass}{output_area}
 \begin{sphinxuseclass}{}
-\noindent\sphinxincludegraphics[width=702\sphinxpxdimen,height=545\sphinxpxdimen]{{notebooks_quickstart_19_5}.png}
+\noindent\sphinxincludegraphics[width=702\sphinxpxdimen,height=545\sphinxpxdimen]{{notebooks_quickstart_20_5}.png}
 
 \end{sphinxuseclass}
 \end{sphinxuseclass}
@@ -650,47 +700,26 @@ Loess ICI: 0.07 (0.063, 0.079)
 \sphinxstepscope
 
 
-\chapter{Summary and guide for calibration metrics}
-\label{\detokenize{notebooks/metrics_summary:Summary-and-guide-for-calibration-metrics}}\label{\detokenize{notebooks/metrics_summary::doc}}
+\chapter{Summary and guide for calzone}
+\label{\detokenize{notebooks/metrics_summary:Summary-and-guide-for-calzone}}\label{\detokenize{notebooks/metrics_summary::doc}}
 \sphinxAtStartPar
 We provide a summary of the calibration metrics provides by calzone, including the pros and cons of each metrics. For a more detailed explanation of each metrics and how to calculate them using calzone, please refer to the specific notebook.
 
-\begin{sphinxuseclass}{nbinput}
-{
-\begin{sphinxVerbatim}[commandchars=\\\{\}]
-\llap{\color{nbsphinxin}[4]:\,\hspace{\fboxrule}\hspace{\fboxsep}}\PYG{n}{display}\PYG{p}{(}\PYG{n}{HTML}\PYG{p}{(}\PYG{n}{styled\PYGZus{}df}\PYG{o}{.}\PYG{n}{to\PYGZus{}html}\PYG{p}{(}\PYG{n}{escape}\PYG{o}{=}\PYG{k+kc}{False}\PYG{p}{)}\PYG{p}{)}\PYG{p}{)}
-\end{sphinxVerbatim}
-}
-
-\end{sphinxuseclass}
-\begin{sphinxuseclass}{nboutput}
-\begin{sphinxuseclass}{nblast}
-{
-
-\kern-\sphinxverbatimsmallskipamount\kern-\baselineskip
-\kern+\FrameHeightAdjust\kern-\fboxrule
-\vspace{\nbsphinxcodecellspacing}
-
-\sphinxsetup{VerbatimColor={named}{white}}
-\begin{sphinxuseclass}{output_area}
-\begin{sphinxuseclass}{}
+\sphinxAtStartPar
+\sphinxincludegraphics[width=5580\sphinxpxdimen,height=1400\sphinxpxdimen]{{mytable}.png}
 
 
-\begin{sphinxVerbatim}[commandchars=\\\{\}]
-<IPython.core.display.HTML object>
-\end{sphinxVerbatim}
+\section{Guide to calzone and calibration metrics}
+\label{\detokenize{notebooks/metrics_summary:Guide-to-calzone-and-calibration-metrics}}
+\sphinxAtStartPar
+calzone aims to access whether a model achieves moderate calibration, meaning whether \(\mathbb{P}(\hat{Y}=Y|\hat{P}=p)=p\) for all \(p\in[0,1]\).
 
+\sphinxAtStartPar
+To accurately assess the calibration of machine learning models, it is essential to have a comprehensive and reprensative dataset with sufficient coverage of the prediction space. The calibration metrics is not meaningful if the dataset is not representative of true intended population.
 
+\sphinxAtStartPar
+calzone takes in a csv dataset which contains the probability of each class and the true label. Most metrics in calzone only work with binary classification and which transforms the problem into 1\sphinxhyphen{}vs\sphinxhyphen{}rest when calcualte the metrics. Therefore, you need to specify the class\sphinxhyphen{}of\sphinxhyphen{}interest when using the metrics. The only exception is the \(ECE_{top}\) and \(MCE_{top}\) metrics which works for multi\sphinxhyphen{}class problems. See the corresponding documentation for more details.
 
-\end{sphinxuseclass}
-\end{sphinxuseclass}
-}
-
-\end{sphinxuseclass}
-\end{sphinxuseclass}
-
-\section{Guide to Calibration Metrics}
-\label{\detokenize{notebooks/metrics_summary:Guide-to-Calibration-Metrics}}
 \sphinxAtStartPar
 We recommend visualizing calibration using reliability diagrams. If you observe general over\sphinxhyphen{} or under\sphinxhyphen{}estimation of probabilities for a given class, consider applying a prevalence adjustment to determine if it’s solely due to prevalence shift. After prevalence adjustment, plot the reliability diagrams again and examine the results of calibration metrics.
 
@@ -698,7 +727,7 @@ We recommend visualizing calibration using reliability diagrams. If you observe 
 For a general sense of average probability deviation, we recommend using the Cox and Loess integrated calibration index (ICI). To test for calibration, we suggest using Spiegelhalter’s z\sphinxhyphen{}test. Other metrics such as Expected Calibration Error (ECE), Cox slope/intercept, and Hosmer\sphinxhyphen{}Lemeshow (HL) test depends strongly on binning and should be used with caution.
 
 \sphinxAtStartPar
-Please refer to the following sections for detailed descriptions of each metric.
+Please refer to the notebooks for detailed descriptions of each metric.
 
 \sphinxstepscope
 
@@ -891,6 +920,12 @@ Class\sphinxhyphen{}by\sphinxhyphen{}class reliability diagram reveal more infor
 \sphinxAtStartPar
 The example shows us that the prevalence shift in the testing data could lead to mis\sphinxhyphen{}calibration in a posterior sense. The calzone provide a method to calibrate it. The prevalence is not related to the model and the model could still have the correct likelihood ratio. See more discussion in the prevalence adjustment section.
 
+
+\section{References}
+\label{\detokenize{notebooks/reliability_diagram:References}}
+\sphinxAtStartPar
+Bröcker, J., \& Smith, L. A. (2007). Increasing the Reliability of Reliability Diagrams. Weather and Forecasting, 22(3), 651\textendash{}661. \sphinxurl{https://doi.org/10.1175/WAF993.1}
+
 \sphinxstepscope
 
 
@@ -957,12 +992,12 @@ recommend using ECE and MCE with other metrics that are not dependent on the bin
 \section{Calculating ECE and MCE with calzone}
 \label{\detokenize{notebooks/ece_mce:Calculating-ECE-and-MCE-with-calzone}}
 \sphinxAtStartPar
-There is two way to calculate the ECE and MCE in calzone. The first way is by calling the function explicitly.
+There is two way to calculate the ECE and MCE in calzone. The first way is by calling the function explicitly. Notice \(ECE_H\) is the equal\sphinxhyphen{}width binning and \(ECE_C\) is the equal\sphinxhyphen{}count binning.
 
 \begin{sphinxuseclass}{nbinput}
 {
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
-\llap{\color{nbsphinxin}[2]:\,\hspace{\fboxrule}\hspace{\fboxsep}}\PYG{k+kn}{from} \PYG{n+nn}{calzone}\PYG{n+nn}{.}\PYG{n+nn}{utils} \PYG{k+kn}{import} \PYG{n}{reliability\PYGZus{}diagram}\PYG{p}{,}\PYG{n}{data\PYGZus{}loader}
+\llap{\color{nbsphinxin}[1]:\,\hspace{\fboxrule}\hspace{\fboxsep}}\PYG{k+kn}{from} \PYG{n+nn}{calzone}\PYG{n+nn}{.}\PYG{n+nn}{utils} \PYG{k+kn}{import} \PYG{n}{reliability\PYGZus{}diagram}\PYG{p}{,}\PYG{n}{data\PYGZus{}loader}
 \PYG{k+kn}{from} \PYG{n+nn}{calzone}\PYG{n+nn}{.}\PYG{n+nn}{metrics} \PYG{k+kn}{import} \PYG{n}{calculate\PYGZus{}ece\PYGZus{}mce}
 \PYG{k+kn}{import} \PYG{n+nn}{numpy} \PYG{k}{as} \PYG{n+nn}{np}
 
@@ -1007,7 +1042,7 @@ Top-class MCE-H:  0.03926468843081976
 \begin{sphinxuseclass}{nbinput}
 {
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
-\llap{\color{nbsphinxin}[3]:\,\hspace{\fboxrule}\hspace{\fboxsep}}\PYG{c+c1}{\PYGZsh{}\PYGZsh{}\PYGZsh{} We can calculate the class 1 ECE and MCE by setting class\PYGZus{}to\PYGZus{}plot=1}
+\llap{\color{nbsphinxin}[2]:\,\hspace{\fboxrule}\hspace{\fboxsep}}\PYG{c+c1}{\PYGZsh{}\PYGZsh{}\PYGZsh{} We can calculate the class 1 ECE and MCE by setting class\PYGZus{}to\PYGZus{}plot=1}
 \PYG{n}{reliability}\PYG{p}{,}\PYG{n}{confindence}\PYG{p}{,}\PYG{n}{bin\PYGZus{}edges}\PYG{p}{,}\PYG{n}{bin\PYGZus{}counts} \PYG{o}{=} \PYG{n}{reliability\PYGZus{}diagram}\PYG{p}{(}\PYG{n}{wellcal\PYGZus{}dataloader}\PYG{o}{.}\PYG{n}{labels}\PYG{p}{,}\PYG{n}{wellcal\PYGZus{}dataloader}\PYG{o}{.}\PYG{n}{probs}\PYG{p}{,}\PYG{n}{num\PYGZus{}bins}\PYG{o}{=}\PYG{l+m+mi}{10}\PYG{p}{,} \PYG{n}{class\PYGZus{}to\PYGZus{}plot}\PYG{o}{=}\PYG{l+m+mi}{1}\PYG{p}{,} \PYG{n}{is\PYGZus{}equal\PYGZus{}freq}\PYG{o}{=}\PYG{k+kc}{False}\PYG{p}{)}
 \PYG{n}{ece\PYGZus{}h\PYGZus{}classone}\PYG{p}{,}\PYG{n}{mce\PYGZus{}h\PYGZus{}classone} \PYG{o}{=} \PYG{n}{calculate\PYGZus{}ece\PYGZus{}mce}\PYG{p}{(}\PYG{n}{reliability}\PYG{p}{,}\PYG{n}{confindence}\PYG{p}{,}\PYG{n}{bin\PYGZus{}counts}\PYG{o}{=}\PYG{n}{bin\PYGZus{}counts}\PYG{p}{)}
 \PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{Class 1 ECE\PYGZhy{}H: }\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,}\PYG{n}{ece\PYGZus{}h\PYGZus{}classone}\PYG{p}{)}
@@ -1045,7 +1080,7 @@ Class 1 MCE-H:  0.04848338618970194
 \begin{sphinxuseclass}{nbinput}
 {
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
-\llap{\color{nbsphinxin}[4]:\,\hspace{\fboxrule}\hspace{\fboxsep}}\PYG{c+c1}{\PYGZsh{}\PYGZsh{}\PYGZsh{} Similarily we can calculate the class 1 ECE\PYGZhy{}C and top\PYGZhy{}class ECE\PYGZhy{}C by setting is\PYGZus{}equal\PYGZus{}freq=True}
+\llap{\color{nbsphinxin}[3]:\,\hspace{\fboxrule}\hspace{\fboxsep}}\PYG{c+c1}{\PYGZsh{}\PYGZsh{}\PYGZsh{} Similarily we can calculate the class 1 ECE\PYGZhy{}C and top\PYGZhy{}class ECE\PYGZhy{}C by setting is\PYGZus{}equal\PYGZus{}freq=True}
 \PYG{n}{reliability}\PYG{p}{,}\PYG{n}{confindence}\PYG{p}{,}\PYG{n}{bin\PYGZus{}edges}\PYG{p}{,}\PYG{n}{bin\PYGZus{}counts} \PYG{o}{=} \PYG{n}{reliability\PYGZus{}diagram}\PYG{p}{(}\PYG{n}{wellcal\PYGZus{}dataloader}\PYG{o}{.}\PYG{n}{labels}\PYG{p}{,}\PYG{n}{wellcal\PYGZus{}dataloader}\PYG{o}{.}\PYG{n}{probs}\PYG{p}{,}\PYG{n}{num\PYGZus{}bins}\PYG{o}{=}\PYG{l+m+mi}{10}\PYG{p}{,} \PYG{n}{class\PYGZus{}to\PYGZus{}plot}\PYG{o}{=}\PYG{k+kc}{None}\PYG{p}{,} \PYG{n}{is\PYGZus{}equal\PYGZus{}freq}\PYG{o}{=}\PYG{k+kc}{True}\PYG{p}{)}
 \PYG{n}{ece\PYGZus{}c\PYGZus{}top\PYGZus{}class}\PYG{p}{,}\PYG{n}{mce\PYGZus{}c\PYGZus{}top\PYGZus{}class} \PYG{o}{=} \PYG{n}{calculate\PYGZus{}ece\PYGZus{}mce}\PYG{p}{(}\PYG{n}{reliability}\PYG{p}{,}\PYG{n}{confindence}\PYG{p}{,}\PYG{n}{bin\PYGZus{}counts}\PYG{o}{=}\PYG{n}{bin\PYGZus{}counts}\PYG{p}{)}
 \PYG{n}{reliability}\PYG{p}{,}\PYG{n}{confindence}\PYG{p}{,}\PYG{n}{bin\PYGZus{}edges}\PYG{p}{,}\PYG{n}{bin\PYGZus{}counts} \PYG{o}{=} \PYG{n}{reliability\PYGZus{}diagram}\PYG{p}{(}\PYG{n}{wellcal\PYGZus{}dataloader}\PYG{o}{.}\PYG{n}{labels}\PYG{p}{,}\PYG{n}{wellcal\PYGZus{}dataloader}\PYG{o}{.}\PYG{n}{probs}\PYG{p}{,}\PYG{n}{num\PYGZus{}bins}\PYG{o}{=}\PYG{l+m+mi}{10}\PYG{p}{,} \PYG{n}{class\PYGZus{}to\PYGZus{}plot}\PYG{o}{=}\PYG{l+m+mi}{1}\PYG{p}{,} \PYG{n}{is\PYGZus{}equal\PYGZus{}freq}\PYG{o}{=}\PYG{k+kc}{True}\PYG{p}{)}
@@ -1092,7 +1127,7 @@ The second method is much simpler. We can use the calzone.metrics.CalibrationMet
 \begin{sphinxuseclass}{nbinput}
 {
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
-\llap{\color{nbsphinxin}[7]:\,\hspace{\fboxrule}\hspace{\fboxsep}}\PYG{k+kn}{from} \PYG{n+nn}{calzone}\PYG{n+nn}{.}\PYG{n+nn}{metrics} \PYG{k+kn}{import} \PYG{n}{CalibrationMetrics}
+\llap{\color{nbsphinxin}[4]:\,\hspace{\fboxrule}\hspace{\fboxsep}}\PYG{k+kn}{from} \PYG{n+nn}{calzone}\PYG{n+nn}{.}\PYG{n+nn}{metrics} \PYG{k+kn}{import} \PYG{n}{CalibrationMetrics}
 \PYG{n}{calmetrics} \PYG{o}{=} \PYG{n}{CalibrationMetrics}\PYG{p}{(}\PYG{p}{)}
 \PYG{n}{calmetrics}\PYG{o}{.}\PYG{n}{calculate\PYGZus{}metrics}\PYG{p}{(}\PYG{n}{wellcal\PYGZus{}dataloader}\PYG{o}{.}\PYG{n}{labels}\PYG{p}{,} \PYG{n}{wellcal\PYGZus{}dataloader}\PYG{o}{.}\PYG{n}{probs}\PYG{p}{,} \PYG{n}{metrics}\PYG{o}{=}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{ECE\PYGZhy{}H}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{MCE\PYGZhy{}H}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{ECE\PYGZhy{}C}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{MCE\PYGZhy{}C}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{]}\PYG{p}{)}
 \end{sphinxVerbatim}
@@ -1113,7 +1148,7 @@ The second method is much simpler. We can use the calzone.metrics.CalibrationMet
 
 
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
-\llap{\color{nbsphinxout}[7]:\,\hspace{\fboxrule}\hspace{\fboxsep}}\{'ECE-H topclass': 0.009608653731328977,
+\llap{\color{nbsphinxout}[4]:\,\hspace{\fboxrule}\hspace{\fboxsep}}\{'ECE-H topclass': 0.009608653731328977,
  'ECE-H': 0.01208775955804901,
  'MCE-H topclass': 0.03926468843081976,
  'MCE-H': 0.04848338618970194,
@@ -1141,7 +1176,7 @@ In this section, we want to quickly demonstrate how binning could affect the ECE
 \begin{sphinxuseclass}{nblast}
 {
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
-\llap{\color{nbsphinxin}[11]:\,\hspace{\fboxrule}\hspace{\fboxsep}}\PYG{n}{range\PYGZus{}of\PYGZus{}binning} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{arange}\PYG{p}{(}\PYG{l+m+mi}{10}\PYG{p}{,}\PYG{l+m+mi}{300}\PYG{p}{,}\PYG{l+m+mi}{1}\PYG{p}{)}
+\llap{\color{nbsphinxin}[5]:\,\hspace{\fboxrule}\hspace{\fboxsep}}\PYG{n}{range\PYGZus{}of\PYGZus{}binning} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{arange}\PYG{p}{(}\PYG{l+m+mi}{10}\PYG{p}{,}\PYG{l+m+mi}{300}\PYG{p}{,}\PYG{l+m+mi}{1}\PYG{p}{)}
 \PYG{n}{result} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{zeros}\PYG{p}{(}\PYG{p}{(}\PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{range\PYGZus{}of\PYGZus{}binning}\PYG{p}{)}\PYG{p}{,}\PYG{l+m+mi}{8}\PYG{p}{)}\PYG{p}{)}
 \PYG{k}{for} \PYG{n}{i} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{range\PYGZus{}of\PYGZus{}binning}\PYG{p}{)}\PYG{p}{)}\PYG{p}{:}
     \PYG{n}{calmetrics} \PYG{o}{=} \PYG{n}{CalibrationMetrics}\PYG{p}{(}\PYG{n}{class\PYGZus{}to\PYGZus{}calculate}\PYG{o}{=}\PYG{l+m+mi}{1}\PYG{p}{,}\PYG{n}{num\PYGZus{}bins}\PYG{o}{=}\PYG{n}{range\PYGZus{}of\PYGZus{}binning}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]}\PYG{p}{)}
@@ -1154,7 +1189,7 @@ In this section, we want to quickly demonstrate how binning could affect the ECE
 \begin{sphinxuseclass}{nbinput}
 {
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
-\llap{\color{nbsphinxin}[12]:\,\hspace{\fboxrule}\hspace{\fboxsep}}\PYG{k+kn}{import} \PYG{n+nn}{matplotlib}\PYG{n+nn}{.}\PYG{n+nn}{pyplot} \PYG{k}{as} \PYG{n+nn}{plt}
+\llap{\color{nbsphinxin}[6]:\,\hspace{\fboxrule}\hspace{\fboxsep}}\PYG{k+kn}{import} \PYG{n+nn}{matplotlib}\PYG{n+nn}{.}\PYG{n+nn}{pyplot} \PYG{k}{as} \PYG{n+nn}{plt}
 \PYG{n}{plt}\PYG{o}{.}\PYG{n}{plot}\PYG{p}{(}\PYG{n}{range\PYGZus{}of\PYGZus{}binning}\PYG{p}{,}\PYG{n}{result}\PYG{p}{[}\PYG{p}{:}\PYG{p}{,}\PYG{l+m+mi}{1}\PYG{p}{]}\PYG{p}{,} \PYG{n}{label}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{ECE Equal Width}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
 \PYG{n}{plt}\PYG{o}{.}\PYG{n}{plot}\PYG{p}{(}\PYG{n}{range\PYGZus{}of\PYGZus{}binning}\PYG{p}{,}\PYG{n}{result}\PYG{p}{[}\PYG{p}{:}\PYG{p}{,}\PYG{l+m+mi}{5}\PYG{p}{]}\PYG{p}{,} \PYG{n}{label}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{ECE Equal Count}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
 \PYG{n}{plt}\PYG{o}{.}\PYG{n}{title}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{ECE vs Number of Bins (10000 samples)}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
@@ -1178,7 +1213,7 @@ In this section, we want to quickly demonstrate how binning could affect the ECE
 
 
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
-\llap{\color{nbsphinxout}[12]:\,\hspace{\fboxrule}\hspace{\fboxsep}}<matplotlib.legend.Legend at 0x7f0e5336cbc0>
+\llap{\color{nbsphinxout}[6]:\,\hspace{\fboxrule}\hspace{\fboxsep}}<matplotlib.legend.Legend at 0x7fe048e8b470>
 \end{sphinxVerbatim}
 
 
@@ -1397,7 +1432,7 @@ We can see the result from equal\sphinxhyphen{}width binning and equal\sphinxhyp
 \section{Size of HL test}
 \label{\detokenize{notebooks/hl_test:Size-of-HL-test}}
 \sphinxAtStartPar
-We will show HL having the wrong size. The power of HL test will be demostrated in the Power section of the next notebook. We will need to generate fake data.
+We will show the size of HL test. Notice that the size of HL test had been shown to depend on sample size, number of bin and binning scheme (Hosmer et. al. 1997). We will generate fake data to show the size of HL test.
 
 \begin{sphinxuseclass}{nbinput}
 \begin{sphinxuseclass}{nblast}
@@ -1662,8 +1697,8 @@ There are two ways to calculate the Cox slope and intercept. Calling the Cox fun
 Dep. Variable:                      y   No. Observations:                 5000
 Model:                          Logit   Df Residuals:                     4998
 Method:                           MLE   Df Model:                            1
-Date:                Thu, 26 Sep 2024   Pseudo R-squ.:                  0.4438
-Time:                        09:40:42   Log-Likelihood:                -1927.5
+Date:                Wed, 02 Oct 2024   Pseudo R-squ.:                  0.4438
+Time:                        15:53:27   Log-Likelihood:                -1927.5
 converged:                       True   LL-Null:                       -3465.6
 Covariance Type:            nonrobust   LLR p-value:                     0.000
 ==============================================================================
@@ -1688,7 +1723,7 @@ You can also fix the intercept \(a=0\) by using the \sphinxcode{\sphinxupquote{f
 \begin{sphinxuseclass}{nbinput}
 {
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
-\llap{\color{nbsphinxin}[8]:\,\hspace{\fboxrule}\hspace{\fboxsep}}\PYG{c+c1}{\PYGZsh{}\PYGZsh{}\PYGZsh{} fixing intercept and calculating cox slope}
+\llap{\color{nbsphinxin}[2]:\,\hspace{\fboxrule}\hspace{\fboxsep}}\PYG{c+c1}{\PYGZsh{}\PYGZsh{}\PYGZsh{} fixing intercept and calculating cox slope}
 \PYG{n}{cox\PYGZus{}slope}\PYG{p}{,} \PYG{n}{cox\PYGZus{}intercept}\PYG{p}{,}\PYG{n}{cox\PYGZus{}slope\PYGZus{}ci}\PYG{p}{,}\PYG{n}{cox\PYGZus{}intercept\PYGZus{}ci} \PYG{o}{=} \PYG{n}{cox\PYGZus{}regression\PYGZus{}analysis}\PYG{p}{(}\PYG{n}{wellcal\PYGZus{}dataloader}\PYG{o}{.}\PYG{n}{labels}\PYG{p}{,} \PYG{n}{wellcal\PYGZus{}dataloader}\PYG{o}{.}\PYG{n}{probs}\PYG{p}{,}\PYG{n}{class\PYGZus{}to\PYGZus{}calculate}\PYG{o}{=}\PYG{l+m+mi}{1}\PYG{p}{,} \PYG{n}{fix\PYGZus{}intercept}\PYG{o}{=}\PYG{k+kc}{True}\PYG{p}{,}\PYG{n}{print\PYGZus{}results}\PYG{o}{=}\PYG{k+kc}{True}\PYG{p}{)}
 \end{sphinxVerbatim}
 }
@@ -1716,8 +1751,8 @@ Warning: Maximum number of iterations has been exceeded.
 Dep. Variable:                      y   No. Observations:                 5000
 Model:                          Logit   Df Residuals:                     4999
 Method:                           MLE   Df Model:                            0
-Date:                Thu, 26 Sep 2024   Pseudo R-squ.:                  0.4436
-Time:                        09:51:09   Log-Likelihood:                -1928.1
+Date:                Wed, 02 Oct 2024   Pseudo R-squ.:                  0.4436
+Time:                        15:53:27   Log-Likelihood:                -1928.1
 converged:                      False   LL-Null:                       -3465.6
 Covariance Type:            nonrobust   LLR p-value:                       nan
 ==============================================================================
@@ -1744,7 +1779,7 @@ Alternatively, we can use the CalibrationMetrics class to compute the COX slope 
 \begin{sphinxuseclass}{nbinput}
 {
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
-\llap{\color{nbsphinxin}[9]:\,\hspace{\fboxrule}\hspace{\fboxsep}}\PYG{k+kn}{from} \PYG{n+nn}{calzone}\PYG{n+nn}{.}\PYG{n+nn}{metrics} \PYG{k+kn}{import} \PYG{n}{CalibrationMetrics}
+\llap{\color{nbsphinxin}[3]:\,\hspace{\fboxrule}\hspace{\fboxsep}}\PYG{k+kn}{from} \PYG{n+nn}{calzone}\PYG{n+nn}{.}\PYG{n+nn}{metrics} \PYG{k+kn}{import} \PYG{n}{CalibrationMetrics}
 \PYG{n}{calmetrics} \PYG{o}{=} \PYG{n}{CalibrationMetrics}\PYG{p}{(}\PYG{p}{)}
 \PYG{n}{calmetrics}\PYG{o}{.}\PYG{n}{calculate\PYGZus{}metrics}\PYG{p}{(}\PYG{n}{wellcal\PYGZus{}dataloader}\PYG{o}{.}\PYG{n}{labels}\PYG{p}{,} \PYG{n}{wellcal\PYGZus{}dataloader}\PYG{o}{.}\PYG{n}{probs}\PYG{p}{,} \PYG{n}{metrics}\PYG{o}{=}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{COX}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{]}\PYG{p}{,}\PYG{n}{print\PYGZus{}results}\PYG{o}{=}\PYG{k+kc}{True}\PYG{p}{)}
 \end{sphinxVerbatim}
@@ -1769,8 +1804,8 @@ Alternatively, we can use the CalibrationMetrics class to compute the COX slope 
 Dep. Variable:                      y   No. Observations:                 5000
 Model:                          Logit   Df Residuals:                     4998
 Method:                           MLE   Df Model:                            1
-Date:                Thu, 26 Sep 2024   Pseudo R-squ.:                  0.4438
-Time:                        10:14:45   Log-Likelihood:                -1927.5
+Date:                Wed, 02 Oct 2024   Pseudo R-squ.:                  0.4438
+Time:                        15:53:27   Log-Likelihood:                -1927.5
 converged:                       True   LL-Null:                       -3465.6
 Covariance Type:            nonrobust   LLR p-value:                     0.000
 ==============================================================================
@@ -1802,7 +1837,7 @@ x1             0.9942      0.029     34.212      0.000       0.937       1.051
 
 
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
-\llap{\color{nbsphinxout}[9]:\,\hspace{\fboxrule}\hspace{\fboxsep}}\{'COX coef': 0.9942499557748269,
+\llap{\color{nbsphinxout}[3]:\,\hspace{\fboxrule}\hspace{\fboxsep}}\{'COX coef': 0.9942499557748269,
  'COX intercept': -0.04497652296600376,
  'COX coef lowerci': 0.9372902801721911,
  'COX coef upperci': 1.0512096313774626,
@@ -1860,7 +1895,7 @@ Although Cox calibration analysis is usually only used to estimate the overall c
 \begin{sphinxuseclass}{nbinput}
 {
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
-\llap{\color{nbsphinxin}[17]:\,\hspace{\fboxrule}\hspace{\fboxsep}}\PYG{n}{Cox\PYGZus{}slope} \PYG{o}{=} \PYG{n}{results}\PYG{p}{[}\PYG{p}{:}\PYG{p}{,}\PYG{l+m+mi}{0}\PYG{p}{]}
+\llap{\color{nbsphinxin}[5]:\,\hspace{\fboxrule}\hspace{\fboxsep}}\PYG{n}{Cox\PYGZus{}slope} \PYG{o}{=} \PYG{n}{results}\PYG{p}{[}\PYG{p}{:}\PYG{p}{,}\PYG{l+m+mi}{0}\PYG{p}{]}
 \PYG{n}{Cox\PYGZus{}slope\PYGZus{}lowerci} \PYG{o}{=} \PYG{n}{results}\PYG{p}{[}\PYG{p}{:}\PYG{p}{,}\PYG{l+m+mi}{2}\PYG{p}{]}
 \PYG{n}{Cox\PYGZus{}slope\PYGZus{}upperci} \PYG{o}{=} \PYG{n}{results}\PYG{p}{[}\PYG{p}{:}\PYG{p}{,}\PYG{l+m+mi}{3}\PYG{p}{]}
 \PYG{n}{chance} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{logical\PYGZus{}and}\PYG{p}{(}\PYG{n}{Cox\PYGZus{}slope\PYGZus{}lowerci}\PYG{o}{\PYGZlt{}}\PYG{o}{=}\PYG{l+m+mi}{1}\PYG{p}{,} \PYG{n}{Cox\PYGZus{}slope\PYGZus{}upperci}\PYG{o}{\PYGZgt{}}\PYG{o}{=}\PYG{l+m+mi}{1}\PYG{p}{)}
@@ -1928,7 +1963,7 @@ We can also do the intercept test:
 \begin{sphinxuseclass}{nbinput}
 {
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
-\llap{\color{nbsphinxin}[19]:\,\hspace{\fboxrule}\hspace{\fboxsep}}\PYG{n}{Cox\PYGZus{}intercept} \PYG{o}{=} \PYG{n}{results}\PYG{p}{[}\PYG{p}{:}\PYG{p}{,}\PYG{l+m+mi}{1}\PYG{p}{]}
+\llap{\color{nbsphinxin}[7]:\,\hspace{\fboxrule}\hspace{\fboxsep}}\PYG{n}{Cox\PYGZus{}intercept} \PYG{o}{=} \PYG{n}{results}\PYG{p}{[}\PYG{p}{:}\PYG{p}{,}\PYG{l+m+mi}{1}\PYG{p}{]}
 \PYG{n}{Cox\PYGZus{}intercept\PYGZus{}lowerci} \PYG{o}{=} \PYG{n}{results}\PYG{p}{[}\PYG{p}{:}\PYG{p}{,}\PYG{l+m+mi}{4}\PYG{p}{]}
 \PYG{n}{Cox\PYGZus{}intercept\PYGZus{}upperci} \PYG{o}{=} \PYG{n}{results}\PYG{p}{[}\PYG{p}{:}\PYG{p}{,}\PYG{l+m+mi}{5}\PYG{p}{]}
 \PYG{n}{chance} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{logical\PYGZus{}and}\PYG{p}{(}\PYG{n}{Cox\PYGZus{}intercept\PYGZus{}lowerci}\PYG{o}{\PYGZlt{}}\PYG{o}{=}\PYG{l+m+mi}{0}\PYG{p}{,} \PYG{n}{Cox\PYGZus{}intercept\PYGZus{}upperci}\PYG{o}{\PYGZgt{}}\PYG{o}{=}\PYG{l+m+mi}{0}\PYG{p}{)}
@@ -2024,7 +2059,7 @@ To calculate LOESS ICI and COX ICI using calzone, we can call the function direc
 \begin{sphinxuseclass}{nbinput}
 {
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
-\llap{\color{nbsphinxin}[2]:\,\hspace{\fboxrule}\hspace{\fboxsep}}\PYG{k+kn}{from} \PYG{n+nn}{calzone}\PYG{n+nn}{.}\PYG{n+nn}{utils} \PYG{k+kn}{import} \PYG{n}{reliability\PYGZus{}diagram}\PYG{p}{,}\PYG{n}{data\PYGZus{}loader}
+\llap{\color{nbsphinxin}[1]:\,\hspace{\fboxrule}\hspace{\fboxsep}}\PYG{k+kn}{from} \PYG{n+nn}{calzone}\PYG{n+nn}{.}\PYG{n+nn}{utils} \PYG{k+kn}{import} \PYG{n}{reliability\PYGZus{}diagram}\PYG{p}{,}\PYG{n}{data\PYGZus{}loader}
 \PYG{k+kn}{from} \PYG{n+nn}{calzone}\PYG{n+nn}{.}\PYG{n+nn}{metrics} \PYG{k+kn}{import} \PYG{n}{cox\PYGZus{}regression\PYGZus{}analysis}\PYG{p}{,}\PYG{n}{lowess\PYGZus{}regression\PYGZus{}analysis}\PYG{p}{,}\PYG{n}{cal\PYGZus{}ICI\PYGZus{}cox}
 
 \PYG{c+c1}{\PYGZsh{}\PYGZsh{}\PYGZsh{} loading the data}
@@ -2076,7 +2111,7 @@ Alternatively, we can use the CalibrationMetrics class to compute the COX and Lo
 \begin{sphinxuseclass}{nbinput}
 {
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
-\llap{\color{nbsphinxin}[4]:\,\hspace{\fboxrule}\hspace{\fboxsep}}\PYG{k+kn}{from} \PYG{n+nn}{calzone}\PYG{n+nn}{.}\PYG{n+nn}{metrics} \PYG{k+kn}{import} \PYG{n}{CalibrationMetrics}
+\llap{\color{nbsphinxin}[2]:\,\hspace{\fboxrule}\hspace{\fboxsep}}\PYG{k+kn}{from} \PYG{n+nn}{calzone}\PYG{n+nn}{.}\PYG{n+nn}{metrics} \PYG{k+kn}{import} \PYG{n}{CalibrationMetrics}
 \PYG{n}{calmetrics} \PYG{o}{=} \PYG{n}{CalibrationMetrics}\PYG{p}{(}\PYG{p}{)}
 \PYG{n}{calmetrics}\PYG{o}{.}\PYG{n}{calculate\PYGZus{}metrics}\PYG{p}{(}\PYG{n}{wellcal\PYGZus{}dataloader}\PYG{o}{.}\PYG{n}{labels}\PYG{p}{,} \PYG{n}{wellcal\PYGZus{}dataloader}\PYG{o}{.}\PYG{n}{probs}\PYG{p}{,} \PYG{n}{metrics}\PYG{o}{=}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{COX}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{,}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{Loess}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{]}\PYG{p}{)}
 \end{sphinxVerbatim}
@@ -2097,7 +2132,7 @@ Alternatively, we can use the CalibrationMetrics class to compute the COX and Lo
 
 
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
-\llap{\color{nbsphinxout}[4]:\,\hspace{\fboxrule}\hspace{\fboxsep}}\{'COX coef': 0.9942499557748269,
+\llap{\color{nbsphinxout}[2]:\,\hspace{\fboxrule}\hspace{\fboxsep}}\{'COX coef': 0.9942499557748269,
  'COX intercept': -0.04497652296600376,
  'COX coef lowerci': 0.9372902801721911,
  'COX coef upperci': 1.0512096313774626,
@@ -2124,7 +2159,7 @@ We can also plot the loess curve and the COX curve.
 \begin{sphinxuseclass}{nbinput}
 {
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
-\llap{\color{nbsphinxin}[10]:\,\hspace{\fboxrule}\hspace{\fboxsep}}\PYG{c+c1}{\PYGZsh{}\PYGZsh{}\PYGZsh{} We will use linear miscalibrated data to demostrate the plot. Notice that the COX should capture the miscalibration perfectly in the example case.}
+\llap{\color{nbsphinxin}[3]:\,\hspace{\fboxrule}\hspace{\fboxsep}}\PYG{c+c1}{\PYGZsh{}\PYGZsh{}\PYGZsh{} We will use linear miscalibrated data to demostrate the plot. Notice that the COX should capture the miscalibration perfectly in the example case.}
 \PYG{n}{miscal\PYGZus{}dataloader} \PYG{o}{=} \PYG{n}{data\PYGZus{}loader}\PYG{p}{(}\PYG{n}{data\PYGZus{}path}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{../../../example\PYGZus{}data/simulated\PYGZus{}misdata.csv}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{)}
 
 \PYG{c+c1}{\PYGZsh{}\PYGZsh{}\PYGZsh{} calculating cox ICI}
@@ -2158,9 +2193,9 @@ We can also plot the loess curve and the COX curve.
 
 
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
-Cox ICI:  0.09541232260561425
-Loess ICI (span = 0.5):  0.06991428582761099
-Loess ICI (span = 0.3):  0.07263215792718729
+Cox ICI:  0.0984122810555748
+Loess ICI (span = 0.5):  0.07356445428053172
+Loess ICI (span = 0.3):  0.07692218401743334
 \end{sphinxVerbatim}
 
 
@@ -2174,7 +2209,7 @@ Loess ICI (span = 0.3):  0.07263215792718729
 \begin{sphinxuseclass}{nbinput}
 {
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
-\llap{\color{nbsphinxin}[29]:\,\hspace{\fboxrule}\hspace{\fboxsep}}\PYG{c+c1}{\PYGZsh{}\PYGZsh{}\PYGZsh{} ploting the curve}
+\llap{\color{nbsphinxin}[4]:\,\hspace{\fboxrule}\hspace{\fboxsep}}\PYG{c+c1}{\PYGZsh{}\PYGZsh{}\PYGZsh{} ploting the curve}
 \PYG{k+kn}{from} \PYG{n+nn}{calzone}\PYG{n+nn}{.}\PYG{n+nn}{metrics} \PYG{k+kn}{import} \PYG{n}{logit\PYGZus{}func}
 \PYG{k+kn}{import} \PYG{n+nn}{matplotlib}\PYG{n+nn}{.}\PYG{n+nn}{pyplot} \PYG{k}{as} \PYG{n+nn}{plt}
 \PYG{k+kn}{from} \PYG{n+nn}{calzone}\PYG{n+nn}{.}\PYG{n+nn}{utils} \PYG{k+kn}{import} \PYG{n}{reliability\PYGZus{}diagram}
@@ -2213,7 +2248,7 @@ Loess ICI (span = 0.3):  0.07263215792718729
 
 
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
-\llap{\color{nbsphinxout}[29]:\,\hspace{\fboxrule}\hspace{\fboxsep}}Text(0.5, 1.0, 'Calibration Curve')
+\llap{\color{nbsphinxout}[4]:\,\hspace{\fboxrule}\hspace{\fboxsep}}Text(0.5, 1.0, 'Calibration Curve')
 \end{sphinxVerbatim}
 
 
@@ -2395,7 +2430,7 @@ Like to HL test, we can check whether the Spiegelhalter’s z test has the corre
 \begin{sphinxuseclass}{nblast}
 {
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
-\llap{\color{nbsphinxin}[7]:\,\hspace{\fboxrule}\hspace{\fboxsep}}\PYG{c+c1}{\PYGZsh{}\PYGZsh{}\PYGZsh{} The size of HL Test}
+\llap{\color{nbsphinxin}[3]:\,\hspace{\fboxrule}\hspace{\fboxsep}}\PYG{c+c1}{\PYGZsh{}\PYGZsh{}\PYGZsh{} The size of HL Test}
 \PYG{k+kn}{from} \PYG{n+nn}{calzone}\PYG{n+nn}{.}\PYG{n+nn}{utils} \PYG{k+kn}{import} \PYG{n}{fake\PYGZus{}binary\PYGZus{}data\PYGZus{}generator}
 \PYG{n}{np}\PYG{o}{.}\PYG{n}{random}\PYG{o}{.}\PYG{n}{seed}\PYG{p}{(}\PYG{l+m+mi}{123}\PYG{p}{)}
 \PYG{n}{fakedata\PYGZus{}generator} \PYG{o}{=} \PYG{n}{fake\PYGZus{}binary\PYGZus{}data\PYGZus{}generator}\PYG{p}{(}\PYG{n}{alpha\PYGZus{}val}\PYG{o}{=}\PYG{l+m+mf}{0.5}\PYG{p}{,} \PYG{n}{beta\PYGZus{}val}\PYG{o}{=}\PYG{l+m+mf}{0.5}\PYG{p}{)}
@@ -2422,7 +2457,7 @@ Like to HL test, we can check whether the Spiegelhalter’s z test has the corre
 \begin{sphinxuseclass}{nbinput}
 {
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
-\llap{\color{nbsphinxin}[8]:\,\hspace{\fboxrule}\hspace{\fboxsep}}\PYG{c+c1}{\PYGZsh{}\PYGZsh{}\PYGZsh{} Showing the size of the model}
+\llap{\color{nbsphinxin}[4]:\,\hspace{\fboxrule}\hspace{\fboxsep}}\PYG{c+c1}{\PYGZsh{}\PYGZsh{}\PYGZsh{} Showing the size of the model}
 \PYG{k+kn}{import} \PYG{n+nn}{matplotlib}\PYG{n+nn}{.}\PYG{n+nn}{pyplot} \PYG{k}{as} \PYG{n+nn}{plt}
 \PYG{n}{z\PYGZus{}scores} \PYG{o}{=} \PYG{n}{results}\PYG{p}{[}\PYG{p}{:}\PYG{p}{,}\PYG{l+m+mi}{0}\PYG{p}{]}
 \PYG{n}{p\PYGZus{}values} \PYG{o}{=} \PYG{n}{results}\PYG{p}{[}\PYG{p}{:}\PYG{p}{,}\PYG{l+m+mi}{1}\PYG{p}{]}
@@ -2460,7 +2495,7 @@ The size of Spiegelhalter's z test is : 0.049
 \begin{sphinxuseclass}{nbinput}
 {
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
-\llap{\color{nbsphinxin}[9]:\,\hspace{\fboxrule}\hspace{\fboxsep}}\PYG{n}{value}\PYG{p}{,}\PYG{n}{\PYGZus{}}\PYG{p}{,}\PYG{n}{\PYGZus{}}\PYG{o}{=}\PYG{n}{plt}\PYG{o}{.}\PYG{n}{hist}\PYG{p}{(}\PYG{n}{p\PYGZus{}values}\PYG{p}{,} \PYG{n}{bins}\PYG{o}{=}\PYG{l+m+mi}{20}\PYG{p}{,} \PYG{n}{density}\PYG{o}{=}\PYG{k+kc}{True}\PYG{p}{,} \PYG{n}{alpha}\PYG{o}{=}\PYG{l+m+mf}{0.5}\PYG{p}{,} \PYG{n}{label}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{p\PYGZhy{}value}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{,}\PYG{n}{histtype}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{step}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
+\llap{\color{nbsphinxin}[5]:\,\hspace{\fboxrule}\hspace{\fboxsep}}\PYG{n}{value}\PYG{p}{,}\PYG{n}{\PYGZus{}}\PYG{p}{,}\PYG{n}{\PYGZus{}}\PYG{o}{=}\PYG{n}{plt}\PYG{o}{.}\PYG{n}{hist}\PYG{p}{(}\PYG{n}{p\PYGZus{}values}\PYG{p}{,} \PYG{n}{bins}\PYG{o}{=}\PYG{l+m+mi}{20}\PYG{p}{,} \PYG{n}{density}\PYG{o}{=}\PYG{k+kc}{True}\PYG{p}{,} \PYG{n}{alpha}\PYG{o}{=}\PYG{l+m+mf}{0.5}\PYG{p}{,} \PYG{n}{label}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{p\PYGZhy{}value}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{,}\PYG{n}{histtype}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{step}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
 \PYG{n}{plt}\PYG{o}{.}\PYG{n}{vlines}\PYG{p}{(}\PYG{n}{size}\PYG{p}{,}\PYG{n}{ymin}\PYG{o}{=}\PYG{l+m+mi}{0}\PYG{p}{,}\PYG{n}{ymax}\PYG{o}{=}\PYG{n}{np}\PYG{o}{.}\PYG{n}{max}\PYG{p}{(}\PYG{n}{value}\PYG{p}{)}\PYG{p}{,}\PYG{n}{linestyle}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{\PYGZhy{}\PYGZhy{}}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{,}\PYG{n}{label}\PYG{o}{=}\PYG{l+s+sa}{r}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{Size(\PYGZdl{}}\PYG{l+s+s1}{\PYGZbs{}}\PYG{l+s+s1}{alpha=0.05\PYGZdl{}) = }\PYG{l+s+s1}{\PYGZsq{}}\PYG{o}{+}\PYG{n+nb}{str}\PYG{p}{(}\PYG{n+nb}{round}\PYG{p}{(}\PYG{n}{size}\PYG{p}{,}\PYG{l+m+mi}{3}\PYG{p}{)}\PYG{p}{)}\PYG{p}{,}\PYG{n}{colors}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{r}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
 \PYG{n}{plt}\PYG{o}{.}\PYG{n}{legend}\PYG{p}{(}\PYG{n}{loc}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{upper right}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
 \PYG{n}{plt}\PYG{o}{.}\PYG{n}{xlabel}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{p\PYGZhy{}value}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
@@ -2483,7 +2518,7 @@ The size of Spiegelhalter's z test is : 0.049
 
 
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
-\llap{\color{nbsphinxout}[9]:\,\hspace{\fboxrule}\hspace{\fboxsep}}Text(0.5, 1.0, "P-value distribution of the Spiegelhalter's z test")
+\llap{\color{nbsphinxout}[5]:\,\hspace{\fboxrule}\hspace{\fboxsep}}Text(0.5, 1.0, "P-value distribution of the Spiegelhalter's z test")
 \end{sphinxVerbatim}
 
 
@@ -2644,7 +2679,7 @@ The function return both the derived prevalence and the adjusted probability. We
 \begin{sphinxuseclass}{nbinput}
 {
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
-\llap{\color{nbsphinxin}[3]:\,\hspace{\fboxrule}\hspace{\fboxsep}}\PYG{c+c1}{\PYGZsh{}\PYGZsh{}\PYGZsh{} Prevalence Adjustment}
+\llap{\color{nbsphinxin}[2]:\,\hspace{\fboxrule}\hspace{\fboxsep}}\PYG{c+c1}{\PYGZsh{}\PYGZsh{}\PYGZsh{} Prevalence Adjustment}
 \PYG{k+kn}{from} \PYG{n+nn}{calzone}\PYG{n+nn}{.}\PYG{n+nn}{metrics} \PYG{k+kn}{import} \PYG{n}{lowess\PYGZus{}regression\PYGZus{}analysis}
 \PYG{n}{proba\PYGZus{}adjust} \PYG{o}{=} \PYG{n}{apply\PYGZus{}prevalence\PYGZus{}adjustment}\PYG{p}{(}\PYG{n}{optimal\PYGZus{}prevalence}\PYG{p}{,} \PYG{n}{y}\PYG{p}{,} \PYG{n}{X}\PYG{p}{,} \PYG{n}{class\PYGZus{}to\PYGZus{}calculate}\PYG{o}{=}\PYG{l+m+mi}{1}\PYG{p}{)}
 \PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{Loess ICI before prevalence adjustment: }\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{,} \PYG{n}{lowess\PYGZus{}regression\PYGZus{}analysis}\PYG{p}{(}\PYG{n}{y}\PYG{p}{,} \PYG{n}{X}\PYG{p}{,} \PYG{n}{class\PYGZus{}to\PYGZus{}calculate}\PYG{o}{=}\PYG{l+m+mi}{1}\PYG{p}{)}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]}\PYG{p}{)}
@@ -2686,7 +2721,7 @@ calzone also provides a argument to perform prevalence adjustment directly from 
 \begin{sphinxuseclass}{nblast}
 {
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
-\llap{\color{nbsphinxin}[7]:\,\hspace{\fboxrule}\hspace{\fboxsep}}\PYG{c+c1}{\PYGZsh{}\PYGZsh{}\PYGZsh{} We calculate the Calibration metrics before and after prevalence adjustment}
+\llap{\color{nbsphinxin}[3]:\,\hspace{\fboxrule}\hspace{\fboxsep}}\PYG{c+c1}{\PYGZsh{}\PYGZsh{}\PYGZsh{} We calculate the Calibration metrics before and after prevalence adjustment}
 \PYG{k+kn}{from} \PYG{n+nn}{calzone}\PYG{n+nn}{.}\PYG{n+nn}{metrics} \PYG{k+kn}{import} \PYG{n}{CalibrationMetrics}
 \PYG{n}{calmetrics} \PYG{o}{=} \PYG{n}{CalibrationMetrics}\PYG{p}{(}\PYG{p}{)}
 \PYG{n}{before\PYGZus{}prevalence} \PYG{o}{=} \PYG{n}{calmetrics}\PYG{o}{.}\PYG{n}{calculate\PYGZus{}metrics}\PYG{p}{(}\PYG{n}{y}\PYG{p}{,}\PYG{n}{X}\PYG{p}{,} \PYG{n}{metrics}\PYG{o}{=}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{ECE\PYGZhy{}H}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{,}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{COX}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{,}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{Loess}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{]}\PYG{p}{,}\PYG{n}{perform\PYGZus{}pervalance\PYGZus{}adjustment}\PYG{o}{=}\PYG{k+kc}{False}\PYG{p}{)}
@@ -2699,7 +2734,7 @@ calzone also provides a argument to perform prevalence adjustment directly from 
 \begin{sphinxuseclass}{nbinput}
 {
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
-\llap{\color{nbsphinxin}[8]:\,\hspace{\fboxrule}\hspace{\fboxsep}}\PYG{k}{for} \PYG{n}{key} \PYG{o+ow}{in} \PYG{n}{before\PYGZus{}prevalence}\PYG{o}{.}\PYG{n}{keys}\PYG{p}{(}\PYG{p}{)}\PYG{p}{:}
+\llap{\color{nbsphinxin}[4]:\,\hspace{\fboxrule}\hspace{\fboxsep}}\PYG{k}{for} \PYG{n}{key} \PYG{o+ow}{in} \PYG{n}{before\PYGZus{}prevalence}\PYG{o}{.}\PYG{n}{keys}\PYG{p}{(}\PYG{p}{)}\PYG{p}{:}
     \PYG{n+nb}{print}\PYG{p}{(}\PYG{n}{key}\PYG{p}{)}
     \PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{before adjustment:}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{,}\PYG{n}{before\PYGZus{}prevalence}\PYG{p}{[}\PYG{n}{key}\PYG{p}{]}\PYG{p}{,}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{, after adjustment:}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{,}\PYG{n}{after\PYGZus{}prevalence}\PYG{p}{[}\PYG{n}{key}\PYG{p}{]}\PYG{p}{)}
 \end{sphinxVerbatim}
@@ -2855,7 +2890,7 @@ Whether the dataset has subgroup: True
 \begin{sphinxuseclass}{nbinput}
 {
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
-\llap{\color{nbsphinxin}[10]:\,\hspace{\fboxrule}\hspace{\fboxsep}}\PYG{c+c1}{\PYGZsh{}\PYGZsh{}\PYGZsh{} subgroup analysis for each group}
+\llap{\color{nbsphinxin}[2]:\,\hspace{\fboxrule}\hspace{\fboxsep}}\PYG{c+c1}{\PYGZsh{}\PYGZsh{}\PYGZsh{} subgroup analysis for each group}
 \PYG{c+c1}{\PYGZsh{}\PYGZsh{}\PYGZsh{} You can preform other analysis during the loop (eg. plotting the reliability diagram etc)}
 \PYG{k}{for} \PYG{n}{i}\PYG{p}{,}\PYG{n}{subgroup\PYGZus{}column} \PYG{o+ow}{in} \PYG{n+nb}{enumerate}\PYG{p}{(}\PYG{n}{dataset}\PYG{o}{.}\PYG{n}{subgroup\PYGZus{}indices}\PYG{p}{)}\PYG{p}{:}
     \PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+sa}{f}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{subgroup }\PYG{l+s+si}{\PYGZob{}}\PYG{n}{i}\PYG{o}{+}\PYG{l+m+mi}{1}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{)}
@@ -2944,7 +2979,7 @@ Loess ICI: 0.06991428582761099
 \begin{sphinxuseclass}{nbinput}
 {
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
-\llap{\color{nbsphinxin}[11]:\,\hspace{\fboxrule}\hspace{\fboxsep}}\PYG{c+c1}{\PYGZsh{}\PYGZsh{}\PYGZsh{} An alernative way to do the same thing is through command line interface}
+\llap{\color{nbsphinxin}[3]:\,\hspace{\fboxrule}\hspace{\fboxsep}}\PYG{c+c1}{\PYGZsh{}\PYGZsh{}\PYGZsh{} An alernative way to do the same thing is through command line interface}
 
 \PYG{o}{\PYGZpc{}}\PYG{k}{run} ../../../cal\PYGZus{}metrics.py \PYGZbs{}
 \PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZhy{}}\PYG{n}{csv\PYGZus{}file} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{../../../example\PYGZus{}data/simulated\PYGZus{}data\PYGZus{}subgroup.csv}\PYG{l+s+s1}{\PYGZsq{}} \PYGZbs{}
@@ -2971,74 +3006,74 @@ Loess ICI: 0.06991428582761099
 
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 Metrics:
-SpiegelhalterZ score: 18.326500460344757
-SpiegelhalterZ p-value: 0.0
-ECE-H topclass: 0.04154425366233608
-ECE-H: 0.041606274177861564
-MCE-H topclass: 0.05506859806121056
-MCE-H: 0.06291857721845223
-HL-H score: 429.7315889789045
-HL-H p-value: 0.0
-ECE-C topclass: 0.04153827551437989
-ECE-C: 0.03813373547517625
-MCE-C topclass: 0.06521747269553313
-MCE-C: 0.06426881466822676
-HL-C score: 1138.8421218049589
-HL-C p-value: 0.0
-COX coef: 0.6682652785932737
-COX intercept: -0.019974208464277905
-COX coef lowerci: 0.6406305507074329
-COX coef upperci: 0.6959000064791144
-COX intercept lowerci: -0.07427409213097665
-COX intercept upperci: 0.03432567520242083
-COX ICI: 0.04920919519153327
-Loess ICI: 0.03714791811671051
+SpiegelhalterZ score: 18.327
+SpiegelhalterZ p-value: 0.
+ECE-H topclass: 0.042
+ECE-H: 0.042
+MCE-H topclass: 0.055
+MCE-H: 0.063
+HL-H score: 429.732
+HL-H p-value: 0.
+ECE-C topclass: 0.042
+ECE-C: 0.038
+MCE-C topclass: 0.065
+MCE-C: 0.064
+HL-C score: 1138.842
+HL-C p-value: 0.
+COX coef: 0.668
+COX intercept: -0.02
+COX coef lowerci: 0.641
+COX coef upperci: 0.696
+COX intercept lowerci: -0.074
+COX intercept upperci: 0.034
+COX ICI: 0.049
+Loess ICI: 0.037
 Metrics for subgroup subgroup\_1\_group\_A:
-SpiegelhalterZ score: 0.3763269161877356
-SpiegelhalterZ p-value: 0.7066738713391099
-ECE-H topclass: 0.009608653731328977
-ECE-H: 0.01208775955804901
-MCE-H topclass: 0.03926468843081976
-MCE-H: 0.04848338618970194
-HL-H score: 8.884991559088098
-HL-H p-value: 0.35209071874348785
-ECE-C topclass: 0.009458033653818828
-ECE-C: 0.008733966945443138
-MCE-C topclass: 0.020515047600205505
-MCE-C: 0.02324031223486256
-HL-C score: 3.694947603203135
-HL-C p-value: 0.8835446575708198
-COX coef: 0.9942499557748269
-COX intercept: -0.04497652296600376
-COX coef lowerci: 0.9372902801721911
-COX coef upperci: 1.0512096313774626
-COX intercept lowerci: -0.12348577118577644
-COX intercept upperci: 0.03353272525376893
-COX ICI: 0.005610391483826338
-Loess ICI: 0.00558856942568957
+SpiegelhalterZ score: 0.376
+SpiegelhalterZ p-value: 0.707
+ECE-H topclass: 0.01
+ECE-H: 0.012
+MCE-H topclass: 0.039
+MCE-H: 0.048
+HL-H score: 8.885
+HL-H p-value: 0.352
+ECE-C topclass: 0.009
+ECE-C: 0.009
+MCE-C topclass: 0.021
+MCE-C: 0.023
+HL-C score: 3.695
+HL-C p-value: 0.884
+COX coef: 0.994
+COX intercept: -0.045
+COX coef lowerci: 0.937
+COX coef upperci: 1.051
+COX intercept lowerci: -0.123
+COX intercept upperci: 0.034
+COX ICI: 0.006
+Loess ICI: 0.006
 Metrics for subgroup subgroup\_1\_group\_B:
-SpiegelhalterZ score: 27.93575342117766
-SpiegelhalterZ p-value: 0.0
-ECE-H topclass: 0.07658928982434714
-ECE-H: 0.0765892898243467
-MCE-H topclass: 0.1327565894838103
-MCE-H: 0.16250572519432438
-HL-H score: 910.4385762101924
-HL-H p-value: 0.0
-ECE-C topclass: 0.07429481165606829
-ECE-C: 0.07479369479609524
-MCE-C topclass: 0.14090872416947742
-MCE-C: 0.14045600565696226
-HL-C score: 2246.1714434139853
-HL-C p-value: 0.0
-COX coef: 0.5071793536874274
-COX intercept: 0.00037947714112375366
-COX coef lowerci: 0.47838663128188996
-COX coef upperci: 0.5359720760929648
-COX intercept lowerci: -0.07796623141885761
-COX intercept upperci: 0.07872518570110512
-COX ICI: 0.07746407648179383
-Loess ICI: 0.06991428582761099
+SpiegelhalterZ score: 27.936
+SpiegelhalterZ p-value: 0.
+ECE-H topclass: 0.077
+ECE-H: 0.077
+MCE-H topclass: 0.133
+MCE-H: 0.163
+HL-H score: 910.439
+HL-H p-value: 0.
+ECE-C topclass: 0.074
+ECE-C: 0.075
+MCE-C topclass: 0.141
+MCE-C: 0.140
+HL-C score: 2246.171
+HL-C p-value: 0.
+COX coef: 0.507
+COX intercept: 0.000
+COX coef lowerci: 0.478
+COX coef upperci: 0.536
+COX intercept lowerci: -0.078
+COX intercept upperci: 0.079
+COX ICI: 0.077
+Loess ICI: 0.07
 \end{sphinxVerbatim}
 
 

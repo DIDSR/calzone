@@ -1,0 +1,266 @@
+@article{meta_cusum,
+  author  = {Imanol Arrieta-Ibarra and Paman Gujral and Jonathan Tannen and Mark Tygert and Cherie Xu},
+  title   = {Metrics of Calibration for Probabilistic Predictions},
+  journal = {Journal of Machine Learning Research},
+  year    = {2022},
+  volume  = {23},
+  number  = {351},
+  pages   = {1--54},
+  url     = {http://jmlr.org/papers/v23/22-0658.html}
+}
+
+@article{loess_graph_austin,
+author = {Austin, Peter C. and Steyerberg, Ewout W.},
+title = {Graphical assessment of internal and external calibration of logistic regression models by using loess smoothers},
+journal = {Statistics in Medicine},
+volume = {33},
+number = {3},
+pages = {517-535},
+keywords = {logistic regression, prediction, calibration, graphical methods, prediction models},
+doi = {https://doi.org/10.1002/sim.5941},
+url = {https://onlinelibrary.wiley.com/doi/abs/10.1002/sim.5941},
+eprint = {https://onlinelibrary.wiley.com/doi/pdf/10.1002/sim.5941},
+abstract = {Predicting the probability of the occurrence of a binary outcome or condition is important in biomedical research. While assessing discrimination is an essential issue in developing and validating binary prediction models, less attention has been paid to methods for assessing model calibration. Calibration refers to the degree of agreement between observed and predicted probabilities and is often assessed by testing for lack-of-fit. The objective of our study was to examine the ability of graphical methods to assess the calibration of logistic regression models. We examined lack of internal calibration, which was related to misspecification of the logistic regression model, and external calibration, which was related to an overfit model or to shrinkage of the linear predictor. We conducted an extensive set of Monte Carlo simulations with a locally weighted least squares regression smoother (i.e., the loess algorithm) to examine the ability of graphical methods to assess model calibration. We found that loess-based methods were able to provide evidence of moderate departures from linearity and indicate omission of a moderately strong interaction. Misspecification of the link function was harder to detect. Visual patterns were clearer with higher sample sizes, higher incidence of the outcome, or higher discrimination. Loess-based methods were also able to identify the lack of calibration in external validation samples when an overfit regression model had been used. In conclusion, loess-based smoothing methods are adequate tools to graphically assess calibration and merit wider application. © 2013 The Authors. Statistics in Medicine published by John Wiley \& Sons, Ltd},
+year = {2014}
+}
+@article{ Naeini_ece
+, title={Obtaining Well Calibrated Probabilities Using Bayesian Binning}, volume={29}, url={https://ojs.aaai.org/index.php/AAAI/article/view/9602}, DOI={10.1609/aaai.v29i1.9602}, abstractNote={ &lt;p&gt; Learning probabilistic predictive models that are well calibrated is critical for many prediction and decision-making tasks in artificial intelligence. In this paper we present a new non-parametric calibration method called Bayesian Binning into Quantiles (BBQ) which addresses key limitations of existing calibration methods. The method post processes the output of a binary classification algorithm; thus, it can be readily combined with many existing classification algorithms. The method is computationally tractable, and empirically accurate, as evidenced by the set of experiments reported here on both real and simulated datasets. &lt;/p&gt; }, number={1}, journal={Proceedings of the AAAI Conference on Artificial Intelligence}, author={Pakdaman Naeini, Mahdi and Cooper, Gregory and Hauskrecht, Milos}, year={2015}, month={Feb.} }
+
+@article{wilson_interval,
+  title={Probable inference, the law of succession, and statistical inference},
+  author={Wilson, Edwin B},
+  journal={Journal of the American Statistical Association},
+  volume={22},
+  number={158},
+  pages={209--212},
+  year={1927},
+  publisher={Taylor \& Francis}
+}
+@article { Brocker_reldia,
+      author = "Jochen  Bröcker and Leonard A.  Smith",
+      title = "Increasing the Reliability of Reliability Diagrams",
+      journal = "Weather and Forecasting",
+      year = "2007",
+      publisher = "American Meteorological Society",
+      address = "Boston MA, USA",
+      volume = "22",
+      number = "3",
+      doi = "10.1175/WAF993.1",
+      pages=      "651 - 661",
+      url = "https://journals.ametsoc.org/view/journals/wefo/22/3/waf993_1.xml"
+}
+@article{ICI_austin,
+author = {Austin, Peter C. and Steyerberg, Ewout W.},
+title = {The Integrated Calibration Index (ICI) and related metrics for quantifying the calibration of logistic regression models},
+journal = {Statistics in Medicine},
+volume = {38},
+number = {21},
+pages = {4051-4065},
+keywords = {calibration, logistic regression, model validation},
+doi = {https://doi.org/10.1002/sim.8281},
+url = {https://onlinelibrary.wiley.com/doi/abs/10.1002/sim.8281},
+eprint = {https://onlinelibrary.wiley.com/doi/pdf/10.1002/sim.8281},
+abstract = {Assessing the calibration of methods for estimating the probability of the occurrence of a binary outcome is an important aspect of validating the performance of risk-prediction algorithms. Calibration commonly refers to the agreement between predicted and observed probabilities of the outcome. Graphical methods are an attractive approach to assess calibration, in which observed and predicted probabilities are compared using loess-based smoothing functions. We describe the Integrated Calibration Index (ICI) that is motivated by Harrell's Emax index, which is the maximum absolute difference between a smooth calibration curve and the diagonal line of perfect calibration. The ICI can be interpreted as weighted difference between observed and predicted probabilities, in which observations are weighted by the empirical density function of the predicted probabilities. As such, the ICI is a measure of calibration that explicitly incorporates the distribution of predicted probabilities. We also discuss two related measures of calibration, E50 and E90, which represent the median and 90th percentile of the absolute difference between observed and predicted probabilities. We illustrate the utility of the ICI, E50, and E90 by using them to compare the calibration of logistic regression with that of random forests and boosted regression trees for predicting mortality in patients hospitalized with a heart attack. The use of these numeric metrics permitted for a greater differentiation in calibration than was permissible by visual inspection of graphical calibration curves.},
+year = {2019}
+}
+@article{Brocker_decompose,
+author = {Bröcker, Jochen},
+title = {Reliability, sufficiency, and the decomposition of proper scores},
+journal = {Quarterly Journal of the Royal Meteorological Society},
+volume = {135},
+number = {643},
+pages = {1512-1519},
+keywords = {probabilistic forecasts, scoring rules, reliability, resolution},
+doi = {https://doi.org/10.1002/qj.456},
+url = {https://rmets.onlinelibrary.wiley.com/doi/abs/10.1002/qj.456},
+eprint = {https://rmets.onlinelibrary.wiley.com/doi/pdf/10.1002/qj.456},
+abstract = {Abstract Scoring rules are an important tool for evaluating the performance of probabilistic forecasting schemes. A scoring rule is called strictly proper if its expectation is optimal if and only if the forecast probability represents the true distribution of the target. In the binary case, strictly proper scoring rules allow for a decomposition into terms related to the resolution and the reliability of a forecast. This fact is particularly well known for the Brier Score. In this article, this result is extended to forecasts for finite-valued targets. Both resolution and reliability are shown to have a positive effect on the score. It is demonstrated that resolution and reliability are directly related to forecast attributes that are desirable on grounds independent of the notion of scores. This finding can be considered an epistemological justification of measuring forecast quality by proper scoring rules. A link is provided to the original work of DeGroot and Fienberg, extending their concepts of sufficiency and refinement. The relation to the conjectured sharpness principle of Gneiting, et al., is elucidated. Copyright © 2009 Royal Meteorological Society},
+year = {2009}
+}
+
+
+@inbook{Calster_weak_cal,
+author = {Calster, Ben Van and Steyerberg, Ewout W.},
+publisher = {John Wiley & Sons, Ltd},
+isbn = {9781118445112},
+title = {Calibration of Prognostic Risk Scores},
+booktitle = {Wiley StatsRef: Statistics Reference Online},
+chapter = {},
+pages = {1-10},
+doi = {https://doi.org/10.1002/9781118445112.stat08078},
+url = {https://onlinelibrary.wiley.com/doi/abs/10.1002/9781118445112.stat08078},
+eprint = {https://onlinelibrary.wiley.com/doi/pdf/10.1002/9781118445112.stat08078},
+year = {2018},
+keywords = {calibration, validation, prediction, regression model, goodness-of-fit, logistic regression, risk prediction model},
+abstract = {Abstract Prognostic risk scores provide individualized risk estimates for an outcome (“event”) based on included covariates. Calibration indicates the extent to which risk estimates are reliable. We review four increasingly stringent definitions of calibration: mean, weak, moderate, and strong calibration. The latter requires that the risk model perfectly corresponds to the observed proportions for every single covariate pattern, and hence can be regarded as impossible to achieve in practice (“utopic”). We present an overview of methods to assess calibration, including goodness-of-fit tests, summary measures, and graphical procedures. We show that estimation and visualization of the degree of (mis)calibration is essential, whereas testing is problematic. We illustrate the methods with a case study on the prediction of the histology of retroperitoneal lymph nodes following chemotherapy for testicular cancer.}
+}
+@article{weijie_prevalence_adjustment,
+author = {Weijie Chen and Berkman Sahiner and Frank Samuelson and Aria Pezeshk and Nicholas Petrick},
+title ={Calibration of medical diagnostic classifier scores to the probability of disease},
+
+journal = {Statistical Methods in Medical Research},
+volume = {27},
+number = {5},
+pages = {1394-1409},
+year = {2018},
+doi = {10.1177/0962280216661371},
+    note ={PMID: 27507287},
+
+URL = { 
+    
+        https://doi.org/10.1177/0962280216661371
+    
+    
+
+},
+eprint = { 
+    
+        https://doi.org/10.1177/0962280216661371
+    
+    
+
+}
+,
+    abstract = { Scores produced by statistical classifiers in many clinical decision support systems and other medical diagnostic devices are generally on an arbitrary scale, so the clinical meaning of these scores is unclear. Calibration of classifier scores to a meaningful scale such as the probability of disease is potentially useful when such scores are used by a physician. In this work, we investigated three methods (parametric, semi-parametric, and non-parametric) for calibrating classifier scores to the probability of disease scale and developed uncertainty estimation techniques for these methods. We showed that classifier scores on arbitrary scales can be calibrated to the probability of disease scale without affecting their discrimination performance. With a finite dataset to train the calibration function, it is important to accompany the probability estimate with its confidence interval. Our simulations indicate that, when a dataset used for finding the transformation for calibration is also used for estimating the performance of calibration, the resubstitution bias exists for a performance metric involving the truth states in evaluating the calibration performance. However, the bias is small for the parametric and semi-parametric methods when the sample size is moderate to large (>100 per class). }
+}
+
+@article{Cox,
+    author = {COX, D. R.},
+    title = "{Two further applications of a model for binary regression}",
+    journal = {Biometrika},
+    volume = {45},
+    number = {3-4},
+    pages = {562-565},
+    year = {1958},
+    month = {12},
+    issn = {0006-3444},
+    doi = {10.1093/biomet/45.3-4.562},
+    url = {https://doi.org/10.1093/biomet/45.3-4.562},
+    eprint = {https://academic.oup.com/biomet/article-pdf/45/3-4/562/639297/45-3-4-562.pdf},
+}
+
+@article{gu_likelihod_ratio,
+    author = {Gu, Wen and Pepe, Margaret Sullivan},
+    title = "{Estimating the diagnostic likelihood ratio of a continuous marker}",
+    journal = {Biostatistics},
+    volume = {12},
+    number = {1},
+    pages = {87-101},
+    year = {2010},
+    month = {07},
+    abstract = "{The diagnostic likelihood ratio function, DLR, is a statistical measure used to evaluate risk prediction markers. The goal of this paper is to develop new methods to estimate the DLR function. Furthermore, we show how risk prediction markers can be compared using rank-invariant DLR functions. Various estimators are proposed that accommodate cohort or case–control study designs. Performances of the estimators are compared using simulation studies. The methods are illustrated by comparing a lung function measure and a nutritional status measure for predicting subsequent onset of major pulmonary infection in children suffering from cystic fibrosis. For continuous markers, the DLR function is mathematically related to the slope of the receiver operating characteristic (ROC) curve, an entity used to evaluate diagnostic markers. We show that our methodology can be used to estimate the slope of the ROC curve and illustrate use of the estimated ROC derivative in variance and sample size calculations for a diagnostic biomarker study.}",
+    issn = {1465-4644},
+    doi = {10.1093/biostatistics/kxq045},
+    url = {https://doi.org/10.1093/biostatistics/kxq045},
+    eprint = {https://academic.oup.com/biostatistics/article-pdf/12/1/87/17739283/kxq045.pdf},
+}
+
+
+
+
+@InProceedings{guo_calibration,
+  title = 	 {On Calibration of Modern Neural Networks},
+  author =       {Chuan Guo and Geoff Pleiss and Yu Sun and Kilian Q. Weinberger},
+  booktitle = 	 {Proceedings of the 34th International Conference on Machine Learning},
+  pages = 	 {1321--1330},
+  year = 	 {2017},
+  editor = 	 {Precup, Doina and Teh, Yee Whye},
+  volume = 	 {70},
+  series = 	 {Proceedings of Machine Learning Research},
+  month = 	 {06--11 Aug},
+  publisher =    {PMLR},
+  pdf = 	 {http://proceedings.mlr.press/v70/guo17a/guo17a.pdf},
+  url = 	 {https://proceedings.mlr.press/v70/guo17a.html},
+  abstract = 	 {Confidence calibration – the problem of predicting probability estimates representative of the true correctness likelihood – is important for classification models in many applications. We discover that modern neural networks, unlike those from a decade ago, are poorly calibrated. Through extensive experiments, we observe that depth, width, weight decay, and Batch Normalization are important factors influencing calibration. We evaluate the performance of various post-processing calibration methods on state-of-the-art architectures with image and document classification datasets. Our analysis and experiments not only offer insights into neural network learning, but also provide a simple and straightforward recipe for practical settings: on most datasets, temperature scaling – a single-parameter variant of Platt Scaling – is surprisingly effective at calibrating predictions.}
+}
+
+@article{hl_test,
+author = {David W. Hosmer and Stanley Lemesbow},
+title = {Goodness of fit tests for the multiple logistic regression model},
+journal = {Communications in Statistics - Theory and Methods},
+volume = {9},
+number = {10},
+pages = {1043--1069},
+year = {1980},
+publisher = {Taylor \& Francis},
+doi = {10.1080/03610928008827941},
+
+
+URL = { 
+    
+    
+        https://www.tandfonline.com/doi/abs/10.1080/03610928008827941
+    
+
+},
+eprint = { 
+    
+    
+        https://www.tandfonline.com/doi/pdf/10.1080/03610928008827941
+    
+
+}
+
+}
+
+
+@article{huang_tutorial,
+    author = {Huang, Yingxiang and Li, Wentao and Macheret, Fima and Gabriel, Rodney A and Ohno-Machado, Lucila},
+    title = "{A tutorial on calibration measurements and calibration models for clinical prediction models}",
+    journal = {Journal of the American Medical Informatics Association},
+    volume = {27},
+    number = {4},
+    pages = {621-633},
+    year = {2020},
+    month = {02},
+    abstract = "{Our primary objective is to provide the clinical informatics community with an introductory tutorial on calibration measurements and calibration models for predictive models using existing R packages and custom implemented code in R on real and simulated data. Clinical predictive model performance is commonly published based on discrimination measures, but use of models for individualized predictions requires adequate model calibration. This tutorial is intended for clinical researchers who want to evaluate predictive models in terms of their applicability to a particular population. It is also for informaticians and for software engineers who want to understand the role that calibration plays in the evaluation of a clinical predictive model, and to provide them with a solid starting point to consider incorporating calibration evaluation and calibration models in their work.Covered topics include (1) an introduction to the importance of calibration in the clinical setting, (2) an illustration of the distinct roles that discrimination and calibration play in the assessment of clinical predictive models, (3) a tutorial and demonstration of selected calibration measurements, (4) a tutorial and demonstration of selected calibration models, and (5) a brief discussion of limitations of these methods and practical suggestions on how to use them in practice.}",
+    issn = {1527-974X},
+    doi = {10.1093/jamia/ocz228},
+    url = {https://doi.org/10.1093/jamia/ocz228},
+    eprint = {https://academic.oup.com/jamia/article-pdf/27/4/621/34153143/ocz228.pdf},
+}
+
+
+
+@inproceedings{nixon_ace,
+  title={Measuring Calibration in Deep Learning.},
+  author={Nixon, Jeremy and Dusenberry, Michael W and Zhang, Linchuan and Jerfel, Ghassen and Tran, Dustin},
+  booktitle={CVPR workshops},
+  volume={2},
+  number={7},
+  year={2019}
+}
+
+@article{spiegelhalter_z,
+  title={Probabilistic prediction in patient management and clinical trials},
+  author={Spiegelhalter, David J},
+  journal={Statistics in medicine},
+  volume={5},
+  number={5},
+  pages={421--433},
+  year={1986},
+  publisher={Wiley Online Library}
+}
+
+@inproceedings{prevalence_shift,
+ author = {Tian, Junjiao and Liu, Yen-Cheng and Glaser, Nathaniel and Hsu, Yen-Chang and Kira, Zsolt},
+ booktitle = {Advances in Neural Information Processing Systems},
+ editor = {H. Larochelle and M. Ranzato and R. Hadsell and M.F. Balcan and H. Lin},
+ pages = {8101--8113},
+ publisher = {Curran Associates, Inc.},
+ title = {Posterior Re-calibration for Imbalanced Datasets},
+ url = {https://proceedings.neurips.cc/paper_files/paper/2020/file/5ca359ab1e9e3b9c478459944a2d9ca5-Paper.pdf},
+ volume = {33},
+ year = {2020}
+}
+
+
+@article{Walsh_overview,
+  title={Beyond discrimination: a comparison of calibration methods and clinical usefulness of predictive models of readmission risk},
+  author={Walsh, Colin G and Sharman, Kavya and Hripcsak, George},
+  journal={Journal of biomedical informatics},
+  volume={76},
+  pages={9--18},
+  year={2017},
+  publisher={Elsevier}
+}

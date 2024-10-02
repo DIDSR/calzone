@@ -25,7 +25,7 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Summary and guide for calibration metrics" href="metrics_summary.html" />
+    <link rel="next" title="Summary and guide for calzone" href="metrics_summary.html" />
     <link rel="prev" title="Welcome to the documentation for calzone" href="../index.html" /> 
 </head>
 
@@ -56,7 +56,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#Command-line-interface">Command line interface</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="metrics_summary.html">Summary and guide for calibration metrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="metrics_summary.html">Summary and guide for calzone</a></li>
 <li class="toctree-l1"><a class="reference internal" href="reliability_diagram.html">Reliability diagram</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ece_mce.html">Exepected Calibration Error(ECE) and Maximum Calibration Error (MCE)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="hl_test.html">Hosmer-Lemeshow test (HL test)</a></li>
@@ -154,42 +154,79 @@
 <p>In the case of multi-class, you need to specify the class-of-interest, and the problem will be treated as 1-vs-all binary classification. To test the full calibration of the whole model, you need to test the calibration of each class.</p>
 <p>The program also works if your csv file has no header.It will assume the first [:-1] columns are the probabilities and the last column is the label.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### For illuration purpose , I will use build-in class to generate fake data. Do not run this cell in real case.</span>
-<span class="c1">### A well-calibrated dataset and miscalibrated dataset are provided in the example folder</span>
-<span class="kn">from</span> <span class="nn">calzone.utils</span> <span class="kn">import</span> <span class="n">fake_binary_data_generator</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">123</span><span class="p">)</span>
-<span class="n">fakedata_generator</span> <span class="o">=</span> <span class="n">fake_binary_data_generator</span><span class="p">(</span><span class="n">alpha_val</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">beta_val</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
-<span class="n">X</span><span class="p">,</span> <span class="n">y_true</span> <span class="o">=</span> <span class="n">fakedata_generator</span><span class="o">.</span><span class="n">generate_data</span><span class="p">(</span><span class="mi">5000</span><span class="p">)</span>
-<span class="n">X2</span><span class="p">,</span> <span class="n">y_true2</span> <span class="o">=</span> <span class="n">fakedata_generator</span><span class="o">.</span><span class="n">generate_data</span><span class="p">(</span><span class="mi">5000</span><span class="p">)</span>
-<span class="n">X2</span> <span class="o">=</span> <span class="n">fakedata_generator</span><span class="o">.</span><span class="n">linear_miscal</span><span class="p">(</span><span class="n">X2</span><span class="p">,</span> <span class="n">miscal_scale</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">df</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">column_stack</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">X</span><span class="p">)</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">y_true</span><span class="p">)</span><span class="o">.</span><span class="n">tolist</span><span class="p">()))</span>
-<span class="n">df_miscal</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">column_stack</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">X2</span><span class="p">)</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">y_true2</span><span class="p">)</span><span class="o">.</span><span class="n">tolist</span><span class="p">()))</span>
-<span class="n">np</span><span class="o">.</span><span class="n">savetxt</span><span class="p">(</span><span class="s2">&quot;../../../example_data/simulated_welldata.csv&quot;</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="s2">&quot;,&quot;</span><span class="p">,</span><span class="n">header</span><span class="o">=</span><span class="s2">&quot;proba_0,proba_1,label&quot;</span><span class="p">,</span> <span class="n">comments</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
-<span class="n">np</span><span class="o">.</span><span class="n">savetxt</span><span class="p">(</span><span class="s2">&quot;../../../example_data/simulated_misdata.csv&quot;</span><span class="p">,</span> <span class="n">df_miscal</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="s2">&quot;,&quot;</span><span class="p">,</span><span class="n">header</span><span class="o">=</span><span class="s2">&quot;proba_0,proba_1,label&quot;</span><span class="p">,</span> <span class="n">comments</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### For illuration purpose , I will the functions in the helper.py in the local directory</span>
 
 
-<span class="c1">### Create data for subgroup analysis</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="c1"># Create dataframes for each subgroup</span>
-<span class="n">df_A</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;proba_0&#39;</span><span class="p">:</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="s1">&#39;proba_1&#39;</span><span class="p">:</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;subgroup&#39;</span><span class="p">:</span> <span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;label&#39;</span><span class="p">:</span> <span class="n">y_true</span><span class="p">})</span>
-<span class="n">df_B</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;proba_0&#39;</span><span class="p">:</span> <span class="n">X2</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="s1">&#39;proba_1&#39;</span><span class="p">:</span> <span class="n">X2</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;subgroup&#39;</span><span class="p">:</span> <span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="s1">&#39;label&#39;</span><span class="p">:</span> <span class="n">y_true2</span><span class="p">})</span>
+<span class="kn">from</span> <span class="nn">helper</span> <span class="kn">import</span> <span class="o">*</span> <span class="c1">#import local helper functions for example data generation</span>
 
-<span class="c1"># Merge the dataframes</span>
-<span class="n">df_merged</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">df_A</span><span class="p">,</span> <span class="n">df_B</span><span class="p">],</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-
-<span class="c1"># Rename the &#39;subgroup&#39; column to &#39;subgroup_1&#39;</span>
-<span class="n">df_merged</span> <span class="o">=</span> <span class="n">df_merged</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;subgroup&#39;</span><span class="p">:</span> <span class="s1">&#39;subgroup_1&#39;</span><span class="p">})</span>
-<span class="n">df_merged</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;../../../example_data/simulated_data_subgroup.csv&#39;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">generate_wellcal_data</span><span class="p">(</span><span class="mi">5000</span><span class="p">,</span><span class="s2">&quot;../../../example_data/simulated_welldata.csv&quot;</span><span class="p">,</span><span class="n">alpha_val</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">beta_val</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span><span class="n">random_seed</span><span class="o">=</span><span class="mi">123</span><span class="p">)</span>
+<span class="n">generate_miscal_data</span><span class="p">(</span><span class="mi">5000</span><span class="p">,</span><span class="s2">&quot;../../../example_data/simulated_misdata.csv&quot;</span><span class="p">,</span> <span class="n">miscal_scale</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span><span class="n">alpha_val</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">beta_val</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span><span class="n">random_seed</span><span class="o">=</span><span class="mi">123</span><span class="p">)</span>
+<span class="n">generate_subgroup_data</span><span class="p">(</span><span class="mi">5000</span><span class="p">,</span><span class="s2">&quot;../../../example_data/simulated_data_subgroup.csv&quot;</span><span class="p">,</span><span class="n">miscal_scale</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span><span class="n">alpha_val</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">beta_val</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span><span class="n">random_seed</span><span class="o">=</span><span class="mi">123</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <p>To use CLI, you can use the script in the calzone directory. The program will save the metrics into the output csv file with the CI(if you turn on boostrap). The program will also save the relibaility diagram if you apply –plot flag. There is an optional flag –prevalence_adjustment which try to derive the original model prevalence and apply prevalence adjustment. See more on prevalence adjustment in the prevalecne adjustment notebook.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Use -h to see the help message and options</span>
+<span class="o">%</span><span class="k">run</span> ../../../cal_metrics.py -h
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+usage: cal_metrics.py [-h] [--csv_file CSV_FILE] [--metrics METRICS]
+                      [--prevalence_adjustment] [--n_bootstrap N_BOOTSTRAP]
+                      [--bootstrap_ci BOOTSTRAP_CI]
+                      [--class_to_calculate CLASS_TO_CALCULATE]
+                      [--num_bins NUM_BINS] [--save_metrics SAVE_METRICS]
+                      [--plot] [--plot_bins PLOT_BINS] [--save_plot SAVE_PLOT]
+                      [--save_diagram_output SAVE_DIAGRAM_OUTPUT] [--verbose]
+
+Calculate calibration metrics and visualize reliability diagram.
+
+options:
+  -h, --help            show this help message and exit
+  --csv_file CSV_FILE   Path to the input CSV file. (If there is header,it
+                        must be in: proba_0,proba_1,...,subgroup_1(optional),s
+                        ubgroup_2(optional),...label. If no header, then the
+                        columns must be in the order of
+                        proba_0,proba_1,...,label)
+  --metrics METRICS     Comma-separated list of specific metrics to calculate
+                        (SpiegelhalterZ,ECE-H,MCE-H,HL-H,ECE-C,MCE-C,HL-
+                        C,COX,Loess,all). Default: all
+  --prevalence_adjustment
+                        Perform prevalence adjustment (default: False)
+  --n_bootstrap N_BOOTSTRAP
+                        Number of bootstrap samples (default: 0)
+  --bootstrap_ci BOOTSTRAP_CI
+                        Bootstrap confidence interval (default: 0.95)
+  --class_to_calculate CLASS_TO_CALCULATE
+                        Class to calculate metrics for (default: 1)
+  --num_bins NUM_BINS   Number of bins for ECE/MCE/HL calculations (default:
+                        10)
+  --save_metrics SAVE_METRICS
+                        Save the metrics to a csv file
+  --plot                Plot reliability diagram (default: False)
+  --plot_bins PLOT_BINS
+                        Number of bins for reliability diagram
+  --save_plot SAVE_PLOT
+                        Save the plot to a file
+  --save_diagram_output SAVE_DIAGRAM_OUTPUT
+                        Save the reliability diagram output to a file
+  --verbose             Print verbose output
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">run</span> ../../../cal_metrics.py \
@@ -216,40 +253,40 @@
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 Metrics with bootstrap confidence intervals:
-SpiegelhalterZ score: 0.376 (-1.615, 2.515)
-SpiegelhalterZ p-value: 0.707 (0.010, 0.973)
-ECE-H topclass: 0.01 (0.006, 0.022)
+SpiegelhalterZ score: 0.376 (-1.581, 2.396)
+SpiegelhalterZ p-value: 0.707 (0.017, 0.971)
+ECE-H topclass: 0.01 (0.006, 0.021)
 ECE-H: 0.012 (0.011, 0.025)
 MCE-H topclass: 0.039 (0.016, 0.076)
-MCE-H: 0.048 (0.033, 0.105)
-HL-H score: 8.885 (6.789, 34.674)
-HL-H p-value: 0.352 (0.000, 0.56)
-ECE-C topclass: 0.009 (0.008, 0.021)
+MCE-H: 0.048 (0.034, 0.107)
+HL-H score: 8.885 (7.392, 34.058)
+HL-H p-value: 0.352 (0.000, 0.495)
+ECE-C topclass: 0.009 (0.007, 0.021)
 ECE-C: 0.009 (0.008, 0.022)
-MCE-C topclass: 0.021 (0.019, 0.068)
-MCE-C: 0.023 (0.02, 0.071)
-HL-C score: 3.695 (4.484, 30.483)
-HL-C p-value: 0.884 (0.000, 0.811)
-COX coef: 0.994 (0.938, 1.053)
-COX intercept: -0.045 (-0.125, 0.028)
-COX coef lowerci: 0.937 (0.884, 0.993)
-COX coef upperci: 1.051 (0.992, 1.113)
-COX intercept lowerci: -0.123 (-0.204, -0.051)
-COX intercept upperci: 0.034 (-0.047, 0.106)
+MCE-C topclass: 0.021 (0.018, 0.072)
+MCE-C: 0.023 (0.020, 0.071)
+HL-C score: 3.695 (4.778, 28.666)
+HL-C p-value: 0.884 (0.000, 0.781)
+COX coef: 0.994 (0.940, 1.054)
+COX intercept: -0.045 (-0.126, 0.031)
+COX coef lowerci: 0.937 (0.886, 0.994)
+COX coef upperci: 1.051 (0.994, 1.114)
+COX intercept lowerci: -0.123 (-0.205, -0.049)
+COX intercept upperci: 0.034 (-0.048, 0.109)
 COX ICI: 0.006 (0.001, 0.016)
-Loess ICI: 0.006 (0.003, 0.016)
+Loess ICI: 0.006 (0.004, 0.016)
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_quickstart_15_1.png" src="../_images/notebooks_quickstart_15_1.png" />
+<img alt="../_images/notebooks_quickstart_16_1.png" src="../_images/notebooks_quickstart_16_1.png" />
 </div>
 </div>
 <p>We can also test it on a miscalibrated dataset</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">run</span> ../../../cal_metrics.py \
@@ -273,40 +310,40 @@ Loess ICI: 0.006 (0.003, 0.016)
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 Metrics with bootstrap confidence intervals:
-SpiegelhalterZ score: 27.936 (24.343, 31.373)
+SpiegelhalterZ score: 29.626 (26.37, 33.185)
 SpiegelhalterZ p-value: 0. (0., 0.)
-ECE-H topclass: 0.077 (0.067, 0.087)
-ECE-H: 0.077 (0.068, 0.088)
-MCE-H topclass: 0.133 (0.107, 0.176)
-MCE-H: 0.163 (0.13, 0.235)
-HL-H score: 910.439 (711.575, 1170.693)
+ECE-H topclass: 0.081 (0.073, 0.091)
+ECE-H: 0.081 (0.073, 0.092)
+MCE-H topclass: 0.151 (0.127, 0.202)
+MCE-H: 0.168 (0.145, 0.244)
+HL-H score: 1027.940 (818.524, 1292.977)
 HL-H p-value: 0. (0., 0.)
-ECE-C topclass: 0.074 (0.066, 0.085)
-ECE-C: 0.075 (0.064, 0.086)
-MCE-C topclass: 0.141 (0.126, 0.183)
-MCE-C: 0.140 (0.114, 0.180)
-HL-C score: 2246.171 (1415.309, 3702.911)
+ECE-C topclass: 0.079 (0.069, 0.09)
+ECE-C: 0.08 (0.07, 0.091)
+MCE-C topclass: 0.168 (0.141, 0.204)
+MCE-C: 0.158 (0.139, 0.203)
+HL-C score: 1857.584 (1355.637, 3341.319)
 HL-C p-value: 0. (0., 0.)
-COX coef: 0.507 (0.478, 0.540)
-COX intercept: 0.000 (-0.073, 0.079)
-COX coef lowerci: 0.478 (0.451, 0.509)
-COX coef upperci: 0.536 (0.506, 0.571)
-COX intercept lowerci: -0.078 (-0.153, 0.001)
-COX intercept upperci: 0.079 (0.006, 0.157)
-COX ICI: 0.077 (0.069, 0.086)
-Loess ICI: 0.07 (0.061, 0.079)
+COX coef: 0.497 (0.470, 0.524)
+COX intercept: -0.045 (-0.125, 0.038)
+COX coef lowerci: 0.469 (0.443, 0.494)
+COX coef upperci: 0.526 (0.497, 0.554)
+COX intercept lowerci: -0.123 (-0.203, -0.041)
+COX intercept upperci: 0.034 (-0.046, 0.116)
+COX ICI: 0.078 (0.071, 0.085)
+Loess ICI: 0.074 (0.065, 0.083)
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_quickstart_17_1.png" src="../_images/notebooks_quickstart_17_1.png" />
+<img alt="../_images/notebooks_quickstart_18_1.png" src="../_images/notebooks_quickstart_18_1.png" />
 </div>
 </div>
 <p>If your data has subgroup in it, simply run the script with the same argument as the one above. It will automatically detect the subgroup and generate the corresponding plots and metrics for each subgroup as well as the overall plot and metrics.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">run</span> ../../../cal_metrics.py \
@@ -330,27 +367,27 @@ Loess ICI: 0.07 (0.061, 0.079)
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 Metrics with bootstrap confidence intervals:
-SpiegelhalterZ score: 18.327 (15.680, 20.858)
+SpiegelhalterZ score: 18.327 (15.794, 21.009)
 SpiegelhalterZ p-value: 0. (0., 0.)
-ECE-H topclass: 0.042 (0.035, 0.048)
+ECE-H topclass: 0.042 (0.035, 0.049)
 ECE-H: 0.042 (0.036, 0.049)
-MCE-H topclass: 0.055 (0.043, 0.085)
-MCE-H: 0.063 (0.054, 0.109)
-HL-H score: 429.732 (332.85, 565.169)
+MCE-H topclass: 0.055 (0.043, 0.087)
+MCE-H: 0.063 (0.055, 0.109)
+HL-H score: 429.732 (335.116, 584.729)
 HL-H p-value: 0. (0., 0.)
-ECE-C topclass: 0.042 (0.034, 0.048)
+ECE-C topclass: 0.042 (0.035, 0.049)
 ECE-C: 0.038 (0.032, 0.046)
-MCE-C topclass: 0.065 (0.055, 0.092)
-MCE-C: 0.064 (0.054, 0.087)
-HL-C score: 1138.842 (748.777, 1819.374)
+MCE-C topclass: 0.065 (0.055, 0.091)
+MCE-C: 0.064 (0.052, 0.086)
+HL-C score: 1138.842 (779.577, 1844.15)
 HL-C p-value: 0. (0., 0.)
-COX coef: 0.668 (0.641, 0.699)
-COX intercept: -0.02 (-0.072, 0.033)
-COX coef lowerci: 0.641 (0.614, 0.670)
-COX coef upperci: 0.696 (0.667, 0.728)
-COX intercept lowerci: -0.074 (-0.127, -0.021)
-COX intercept upperci: 0.034 (-0.017, 0.088)
-COX ICI: 0.049 (0.043, 0.055)
+COX coef: 0.668 (0.638, 0.698)
+COX intercept: -0.02 (-0.073, 0.03)
+COX coef lowerci: 0.641 (0.611, 0.67)
+COX coef upperci: 0.696 (0.664, 0.727)
+COX intercept lowerci: -0.074 (-0.127, -0.025)
+COX intercept upperci: 0.034 (-0.019, 0.084)
+COX ICI: 0.049 (0.044, 0.055)
 Loess ICI: 0.037 (0.032, 0.043)
 </pre></div></div>
 </div>
@@ -358,7 +395,7 @@ Loess ICI: 0.037 (0.032, 0.043)
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_quickstart_19_1.png" src="../_images/notebooks_quickstart_19_1.png" />
+<img alt="../_images/notebooks_quickstart_20_1.png" src="../_images/notebooks_quickstart_20_1.png" />
 </div>
 </div>
 <div class="nboutput docutils container">
@@ -367,27 +404,27 @@ Loess ICI: 0.037 (0.032, 0.043)
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 Metrics for subgroup_1_group_A with bootstrap confidence intervals:
-SpiegelhalterZ score: 0.376 (-1.654, 2.308)
-SpiegelhalterZ p-value: 0.707 (0.017, 0.978)
-ECE-H topclass: 0.01 (0.006, 0.022)
-ECE-H: 0.012 (0.010, 0.026)
-MCE-H topclass: 0.039 (0.017, 0.076)
-MCE-H: 0.048 (0.034, 0.103)
-HL-H score: 8.885 (6.74, 36.214)
-HL-H p-value: 0.352 (0.000, 0.565)
-ECE-C topclass: 0.009 (0.007, 0.021)
-ECE-C: 0.009 (0.008, 0.022)
-MCE-C topclass: 0.021 (0.017, 0.070)
-MCE-C: 0.023 (0.019, 0.072)
-HL-C score: 3.695 (4.792, 30.155)
-HL-C p-value: 0.884 (0.000, 0.78)
-COX coef: 0.994 (0.942, 1.056)
-COX intercept: -0.045 (-0.130, 0.031)
-COX coef lowerci: 0.937 (0.888, 0.996)
-COX coef upperci: 1.051 (0.996, 1.117)
-COX intercept lowerci: -0.123 (-0.21, -0.048)
-COX intercept upperci: 0.034 (-0.051, 0.109)
-COX ICI: 0.006 (0.001, 0.016)
+SpiegelhalterZ score: 0.376 (-1.536, 2.249)
+SpiegelhalterZ p-value: 0.707 (0.018, 0.981)
+ECE-H topclass: 0.01 (0.006, 0.021)
+ECE-H: 0.012 (0.011, 0.025)
+MCE-H topclass: 0.039 (0.017, 0.077)
+MCE-H: 0.048 (0.034, 0.107)
+HL-H score: 8.885 (7.273, 34.6)
+HL-H p-value: 0.352 (0.000, 0.507)
+ECE-C topclass: 0.009 (0.007, 0.022)
+ECE-C: 0.009 (0.007, 0.023)
+MCE-C topclass: 0.021 (0.018, 0.072)
+MCE-C: 0.023 (0.018, 0.075)
+HL-C score: 3.695 (4.463, 29.686)
+HL-C p-value: 0.884 (0.000, 0.813)
+COX coef: 0.994 (0.942, 1.050)
+COX intercept: -0.045 (-0.135, 0.028)
+COX coef lowerci: 0.937 (0.888, 0.990)
+COX coef upperci: 1.051 (0.996, 1.111)
+COX intercept lowerci: -0.123 (-0.214, -0.051)
+COX intercept upperci: 0.034 (-0.056, 0.107)
+COX ICI: 0.006 (0.001, 0.017)
 Loess ICI: 0.006 (0.003, 0.016)
 </pre></div></div>
 </div>
@@ -395,7 +432,7 @@ Loess ICI: 0.006 (0.003, 0.016)
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_quickstart_19_3.png" src="../_images/notebooks_quickstart_19_3.png" />
+<img alt="../_images/notebooks_quickstart_20_3.png" src="../_images/notebooks_quickstart_20_3.png" />
 </div>
 </div>
 <div class="nboutput docutils container">
@@ -404,35 +441,35 @@ Loess ICI: 0.006 (0.003, 0.016)
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 Metrics for subgroup_1_group_B with bootstrap confidence intervals:
-SpiegelhalterZ score: 27.936 (25.005, 31.623)
+SpiegelhalterZ score: 27.936 (24.631, 31.175)
 SpiegelhalterZ p-value: 0. (0., 0.)
-ECE-H topclass: 0.077 (0.068, 0.087)
-ECE-H: 0.077 (0.069, 0.088)
-MCE-H topclass: 0.133 (0.110, 0.177)
-MCE-H: 0.163 (0.128, 0.233)
-HL-H score: 910.439 (725.654, 1174.481)
+ECE-H topclass: 0.077 (0.068, 0.086)
+ECE-H: 0.077 (0.069, 0.087)
+MCE-H topclass: 0.133 (0.108, 0.175)
+MCE-H: 0.163 (0.13, 0.232)
+HL-H score: 910.439 (716.681, 1156.971)
 HL-H p-value: 0. (0., 0.)
-ECE-C topclass: 0.074 (0.066, 0.085)
-ECE-C: 0.075 (0.066, 0.086)
-MCE-C topclass: 0.141 (0.128, 0.182)
-MCE-C: 0.140 (0.117, 0.182)
-HL-C score: 2246.171 (1484.448, 3735.649)
+ECE-C topclass: 0.074 (0.066, 0.084)
+ECE-C: 0.075 (0.065, 0.085)
+MCE-C topclass: 0.141 (0.124, 0.182)
+MCE-C: 0.140 (0.115, 0.182)
+HL-C score: 2246.171 (1393.175, 3900.391)
 HL-C p-value: 0. (0., 0.)
-COX coef: 0.507 (0.479, 0.536)
-COX intercept: 0.000 (-0.076, 0.083)
-COX coef lowerci: 0.478 (0.451, 0.506)
-COX coef upperci: 0.536 (0.506, 0.566)
-COX intercept lowerci: -0.078 (-0.155, 0.005)
-COX intercept upperci: 0.079 (0.003, 0.161)
-COX ICI: 0.077 (0.070, 0.085)
-Loess ICI: 0.07 (0.063, 0.079)
+COX coef: 0.507 (0.481, 0.539)
+COX intercept: 0.000 (-0.073, 0.077)
+COX coef lowerci: 0.478 (0.454, 0.508)
+COX coef upperci: 0.536 (0.508, 0.569)
+COX intercept lowerci: -0.078 (-0.152, -0.002)
+COX intercept upperci: 0.079 (0.005, 0.155)
+COX ICI: 0.077 (0.07, 0.085)
+Loess ICI: 0.07 (0.062, 0.078)
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_quickstart_19_5.png" src="../_images/notebooks_quickstart_19_5.png" />
+<img alt="../_images/notebooks_quickstart_20_5.png" src="../_images/notebooks_quickstart_20_5.png" />
 </div>
 </div>
 </section>
@@ -443,7 +480,7 @@ Loess ICI: 0.07 (0.063, 0.079)
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="../index.html" class="btn btn-neutral float-left" title="Welcome to the documentation for calzone" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="metrics_summary.html" class="btn btn-neutral float-right" title="Summary and guide for calibration metrics" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="metrics_summary.html" class="btn btn-neutral float-right" title="Summary and guide for calzone" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

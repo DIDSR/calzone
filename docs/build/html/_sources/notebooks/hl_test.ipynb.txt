@@ -151,7 +151,7 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "We will show HL having the wrong size. The power of HL test will be demostrated in the Power section of the next notebook. We will need to generate fake data."
+    "We will show the size of HL test. Notice that the size of HL test had been shown to depend on sample size, number of bin and binning scheme (Hosmer et. al. 1997). We will generate fake data to show the size of HL test."
    ]
   },
   {

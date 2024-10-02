@@ -50,7 +50,7 @@
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Welcome to the documentation for calzone</a></li>
 <li class="toctree-l1"><a class="reference internal" href="notebooks/quickstart.html">Quick Start</a></li>
-<li class="toctree-l1"><a class="reference internal" href="notebooks/metrics_summary.html">Summary and guide for calibration metrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/metrics_summary.html">Summary and guide for calzone</a></li>
 <li class="toctree-l1"><a class="reference internal" href="notebooks/reliability_diagram.html">Reliability diagram</a></li>
 <li class="toctree-l1"><a class="reference internal" href="notebooks/ece_mce.html">Exepected Calibration Error(ECE) and Maximum Calibration Error (MCE)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="notebooks/hl_test.html">Hosmer-Lemeshow test (HL test)</a></li>
@@ -89,18 +89,17 @@
   <section id="welcome-to-the-documentation-for-calzone">
 <h1>Welcome to the documentation for calzone<a class="headerlink" href="#welcome-to-the-documentation-for-calzone" title="Link to this heading"></a></h1>
 <p>calzone is a Python package for calculation of various calibration metrics. This work is credited to Kwok Lung (Jason) Fan and Qian Cao.</p>
-<p>The calzone package provides a suite of tools for assessing and improving the calibration of machine learning models, particularly in binary classification tasks. It offers various calibration metrics, methods for generating and manipulating calibration data, and visualization tools for reliability diagrams. Whether you’re working on model evaluation, uncertainty quantification, or improving the reliability of probabilistic predictions, calzone offers the utilities you need.</p>
+<p>The calzone package provides a suite of tools for assessing and improving the calibration of machine learning models, particularly in binary classification tasks. It offers various calibration metrics and visualization tools for reliability diagrams.</p>
 <p>Key features of calzone include:</p>
 <ul class="simple">
 <li><p>Calculation of various calibration metrics (e.g., ECE, MCE, Hosmer-Lemeshow test, spiegelhalter z test, etc.)</p></li>
 <li><p>Visualization functions for reliability diagrams</p></li>
 <li><p>Bootstrapping capabilities for confidence interval estimation</p></li>
 <li><p>Subgroup analysis for calibration metrics</p></li>
-<li><p>Provides graphical user interface for easy calculation</p></li>
 <li><p>Provides command line interface scripts for batch processing</p></li>
 </ul>
 <p>To accurately assess the calibration of machine learning models, it is essential to have a comprehensive and reprensative dataset with sufficient coverage of the prediction space. The calibration metrics is not meaningful if the dataset is not representative of true intended population.</p>
-<p>We hope you find calzone useful in your machine learning and data science projects!</p>
+<p>We hope you find calzone useful in your machine learning projects!</p>
 <div class="toctree-wrapper compound">
 <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
@@ -110,11 +109,14 @@
 <li class="toctree-l2"><a class="reference internal" href="notebooks/quickstart.html#Command-line-interface">Command line interface</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="notebooks/metrics_summary.html">Summary and guide for calibration metrics</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="notebooks/metrics_summary.html#Guide-to-Calibration-Metrics">Guide to Calibration Metrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/metrics_summary.html">Summary and guide for calzone</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/metrics_summary.html#Guide-to-calzone-and-calibration-metrics">Guide to calzone and calibration metrics</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="notebooks/reliability_diagram.html">Reliability diagram</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/reliability_diagram.html">Reliability diagram</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/reliability_diagram.html#References">References</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="notebooks/ece_mce.html">Exepected Calibration Error(ECE) and Maximum Calibration Error (MCE)</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="notebooks/ece_mce.html#Theoretical-Background">Theoretical Background</a></li>
 <li class="toctree-l2"><a class="reference internal" href="notebooks/ece_mce.html#Pros-of-ECE-and-MCE">Pros of ECE and MCE</a></li>

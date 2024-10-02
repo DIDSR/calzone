@@ -52,7 +52,7 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../index.html">Welcome to the documentation for calzone</a></li>
 <li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick Start</a></li>
-<li class="toctree-l1"><a class="reference internal" href="metrics_summary.html">Summary and guide for calibration metrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="metrics_summary.html">Summary and guide for calzone</a></li>
 <li class="toctree-l1"><a class="reference internal" href="reliability_diagram.html">Reliability diagram</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ece_mce.html">Exepected Calibration Error(ECE) and Maximum Calibration Error (MCE)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="hl_test.html">Hosmer-Lemeshow test (HL test)</a></li>
@@ -145,8 +145,8 @@ overall under- or over-confidence or if it is over-confident in some ranges and 
 Dep. Variable:                      y   No. Observations:                 5000
 Model:                          Logit   Df Residuals:                     4998
 Method:                           MLE   Df Model:                            1
-Date:                Thu, 26 Sep 2024   Pseudo R-squ.:                  0.4438
-Time:                        09:40:42   Log-Likelihood:                -1927.5
+Date:                Wed, 02 Oct 2024   Pseudo R-squ.:                  0.4438
+Time:                        15:53:27   Log-Likelihood:                -1927.5
 converged:                       True   LL-Null:                       -3465.6
 Covariance Type:            nonrobust   LLR p-value:                     0.000
 ==============================================================================
@@ -159,7 +159,7 @@ x1             0.9942      0.029     34.212      0.000       0.937       1.051
 </div>
 <p>You can also fix the intercept <span class="math notranslate nohighlight">\(a=0\)</span> by using the <code class="docutils literal notranslate"><span class="pre">fix_intercept=True</span></code> option. Similarly, you can fix the slope <span class="math notranslate nohighlight">\(b=1\)</span> by using the <code class="docutils literal notranslate"><span class="pre">fix_slope=True</span></code> option.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### fixing intercept and calculating cox slope</span>
@@ -180,8 +180,8 @@ Warning: Maximum number of iterations has been exceeded.
 Dep. Variable:                      y   No. Observations:                 5000
 Model:                          Logit   Df Residuals:                     4999
 Method:                           MLE   Df Model:                            0
-Date:                Thu, 26 Sep 2024   Pseudo R-squ.:                  0.4436
-Time:                        09:51:09   Log-Likelihood:                -1928.1
+Date:                Wed, 02 Oct 2024   Pseudo R-squ.:                  0.4436
+Time:                        15:53:27   Log-Likelihood:                -1928.1
 converged:                      False   LL-Null:                       -3465.6
 Covariance Type:            nonrobust   LLR p-value:                       nan
 ==============================================================================
@@ -196,7 +196,7 @@ Model has been estimated subject to linear equality constraints.
 </div>
 <p>Alternatively, we can use the CalibrationMetrics class to compute the COX slope and intercept.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">calzone.metrics</span> <span class="kn">import</span> <span class="n">CalibrationMetrics</span>
@@ -215,8 +215,8 @@ Model has been estimated subject to linear equality constraints.
 Dep. Variable:                      y   No. Observations:                 5000
 Model:                          Logit   Df Residuals:                     4998
 Method:                           MLE   Df Model:                            1
-Date:                Thu, 26 Sep 2024   Pseudo R-squ.:                  0.4438
-Time:                        10:14:45   Log-Likelihood:                -1927.5
+Date:                Wed, 02 Oct 2024   Pseudo R-squ.:                  0.4438
+Time:                        15:53:27   Log-Likelihood:                -1927.5
 converged:                       True   LL-Null:                       -3465.6
 Covariance Type:            nonrobust   LLR p-value:                     0.000
 ==============================================================================
@@ -228,7 +228,7 @@ x1             0.9942      0.029     34.212      0.000       0.937       1.051
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -274,7 +274,7 @@ x1             0.9942      0.029     34.212      0.000       0.937       1.051
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Cox_slope</span> <span class="o">=</span> <span class="n">results</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span>
@@ -321,7 +321,7 @@ The size of the Cox slope test is:  0.039000000000000035
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Cox_intercept</span> <span class="o">=</span> <span class="n">results</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span>

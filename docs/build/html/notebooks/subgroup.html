@@ -52,7 +52,7 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../index.html">Welcome to the documentation for calzone</a></li>
 <li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick Start</a></li>
-<li class="toctree-l1"><a class="reference internal" href="metrics_summary.html">Summary and guide for calibration metrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="metrics_summary.html">Summary and guide for calzone</a></li>
 <li class="toctree-l1"><a class="reference internal" href="reliability_diagram.html">Reliability diagram</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ece_mce.html">Exepected Calibration Error(ECE) and Maximum Calibration Error (MCE)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="hl_test.html">Hosmer-Lemeshow test (HL test)</a></li>
@@ -120,7 +120,7 @@ Whether the dataset has subgroup: True
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### subgroup analysis for each group</span>
@@ -192,7 +192,7 @@ Loess ICI: 0.06991428582761099
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### An alernative way to do the same thing is through command line interface</span>
@@ -212,74 +212,74 @@ Loess ICI: 0.06991428582761099
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 Metrics:
-SpiegelhalterZ score: 18.326500460344757
-SpiegelhalterZ p-value: 0.0
-ECE-H topclass: 0.04154425366233608
-ECE-H: 0.041606274177861564
-MCE-H topclass: 0.05506859806121056
-MCE-H: 0.06291857721845223
-HL-H score: 429.7315889789045
-HL-H p-value: 0.0
-ECE-C topclass: 0.04153827551437989
-ECE-C: 0.03813373547517625
-MCE-C topclass: 0.06521747269553313
-MCE-C: 0.06426881466822676
-HL-C score: 1138.8421218049589
-HL-C p-value: 0.0
-COX coef: 0.6682652785932737
-COX intercept: -0.019974208464277905
-COX coef lowerci: 0.6406305507074329
-COX coef upperci: 0.6959000064791144
-COX intercept lowerci: -0.07427409213097665
-COX intercept upperci: 0.03432567520242083
-COX ICI: 0.04920919519153327
-Loess ICI: 0.03714791811671051
+SpiegelhalterZ score: 18.327
+SpiegelhalterZ p-value: 0.
+ECE-H topclass: 0.042
+ECE-H: 0.042
+MCE-H topclass: 0.055
+MCE-H: 0.063
+HL-H score: 429.732
+HL-H p-value: 0.
+ECE-C topclass: 0.042
+ECE-C: 0.038
+MCE-C topclass: 0.065
+MCE-C: 0.064
+HL-C score: 1138.842
+HL-C p-value: 0.
+COX coef: 0.668
+COX intercept: -0.02
+COX coef lowerci: 0.641
+COX coef upperci: 0.696
+COX intercept lowerci: -0.074
+COX intercept upperci: 0.034
+COX ICI: 0.049
+Loess ICI: 0.037
 Metrics for subgroup subgroup_1_group_A:
-SpiegelhalterZ score: 0.3763269161877356
-SpiegelhalterZ p-value: 0.7066738713391099
-ECE-H topclass: 0.009608653731328977
-ECE-H: 0.01208775955804901
-MCE-H topclass: 0.03926468843081976
-MCE-H: 0.04848338618970194
-HL-H score: 8.884991559088098
-HL-H p-value: 0.35209071874348785
-ECE-C topclass: 0.009458033653818828
-ECE-C: 0.008733966945443138
-MCE-C topclass: 0.020515047600205505
-MCE-C: 0.02324031223486256
-HL-C score: 3.694947603203135
-HL-C p-value: 0.8835446575708198
-COX coef: 0.9942499557748269
-COX intercept: -0.04497652296600376
-COX coef lowerci: 0.9372902801721911
-COX coef upperci: 1.0512096313774626
-COX intercept lowerci: -0.12348577118577644
-COX intercept upperci: 0.03353272525376893
-COX ICI: 0.005610391483826338
-Loess ICI: 0.00558856942568957
+SpiegelhalterZ score: 0.376
+SpiegelhalterZ p-value: 0.707
+ECE-H topclass: 0.01
+ECE-H: 0.012
+MCE-H topclass: 0.039
+MCE-H: 0.048
+HL-H score: 8.885
+HL-H p-value: 0.352
+ECE-C topclass: 0.009
+ECE-C: 0.009
+MCE-C topclass: 0.021
+MCE-C: 0.023
+HL-C score: 3.695
+HL-C p-value: 0.884
+COX coef: 0.994
+COX intercept: -0.045
+COX coef lowerci: 0.937
+COX coef upperci: 1.051
+COX intercept lowerci: -0.123
+COX intercept upperci: 0.034
+COX ICI: 0.006
+Loess ICI: 0.006
 Metrics for subgroup subgroup_1_group_B:
-SpiegelhalterZ score: 27.93575342117766
-SpiegelhalterZ p-value: 0.0
-ECE-H topclass: 0.07658928982434714
-ECE-H: 0.0765892898243467
-MCE-H topclass: 0.1327565894838103
-MCE-H: 0.16250572519432438
-HL-H score: 910.4385762101924
-HL-H p-value: 0.0
-ECE-C topclass: 0.07429481165606829
-ECE-C: 0.07479369479609524
-MCE-C topclass: 0.14090872416947742
-MCE-C: 0.14045600565696226
-HL-C score: 2246.1714434139853
-HL-C p-value: 0.0
-COX coef: 0.5071793536874274
-COX intercept: 0.00037947714112375366
-COX coef lowerci: 0.47838663128188996
-COX coef upperci: 0.5359720760929648
-COX intercept lowerci: -0.07796623141885761
-COX intercept upperci: 0.07872518570110512
-COX ICI: 0.07746407648179383
-Loess ICI: 0.06991428582761099
+SpiegelhalterZ score: 27.936
+SpiegelhalterZ p-value: 0.
+ECE-H topclass: 0.077
+ECE-H: 0.077
+MCE-H topclass: 0.133
+MCE-H: 0.163
+HL-H score: 910.439
+HL-H p-value: 0.
+ECE-C topclass: 0.074
+ECE-C: 0.075
+MCE-C topclass: 0.141
+MCE-C: 0.140
+HL-C score: 2246.171
+HL-C p-value: 0.
+COX coef: 0.507
+COX intercept: 0.000
+COX coef lowerci: 0.478
+COX coef upperci: 0.536
+COX intercept lowerci: -0.078
+COX intercept upperci: 0.079
+COX ICI: 0.077
+Loess ICI: 0.07
 </pre></div></div>
 </div>
 <div class="nbinput nblast docutils container">

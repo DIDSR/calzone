@@ -9,7 +9,7 @@ Welcome to the documentation for calzone
 
 calzone is a Python package for calculation of various calibration metrics. This work is credited to Kwok Lung (Jason) Fan and Qian Cao.
 
-The calzone package provides a suite of tools for assessing and improving the calibration of machine learning models, particularly in binary classification tasks. It offers various calibration metrics, methods for generating and manipulating calibration data, and visualization tools for reliability diagrams. Whether you're working on model evaluation, uncertainty quantification, or improving the reliability of probabilistic predictions, calzone offers the utilities you need.
+The calzone package provides a suite of tools for assessing and improving the calibration of machine learning models, particularly in binary classification tasks. It offers various calibration metrics and visualization tools for reliability diagrams. 
 
 Key features of calzone include:
 
@@ -17,13 +17,12 @@ Key features of calzone include:
 * Visualization functions for reliability diagrams
 * Bootstrapping capabilities for confidence interval estimation
 * Subgroup analysis for calibration metrics
-* Provides graphical user interface for easy calculation
 * Provides command line interface scripts for batch processing
 
 To accurately assess the calibration of machine learning models, it is essential to have a comprehensive and reprensative dataset with sufficient coverage of the prediction space. The calibration metrics is not meaningful if the dataset is not representative of true intended population.
 
 
-We hope you find calzone useful in your machine learning and data science projects!
+We hope you find calzone useful in your machine learning projects!
 
 .. toctree::
    :maxdepth: 2

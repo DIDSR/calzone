@@ -117,7 +117,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 7,
+   "execution_count": 3,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -144,7 +144,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 8,
+   "execution_count": 4,
    "metadata": {},
    "outputs": [
     {
@@ -166,7 +166,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 9,
+   "execution_count": 5,
    "metadata": {},
    "outputs": [
     {
@@ -175,7 +175,7 @@
        "Text(0.5, 1.0, \"P-value distribution of the Spiegelhalter's z test\")"
       ]
      },
-     "execution_count": 9,
+     "execution_count": 5,
      "metadata": {},
      "output_type": "execute_result"
     },
