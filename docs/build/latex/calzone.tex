@@ -65,7 +65,7 @@
 
 
 \title{calzone}
-\date{Oct 02, 2024}
+\date{Oct 03, 2024}
 \release{develop}
 \author{Kwok Lung Jason Fan}
 \newcommand{\sphinxlogo}{\vbox{}}
@@ -90,7 +90,7 @@
 calzone is a Python package for calculation of various calibration metrics. This work is credited to Kwok Lung (Jason) Fan and Qian Cao.
 
 \sphinxAtStartPar
-The calzone package provides a suite of tools for assessing and improving the calibration of machine learning models, particularly in binary classification tasks. It offers various calibration metrics and visualization tools for reliability diagrams.
+The calzone package provides a suite of tools for assessing and improving the calibration of machine learning models, particularly in binary classification tasks. It offers various calibration metrics and visualization tools for reliability diagrams.  Please read the summary and guide first  before using the package.
 
 \sphinxAtStartPar
 Key features of calzone include:
@@ -694,6 +694,71 @@ Loess ICI: 0.07 (0.062, 0.078)
 \end{sphinxuseclass}
 \end{sphinxuseclass}
 \end{nbsphinxfancyoutput}
+
+\end{sphinxuseclass}
+\end{sphinxuseclass}
+
+\section{Using calzone in python}
+\label{\detokenize{notebooks/quickstart:Using-calzone-in-python}}
+\sphinxAtStartPar
+Instead of running the command line tool, you can also use calzone in python directly
+
+\begin{sphinxuseclass}{nbinput}
+{
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+\llap{\color{nbsphinxin}[1]:\,\hspace{\fboxrule}\hspace{\fboxsep}}\PYG{k+kn}{from} \PYG{n+nn}{calzone}\PYG{n+nn}{.}\PYG{n+nn}{metrics} \PYG{k+kn}{import} \PYG{n}{CalibrationMetrics}
+\PYG{k+kn}{from} \PYG{n+nn}{calzone}\PYG{n+nn}{.}\PYG{n+nn}{utils} \PYG{k+kn}{import} \PYG{n}{data\PYGZus{}loader}
+
+\PYG{n}{loader} \PYG{o}{=} \PYG{n}{data\PYGZus{}loader}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{../../../example\PYGZus{}data/simulated\PYGZus{}welldata.csv}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{cal\PYGZus{}metrics} \PYG{o}{=} \PYG{n}{CalibrationMetrics}\PYG{p}{(}\PYG{n}{class\PYGZus{}to\PYGZus{}calculate}\PYG{o}{=}\PYG{l+m+mi}{1}\PYG{p}{)}
+\PYG{n}{cal\PYGZus{}metrics}\PYG{o}{.}\PYG{n}{calculate\PYGZus{}metrics}\PYG{p}{(}\PYG{n}{loader}\PYG{o}{.}\PYG{n}{labels}\PYG{p}{,} \PYG{n}{loader}\PYG{o}{.}\PYG{n}{probs}\PYG{p}{,} \PYG{n}{metrics}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{all}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
+\end{sphinxVerbatim}
+}
+
+\end{sphinxuseclass}
+\begin{sphinxuseclass}{nboutput}
+\begin{sphinxuseclass}{nblast}
+{
+
+\kern-\sphinxverbatimsmallskipamount\kern-\baselineskip
+\kern+\FrameHeightAdjust\kern-\fboxrule
+\vspace{\nbsphinxcodecellspacing}
+
+\sphinxsetup{VerbatimColor={named}{white}}
+\begin{sphinxuseclass}{output_area}
+\begin{sphinxuseclass}{}
+
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+\llap{\color{nbsphinxout}[1]:\,\hspace{\fboxrule}\hspace{\fboxsep}}\{'SpiegelhalterZ score': 0.3763269161877356,
+ 'SpiegelhalterZ p-value': 0.7066738713391099,
+ 'ECE-H topclass': 0.009608653731328977,
+ 'ECE-H': 0.01208775955804901,
+ 'MCE-H topclass': 0.03926468843081976,
+ 'MCE-H': 0.04848338618970194,
+ 'HL-H score': 8.884991559088098,
+ 'HL-H p-value': 0.35209071874348785,
+ 'ECE-C topclass': 0.009458033653818828,
+ 'ECE-C': 0.008733966945443138,
+ 'MCE-C topclass': 0.020515047600205505,
+ 'MCE-C': 0.02324031223486256,
+ 'HL-C score': 3.694947603203135,
+ 'HL-C p-value': 0.8835446575708198,
+ 'COX coef': 0.9942499557748269,
+ 'COX intercept': -0.04497652296600376,
+ 'COX coef lowerci': 0.9372902801721911,
+ 'COX coef upperci': 1.0512096313774626,
+ 'COX intercept lowerci': -0.12348577118577644,
+ 'COX intercept upperci': 0.03353272525376893,
+ 'COX ICI': 0.005610391483826338,
+ 'Loess ICI': 0.00558856942568957\}
+\end{sphinxVerbatim}
+
+
+
+\end{sphinxuseclass}
+\end{sphinxuseclass}
+}
 
 \end{sphinxuseclass}
 \end{sphinxuseclass}

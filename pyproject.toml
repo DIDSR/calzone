@@ -7,7 +7,7 @@ name = "calzone"
 version = "0.1.0"
 description = "A package for calibration measurement and analysis"
 authors = [
-    {name = "Kwok Lung Jason Fan", email = "kwoklung.fan@fda.hhs.gov"},
+    {name = "Kwok Lung (Jason) Fan", email = "kwoklung.fan@fda.hhs.gov"},
 ]
 license = {text = "MIT"}
 readme = "README.md"

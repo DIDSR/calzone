@@ -54,6 +54,7 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Quick Start</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#Installation">Installation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#Command-line-interface">Command line interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Using-calzone-in-python">Using calzone in python</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="metrics_summary.html">Summary and guide for calzone</a></li>
@@ -471,6 +472,53 @@ Loess ICI: 0.07 (0.062, 0.078)
 <div class="output_area docutils container">
 <img alt="../_images/notebooks_quickstart_20_5.png" src="../_images/notebooks_quickstart_20_5.png" />
 </div>
+</div>
+</section>
+<section id="Using-calzone-in-python">
+<h2>Using calzone in python<a class="headerlink" href="#Using-calzone-in-python" title="Link to this heading"></a></h2>
+<p>Instead of running the command line tool, you can also use calzone in python directly</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">calzone.metrics</span> <span class="kn">import</span> <span class="n">CalibrationMetrics</span>
+<span class="kn">from</span> <span class="nn">calzone.utils</span> <span class="kn">import</span> <span class="n">data_loader</span>
+
+<span class="n">loader</span> <span class="o">=</span> <span class="n">data_loader</span><span class="p">(</span><span class="s1">&#39;../../../example_data/simulated_welldata.csv&#39;</span><span class="p">)</span>
+<span class="n">cal_metrics</span> <span class="o">=</span> <span class="n">CalibrationMetrics</span><span class="p">(</span><span class="n">class_to_calculate</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">cal_metrics</span><span class="o">.</span><span class="n">calculate_metrics</span><span class="p">(</span><span class="n">loader</span><span class="o">.</span><span class="n">labels</span><span class="p">,</span> <span class="n">loader</span><span class="o">.</span><span class="n">probs</span><span class="p">,</span> <span class="n">metrics</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+{&#39;SpiegelhalterZ score&#39;: 0.3763269161877356,
+ &#39;SpiegelhalterZ p-value&#39;: 0.7066738713391099,
+ &#39;ECE-H topclass&#39;: 0.009608653731328977,
+ &#39;ECE-H&#39;: 0.01208775955804901,
+ &#39;MCE-H topclass&#39;: 0.03926468843081976,
+ &#39;MCE-H&#39;: 0.04848338618970194,
+ &#39;HL-H score&#39;: 8.884991559088098,
+ &#39;HL-H p-value&#39;: 0.35209071874348785,
+ &#39;ECE-C topclass&#39;: 0.009458033653818828,
+ &#39;ECE-C&#39;: 0.008733966945443138,
+ &#39;MCE-C topclass&#39;: 0.020515047600205505,
+ &#39;MCE-C&#39;: 0.02324031223486256,
+ &#39;HL-C score&#39;: 3.694947603203135,
+ &#39;HL-C p-value&#39;: 0.8835446575708198,
+ &#39;COX coef&#39;: 0.9942499557748269,
+ &#39;COX intercept&#39;: -0.04497652296600376,
+ &#39;COX coef lowerci&#39;: 0.9372902801721911,
+ &#39;COX coef upperci&#39;: 1.0512096313774626,
+ &#39;COX intercept lowerci&#39;: -0.12348577118577644,
+ &#39;COX intercept upperci&#39;: 0.03353272525376893,
+ &#39;COX ICI&#39;: 0.005610391483826338,
+ &#39;Loess ICI&#39;: 0.00558856942568957}
+</pre></div></div>
 </div>
 </section>
 </section>

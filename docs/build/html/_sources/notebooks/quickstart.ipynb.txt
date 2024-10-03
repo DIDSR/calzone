@@ -505,7 +505,57 @@
   {
    "cell_type": "markdown",
    "metadata": {},
-   "source": []
+   "source": [
+    "## Using calzone in python\n",
+    "\n",
+    "Instead of running the command line tool, you can also use calzone in python directly"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 1,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "{'SpiegelhalterZ score': 0.3763269161877356,\n",
+       " 'SpiegelhalterZ p-value': 0.7066738713391099,\n",
+       " 'ECE-H topclass': 0.009608653731328977,\n",
+       " 'ECE-H': 0.01208775955804901,\n",
+       " 'MCE-H topclass': 0.03926468843081976,\n",
+       " 'MCE-H': 0.04848338618970194,\n",
+       " 'HL-H score': 8.884991559088098,\n",
+       " 'HL-H p-value': 0.35209071874348785,\n",
+       " 'ECE-C topclass': 0.009458033653818828,\n",
+       " 'ECE-C': 0.008733966945443138,\n",
+       " 'MCE-C topclass': 0.020515047600205505,\n",
+       " 'MCE-C': 0.02324031223486256,\n",
+       " 'HL-C score': 3.694947603203135,\n",
+       " 'HL-C p-value': 0.8835446575708198,\n",
+       " 'COX coef': 0.9942499557748269,\n",
+       " 'COX intercept': -0.04497652296600376,\n",
+       " 'COX coef lowerci': 0.9372902801721911,\n",
+       " 'COX coef upperci': 1.0512096313774626,\n",
+       " 'COX intercept lowerci': -0.12348577118577644,\n",
+       " 'COX intercept upperci': 0.03353272525376893,\n",
+       " 'COX ICI': 0.005610391483826338,\n",
+       " 'Loess ICI': 0.00558856942568957}"
+      ]
+     },
+     "execution_count": 1,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "from calzone.metrics import CalibrationMetrics\n",
+    "from calzone.utils import data_loader\n",
+    "\n",
+    "loader = data_loader('../../../example_data/simulated_welldata.csv')\n",
+    "cal_metrics = CalibrationMetrics(class_to_calculate=1)\n",
+    "cal_metrics.calculate_metrics(loader.labels, loader.probs, metrics='all')"
+   ]
   }
  ],
  "metadata": {
