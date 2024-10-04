@@ -1,0 +1,114 @@
+\begin{sphinxtheindex}
+\let\bigletter\sphinxstyleindexlettergroup
+\let\spxpagem \sphinxstyleindexpagemain
+\let\spxentry \sphinxstyleindexentry
+\let\spxextra \sphinxstyleindexextra
+
+  \bigletter {\sphinxsymbolsname}
+  \item \spxentry{\_\_init\_\_()}\spxextra{calzone.metrics.CalibrationMetrics method}, 
+		\hyperpage{59}
+  \item \spxentry{\_\_init\_\_()}\spxextra{calzone.utils.data\_loader method}, \hyperpage{67}
+  \item \spxentry{\_\_init\_\_()}\spxextra{calzone.utils.fake\_binary\_data\_generator method}, 
+		\hyperpage{67}
+
+  \indexspace
+  \bigletter A
+  \item \spxentry{abraitary\_miscal()}\spxextra{calzone.utils.fake\_binary\_data\_generator method}, 
+		\hyperpage{67}
+  \item \spxentry{alpha\_val}\spxextra{calzone.utils.fake\_binary\_data\_generator attribute}, 
+		\hyperpage{67}
+  \item \spxentry{apply\_prevalence\_adjustment()}\spxextra{in module calzone.utils}, 
+		\hyperpage{65}
+
+  \indexspace
+  \bigletter B
+  \item \spxentry{beta\_val}\spxextra{calzone.utils.fake\_binary\_data\_generator attribute}, 
+		\hyperpage{67}
+  \item \spxentry{bootstrap()}\spxextra{calzone.metrics.CalibrationMetrics method}, \hyperpage{59}
+
+  \indexspace
+  \bigletter C
+  \item \spxentry{cal\_ICI()}\spxextra{in module calzone.metrics}, \hyperpage{61}
+  \item \spxentry{cal\_ICI\_cox()}\spxextra{in module calzone.metrics}, \hyperpage{61}
+  \item \spxentry{calculate\_ece\_mce()}\spxextra{in module calzone.metrics}, \hyperpage{62}
+  \item \spxentry{calculate\_metrics()}\spxextra{calzone.metrics.CalibrationMetrics method}, 
+		\hyperpage{60}
+  \item \spxentry{CalibrationMetrics}\spxextra{class in calzone.metrics}, \hyperpage{59}
+  \item \spxentry{calzone}
+    \subitem \spxentry{module}, \hyperpage{72}
+  \item \spxentry{calzone.metrics}
+    \subitem \spxentry{module}, \hyperpage{59}
+  \item \spxentry{calzone.utils}
+    \subitem \spxentry{module}, \hyperpage{65}
+  \item \spxentry{calzone.vis}
+    \subitem \spxentry{module}, \hyperpage{71}
+  \item \spxentry{cox\_regression\_analysis()}\spxextra{in module calzone.metrics}, \hyperpage{62}
+
+  \indexspace
+  \bigletter D
+  \item \spxentry{data}\spxextra{calzone.utils.data\_loader attribute}, \hyperpage{66}
+  \item \spxentry{data\_loader}\spxextra{class in calzone.utils}, \hyperpage{66}
+  \item \spxentry{data\_path}\spxextra{calzone.utils.data\_loader attribute}, \hyperpage{66}
+
+  \indexspace
+  \bigletter F
+  \item \spxentry{fake\_binary\_data\_generator}\spxextra{class in calzone.utils}, \hyperpage{67}
+  \item \spxentry{find\_optimal\_prevalence()}\spxextra{in module calzone.utils}, \hyperpage{68}
+
+  \indexspace
+  \bigletter G
+  \item \spxentry{generate\_data()}\spxextra{calzone.utils.fake\_binary\_data\_generator method}, 
+		\hyperpage{68}
+  \item \spxentry{get\_CI()}\spxextra{in module calzone.metrics}, \hyperpage{63}
+
+  \indexspace
+  \bigletter H
+  \item \spxentry{have\_subgroup}\spxextra{calzone.utils.data\_loader attribute}, \hyperpage{66}
+  \item \spxentry{Header}\spxextra{calzone.utils.data\_loader attribute}, \hyperpage{66}
+  \item \spxentry{hosmer\_lemeshow\_test()}\spxextra{in module calzone.metrics}, \hyperpage{63}
+
+  \indexspace
+  \bigletter L
+  \item \spxentry{labels}\spxextra{calzone.utils.data\_loader attribute}, \hyperpage{66}
+  \item \spxentry{linear\_miscal()}\spxextra{calzone.utils.fake\_binary\_data\_generator method}, 
+		\hyperpage{68}
+  \item \spxentry{logit\_func()}\spxextra{in module calzone.metrics}, \hyperpage{64}
+  \item \spxentry{loss()}\spxextra{in module calzone.utils}, \hyperpage{68}
+  \item \spxentry{lowess\_regression\_analysis()}\spxextra{in module calzone.metrics}, 
+		\hyperpage{64}
+
+  \indexspace
+  \bigletter M
+  \item \spxentry{make\_roc\_curve()}\spxextra{in module calzone.utils}, \hyperpage{69}
+  \item \spxentry{module}
+    \subitem \spxentry{calzone}, \hyperpage{72}
+    \subitem \spxentry{calzone.metrics}, \hyperpage{59}
+    \subitem \spxentry{calzone.utils}, \hyperpage{65}
+    \subitem \spxentry{calzone.vis}, \hyperpage{71}
+
+  \indexspace
+  \bigletter O
+  \item \spxentry{optimal\_prevalence\_adjustment()}\spxextra{calzone.metrics.CalibrationMetrics method}, 
+		\hyperpage{60}
+
+  \indexspace
+  \bigletter P
+  \item \spxentry{plot\_reliability\_diagram()}\spxextra{in module calzone.vis}, \hyperpage{71}
+  \item \spxentry{plot\_roc\_curve()}\spxextra{in module calzone.vis}, \hyperpage{71}
+  \item \spxentry{probs}\spxextra{calzone.utils.data\_loader attribute}, \hyperpage{66}
+
+  \indexspace
+  \bigletter R
+  \item \spxentry{reliability\_diagram()}\spxextra{in module calzone.utils}, \hyperpage{69}
+  \item \spxentry{removing\_nan()}\spxextra{in module calzone.utils}, \hyperpage{70}
+
+  \indexspace
+  \bigletter S
+  \item \spxentry{softmax\_to\_logits()}\spxextra{in module calzone.utils}, \hyperpage{70}
+  \item \spxentry{spiegelhalter\_z\_test()}\spxextra{in module calzone.metrics}, \hyperpage{65}
+  \item \spxentry{subgroup\_indices}\spxextra{calzone.utils.data\_loader attribute}, \hyperpage{66}
+  \item \spxentry{subgroups}\spxextra{calzone.utils.data\_loader attribute}, \hyperpage{66}
+  \item \spxentry{subgroups\_class}\spxextra{calzone.utils.data\_loader attribute}, \hyperpage{66}
+  \item \spxentry{subgroups\_index}\spxextra{calzone.utils.data\_loader attribute}, \hyperpage{67}
+
+\end{sphinxtheindex}

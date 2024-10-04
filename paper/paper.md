@@ -7,7 +7,7 @@ tags:
   - Calibration
   - p=Probablistic models
 authors:
-  - name: Kwok Lung "Jason" Fan
+  - name: Kwok Lung Fan
     orcid: 0000-0002-8246-4751
     affiliation: 1 # (Multiple affiliations must be quoted)
   - name: Qian Cao
@@ -221,7 +221,7 @@ and it will return a structured numpy array.
 $$
 P'(D=1|\hat{p}=p) = \frac{\eta'/(1-\eta')}{(1/p-1)(\eta/(1-\eta))} = p'
 $$
-where $\eta$ is the prevalence of the testing data, $\eta'$ is the prevalence of the training data, and $p$ is the predicted probability [@weijie_prevalence_adjustment;@prevalence_shift;gu_likelihod_ratio]. We search for the optimal $\eta'$ that minimizes the cross-entropy loss.
+where $\eta$ is the prevalence of the testing data, $\eta'$ is the prevalence of the training data, and $p$ is the predicted probability [@weijie_prevalence_adjustment;@prevalence_shift;@gu_likelihod_ratio]. We search for the optimal $\eta'$ that minimizes the cross-entropy loss.
 
 ## Command line interface
 `calzone` also provides a command line interface to calculate the metrics. The user can visualize the calibration curve, calculate the metrics and their confidence intervals using the command line interface. To use the command line interface, the user can run `python cal_metrics.py -h` to see the help message.

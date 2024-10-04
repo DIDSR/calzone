@@ -11,8 +11,8 @@ import sys
 sys.path.insert(0, os.path.abspath('../../calzone'))
 
 project = 'calzone'
-copyright = '2024, Kwok Lung Jason Fan'
-author = 'Kwok Lung Jason Fan'
+copyright = '2024, Kwok Lung "Jason" Fan'
+author = 'Kwok Lung "Jason" Fan, Qian Cao'
 release = 'develop'
 
 # -- General configuration ---------------------------------------------------
