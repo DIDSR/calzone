@@ -182,7 +182,7 @@ z, p_value = spiegelhalter_z_test(
 
 
 ### Metrics class
-`calzone` also provides a class `CalibrationMetrics` to calculate all the metrics mentioned above. The user can also use the class to calculate the metrics.
+`calzone` also provides a class called `CalibrationMetrics()` to calculate all the metrics mentioned above. The user can also use this class to calculate the metrics.
 
 ```python
 from calzone.metrics import CalibrationMetrics
@@ -227,6 +227,7 @@ where $\eta$ is the prevalence of the testing data, $\eta'$ is the prevalence of
 `calzone` also provides a command line interface to calculate the metrics. The user can visualize the calibration curve, calculate the metrics and their confidence intervals using the command line interface. To use the command line interface, the user can run `python cal_metrics.py -h` to see the help message.
 
 # Acknowledgements
+The authors acknowledge the Research Participation Program at the Center for Devices and Radiological Health administered by the Oak Ridge Institute for Science and Education through an interagency agreement between the U.S. Department of Energy and the U.S. Food and Drug Administration (FDA). 
 
 # Conflicts of interest
 The authors declare no conflicts of interest.
