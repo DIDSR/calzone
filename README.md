@@ -22,4 +22,4 @@ run `python cal_metrics.py -h` to see the help information and usage. To use the
 
 ## Documentation
 
-For detailed documentation and API reference, please visit our [documentation page]().
+For detailed documentation and API reference, please visit our [documentation pdf](https://github.com/DIDSR/calzone/blob/main/docs/build/latex/calzone.pdf).
