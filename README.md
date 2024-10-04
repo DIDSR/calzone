@@ -8,7 +8,8 @@ calzone is a comprehensive Python package for calculating and visualizing variou
 - Supports multiple calibration metrics including Spiegelhalter's Z-test, Expected Calibration Error (ECE), Maximum Calibration Error (MCE), Hosmer-Lemeshow test, Cox regression analysis, and Loess regression analysis
 - Provides tools for creating reliability diagrams and ROC curves
 - Offers both equal-space and equal-frequency binning options
-- Supports binary and multi-class classification problems
+- Boostrapping for confidence intervals for each calibration metrics
+- Prevelance adjustment to account for prevalance change between enriched data and population data.
 
 ## Installation
 
