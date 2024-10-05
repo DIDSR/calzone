@@ -10,6 +10,7 @@ calzone is a comprehensive Python package for calculating and visualizing variou
 - Offers both equal-space and equal-frequency binning options
 - Boostrapping for confidence intervals for each calibration metrics
 - Prevelance adjustment to account for prevalance change between enriched data and population data.
+- Multiclass extension by 1-vs-rest or top-class only
 
 ## Installation
 
