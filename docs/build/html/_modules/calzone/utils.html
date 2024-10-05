@@ -55,6 +55,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../notebooks/spiegelhalter_z.html">Spiegelhalter’s Z-test</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../notebooks/prevalence_adjustment.html">Prevalence adjustment</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../notebooks/subgroup.html">Subgroup analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../notebooks/topclass.html">Multiclass extension</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../notebooks/GUI.html">Running GUI</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../modules.html">calzone</a></li>
 </ul>
@@ -100,6 +101,7 @@
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">from</span> <span class="nn">scipy.optimize</span> <span class="kn">import</span> <span class="n">minimize_scalar</span>
 <span class="kn">from</span> <span class="nn">scipy.special</span> <span class="kn">import</span> <span class="n">softmax</span>
+<span class="kn">import</span> <span class="nn">copy</span>
 
 <div class="viewcode-block" id="make_roc_curve">
 <a class="viewcode-back" href="../../calzone.html#calzone.utils.make_roc_curve">[docs]</a>
@@ -385,6 +387,7 @@
 
 <span class="sd">    Methods:</span>
 <span class="sd">        __init__(self, data_path): Initializes the data_loader object and loads data from a CSV file.</span>
+<span class="sd">        transform_topclass(self): Transforms the data to top class binary problem.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="data_loader.__init__">
@@ -436,6 +439,23 @@
                 <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">subgroup_class</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">subgroups_class</span><span class="p">[</span><span class="n">i</span><span class="p">]):</span>
                     <span class="n">indices</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[:,</span> <span class="bp">self</span><span class="o">.</span><span class="n">subgroup_indices</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">==</span> <span class="n">subgroup_class</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">subgroups_index</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">indices</span><span class="p">)</span></div>
+
+    
+<div class="viewcode-block" id="data_loader.transform_topclass">
+<a class="viewcode-back" href="../../calzone.html#calzone.utils.data_loader.transform_topclass">[docs]</a>
+    <span class="k">def</span> <span class="nf">transform_topclass</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Transforms the data to top class binary problem</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            data_loader: A new data_loader object with transformed data</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">new_loader</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">top_class</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">probs</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">new_loader</span><span class="o">.</span><span class="n">probs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">column_stack</span><span class="p">((</span><span class="mi">1</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">probs</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">probs</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)))</span>
+        <span class="n">new_loader</span><span class="o">.</span><span class="n">labels</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">labels</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span> <span class="o">==</span> <span class="n">top_class</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">new_loader</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">column_stack</span><span class="p">((</span><span class="n">new_loader</span><span class="o">.</span><span class="n">probs</span><span class="p">,</span> <span class="n">new_loader</span><span class="o">.</span><span class="n">labels</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">new_loader</span></div>
 </div>
 
                   

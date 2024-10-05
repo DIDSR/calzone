@@ -166,6 +166,8 @@ def main():
                         help="Class to calculate metrics for (default: 1)")
     parser.add_argument("--num_bins", type=int, default=10,
                         help="Number of bins for ECE/MCE/HL calculations (default: 10)")
+    parser.add_argument("--topclass", default=False, action="store_true",
+                        help="Whether to transform the problem to top-class problem.")
     parser.add_argument("--save_metrics", type=str,
                         help="Save the metrics to a csv file")
     parser.add_argument("--plot", default=False, action="store_true",
@@ -183,6 +185,10 @@ def main():
 
     # Load data from CSV
     loader = data_loader(args.csv_file)
+
+    # if transofrm it to top-class problem
+    if args.topclass:
+        loader = loader.transform_topclass()
 
     # Perform calculations
     if not loader.have_subgroup:

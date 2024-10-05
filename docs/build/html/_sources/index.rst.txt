@@ -18,6 +18,7 @@ Key features of calzone include:
 * Bootstrapping capabilities for confidence interval estimation
 * Subgroup analysis for calibration metrics
 * Provides command line interface scripts for batch processing
+* Multi-class extension by 1-vs-rest or top-class only
 
 To accurately assess the calibration of machine learning models, it is essential to have a comprehensive and reprensative dataset with sufficient coverage of the prediction space. The calibration metrics is not meaningful if the dataset is not representative of true intended population.
 
@@ -39,5 +40,6 @@ We hope you find calzone useful in your machine learning projects!
    notebooks/spiegelhalter_z.ipynb
    notebooks/prevalence_adjustment.ipynb
    notebooks/subgroup.ipynb
+   notebooks/topclass.ipynb
    notebooks/GUI.ipynb
    modules

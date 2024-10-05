@@ -66,6 +66,7 @@
 <li class="toctree-l1"><a class="reference internal" href="spiegelhalter_z.html">Spiegelhalter’s Z-test</a></li>
 <li class="toctree-l1"><a class="reference internal" href="prevalence_adjustment.html">Prevalence adjustment</a></li>
 <li class="toctree-l1"><a class="reference internal" href="subgroup.html">Subgroup analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="topclass.html">Multiclass extension</a></li>
 <li class="toctree-l1"><a class="reference internal" href="GUI.html">Running GUI</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../modules.html">calzone</a></li>
 </ul>
@@ -172,7 +173,7 @@
 </div>
 <p>To use CLI, you can use the script in the calzone directory. The program will save the metrics into the output csv file with the CI(if you turn on boostrap). The program will also save the relibaility diagram if you apply –plot flag. There is an optional flag –prevalence_adjustment which try to derive the original model prevalence and apply prevalence adjustment. See more on prevalence adjustment in the prevalecne adjustment notebook.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Use -h to see the help message and options</span>
@@ -189,8 +190,9 @@ usage: cal_metrics.py [-h] [--csv_file CSV_FILE] [--metrics METRICS]
                       [--prevalence_adjustment] [--n_bootstrap N_BOOTSTRAP]
                       [--bootstrap_ci BOOTSTRAP_CI]
                       [--class_to_calculate CLASS_TO_CALCULATE]
-                      [--num_bins NUM_BINS] [--save_metrics SAVE_METRICS]
-                      [--plot] [--plot_bins PLOT_BINS] [--save_plot SAVE_PLOT]
+                      [--num_bins NUM_BINS] [--topclass]
+                      [--save_metrics SAVE_METRICS] [--plot]
+                      [--plot_bins PLOT_BINS] [--save_plot SAVE_PLOT]
                       [--save_diagram_output SAVE_DIAGRAM_OUTPUT] [--verbose]
 
 Calculate calibration metrics and visualize reliability diagram.
@@ -215,6 +217,7 @@ options:
                         Class to calculate metrics for (default: 1)
   --num_bins NUM_BINS   Number of bins for ECE/MCE/HL calculations (default:
                         10)
+  --topclass            Whether to transform the problem to top-class problem.
   --save_metrics SAVE_METRICS
                         Save the metrics to a csv file
   --plot                Plot reliability diagram (default: False)

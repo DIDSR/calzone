@@ -397,6 +397,11 @@ INPUT ./notebooks_spiegelhalter_z_9_1.png
 INPUT ./notebooks_spiegelhalter_z_9_1.png
 INPUT notebooks_spiegelhalter_z_9_1.png
 INPUT ./notebooks_spiegelhalter_z_9_1.png
+INPUT notebooks_topclass_2_0.png
+INPUT ./notebooks_topclass_2_0.png
+INPUT ./notebooks_topclass_2_0.png
+INPUT notebooks_topclass_2_0.png
+INPUT ./notebooks_topclass_2_0.png
 INPUT /usr/share/texmf/fonts/tfm/public/tex-gyre/ec-qtmri.tfm
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/txfonts/tcxsl.tfm
 INPUT /usr/share/texlive/texmf-dist/fonts/vf/public/txfonts/tcxsl.vf

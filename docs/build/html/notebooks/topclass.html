@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Multiclass extension &mdash; calzone develop documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../_static/nbsphinx-code-cells.css?v=2aa19091" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=16816911"></script>
+        <script src="../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Running GUI" href="GUI.html" />
+    <link rel="prev" title="Subgroup analysis" href="subgroup.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            calzone
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Welcome to the documentation for calzone</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="metrics_summary.html">Summary and guide for calzone</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reliability_diagram.html">Reliability diagram</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ece_mce.html">Exepected Calibration Error(ECE) and Maximum Calibration Error (MCE)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hl_test.html">Hosmer-Lemeshow test (HL test)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cox.html">COX calibration analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ici.html">Integrated Calibration Index (ICI)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="spiegelhalter_z.html">Spiegelhalter’s Z-test</a></li>
+<li class="toctree-l1"><a class="reference internal" href="prevalence_adjustment.html">Prevalence adjustment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="subgroup.html">Subgroup analysis</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Multiclass extension</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GUI.html">Running GUI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../modules.html">calzone</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">calzone</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Multiclass extension</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/notebooks/topclass.ipynb.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="Multiclass-extension">
+<h1>Multiclass extension<a class="headerlink" href="#Multiclass-extension" title="Link to this heading"></a></h1>
+<p>In the previous notebooks, most metrics only consider binary classification except <span class="math notranslate nohighlight">\(\text{ECE}_{top}\)</span> and <span class="math notranslate nohighlight">\(\text{MCE}_{top}\)</span>. To handle multi-class classification, the most common way is to convert it to a series of binary classification problems by using 1-vs-rest approach. Alternativly, if the user only care about whether the predicted class of each sample is having the correct predicted probability, the user transform the data to a top-class binary classification problem. In
+top-class problem, the class 0 probability is the <span class="math notranslate nohighlight">\(1-p_{top}\)</span> and class 1 probability is <span class="math notranslate nohighlight">\(p_{top}\)</span> and the label is whether true label is equal to the top-class prediction. In <code class="docutils literal notranslate"><span class="pre">calzone</span></code>, user can transform the data using <code class="docutils literal notranslate"><span class="pre">data_loader.transform_topclass()</span></code> function. Most metrics will still works but the interpretation of the metrics will be different.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">calzone.utils</span> <span class="kn">import</span> <span class="n">data_loader</span><span class="p">,</span><span class="n">reliability_diagram</span>
+<span class="kn">from</span> <span class="nn">calzone.vis</span> <span class="kn">import</span> <span class="n">plot_reliability_diagram</span>
+<span class="kn">from</span> <span class="nn">calzone.metrics</span> <span class="kn">import</span> <span class="n">CalibrationMetrics</span>
+
+<span class="n">dataset</span> <span class="o">=</span> <span class="n">data_loader</span><span class="p">(</span><span class="s1">&#39;../../../example_data/simulated_welldata.csv&#39;</span><span class="p">)</span>
+<span class="n">cal_metrics</span> <span class="o">=</span> <span class="n">CalibrationMetrics</span><span class="p">(</span><span class="n">class_to_calculate</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="c1">### Transform to top-class</span>
+<span class="n">transformed_data</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">transform_topclass</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### Now the transformed data become a top-class problem when we specify the class-of-interest to be 1</span>
+<span class="n">reliability</span><span class="p">,</span><span class="n">confindence</span><span class="p">,</span><span class="n">bin_edges</span><span class="p">,</span><span class="n">bin_counts</span> <span class="o">=</span> <span class="n">reliability_diagram</span><span class="p">(</span><span class="n">transformed_data</span><span class="o">.</span><span class="n">labels</span><span class="p">,</span> <span class="n">transformed_data</span><span class="o">.</span><span class="n">probs</span><span class="p">,</span> <span class="n">num_bins</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span><span class="n">class_to_plot</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="c1"># Plot the reliability diagram</span>
+<span class="n">plot_reliability_diagram</span><span class="p">(</span><span class="n">reliability</span><span class="p">,</span><span class="n">confindence</span><span class="p">,</span><span class="n">bin_counts</span><span class="p">,</span><span class="n">error_bar</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;Top class reliability diagram for well calibrated data&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_topclass_2_0.png" src="../_images/notebooks_topclass_2_0.png" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cal_metrics</span><span class="o">.</span><span class="n">calculate_metrics</span><span class="p">(</span><span class="n">transformed_data</span><span class="o">.</span><span class="n">labels</span><span class="p">,</span> <span class="n">transformed_data</span><span class="o">.</span><span class="n">probs</span><span class="p">,</span><span class="n">metrics</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+{&#39;SpiegelhalterZ score&#39;: 0.37632691618773545,
+ &#39;SpiegelhalterZ p-value&#39;: 0.7066738713391101,
+ &#39;ECE-H topclass&#39;: 0.009608653731328977,
+ &#39;ECE-H&#39;: 0.009608653731329372,
+ &#39;MCE-H topclass&#39;: 0.03926468843081976,
+ &#39;MCE-H&#39;: 0.03926468843081932,
+ &#39;HL-H score&#39;: 6.029652031234071,
+ &#39;HL-H p-value&#39;: 0.11017646753618837,
+ &#39;ECE-C topclass&#39;: 0.009458033653818828,
+ &#39;ECE-C&#39;: 0.009458033653818974,
+ &#39;MCE-C topclass&#39;: 0.020515047600205505,
+ &#39;MCE-C&#39;: 0.020515047600205394,
+ &#39;HL-C score&#39;: 5.0830845954424,
+ &#39;HL-C p-value&#39;: 0.7486601568004448,
+ &#39;COX coef&#39;: 0.9990721119864874,
+ &#39;COX intercept&#39;: -0.009313116424641145,
+ &#39;COX coef lowerci&#39;: 0.9097229915817346,
+ &#39;COX coef upperci&#39;: 1.0884212323912401,
+ &#39;COX intercept lowerci&#39;: -0.1322110153978738,
+ &#39;COX intercept upperci&#39;: 0.1135847825485915,
+ &#39;COX ICI&#39;: 0.0012819521292332472,
+ &#39;Loess ICI&#39;: 0.0038637011857438034}
+</pre></div></div>
+</div>
+<p>You can see the top-class ECE is the same as regular ECE.</p>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="subgroup.html" class="btn btn-neutral float-left" title="Subgroup analysis" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="GUI.html" class="btn btn-neutral float-right" title="Running GUI" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright No copyright.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

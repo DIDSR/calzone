@@ -34,6 +34,8 @@ def run_program():
         args.append(str(save_plot))
     if verbose_checkbox.value:
         args.append("--verbose")
+    if topclass_checkbox.value:
+        args.append("--topclass")
 
     command = ["python", "cal_metrics.py"] + args
     print("Running command:", " ".join(command))
@@ -109,6 +111,7 @@ with ui.row().classes('w-full justify-center'):
         plot_bins_input = ui.number(label='Number of Bins for Reliability Diagram', value=10, min=2, step=1)
         save_plot_input = ui.input(label='Save Plot to', placeholder='Enter file path').classes('w-full')
         verbose_checkbox = ui.checkbox('Print Verbose Output', value=True)
+        topclass_checkbox = ui.checkbox('Transform to Top-class Problem', value=False)
         ui.button('Run', on_click=run_program).classes('w-full')
         ui.button('Clear Browser Cache', on_click=clear_cache).classes('w-full')
 

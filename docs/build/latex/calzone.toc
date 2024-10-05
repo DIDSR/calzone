@@ -48,13 +48,14 @@
 \contentsline {section}{\numberline {9.2}Prevalence adjustment and constant shift in logit of class\sphinxhyphen {}of\sphinxhyphen {}interest}{52}{section.9.2}%
 \contentsline {section}{\numberline {9.3}References}{52}{section.9.3}%
 \contentsline {chapter}{\numberline {10}Subgroup analysis}{53}{chapter.10}%
-\contentsline {chapter}{\numberline {11}Running GUI}{57}{chapter.11}%
-\contentsline {chapter}{\numberline {12}calzone}{59}{chapter.12}%
-\contentsline {section}{\numberline {12.1}calzone package}{59}{section.12.1}%
-\contentsline {subsection}{\numberline {12.1.1}Submodules}{59}{subsection.12.1.1}%
-\contentsline {subsection}{\numberline {12.1.2}calzone.metrics module}{59}{subsection.12.1.2}%
-\contentsline {subsection}{\numberline {12.1.3}calzone.utils module}{65}{subsection.12.1.3}%
-\contentsline {subsection}{\numberline {12.1.4}calzone.vis module}{71}{subsection.12.1.4}%
-\contentsline {subsection}{\numberline {12.1.5}Module contents}{72}{subsection.12.1.5}%
-\contentsline {chapter}{Python Module Index}{73}{section*.46}%
-\contentsline {chapter}{Index}{75}{section*.47}%
+\contentsline {chapter}{\numberline {11}Multiclass extension}{57}{chapter.11}%
+\contentsline {chapter}{\numberline {12}Running GUI}{61}{chapter.12}%
+\contentsline {chapter}{\numberline {13}calzone}{63}{chapter.13}%
+\contentsline {section}{\numberline {13.1}calzone package}{63}{section.13.1}%
+\contentsline {subsection}{\numberline {13.1.1}Submodules}{63}{subsection.13.1.1}%
+\contentsline {subsection}{\numberline {13.1.2}calzone.metrics module}{63}{subsection.13.1.2}%
+\contentsline {subsection}{\numberline {13.1.3}calzone.utils module}{69}{subsection.13.1.3}%
+\contentsline {subsection}{\numberline {13.1.4}calzone.vis module}{75}{subsection.13.1.4}%
+\contentsline {subsection}{\numberline {13.1.5}Module contents}{76}{subsection.13.1.5}%
+\contentsline {chapter}{Python Module Index}{77}{section*.48}%
+\contentsline {chapter}{Index}{79}{section*.49}%

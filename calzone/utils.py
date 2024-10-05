@@ -14,6 +14,7 @@ from scipy.stats import beta
 import matplotlib.pyplot as plt
 from scipy.optimize import minimize_scalar
 from scipy.special import softmax
+import copy
 
 def make_roc_curve(y_true, y_proba, class_to_plot=None):
     """
@@ -276,6 +277,7 @@ class data_loader():
 
     Methods:
         __init__(self, data_path): Initializes the data_loader object and loads data from a CSV file.
+        transform_topclass(self): Transforms the data to top class binary problem.
     """
 
     def __init__(self, data_path):
@@ -325,6 +327,20 @@ class data_loader():
                 for j, subgroup_class in enumerate(self.subgroups_class[i]):
                     indices.append(np.where(self.data[:, self.subgroup_indices[i]] == subgroup_class)[0])
                 self.subgroups_index.append(indices)
+    
+    def transform_topclass(self):
+        """
+        Transforms the data to top class binary problem
+
+        Returns:
+            data_loader: A new data_loader object with transformed data
+        """
+        new_loader = copy.deepcopy(self)
+        top_class = np.argmax(self.probs, axis=1)
+        new_loader.probs = np.column_stack((1 - np.max(self.probs, axis=1), np.max(self.probs, axis=1)))
+        new_loader.labels = (self.labels.flatten() == top_class).astype(int).reshape(-1, 1)
+        new_loader.data = np.column_stack((new_loader.probs, new_loader.labels))
+        return new_loader
                   
 class fake_binary_data_generator():
     """A class for generating fake binary data and applying miscalibration.

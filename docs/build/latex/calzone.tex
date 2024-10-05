@@ -65,7 +65,7 @@
 
 
 \title{calzone}
-\date{Oct 04, 2024}
+\date{Oct 05, 2024}
 \release{develop}
 \author{Kwok Lung "Jason" Fan, Qian Cao}
 \newcommand{\sphinxlogo}{\vbox{}}
@@ -114,6 +114,10 @@ Subgroup analysis for calibration metrics
 \item {} 
 \sphinxAtStartPar
 Provides command line interface scripts for batch processing
+
+\item {} 
+\sphinxAtStartPar
+Multi\sphinxhyphen{}class extension by 1\sphinxhyphen{}vs\sphinxhyphen{}rest or top\sphinxhyphen{}class only
 
 \end{itemize}
 
@@ -245,7 +249,7 @@ To use CLI, you can use the script in the calzone directory. The program will sa
 \begin{sphinxuseclass}{nbinput}
 {
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
-\llap{\color{nbsphinxin}[7]:\,\hspace{\fboxrule}\hspace{\fboxsep}}\PYG{c+c1}{\PYGZsh{} Use \PYGZhy{}h to see the help message and options}
+\llap{\color{nbsphinxin}[1]:\,\hspace{\fboxrule}\hspace{\fboxsep}}\PYG{c+c1}{\PYGZsh{} Use \PYGZhy{}h to see the help message and options}
 \PYG{o}{\PYGZpc{}}\PYG{k}{run} ../../../cal\PYGZus{}metrics.py \PYGZhy{}h
 \end{sphinxVerbatim}
 }
@@ -269,8 +273,9 @@ usage: cal\_metrics.py [-h] [--csv\_file CSV\_FILE] [--metrics METRICS]
                       [--prevalence\_adjustment] [--n\_bootstrap N\_BOOTSTRAP]
                       [--bootstrap\_ci BOOTSTRAP\_CI]
                       [--class\_to\_calculate CLASS\_TO\_CALCULATE]
-                      [--num\_bins NUM\_BINS] [--save\_metrics SAVE\_METRICS]
-                      [--plot] [--plot\_bins PLOT\_BINS] [--save\_plot SAVE\_PLOT]
+                      [--num\_bins NUM\_BINS] [--topclass]
+                      [--save\_metrics SAVE\_METRICS] [--plot]
+                      [--plot\_bins PLOT\_BINS] [--save\_plot SAVE\_PLOT]
                       [--save\_diagram\_output SAVE\_DIAGRAM\_OUTPUT] [--verbose]
 
 Calculate calibration metrics and visualize reliability diagram.
@@ -295,6 +300,7 @@ options:
                         Class to calculate metrics for (default: 1)
   --num\_bins NUM\_BINS   Number of bins for ECE/MCE/HL calculations (default:
                         10)
+  --topclass            Whether to transform the problem to top-class problem.
   --save\_metrics SAVE\_METRICS
                         Save the metrics to a csv file
   --plot                Plot reliability diagram (default: False)
@@ -3162,10 +3168,123 @@ Loess ICI: 0.07
 \sphinxstepscope
 
 
+\chapter{Multiclass extension}
+\label{\detokenize{notebooks/topclass:Multiclass-extension}}\label{\detokenize{notebooks/topclass::doc}}
+\sphinxAtStartPar
+In the previous notebooks, most metrics only consider binary classification except \(\text{ECE}_{top}\) and \(\text{MCE}_{top}\). To handle multi\sphinxhyphen{}class classification, the most common way is to convert it to a series of binary classification problems by using 1\sphinxhyphen{}vs\sphinxhyphen{}rest approach. Alternativly, if the user only care about whether the predicted class of each sample is having the correct predicted probability, the user transform the data to a top\sphinxhyphen{}class binary classification problem. In
+top\sphinxhyphen{}class problem, the class 0 probability is the \(1-p_{top}\) and class 1 probability is \(p_{top}\) and the label is whether true label is equal to the top\sphinxhyphen{}class prediction. In \sphinxcode{\sphinxupquote{calzone}}, user can transform the data using \sphinxcode{\sphinxupquote{data\_loader.transform\_topclass()}} function. Most metrics will still works but the interpretation of the metrics will be different.
+
+\begin{sphinxuseclass}{nbinput}
+\begin{sphinxuseclass}{nblast}
+{
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+\llap{\color{nbsphinxin}[3]:\,\hspace{\fboxrule}\hspace{\fboxsep}}\PYG{k+kn}{from} \PYG{n+nn}{calzone}\PYG{n+nn}{.}\PYG{n+nn}{utils} \PYG{k+kn}{import} \PYG{n}{data\PYGZus{}loader}\PYG{p}{,}\PYG{n}{reliability\PYGZus{}diagram}
+\PYG{k+kn}{from} \PYG{n+nn}{calzone}\PYG{n+nn}{.}\PYG{n+nn}{vis} \PYG{k+kn}{import} \PYG{n}{plot\PYGZus{}reliability\PYGZus{}diagram}
+\PYG{k+kn}{from} \PYG{n+nn}{calzone}\PYG{n+nn}{.}\PYG{n+nn}{metrics} \PYG{k+kn}{import} \PYG{n}{CalibrationMetrics}
+
+\PYG{n}{dataset} \PYG{o}{=} \PYG{n}{data\PYGZus{}loader}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{../../../example\PYGZus{}data/simulated\PYGZus{}welldata.csv}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{cal\PYGZus{}metrics} \PYG{o}{=} \PYG{n}{CalibrationMetrics}\PYG{p}{(}\PYG{n}{class\PYGZus{}to\PYGZus{}calculate}\PYG{o}{=}\PYG{l+m+mi}{1}\PYG{p}{)}
+\PYG{c+c1}{\PYGZsh{}\PYGZsh{}\PYGZsh{} Transform to top\PYGZhy{}class}
+\PYG{n}{transformed\PYGZus{}data} \PYG{o}{=} \PYG{n}{dataset}\PYG{o}{.}\PYG{n}{transform\PYGZus{}topclass}\PYG{p}{(}\PYG{p}{)}
+\end{sphinxVerbatim}
+}
+
+\end{sphinxuseclass}
+\end{sphinxuseclass}
+\begin{sphinxuseclass}{nbinput}
+{
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+\llap{\color{nbsphinxin}[4]:\,\hspace{\fboxrule}\hspace{\fboxsep}}\PYG{c+c1}{\PYGZsh{}\PYGZsh{}\PYGZsh{} Now the transformed data become a top\PYGZhy{}class problem when we specify the class\PYGZhy{}of\PYGZhy{}interest to be 1}
+\PYG{n}{reliability}\PYG{p}{,}\PYG{n}{confindence}\PYG{p}{,}\PYG{n}{bin\PYGZus{}edges}\PYG{p}{,}\PYG{n}{bin\PYGZus{}counts} \PYG{o}{=} \PYG{n}{reliability\PYGZus{}diagram}\PYG{p}{(}\PYG{n}{transformed\PYGZus{}data}\PYG{o}{.}\PYG{n}{labels}\PYG{p}{,} \PYG{n}{transformed\PYGZus{}data}\PYG{o}{.}\PYG{n}{probs}\PYG{p}{,} \PYG{n}{num\PYGZus{}bins}\PYG{o}{=}\PYG{l+m+mi}{15}\PYG{p}{,}\PYG{n}{class\PYGZus{}to\PYGZus{}plot}\PYG{o}{=}\PYG{l+m+mi}{1}\PYG{p}{)}
+\PYG{c+c1}{\PYGZsh{} Plot the reliability diagram}
+\PYG{n}{plot\PYGZus{}reliability\PYGZus{}diagram}\PYG{p}{(}\PYG{n}{reliability}\PYG{p}{,}\PYG{n}{confindence}\PYG{p}{,}\PYG{n}{bin\PYGZus{}counts}\PYG{p}{,}\PYG{n}{error\PYGZus{}bar}\PYG{o}{=}\PYG{k+kc}{True}\PYG{p}{,}\PYG{n}{title}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{Top class reliability diagram for well calibrated data}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
+\end{sphinxVerbatim}
+}
+
+\end{sphinxuseclass}
+\begin{sphinxuseclass}{nboutput}
+\begin{sphinxuseclass}{nblast}
+\hrule height -\fboxrule\relax
+\vspace{\nbsphinxcodecellspacing}
+
+\makeatletter\setbox\nbsphinxpromptbox\box\voidb@x\makeatother
+
+\begin{nbsphinxfancyoutput}
+
+\begin{sphinxuseclass}{output_area}
+\begin{sphinxuseclass}{}
+\noindent\sphinxincludegraphics[width=702\sphinxpxdimen,height=545\sphinxpxdimen]{{notebooks_topclass_2_0}.png}
+
+\end{sphinxuseclass}
+\end{sphinxuseclass}
+\end{nbsphinxfancyoutput}
+
+\end{sphinxuseclass}
+\end{sphinxuseclass}
+\begin{sphinxuseclass}{nbinput}
+{
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+\llap{\color{nbsphinxin}[5]:\,\hspace{\fboxrule}\hspace{\fboxsep}}\PYG{n}{cal\PYGZus{}metrics}\PYG{o}{.}\PYG{n}{calculate\PYGZus{}metrics}\PYG{p}{(}\PYG{n}{transformed\PYGZus{}data}\PYG{o}{.}\PYG{n}{labels}\PYG{p}{,} \PYG{n}{transformed\PYGZus{}data}\PYG{o}{.}\PYG{n}{probs}\PYG{p}{,}\PYG{n}{metrics}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{all}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
+\end{sphinxVerbatim}
+}
+
+\end{sphinxuseclass}
+\begin{sphinxuseclass}{nboutput}
+\begin{sphinxuseclass}{nblast}
+{
+
+\kern-\sphinxverbatimsmallskipamount\kern-\baselineskip
+\kern+\FrameHeightAdjust\kern-\fboxrule
+\vspace{\nbsphinxcodecellspacing}
+
+\sphinxsetup{VerbatimColor={named}{white}}
+\begin{sphinxuseclass}{output_area}
+\begin{sphinxuseclass}{}
+
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+\llap{\color{nbsphinxout}[5]:\,\hspace{\fboxrule}\hspace{\fboxsep}}\{'SpiegelhalterZ score': 0.37632691618773545,
+ 'SpiegelhalterZ p-value': 0.7066738713391101,
+ 'ECE-H topclass': 0.009608653731328977,
+ 'ECE-H': 0.009608653731329372,
+ 'MCE-H topclass': 0.03926468843081976,
+ 'MCE-H': 0.03926468843081932,
+ 'HL-H score': 6.029652031234071,
+ 'HL-H p-value': 0.11017646753618837,
+ 'ECE-C topclass': 0.009458033653818828,
+ 'ECE-C': 0.009458033653818974,
+ 'MCE-C topclass': 0.020515047600205505,
+ 'MCE-C': 0.020515047600205394,
+ 'HL-C score': 5.0830845954424,
+ 'HL-C p-value': 0.7486601568004448,
+ 'COX coef': 0.9990721119864874,
+ 'COX intercept': -0.009313116424641145,
+ 'COX coef lowerci': 0.9097229915817346,
+ 'COX coef upperci': 1.0884212323912401,
+ 'COX intercept lowerci': -0.1322110153978738,
+ 'COX intercept upperci': 0.1135847825485915,
+ 'COX ICI': 0.0012819521292332472,
+ 'Loess ICI': 0.0038637011857438034\}
+\end{sphinxVerbatim}
+
+
+
+\end{sphinxuseclass}
+\end{sphinxuseclass}
+}
+
+\end{sphinxuseclass}
+\end{sphinxuseclass}
+\sphinxAtStartPar
+You can see the top\sphinxhyphen{}class ECE is the same as regular ECE.
+
+\sphinxstepscope
+
+
 \chapter{Running GUI}
 \label{\detokenize{notebooks/GUI:Running-GUI}}\label{\detokenize{notebooks/GUI::doc}}
 \sphinxAtStartPar
-To run GUI, you need to install nicegui using the following command:
+GUI is currently under development and not all features from the command line are supported. To run GUI, you need to install nicegui using the following command:
 
 \begin{sphinxuseclass}{nbinput}
 \begin{sphinxuseclass}{nblast}
@@ -4209,6 +4328,18 @@ Initializes the data\_loader object and loads data from a CSV file.
 
 \end{fulllineitems}
 
+\index{transform\_topclass() (calzone.utils.data\_loader method)@\spxentry{transform\_topclass()}\spxextra{calzone.utils.data\_loader method}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{calzone:calzone.utils.data_loader.transform_topclass}}
+\pysigstartsignatures
+\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{transform\_topclass}}}{\sphinxparam{\DUrole{n}{self}}}{}
+\pysigstopsignatures
+\sphinxAtStartPar
+Transforms the data to top class binary problem.
+
+\end{fulllineitems}
+
 \index{\_\_init\_\_() (calzone.utils.data\_loader method)@\spxentry{\_\_init\_\_()}\spxextra{calzone.utils.data\_loader method}}
 
 \begin{fulllineitems}
@@ -4237,6 +4368,24 @@ The method performs the following steps:
 Note:
 \sphinxhyphen{} If there is a header, it must be in the format: proba\_0,proba\_1,…,subgroup\_1(optional),subgroup\_2(optional),…,label
 \sphinxhyphen{} If there is no header, the columns must be in the order of proba\_0,proba\_1,…,label
+
+\end{fulllineitems}
+
+\index{transform\_topclass() (calzone.utils.data\_loader method)@\spxentry{transform\_topclass()}\spxextra{calzone.utils.data\_loader method}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{calzone:id1}}
+\pysigstartsignatures
+\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{transform\_topclass}}}{}{}
+\pysigstopsignatures
+\sphinxAtStartPar
+Transforms the data to top class binary problem
+\begin{quote}\begin{description}
+\sphinxlineitem{Returns}
+\sphinxAtStartPar
+\sphinxstylestrong{data\_loader} \textendash{} A new data\_loader object with transformed data
+
+\end{description}\end{quote}
 
 \end{fulllineitems}
 
