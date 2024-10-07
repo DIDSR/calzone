@@ -5,16 +5,36 @@ tags:
   - Machine Learning
   - Artificial Intelligence
   - Calibration
-  - p=Probablistic models
+  - Probablistic models
 authors:
   - name: Kwok Lung Fan
     orcid: 0000-0002-8246-4751
     affiliation: 1 # (Multiple affiliations must be quoted)
+  - name: Gene Pennello
+    orcid: 0000-0002-9779-1165
+    affiliation: 1
+  - name: Qi Liu
+    orcid: 0000-0002-4053-4213
+    affiliation: 1
+  - name: Nicholas Petrick
+    orcid: 0000-0001-5167-8899
+    affiliation: 1
+  - name: Ravi K. Samala
+    orcid: 0000-0002-6661-4801
+    affiliation: 1
+  - name: Frank W. Samuelson
+    orcid: 0000-0002-1130-0303
+    affiliation: 1
+  - name: Yee Lam Elim Thompson
+    orcid: 0000-0001-9653-7707
+    affiliation: 1
   - name: Qian Cao
     affiliation: 1
+    correspondence: "yes"
+    email: qian.cao@fda.hhs.gov
 
 affiliations:
- - name: Center for Devices and Radiological Health, Food and Drug Administration, MD, USA
+ - name: U.S. Food and Drug Administration
    index: 1
 
 date: 3 Oct 2024
