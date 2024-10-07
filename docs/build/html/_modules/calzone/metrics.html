@@ -86,20 +86,23 @@
              
   <h1>Source code for calzone.metrics</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;Metrics calculation functions for the Calibration Measure package.&quot;&quot;&quot;</span>
-<span class="n">__author__</span> <span class="o">=</span> <span class="s1">&#39;Kwok Lung Jason Fan&#39;</span>
-<span class="n">__copyright__</span> <span class="o">=</span> <span class="s1">&#39;Copyright 2024&#39;</span>
-<span class="n">__credits__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Kwok Lung Jason Fan&#39;</span><span class="p">,</span> <span class="s1">&#39;Qian Cao&#39;</span><span class="p">]</span>
-<span class="n">__license__</span> <span class="o">=</span> <span class="s1">&#39;Apache License 2.0&#39;</span>
-<span class="n">__version__</span> <span class="o">=</span> <span class="s1">&#39;0.1&#39;</span>
-<span class="n">__maintainer__</span> <span class="o">=</span> <span class="s1">&#39;Kwok Lung Jason Fan&#39;</span>
-<span class="n">__email__</span> <span class="o">=</span> <span class="s1">&#39;kwoklung.fan@fda.hhs.gov&#39;</span>
-<span class="n">__status__</span> <span class="o">=</span> <span class="s1">&#39;Development&#39;</span>
+
+<span class="n">__author__</span> <span class="o">=</span> <span class="s2">&quot;Kwok Lung Jason Fan&quot;</span>
+<span class="n">__copyright__</span> <span class="o">=</span> <span class="s2">&quot;Copyright 2024&quot;</span>
+<span class="n">__credits__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Kwok Lung Jason Fan&quot;</span><span class="p">,</span> <span class="s2">&quot;Qian Cao&quot;</span><span class="p">]</span>
+<span class="n">__license__</span> <span class="o">=</span> <span class="s2">&quot;Apache License 2.0&quot;</span>
+<span class="n">__version__</span> <span class="o">=</span> <span class="s2">&quot;0.1&quot;</span>
+<span class="n">__maintainer__</span> <span class="o">=</span> <span class="s2">&quot;Kwok Lung Jason Fan&quot;</span>
+<span class="n">__email__</span> <span class="o">=</span> <span class="s2">&quot;kwoklung.fan@fda.hhs.gov&quot;</span>
+<span class="n">__status__</span> <span class="o">=</span> <span class="s2">&quot;Development&quot;</span>
 <span class="kn">import</span> <span class="nn">scipy.stats</span> <span class="k">as</span> <span class="nn">stats</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">.utils</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="kn">import</span> <span class="nn">statsmodels.api</span> <span class="k">as</span> <span class="nn">sm</span>
 <span class="kn">import</span> <span class="nn">statsmodels.nonparametric.smoothers_lowess</span> <span class="k">as</span> <span class="nn">lowess</span>
 <span class="kn">import</span> <span class="nn">numpy.lib.recfunctions</span> <span class="k">as</span> <span class="nn">rf</span>
+
+
 <div class="viewcode-block" id="hosmer_lemeshow_test">
 <a class="viewcode-back" href="../../calzone.html#calzone.metrics.hosmer_lemeshow_test">[docs]</a>
 <span class="k">def</span> <span class="nf">hosmer_lemeshow_test</span><span class="p">(</span><span class="n">reliability</span><span class="p">,</span> <span class="n">confidence</span><span class="p">,</span> <span class="n">bin_count</span><span class="p">):</span>
@@ -125,7 +128,7 @@
 <span class="sd">        - This test can be sensitive to the number of groups and sample size.</span>
 <span class="sd">        - It is recommended to use the Hosmer-Lemeshow test in conjunction with other metrics.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    
+
     <span class="c1"># Convert inputs to numpy arrays for consistent handling</span>
     <span class="n">reliability</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">reliability</span><span class="p">)</span>
     <span class="n">confidence</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">confidence</span><span class="p">)</span>
@@ -142,7 +145,9 @@
     <span class="n">expected</span> <span class="o">=</span> <span class="n">confidence</span> <span class="o">*</span> <span class="n">bin_count</span>
 
     <span class="c1"># Compute the Hosmer-Lemeshow statistic</span>
-    <span class="n">chi_squared</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">observed</span> <span class="o">-</span> <span class="n">expected</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="p">(</span><span class="n">expected</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">expected</span><span class="o">/</span><span class="n">bin_count</span><span class="p">)))</span>
+    <span class="n">chi_squared</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span>
+        <span class="p">(</span><span class="n">observed</span> <span class="o">-</span> <span class="n">expected</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">/</span> <span class="p">(</span><span class="n">expected</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">expected</span> <span class="o">/</span> <span class="n">bin_count</span><span class="p">))</span>
+    <span class="p">)</span>
 
     <span class="c1"># Compute degrees of freedom and p-value</span>
     <span class="n">num_bins</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">bin_count</span><span class="p">)</span>
@@ -150,6 +155,7 @@
     <span class="n">p_value</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">stats</span><span class="o">.</span><span class="n">chi2</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">chi_squared</span><span class="p">,</span> <span class="n">df</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">chi_squared</span><span class="p">,</span> <span class="n">p_value</span><span class="p">,</span> <span class="n">df</span></div>
+
 
 
 <div class="viewcode-block" id="calculate_ece_mce">
@@ -180,7 +186,7 @@
     <span class="n">total_count</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">bin_counts</span><span class="p">)</span>
 
     <span class="c1"># Compute absolute difference between reliability and confidence</span>
-    <span class="n">error</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">reliability</span> <span class="o">-</span> <span class="n">confindence</span><span class="p">)</span> 
+    <span class="n">error</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">reliability</span> <span class="o">-</span> <span class="n">confindence</span><span class="p">)</span>
 
     <span class="c1"># Compute Maximum Calibration Error</span>
     <span class="n">mce</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">error</span><span class="p">)</span>
@@ -225,8 +231,17 @@
     <span class="n">y_true</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">logical_not</span><span class="p">(</span><span class="n">mask</span><span class="p">)]</span> <span class="o">=</span> <span class="mi">0</span>
 
     <span class="c1"># Calculate components of the test statistic</span>
-    <span class="n">numerator</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">y_true</span> <span class="o">-</span> <span class="n">y_proba</span><span class="p">[:,</span> <span class="n">class_to_calculate</span><span class="p">])</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">y_proba</span><span class="p">[:,</span> <span class="n">class_to_calculate</span><span class="p">]))</span>
-    <span class="n">denominator</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(((</span><span class="mi">1</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">y_proba</span><span class="p">[:,</span> <span class="n">class_to_calculate</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">y_proba</span><span class="p">[:,</span> <span class="n">class_to_calculate</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">y_proba</span><span class="p">[:,</span> <span class="n">class_to_calculate</span><span class="p">])))</span>
+    <span class="n">numerator</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span>
+        <span class="p">(</span><span class="n">y_true</span> <span class="o">-</span> <span class="n">y_proba</span><span class="p">[:,</span> <span class="n">class_to_calculate</span><span class="p">])</span>
+        <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">y_proba</span><span class="p">[:,</span> <span class="n">class_to_calculate</span><span class="p">])</span>
+    <span class="p">)</span>
+    <span class="n">denominator</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span>
+            <span class="p">((</span><span class="mi">1</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">y_proba</span><span class="p">[:,</span> <span class="n">class_to_calculate</span><span class="p">])</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+            <span class="o">*</span> <span class="n">y_proba</span><span class="p">[:,</span> <span class="n">class_to_calculate</span><span class="p">]</span>
+            <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">y_proba</span><span class="p">[:,</span> <span class="n">class_to_calculate</span><span class="p">])</span>
+        <span class="p">)</span>
+    <span class="p">)</span>
 
     <span class="c1"># Compute z-score and p-value</span>
     <span class="n">z_score</span> <span class="o">=</span> <span class="n">numerator</span> <span class="o">/</span> <span class="n">denominator</span>
@@ -238,7 +253,16 @@
 
 <div class="viewcode-block" id="cox_regression_analysis">
 <a class="viewcode-back" href="../../calzone.html#calzone.metrics.cox_regression_analysis">[docs]</a>
-<span class="k">def</span> <span class="nf">cox_regression_analysis</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_proba</span><span class="p">,</span> <span class="n">epsilon</span><span class="o">=</span><span class="mf">1e-10</span><span class="p">,</span> <span class="n">class_to_calculate</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">print_results</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">fix_intercept</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">fix_slope</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">cox_regression_analysis</span><span class="p">(</span>
+    <span class="n">y_true</span><span class="p">,</span>
+    <span class="n">y_proba</span><span class="p">,</span>
+    <span class="n">epsilon</span><span class="o">=</span><span class="mf">1e-10</span><span class="p">,</span>
+    <span class="n">class_to_calculate</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">print_results</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">fix_intercept</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">fix_slope</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+<span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Perform Cox regression analysis for classification calibration.</span>
 
@@ -306,7 +330,9 @@
 
 <div class="viewcode-block" id="cal_ICI_cox">
 <a class="viewcode-back" href="../../calzone.html#calzone.metrics.cal_ICI_cox">[docs]</a>
-<span class="k">def</span> <span class="nf">cal_ICI_cox</span><span class="p">(</span><span class="n">coef</span><span class="p">,</span> <span class="n">intercept</span><span class="p">,</span> <span class="n">y_proba</span><span class="p">,</span> <span class="n">class_to_calculate</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">epsilon</span><span class="o">=</span><span class="mf">1e-10</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">cal_ICI_cox</span><span class="p">(</span>
+    <span class="n">coef</span><span class="p">,</span> <span class="n">intercept</span><span class="p">,</span> <span class="n">y_proba</span><span class="p">,</span> <span class="n">class_to_calculate</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">epsilon</span><span class="o">=</span><span class="mf">1e-10</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+<span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Calculate the Integrated Calibration Index (ICI) for a given Cox regression model.</span>
 
@@ -342,9 +368,20 @@
 
     <span class="k">return</span> <span class="n">ICI</span></div>
 
+
+
 <div class="viewcode-block" id="lowess_regression_analysis">
 <a class="viewcode-back" href="../../calzone.html#calzone.metrics.lowess_regression_analysis">[docs]</a>
-<span class="k">def</span> <span class="nf">lowess_regression_analysis</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_proba</span><span class="p">,</span> <span class="n">epsilon</span><span class="o">=</span><span class="mf">1e-10</span><span class="p">,</span> <span class="n">class_to_calculate</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">span</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">delta</span><span class="o">=</span><span class="mf">0.001</span><span class="p">,</span> <span class="n">it</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">lowess_regression_analysis</span><span class="p">(</span>
+    <span class="n">y_true</span><span class="p">,</span>
+    <span class="n">y_proba</span><span class="p">,</span>
+    <span class="n">epsilon</span><span class="o">=</span><span class="mf">1e-10</span><span class="p">,</span>
+    <span class="n">class_to_calculate</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">span</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
+    <span class="n">delta</span><span class="o">=</span><span class="mf">0.001</span><span class="p">,</span>
+    <span class="n">it</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+<span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Perform Lowess regression analysis for classification calibration.</span>
 
@@ -382,12 +419,20 @@
     <span class="n">y_true</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">logical_not</span><span class="p">(</span><span class="n">mask</span><span class="p">)]</span> <span class="o">=</span> <span class="mi">0</span>
 
     <span class="c1"># Perform LOWESS regression</span>
-    <span class="n">lowess_fit</span> <span class="o">=</span> <span class="n">lowess</span><span class="o">.</span><span class="n">lowess</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_proba</span><span class="p">[:,</span> <span class="n">class_to_calculate</span><span class="p">],</span> <span class="n">frac</span><span class="o">=</span><span class="n">span</span><span class="p">,</span> <span class="n">delta</span><span class="o">=</span><span class="n">delta</span><span class="p">,</span> <span class="n">it</span><span class="o">=</span><span class="n">it</span><span class="p">,</span> <span class="n">return_sorted</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">lowess_fit</span> <span class="o">=</span> <span class="n">lowess</span><span class="o">.</span><span class="n">lowess</span><span class="p">(</span>
+        <span class="n">y_true</span><span class="p">,</span>
+        <span class="n">y_proba</span><span class="p">[:,</span> <span class="n">class_to_calculate</span><span class="p">],</span>
+        <span class="n">frac</span><span class="o">=</span><span class="n">span</span><span class="p">,</span>
+        <span class="n">delta</span><span class="o">=</span><span class="n">delta</span><span class="p">,</span>
+        <span class="n">it</span><span class="o">=</span><span class="n">it</span><span class="p">,</span>
+        <span class="n">return_sorted</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="p">)</span>
 
     <span class="c1"># Calculate the Integrated Calibration Index (ICI)</span>
     <span class="n">ICI</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">lowess_fit</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">lowess_fit</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">])</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
 
     <span class="k">return</span> <span class="n">ICI</span><span class="p">,</span> <span class="n">lowess_fit</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">lowess_fit</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span></div>
+
 
 
 <div class="viewcode-block" id="cal_ICI">
@@ -424,6 +469,7 @@
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">trapz</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">y</span> <span class="o">-</span> <span class="n">xcenter</span><span class="p">)</span> <span class="o">*</span> <span class="n">density</span><span class="p">,</span> <span class="n">xcenter</span><span class="p">)</span></div>
 
 
+
 <div class="viewcode-block" id="logit_func">
 <a class="viewcode-back" href="../../calzone.html#calzone.metrics.logit_func">[docs]</a>
 <span class="k">def</span> <span class="nf">logit_func</span><span class="p">(</span><span class="n">coef</span><span class="p">,</span> <span class="n">intercept</span><span class="p">):</span>
@@ -442,6 +488,7 @@
 <span class="sd">        f(x) = 1 / (1 + exp(-(coef * log(x / (1 - x)) + intercept)))</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">coef</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">x</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">x</span><span class="p">))</span> <span class="o">+</span> <span class="n">intercept</span><span class="p">)))</span></div>
+
 
 
 <div class="viewcode-block" id="get_CI">
@@ -464,15 +511,21 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">CI</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">result</span><span class="o">.</span><span class="n">dtype</span><span class="o">.</span><span class="n">names</span><span class="p">:</span>
-        <span class="n">CI</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="n">key</span><span class="p">],</span> <span class="mi">100</span><span class="o">*</span><span class="p">(</span><span class="n">alpha</span><span class="o">/</span><span class="mi">2</span><span class="p">)),</span> <span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="n">key</span><span class="p">],</span> <span class="mi">100</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">alpha</span><span class="o">/</span><span class="mi">2</span><span class="p">)))</span>
+        <span class="n">CI</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="n">key</span><span class="p">],</span> <span class="mi">100</span> <span class="o">*</span> <span class="p">(</span><span class="n">alpha</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)),</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="n">key</span><span class="p">],</span> <span class="mi">100</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">alpha</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)),</span>
+        <span class="p">)</span>
     <span class="k">return</span> <span class="n">CI</span></div>
+
+
 
 <div class="viewcode-block" id="CalibrationMetrics">
 <a class="viewcode-back" href="../../calzone.html#calzone.metrics.CalibrationMetrics">[docs]</a>
-<span class="k">class</span> <span class="nc">CalibrationMetrics</span><span class="p">():</span>
+<span class="k">class</span> <span class="nc">CalibrationMetrics</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A class for calculating calibration metrics for classification models.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+
 <div class="viewcode-block" id="CalibrationMetrics.__init__">
 <a class="viewcode-back" href="../../calzone.html#calzone.metrics.CalibrationMetrics.__init__">[docs]</a>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">class_to_calculate</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">num_bins</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
@@ -489,7 +542,15 @@
 
 <div class="viewcode-block" id="CalibrationMetrics.calculate_metrics">
 <a class="viewcode-back" href="../../calzone.html#calzone.metrics.CalibrationMetrics.calculate_metrics">[docs]</a>
-    <span class="k">def</span> <span class="nf">calculate_metrics</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">y_true</span><span class="p">,</span> <span class="n">y_proba</span><span class="p">,</span> <span class="n">metrics</span><span class="p">,</span> <span class="n">perform_pervalance_adjustment</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">return_numpy</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">calculate_metrics</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">y_true</span><span class="p">,</span>
+        <span class="n">y_proba</span><span class="p">,</span>
+        <span class="n">metrics</span><span class="p">,</span>
+        <span class="n">perform_pervalance_adjustment</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">return_numpy</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+    <span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Calculate the specified calibration metrics.</span>
 
@@ -520,90 +581,162 @@
 <span class="sd">            dict or numpy.ndarray: A dictionary containing the calculated metrics, or a numpy array if return_numpy is True.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># Initialize results dictionary and set up metrics list</span>
-        <span class="k">if</span> <span class="n">metrics</span> <span class="o">==</span> <span class="s1">&#39;all&#39;</span><span class="p">:</span>
-            <span class="n">metrics</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;SpiegelhalterZ&#39;</span><span class="p">,</span><span class="s1">&#39;ECE-H&#39;</span><span class="p">,</span><span class="s1">&#39;MCE-H&#39;</span><span class="p">,</span><span class="s1">&#39;HL-H&#39;</span><span class="p">,</span><span class="s1">&#39;ECE-C&#39;</span><span class="p">,</span><span class="s1">&#39;MCE-C&#39;</span><span class="p">,</span><span class="s1">&#39;HL-C&#39;</span><span class="p">,</span><span class="s1">&#39;COX&#39;</span><span class="p">,</span><span class="s1">&#39;Loess&#39;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">metrics</span> <span class="o">==</span> <span class="s2">&quot;all&quot;</span><span class="p">:</span>
+            <span class="n">metrics</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="s2">&quot;SpiegelhalterZ&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;ECE-H&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;MCE-H&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;HL-H&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;ECE-C&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;MCE-C&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;HL-C&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;COX&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;Loess&quot;</span><span class="p">,</span>
+            <span class="p">]</span>
         <span class="n">results</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="n">precompute_H</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="n">precompute_C</span> <span class="o">=</span> <span class="kc">False</span>
 
         <span class="c1"># Perform prevalence adjustment if requested</span>
         <span class="k">if</span> <span class="n">perform_pervalance_adjustment</span><span class="p">:</span>
-            <span class="n">optimal_prevalance</span><span class="p">,</span> <span class="n">y_proba</span> <span class="o">=</span> <span class="n">find_optimal_prevalence</span><span class="p">(</span><span class="n">y_true</span><span class="o">=</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_proba</span><span class="o">=</span><span class="n">y_proba</span><span class="p">,</span> <span class="n">class_to_calculate</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">class_to_calculate</span><span class="p">)</span>
+            <span class="n">optimal_prevalance</span><span class="p">,</span> <span class="n">y_proba</span> <span class="o">=</span> <span class="n">find_optimal_prevalence</span><span class="p">(</span>
+                <span class="n">y_true</span><span class="o">=</span><span class="n">y_true</span><span class="p">,</span>
+                <span class="n">y_proba</span><span class="o">=</span><span class="n">y_proba</span><span class="p">,</span>
+                <span class="n">class_to_calculate</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">class_to_calculate</span><span class="p">,</span>
+            <span class="p">)</span>
             <span class="n">class_to_calculate</span> <span class="o">=</span> <span class="mi">1</span>
-            <span class="n">results</span><span class="p">[</span><span class="s1">&#39;Optimal prevalence&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">optimal_prevalance</span>
+            <span class="n">results</span><span class="p">[</span><span class="s2">&quot;Optimal prevalence&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">optimal_prevalance</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">class_to_calculate</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">class_to_calculate</span>
 
         <span class="c1"># Calculate each requested metric</span>
         <span class="k">for</span> <span class="n">metric</span> <span class="ow">in</span> <span class="n">metrics</span><span class="p">:</span>
             <span class="c1"># Spiegelhalter&#39;s Z-test</span>
-            <span class="k">if</span> <span class="n">metric</span> <span class="o">==</span> <span class="s1">&#39;SpiegelhalterZ&#39;</span><span class="p">:</span>
-                <span class="n">score</span><span class="p">,</span> <span class="n">p_value</span> <span class="o">=</span> <span class="n">spiegelhalter_z_test</span><span class="p">(</span><span class="n">y_true</span><span class="o">=</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_proba</span><span class="o">=</span><span class="n">y_proba</span><span class="p">,</span> <span class="n">class_to_calculate</span><span class="o">=</span><span class="n">class_to_calculate</span><span class="p">)</span>
-                <span class="n">results</span><span class="p">[</span><span class="s1">&#39;SpiegelhalterZ score&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">score</span>
-                <span class="n">results</span><span class="p">[</span><span class="s1">&#39;SpiegelhalterZ p-value&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">p_value</span>
+            <span class="k">if</span> <span class="n">metric</span> <span class="o">==</span> <span class="s2">&quot;SpiegelhalterZ&quot;</span><span class="p">:</span>
+                <span class="n">score</span><span class="p">,</span> <span class="n">p_value</span> <span class="o">=</span> <span class="n">spiegelhalter_z_test</span><span class="p">(</span>
+                    <span class="n">y_true</span><span class="o">=</span><span class="n">y_true</span><span class="p">,</span>
+                    <span class="n">y_proba</span><span class="o">=</span><span class="n">y_proba</span><span class="p">,</span>
+                    <span class="n">class_to_calculate</span><span class="o">=</span><span class="n">class_to_calculate</span><span class="p">,</span>
+                <span class="p">)</span>
+                <span class="n">results</span><span class="p">[</span><span class="s2">&quot;SpiegelhalterZ score&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">score</span>
+                <span class="n">results</span><span class="p">[</span><span class="s2">&quot;SpiegelhalterZ p-value&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">p_value</span>
 
             <span class="c1"># Metrics using equal-space binning</span>
-            <span class="k">elif</span> <span class="n">metric</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;ECE-H&#39;</span><span class="p">,</span> <span class="s1">&#39;MCE-H&#39;</span><span class="p">,</span> <span class="s1">&#39;HL-H&#39;</span><span class="p">]:</span>
+            <span class="k">elif</span> <span class="n">metric</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;ECE-H&quot;</span><span class="p">,</span> <span class="s2">&quot;MCE-H&quot;</span><span class="p">,</span> <span class="s2">&quot;HL-H&quot;</span><span class="p">]:</span>
                 <span class="k">if</span> <span class="ow">not</span> <span class="n">precompute_H</span><span class="p">:</span>
                     <span class="c1"># Precompute equal-space binning results for efficiency</span>
-                    <span class="n">acc_H</span><span class="p">,</span> <span class="n">confidence_H</span><span class="p">,</span> <span class="n">bin_edges_H</span><span class="p">,</span> <span class="n">bin_count_H</span> <span class="o">=</span> <span class="n">reliability_diagram</span><span class="p">(</span><span class="n">y_true</span><span class="o">=</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_proba</span><span class="o">=</span><span class="n">y_proba</span><span class="p">,</span> <span class="n">num_bins</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">num_bins</span><span class="p">,</span> <span class="n">is_equal_freq</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-                    <span class="n">acc_H_class</span><span class="p">,</span> <span class="n">confidence_H_class</span><span class="p">,</span> <span class="n">bin_edges_H_class</span><span class="p">,</span> <span class="n">bin_count_H_class</span> <span class="o">=</span> <span class="n">reliability_diagram</span><span class="p">(</span><span class="n">y_true</span><span class="o">=</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_proba</span><span class="o">=</span><span class="n">y_proba</span><span class="p">,</span> <span class="n">num_bins</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">num_bins</span><span class="p">,</span> <span class="n">is_equal_freq</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">class_to_plot</span><span class="o">=</span><span class="n">class_to_calculate</span><span class="p">)</span>
+                    <span class="n">acc_H</span><span class="p">,</span> <span class="n">confidence_H</span><span class="p">,</span> <span class="n">bin_edges_H</span><span class="p">,</span> <span class="n">bin_count_H</span> <span class="o">=</span> <span class="n">reliability_diagram</span><span class="p">(</span>
+                        <span class="n">y_true</span><span class="o">=</span><span class="n">y_true</span><span class="p">,</span>
+                        <span class="n">y_proba</span><span class="o">=</span><span class="n">y_proba</span><span class="p">,</span>
+                        <span class="n">num_bins</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">num_bins</span><span class="p">,</span>
+                        <span class="n">is_equal_freq</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                    <span class="p">)</span>
+                    <span class="p">(</span>
+                        <span class="n">acc_H_class</span><span class="p">,</span>
+                        <span class="n">confidence_H_class</span><span class="p">,</span>
+                        <span class="n">bin_edges_H_class</span><span class="p">,</span>
+                        <span class="n">bin_count_H_class</span><span class="p">,</span>
+                    <span class="p">)</span> <span class="o">=</span> <span class="n">reliability_diagram</span><span class="p">(</span>
+                        <span class="n">y_true</span><span class="o">=</span><span class="n">y_true</span><span class="p">,</span>
+                        <span class="n">y_proba</span><span class="o">=</span><span class="n">y_proba</span><span class="p">,</span>
+                        <span class="n">num_bins</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">num_bins</span><span class="p">,</span>
+                        <span class="n">is_equal_freq</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                        <span class="n">class_to_plot</span><span class="o">=</span><span class="n">class_to_calculate</span><span class="p">,</span>
+                    <span class="p">)</span>
                     <span class="n">precompute_H</span> <span class="o">=</span> <span class="kc">True</span>
 
-                <span class="k">if</span> <span class="n">metric</span> <span class="o">==</span> <span class="s1">&#39;ECE-H&#39;</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">metric</span> <span class="o">==</span> <span class="s2">&quot;ECE-H&quot;</span><span class="p">:</span>
                     <span class="n">ece_h</span><span class="p">,</span> <span class="n">mce_h</span> <span class="o">=</span> <span class="n">calculate_ece_mce</span><span class="p">(</span><span class="n">acc_H</span><span class="p">,</span> <span class="n">confidence_H</span><span class="p">,</span> <span class="n">bin_count_H</span><span class="p">)</span>
-                    <span class="n">ece_h_class</span><span class="p">,</span> <span class="n">mce_h_class</span> <span class="o">=</span> <span class="n">calculate_ece_mce</span><span class="p">(</span><span class="n">acc_H_class</span><span class="p">,</span> <span class="n">confidence_H_class</span><span class="p">,</span> <span class="n">bin_count_H_class</span><span class="p">)</span>
-                    <span class="n">results</span><span class="p">[</span><span class="s1">&#39;ECE-H topclass&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ece_h</span>
-                    <span class="n">results</span><span class="p">[</span><span class="s1">&#39;ECE-H&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ece_h_class</span>
-                <span class="k">elif</span> <span class="n">metric</span> <span class="o">==</span> <span class="s1">&#39;MCE-H&#39;</span><span class="p">:</span>
+                    <span class="n">ece_h_class</span><span class="p">,</span> <span class="n">mce_h_class</span> <span class="o">=</span> <span class="n">calculate_ece_mce</span><span class="p">(</span>
+                        <span class="n">acc_H_class</span><span class="p">,</span> <span class="n">confidence_H_class</span><span class="p">,</span> <span class="n">bin_count_H_class</span>
+                    <span class="p">)</span>
+                    <span class="n">results</span><span class="p">[</span><span class="s2">&quot;ECE-H topclass&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ece_h</span>
+                    <span class="n">results</span><span class="p">[</span><span class="s2">&quot;ECE-H&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ece_h_class</span>
+                <span class="k">elif</span> <span class="n">metric</span> <span class="o">==</span> <span class="s2">&quot;MCE-H&quot;</span><span class="p">:</span>
                     <span class="n">ece_h</span><span class="p">,</span> <span class="n">mce_h</span> <span class="o">=</span> <span class="n">calculate_ece_mce</span><span class="p">(</span><span class="n">acc_H</span><span class="p">,</span> <span class="n">confidence_H</span><span class="p">,</span> <span class="n">bin_count_H</span><span class="p">)</span>
-                    <span class="n">ece_h_class</span><span class="p">,</span> <span class="n">mce_h_class</span> <span class="o">=</span> <span class="n">calculate_ece_mce</span><span class="p">(</span><span class="n">acc_H_class</span><span class="p">,</span> <span class="n">confidence_H_class</span><span class="p">,</span> <span class="n">bin_count_H_class</span><span class="p">)</span>
-                    <span class="n">results</span><span class="p">[</span><span class="s1">&#39;MCE-H topclass&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">mce_h</span>
-                    <span class="n">results</span><span class="p">[</span><span class="s1">&#39;MCE-H&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">mce_h_class</span>
-                <span class="k">elif</span> <span class="n">metric</span> <span class="o">==</span> <span class="s1">&#39;HL-H&#39;</span><span class="p">:</span>
-                    <span class="n">hl_h_score</span><span class="p">,</span> <span class="n">hl_h</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">hosmer_lemeshow_test</span><span class="p">(</span><span class="n">acc_H_class</span><span class="p">,</span> <span class="n">confidence_H_class</span><span class="p">,</span> <span class="n">bin_count_H_class</span><span class="p">)</span>
-                    <span class="n">results</span><span class="p">[</span><span class="s1">&#39;HL-H score&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">hl_h_score</span>
-                    <span class="n">results</span><span class="p">[</span><span class="s1">&#39;HL-H p-value&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">hl_h</span>
+                    <span class="n">ece_h_class</span><span class="p">,</span> <span class="n">mce_h_class</span> <span class="o">=</span> <span class="n">calculate_ece_mce</span><span class="p">(</span>
+                        <span class="n">acc_H_class</span><span class="p">,</span> <span class="n">confidence_H_class</span><span class="p">,</span> <span class="n">bin_count_H_class</span>
+                    <span class="p">)</span>
+                    <span class="n">results</span><span class="p">[</span><span class="s2">&quot;MCE-H topclass&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">mce_h</span>
+                    <span class="n">results</span><span class="p">[</span><span class="s2">&quot;MCE-H&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">mce_h_class</span>
+                <span class="k">elif</span> <span class="n">metric</span> <span class="o">==</span> <span class="s2">&quot;HL-H&quot;</span><span class="p">:</span>
+                    <span class="n">hl_h_score</span><span class="p">,</span> <span class="n">hl_h</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">hosmer_lemeshow_test</span><span class="p">(</span>
+                        <span class="n">acc_H_class</span><span class="p">,</span> <span class="n">confidence_H_class</span><span class="p">,</span> <span class="n">bin_count_H_class</span>
+                    <span class="p">)</span>
+                    <span class="n">results</span><span class="p">[</span><span class="s2">&quot;HL-H score&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">hl_h_score</span>
+                    <span class="n">results</span><span class="p">[</span><span class="s2">&quot;HL-H p-value&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">hl_h</span>
 
             <span class="c1"># Metrics using equal-count binning</span>
-            <span class="k">elif</span> <span class="n">metric</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;ECE-C&#39;</span><span class="p">,</span> <span class="s1">&#39;MCE-C&#39;</span><span class="p">,</span> <span class="s1">&#39;HL-C&#39;</span><span class="p">]:</span>
+            <span class="k">elif</span> <span class="n">metric</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;ECE-C&quot;</span><span class="p">,</span> <span class="s2">&quot;MCE-C&quot;</span><span class="p">,</span> <span class="s2">&quot;HL-C&quot;</span><span class="p">]:</span>
                 <span class="k">if</span> <span class="ow">not</span> <span class="n">precompute_C</span><span class="p">:</span>
                     <span class="c1"># Precompute equal-count binning results for efficiency</span>
-                    <span class="n">acc_C</span><span class="p">,</span> <span class="n">confidence_C</span><span class="p">,</span> <span class="n">bin_edges_C</span><span class="p">,</span> <span class="n">bin_count_C</span> <span class="o">=</span> <span class="n">reliability_diagram</span><span class="p">(</span><span class="n">y_true</span><span class="o">=</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_proba</span><span class="o">=</span><span class="n">y_proba</span><span class="p">,</span> <span class="n">num_bins</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">num_bins</span><span class="p">,</span> <span class="n">is_equal_freq</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-                    <span class="n">acc_C_class</span><span class="p">,</span> <span class="n">confidence_C_class</span><span class="p">,</span> <span class="n">bin_edges_C_class</span><span class="p">,</span> <span class="n">bin_count_C_class</span> <span class="o">=</span> <span class="n">reliability_diagram</span><span class="p">(</span><span class="n">y_true</span><span class="o">=</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_proba</span><span class="o">=</span><span class="n">y_proba</span><span class="p">,</span> <span class="n">num_bins</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">num_bins</span><span class="p">,</span> <span class="n">is_equal_freq</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">class_to_plot</span><span class="o">=</span><span class="n">class_to_calculate</span><span class="p">)</span>
+                    <span class="n">acc_C</span><span class="p">,</span> <span class="n">confidence_C</span><span class="p">,</span> <span class="n">bin_edges_C</span><span class="p">,</span> <span class="n">bin_count_C</span> <span class="o">=</span> <span class="n">reliability_diagram</span><span class="p">(</span>
+                        <span class="n">y_true</span><span class="o">=</span><span class="n">y_true</span><span class="p">,</span>
+                        <span class="n">y_proba</span><span class="o">=</span><span class="n">y_proba</span><span class="p">,</span>
+                        <span class="n">num_bins</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">num_bins</span><span class="p">,</span>
+                        <span class="n">is_equal_freq</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                    <span class="p">)</span>
+                    <span class="p">(</span>
+                        <span class="n">acc_C_class</span><span class="p">,</span>
+                        <span class="n">confidence_C_class</span><span class="p">,</span>
+                        <span class="n">bin_edges_C_class</span><span class="p">,</span>
+                        <span class="n">bin_count_C_class</span><span class="p">,</span>
+                    <span class="p">)</span> <span class="o">=</span> <span class="n">reliability_diagram</span><span class="p">(</span>
+                        <span class="n">y_true</span><span class="o">=</span><span class="n">y_true</span><span class="p">,</span>
+                        <span class="n">y_proba</span><span class="o">=</span><span class="n">y_proba</span><span class="p">,</span>
+                        <span class="n">num_bins</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">num_bins</span><span class="p">,</span>
+                        <span class="n">is_equal_freq</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                        <span class="n">class_to_plot</span><span class="o">=</span><span class="n">class_to_calculate</span><span class="p">,</span>
+                    <span class="p">)</span>
                     <span class="n">precompute_C</span> <span class="o">=</span> <span class="kc">True</span>
 
-                <span class="k">if</span> <span class="n">metric</span> <span class="o">==</span> <span class="s1">&#39;ECE-C&#39;</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">metric</span> <span class="o">==</span> <span class="s2">&quot;ECE-C&quot;</span><span class="p">:</span>
                     <span class="n">ece_c</span><span class="p">,</span> <span class="n">mce_c</span> <span class="o">=</span> <span class="n">calculate_ece_mce</span><span class="p">(</span><span class="n">acc_C</span><span class="p">,</span> <span class="n">confidence_C</span><span class="p">,</span> <span class="n">bin_count_C</span><span class="p">)</span>
-                    <span class="n">ece_c_class</span><span class="p">,</span> <span class="n">mce_c_class</span> <span class="o">=</span> <span class="n">calculate_ece_mce</span><span class="p">(</span><span class="n">acc_C_class</span><span class="p">,</span> <span class="n">confidence_C_class</span><span class="p">,</span> <span class="n">bin_count_C_class</span><span class="p">)</span>
-                    <span class="n">results</span><span class="p">[</span><span class="s1">&#39;ECE-C topclass&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ece_c</span>
-                    <span class="n">results</span><span class="p">[</span><span class="s1">&#39;ECE-C&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ece_c_class</span>
-                <span class="k">elif</span> <span class="n">metric</span> <span class="o">==</span> <span class="s1">&#39;MCE-C&#39;</span><span class="p">:</span>
+                    <span class="n">ece_c_class</span><span class="p">,</span> <span class="n">mce_c_class</span> <span class="o">=</span> <span class="n">calculate_ece_mce</span><span class="p">(</span>
+                        <span class="n">acc_C_class</span><span class="p">,</span> <span class="n">confidence_C_class</span><span class="p">,</span> <span class="n">bin_count_C_class</span>
+                    <span class="p">)</span>
+                    <span class="n">results</span><span class="p">[</span><span class="s2">&quot;ECE-C topclass&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ece_c</span>
+                    <span class="n">results</span><span class="p">[</span><span class="s2">&quot;ECE-C&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ece_c_class</span>
+                <span class="k">elif</span> <span class="n">metric</span> <span class="o">==</span> <span class="s2">&quot;MCE-C&quot;</span><span class="p">:</span>
                     <span class="n">ece_c</span><span class="p">,</span> <span class="n">mce_c</span> <span class="o">=</span> <span class="n">calculate_ece_mce</span><span class="p">(</span><span class="n">acc_C</span><span class="p">,</span> <span class="n">confidence_C</span><span class="p">,</span> <span class="n">bin_count_C</span><span class="p">)</span>
-                    <span class="n">ece_c_class</span><span class="p">,</span> <span class="n">mce_c_class</span> <span class="o">=</span> <span class="n">calculate_ece_mce</span><span class="p">(</span><span class="n">acc_C_class</span><span class="p">,</span> <span class="n">confidence_C_class</span><span class="p">,</span> <span class="n">bin_count_C_class</span><span class="p">)</span>
-                    <span class="n">results</span><span class="p">[</span><span class="s1">&#39;MCE-C topclass&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">mce_c</span>
-                    <span class="n">results</span><span class="p">[</span><span class="s1">&#39;MCE-C&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">mce_c_class</span>
-                <span class="k">elif</span> <span class="n">metric</span> <span class="o">==</span> <span class="s1">&#39;HL-C&#39;</span><span class="p">:</span>
-                    <span class="n">hl_c_score</span><span class="p">,</span> <span class="n">hl_c</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">hosmer_lemeshow_test</span><span class="p">(</span><span class="n">acc_C_class</span><span class="p">,</span> <span class="n">confidence_C_class</span><span class="p">,</span> <span class="n">bin_count_C_class</span><span class="p">)</span>
-                    <span class="n">results</span><span class="p">[</span><span class="s1">&#39;HL-C score&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">hl_c_score</span>
-                    <span class="n">results</span><span class="p">[</span><span class="s1">&#39;HL-C p-value&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">hl_c</span>
+                    <span class="n">ece_c_class</span><span class="p">,</span> <span class="n">mce_c_class</span> <span class="o">=</span> <span class="n">calculate_ece_mce</span><span class="p">(</span>
+                        <span class="n">acc_C_class</span><span class="p">,</span> <span class="n">confidence_C_class</span><span class="p">,</span> <span class="n">bin_count_C_class</span>
+                    <span class="p">)</span>
+                    <span class="n">results</span><span class="p">[</span><span class="s2">&quot;MCE-C topclass&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">mce_c</span>
+                    <span class="n">results</span><span class="p">[</span><span class="s2">&quot;MCE-C&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">mce_c_class</span>
+                <span class="k">elif</span> <span class="n">metric</span> <span class="o">==</span> <span class="s2">&quot;HL-C&quot;</span><span class="p">:</span>
+                    <span class="n">hl_c_score</span><span class="p">,</span> <span class="n">hl_c</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">hosmer_lemeshow_test</span><span class="p">(</span>
+                        <span class="n">acc_C_class</span><span class="p">,</span> <span class="n">confidence_C_class</span><span class="p">,</span> <span class="n">bin_count_C_class</span>
+                    <span class="p">)</span>
+                    <span class="n">results</span><span class="p">[</span><span class="s2">&quot;HL-C score&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">hl_c_score</span>
+                    <span class="n">results</span><span class="p">[</span><span class="s2">&quot;HL-C p-value&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">hl_c</span>
 
             <span class="c1"># Cox regression analysis</span>
-            <span class="k">elif</span> <span class="n">metric</span> <span class="o">==</span> <span class="s1">&#39;COX&#39;</span><span class="p">:</span>
-                <span class="n">coef</span><span class="p">,</span> <span class="n">intercept</span><span class="p">,</span> <span class="n">coef_ci</span><span class="p">,</span> <span class="n">intercept_ci</span> <span class="o">=</span> <span class="n">cox_regression_analysis</span><span class="p">(</span><span class="n">y_true</span><span class="o">=</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_proba</span><span class="o">=</span><span class="n">y_proba</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-                <span class="n">results</span><span class="p">[</span><span class="s1">&#39;COX coef&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">coef</span>
-                <span class="n">results</span><span class="p">[</span><span class="s1">&#39;COX intercept&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">intercept</span>
-                <span class="n">results</span><span class="p">[</span><span class="s1">&#39;COX coef lowerci&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">coef_ci</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-                <span class="n">results</span><span class="p">[</span><span class="s1">&#39;COX coef upperci&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">coef_ci</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-                <span class="n">results</span><span class="p">[</span><span class="s1">&#39;COX intercept lowerci&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">intercept_ci</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-                <span class="n">results</span><span class="p">[</span><span class="s1">&#39;COX intercept upperci&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">intercept_ci</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-                <span class="n">ICI</span> <span class="o">=</span> <span class="n">cal_ICI_cox</span><span class="p">(</span><span class="n">coef</span><span class="p">,</span> <span class="n">intercept</span><span class="p">,</span> <span class="n">y_proba</span><span class="p">,</span> <span class="n">class_to_calculate</span><span class="o">=</span><span class="n">class_to_calculate</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-                <span class="n">results</span><span class="p">[</span><span class="s1">&#39;COX ICI&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ICI</span>
+            <span class="k">elif</span> <span class="n">metric</span> <span class="o">==</span> <span class="s2">&quot;COX&quot;</span><span class="p">:</span>
+                <span class="n">coef</span><span class="p">,</span> <span class="n">intercept</span><span class="p">,</span> <span class="n">coef_ci</span><span class="p">,</span> <span class="n">intercept_ci</span> <span class="o">=</span> <span class="n">cox_regression_analysis</span><span class="p">(</span>
+                    <span class="n">y_true</span><span class="o">=</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_proba</span><span class="o">=</span><span class="n">y_proba</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+                <span class="p">)</span>
+                <span class="n">results</span><span class="p">[</span><span class="s2">&quot;COX coef&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">coef</span>
+                <span class="n">results</span><span class="p">[</span><span class="s2">&quot;COX intercept&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">intercept</span>
+                <span class="n">results</span><span class="p">[</span><span class="s2">&quot;COX coef lowerci&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">coef_ci</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="n">results</span><span class="p">[</span><span class="s2">&quot;COX coef upperci&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">coef_ci</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+                <span class="n">results</span><span class="p">[</span><span class="s2">&quot;COX intercept lowerci&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">intercept_ci</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="n">results</span><span class="p">[</span><span class="s2">&quot;COX intercept upperci&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">intercept_ci</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+                <span class="n">ICI</span> <span class="o">=</span> <span class="n">cal_ICI_cox</span><span class="p">(</span>
+                    <span class="n">coef</span><span class="p">,</span>
+                    <span class="n">intercept</span><span class="p">,</span>
+                    <span class="n">y_proba</span><span class="p">,</span>
+                    <span class="n">class_to_calculate</span><span class="o">=</span><span class="n">class_to_calculate</span><span class="p">,</span>
+                    <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+                <span class="p">)</span>
+                <span class="n">results</span><span class="p">[</span><span class="s2">&quot;COX ICI&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ICI</span>
 
             <span class="c1"># Loess regression analysis</span>
-            <span class="k">elif</span> <span class="n">metric</span> <span class="o">==</span> <span class="s1">&#39;Loess&#39;</span><span class="p">:</span>
-                <span class="n">loess_ICI</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">lowess_regression_analysis</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_proba</span><span class="p">,</span> <span class="n">class_to_calculate</span><span class="o">=</span><span class="n">class_to_calculate</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-                <span class="n">results</span><span class="p">[</span><span class="s1">&#39;Loess ICI&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">loess_ICI</span>
+            <span class="k">elif</span> <span class="n">metric</span> <span class="o">==</span> <span class="s2">&quot;Loess&quot;</span><span class="p">:</span>
+                <span class="n">loess_ICI</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">lowess_regression_analysis</span><span class="p">(</span>
+                    <span class="n">y_true</span><span class="p">,</span> <span class="n">y_proba</span><span class="p">,</span> <span class="n">class_to_calculate</span><span class="o">=</span><span class="n">class_to_calculate</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+                <span class="p">)</span>
+                <span class="n">results</span><span class="p">[</span><span class="s2">&quot;Loess ICI&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">loess_ICI</span>
 
         <span class="c1"># Convert results to numpy array if requested</span>
         <span class="k">if</span> <span class="n">return_numpy</span><span class="p">:</span>
@@ -614,7 +747,15 @@
 
 <div class="viewcode-block" id="CalibrationMetrics.bootstrap">
 <a class="viewcode-back" href="../../calzone.html#calzone.metrics.CalibrationMetrics.bootstrap">[docs]</a>
-    <span class="k">def</span> <span class="nf">bootstrap</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">y_true</span><span class="p">,</span> <span class="n">y_proba</span><span class="p">,</span> <span class="n">metrics</span><span class="p">,</span> <span class="n">perform_pervalance_adjustment</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">n_samples</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">bootstrap</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">y_true</span><span class="p">,</span>
+        <span class="n">y_proba</span><span class="p">,</span>
+        <span class="n">metrics</span><span class="p">,</span>
+        <span class="n">perform_pervalance_adjustment</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">n_samples</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+    <span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Run bootstrap and return a numpy structured array with correct field names.</span>
 
@@ -646,18 +787,34 @@
 
             <span class="c1"># Calculate metrics for the first sample to get the keys</span>
             <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-                <span class="n">sample_results</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">calculate_metrics</span><span class="p">(</span><span class="n">y_true_sample</span><span class="p">,</span> <span class="n">y_proba_sample</span><span class="p">,</span> <span class="n">metrics</span><span class="p">,</span> <span class="n">perform_pervalance_adjustment</span><span class="o">=</span><span class="n">perform_pervalance_adjustment</span><span class="p">,</span> <span class="n">return_numpy</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+                <span class="n">sample_results</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">calculate_metrics</span><span class="p">(</span>
+                    <span class="n">y_true_sample</span><span class="p">,</span>
+                    <span class="n">y_proba_sample</span><span class="p">,</span>
+                    <span class="n">metrics</span><span class="p">,</span>
+                    <span class="n">perform_pervalance_adjustment</span><span class="o">=</span><span class="n">perform_pervalance_adjustment</span><span class="p">,</span>
+                    <span class="n">return_numpy</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                    <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+                <span class="p">)</span>
                 <span class="n">keys</span> <span class="o">=</span> <span class="n">sample_results</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
                 <span class="n">sample_results</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">sample_results</span><span class="o">.</span><span class="n">values</span><span class="p">()))</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">sample_results</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">calculate_metrics</span><span class="p">(</span><span class="n">y_true_sample</span><span class="p">,</span> <span class="n">y_proba_sample</span><span class="p">,</span> <span class="n">metrics</span><span class="p">,</span> <span class="n">perform_pervalance_adjustment</span><span class="o">=</span><span class="n">perform_pervalance_adjustment</span><span class="p">,</span> <span class="n">return_numpy</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-            
+                <span class="n">sample_results</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">calculate_metrics</span><span class="p">(</span>
+                    <span class="n">y_true_sample</span><span class="p">,</span>
+                    <span class="n">y_proba_sample</span><span class="p">,</span>
+                    <span class="n">metrics</span><span class="p">,</span>
+                    <span class="n">perform_pervalance_adjustment</span><span class="o">=</span><span class="n">perform_pervalance_adjustment</span><span class="p">,</span>
+                    <span class="n">return_numpy</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                    <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+                <span class="p">)</span>
+
             <span class="n">bootstrap_results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sample_results</span><span class="p">)</span>
 
         <span class="c1"># Create a structured array with correct field names</span>
         <span class="n">dtype</span> <span class="o">=</span> <span class="p">[(</span><span class="n">key</span><span class="p">,</span> <span class="nb">float</span><span class="p">)</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">keys</span><span class="p">]</span>
         <span class="n">unstructured_results</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">bootstrap_results</span><span class="p">)</span>
-        <span class="n">structured_results</span> <span class="o">=</span> <span class="n">rf</span><span class="o">.</span><span class="n">unstructured_to_structured</span><span class="p">(</span><span class="n">unstructured_results</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">)</span>
+        <span class="n">structured_results</span> <span class="o">=</span> <span class="n">rf</span><span class="o">.</span><span class="n">unstructured_to_structured</span><span class="p">(</span>
+            <span class="n">unstructured_results</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span>
+        <span class="p">)</span>
 
         <span class="k">return</span> <span class="n">structured_results</span></div>
 
@@ -681,7 +838,9 @@
 <span class="sd">            adjusted_proba (array-like): Adjusted probabilities. First column is the adjusted probabilities for the other class,</span>
 <span class="sd">                second column is the adjusted probabilities for the class of interest.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">optimal_prevalence</span><span class="p">,</span> <span class="n">adjusted_proba</span> <span class="o">=</span> <span class="n">find_optimal_prevalence</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_proba</span><span class="p">,</span> <span class="n">class_to_calculate</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">class_to_calculate</span><span class="p">)</span>
+        <span class="n">optimal_prevalence</span><span class="p">,</span> <span class="n">adjusted_proba</span> <span class="o">=</span> <span class="n">find_optimal_prevalence</span><span class="p">(</span>
+            <span class="n">y_true</span><span class="p">,</span> <span class="n">y_proba</span><span class="p">,</span> <span class="n">class_to_calculate</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">class_to_calculate</span>
+        <span class="p">)</span>
         <span class="k">return</span> <span class="n">optimal_prevalence</span><span class="p">,</span> <span class="n">adjusted_proba</span></div>
 </div>
 
