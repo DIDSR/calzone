@@ -57,7 +57,7 @@ In the `calzone` package, we provide a set of functions and classes for calibrat
 
 ## Reliability Diagram
 
-Reliability Diagram is a graphical representation of the calibration of a classification model [@Brocker_reldia]. It groups the predicted probabilities into bins and plots the mean predicted probability against the empirical frequency in each bin. The reliability diagram can be used to assess the calibration of the model and to identify any systematic errors in the predictions. In addition, we add the option to plot with error bars to show the confidence interval of the empirical frequency in each bin. The error bars are calculated using Wilson's score interval [@wilson_interval].
+Reliability Diagram is a graphical representation of the calibration of a classification model [@Brocker_reldia]. It groups the predicted probabilities into bins and plots the mean predicted probability against the empirical frequency in each bin. The reliability diagram can be used to assess the calibration of the model and to identify any systematic errors in the predictions. In addition, we add the option to plot with error bars to show the confidence interval of the empirical frequency in each bin. The error bars are calculated using Wilson's score interval [@wilson_interval]. We provide a example simulated dataset in the `example_data` folder using beta-binomial distribution [@beta-binomial]. User can generate simulated data using the `fake_binary_data_generator` class in the `utils` module.
 
 ```python
 from calzone.utils import reliability_diagram
