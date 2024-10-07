@@ -30,7 +30,7 @@ authors:
     affiliation: 1
   - name: Qian Cao
     affiliation: 1
-    correspondence: "yes"
+    corresponding: true
     email: qian.cao@fda.hhs.gov
 
 affiliations:
@@ -47,7 +47,7 @@ bibliography: paper.bib
 # Statement of need
 Classification is one of the most fundamental and important tasks in machine learning. The performance of classification models is often evaluated by a proper scoring rule, such as the cross-entropy or mean square error. Examination of the distinguishing power (resolution), such as AUC or Se/Sp are also used to evaluate the model performance. However, the reliability or calibration performance of the model is often overlooked. 
 
-`@Brocker_decompose` has shown that the proper scoring rule can be decomposed into the resolution and reliability. That means even if the model has high resolution (high AUC), it may not be a reliable or calibrated model. In many high-risk machine learning applications, such as medical diagnosis, the reliability of the model is of paramount importance. 
+@Brocker_decompose has shown that the proper scoring rule can be decomposed into the resolution and reliability. That means even if the model has high resolution (high AUC), it may not be a reliable or calibrated model. In many high-risk machine learning applications, such as medical diagnosis, the reliability of the model is of paramount importance. 
 
 We refer to calibration as the agreement between the predicted probability and the true posterior probability of a class-of-interest, $P(D=1|\hat{p}=p) = p$. This is defined as moderate calibration by @Calster_weak_cal
 
