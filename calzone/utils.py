@@ -1,20 +1,20 @@
 """Uitlity functions for the Calibration Measure package."""
-__author__ = 'Kwok Lung Jason Fan'
-__copyright__ = 'Copyright 2024'
-__credits__ = ['Kwok Lung Jason Fan', 'Qian Cao']
-__license__ = 'Apache License 2.0'
-__version__ = '0.1'
-__maintainer__ = 'Kwok Lung Jason Fan'
-__email__ = 'kwoklung.fan@fda.hhs.gov'
-__status__ = 'Development'
 
-import scipy.stats as stats
+__author__ = "Kwok Lung Jason Fan"
+__copyright__ = "Copyright 2024"
+__credits__ = ["Kwok Lung Jason Fan", "Qian Cao"]
+__license__ = "Apache License 2.0"
+__version__ = "0.1"
+__maintainer__ = "Kwok Lung Jason Fan"
+__email__ = "kwoklung.fan@fda.hhs.gov"
+__status__ = "Development"
+
 import numpy as np
 from scipy.stats import beta
-import matplotlib.pyplot as plt
 from scipy.optimize import minimize_scalar
 from scipy.special import softmax
 import copy
+
 
 def make_roc_curve(y_true, y_proba, class_to_plot=None):
     """
@@ -44,7 +44,7 @@ def make_roc_curve(y_true, y_proba, class_to_plot=None):
     # Remove NaN values from input data
     mask = ~np.isnan(y_true) & ~np.isnan(y_proba).any(axis=1)
     y_true_clean = y_true[mask]
-    y_proba_clean = y_proba[mask]    
+    y_proba_clean = y_proba[mask]
 
     def calculate_roc(y_true, y_score):
         thresholds = np.unique(y_score)
@@ -70,7 +70,9 @@ def make_roc_curve(y_true, y_proba, class_to_plot=None):
 
     if class_to_plot is not None:
         # Plot ROC for a single class
-        fpr, tpr = calculate_roc(y_true_clean == class_to_plot, y_proba_clean[:, class_to_plot])
+        fpr, tpr = calculate_roc(
+            y_true_clean == class_to_plot, y_proba_clean[:, class_to_plot]
+        )
         roc_auc = calculate_auc(fpr, tpr)
     else:
         # Plot ROC for each class
@@ -85,7 +87,15 @@ def make_roc_curve(y_true, y_proba, class_to_plot=None):
             roc_auc.append(roc_auc_temp)
     return fpr, tpr, roc_auc
 
-def reliability_diagram(y_true, y_proba, num_bins=10, class_to_plot=None, is_equal_freq=False, save_path=None):
+
+def reliability_diagram(
+    y_true,
+    y_proba,
+    num_bins=10,
+    class_to_plot=None,
+    is_equal_freq=False,
+    save_path=None,
+):
     """
     Compute the reliability diagram for a binary or multi-class classification model.
 
@@ -108,7 +118,7 @@ def reliability_diagram(y_true, y_proba, num_bins=10, class_to_plot=None, is_equ
         - If class_to_plot is not None, the reliability diagram will be computed only for the specified class. Otherwise, it will be computed for all classes.
         - The number of bins determines the granularity of the reliability diagram. Higher values result in more bins and a more detailed diagram.
     """
-    
+
     # Determine bin edges based on equal frequency or equal spacing
     if is_equal_freq:
         quatiles = np.linspace(0, 1, num_bins + 1)
@@ -119,36 +129,67 @@ def reliability_diagram(y_true, y_proba, num_bins=10, class_to_plot=None, is_equ
             bin_edges = np.quantile(highest_prob, quatiles)
     else:
         bin_edges = np.linspace(0, 1, num_bins + 1)
-    
+
     y_true = y_true.flatten()
-    
+
     if class_to_plot is not None:
         # Compute reliability diagram for a single class
-        bin_mask = ((y_proba[:, class_to_plot] > bin_edges[:-1, np.newaxis]) & (y_proba[:, class_to_plot] <= bin_edges[1:, np.newaxis])).T
+        bin_mask = (
+            (y_proba[:, class_to_plot] > bin_edges[:-1, np.newaxis])
+            & (y_proba[:, class_to_plot] <= bin_edges[1:, np.newaxis])
+        ).T
         bin_counts = np.sum(bin_mask, axis=0)
         bin_accuracies = np.zeros_like(bin_counts, dtype=float)
         bin_confidences = np.zeros_like(bin_counts, dtype=float)
-        bin_correct = np.sum((y_true==class_to_plot)[:, np.newaxis] * bin_mask,axis=0)
-        bin_accuracies = np.divide(bin_correct, bin_counts, out=np.zeros_like(bin_correct, dtype=float), where=bin_counts!=0)
-        bin_probability = np.sum(y_proba[:, class_to_plot][:, np.newaxis] * bin_mask, axis=0)
-        bin_confidences = np.divide(bin_probability, bin_counts, out=np.zeros_like(bin_probability, dtype=float), where=bin_counts!=0)
+        bin_correct = np.sum(
+            (y_true == class_to_plot)[:, np.newaxis] * bin_mask, axis=0
+        )
+        bin_accuracies = np.divide(
+            bin_correct,
+            bin_counts,
+            out=np.zeros_like(bin_correct, dtype=float),
+            where=bin_counts != 0,
+        )
+        bin_probability = np.sum(
+            y_proba[:, class_to_plot][:, np.newaxis] * bin_mask, axis=0
+        )
+        bin_confidences = np.divide(
+            bin_probability,
+            bin_counts,
+            out=np.zeros_like(bin_probability, dtype=float),
+            where=bin_counts != 0,
+        )
     else:
         # Compute reliability diagram for all classes
         highest_prob = np.max(y_proba, axis=1)
-        bin_mask = (highest_prob[:, np.newaxis] > bin_edges[:-1]) & (highest_prob[:, np.newaxis] <= bin_edges[1:])
-        bin_counts = np.sum(bin_mask, axis=0)        
+        bin_mask = (highest_prob[:, np.newaxis] > bin_edges[:-1]) & (
+            highest_prob[:, np.newaxis] <= bin_edges[1:]
+        )
+        bin_counts = np.sum(bin_mask, axis=0)
         y_pred = np.argmax(y_proba, axis=1)
-        bin_correct = np.sum((y_true==y_pred)[:, np.newaxis] * bin_mask,axis=0)
+        bin_correct = np.sum((y_true == y_pred)[:, np.newaxis] * bin_mask, axis=0)
         bin_accuracies = np.zeros_like(bin_counts, dtype=float)
         bin_confidences = np.zeros_like(bin_counts, dtype=float)
         bin_probability = np.sum(highest_prob[:, np.newaxis] * bin_mask, axis=0)
-        bin_accuracies[bin_counts>0] = bin_correct[bin_counts>0]/bin_counts[bin_counts>0]
-        bin_confidences[bin_counts>0] = bin_probability[bin_counts>0]/bin_counts[bin_counts>0]
-    
+        bin_accuracies[bin_counts > 0] = (
+            bin_correct[bin_counts > 0] / bin_counts[bin_counts > 0]
+        )
+        bin_confidences[bin_counts > 0] = (
+            bin_probability[bin_counts > 0] / bin_counts[bin_counts > 0]
+        )
+
     if save_path is not None:
         # Save reliability diagram output
-        output = np.vstack((bin_accuracies, bin_confidences, bin_edges[1:], bin_counts)).T
-        np.savetxt(save_path, output, delimiter=',', header='Accuracy,Confidence,Bin_right_edge,Bin_Count', comments='')
+        output = np.vstack(
+            (bin_accuracies, bin_confidences, bin_edges[1:], bin_counts)
+        ).T
+        np.savetxt(
+            save_path,
+            output,
+            delimiter=",",
+            header="Accuracy,Confidence,Bin_right_edge,Bin_Count",
+            comments="",
+        )
     return bin_accuracies, bin_confidences, bin_edges, bin_counts
 
 
@@ -165,20 +206,21 @@ def softmax_to_logits(probabilities, epsilon=1e-10):
     """
     # Ensure the input is a numpy array
     probabilities = np.array(probabilities)
-    
+
     # Clip probabilities to avoid log(0)
     clipped_probabilities = np.clip(probabilities, epsilon, 1 - epsilon)
-    
+
     # Compute the log of the clipped probabilities
     log_probabilities = np.log(clipped_probabilities)
-    
+
     # Compute the constant term (which is the log of the sum of exponentials)
     constant = np.log(np.sum(np.exp(log_probabilities)))
-    
+
     # Compute logits
     logits = log_probabilities + constant
-    
+
     return logits
+
 
 def removing_nan(y_true, y_predict, y_proba):
     """
@@ -197,7 +239,10 @@ def removing_nan(y_true, y_predict, y_proba):
     normal_row = np.logical_not(np.clip(np.isnan(y_proba).sum(axis=1), 0, 1))
     return y_true[normal_row], y_predict[normal_row], y_proba[normal_row]
 
-def apply_prevalence_adjustment(adjusted_prevalence, y_true, y_proba, class_to_calculate=1):
+
+def apply_prevalence_adjustment(
+    adjusted_prevalence, y_true, y_proba, class_to_calculate=1
+):
     """
     Apply the prevalence adjustment method.
 
@@ -213,9 +258,13 @@ def apply_prevalence_adjustment(adjusted_prevalence, y_true, y_proba, class_to_c
     original_prevalence = np.mean(y_true)
     proba = y_proba[:, class_to_calculate]
     LR = (proba / (1 - proba)) * ((1 - adjusted_prevalence) / adjusted_prevalence)
-    adjusted_y_proba = (original_prevalence * LR) / (original_prevalence * LR + (1 - original_prevalence))
+    adjusted_y_proba = (original_prevalence * LR) / (
+        original_prevalence * LR + (1 - original_prevalence)
+    )
     other_class_proba = 1 - adjusted_y_proba
-    new_y_proba = np.hstack((other_class_proba.reshape(-1, 1), adjusted_y_proba.reshape(-1, 1)))
+    new_y_proba = np.hstack(
+        (other_class_proba.reshape(-1, 1), adjusted_y_proba.reshape(-1, 1))
+    )
     return new_y_proba
 
 
@@ -232,9 +281,15 @@ def loss(adjusted_prevalence, y_true, y_proba, class_to_calculate=1):
     Returns:
         float: Calculated loss value.
     """
-    adjusted_y_proba = apply_prevalence_adjustment(adjusted_prevalence, y_true, y_proba, class_to_calculate)
-    loss = -np.mean(y_true * np.log(adjusted_y_proba[:, class_to_calculate]) + (1 - y_true) * np.log(1 - adjusted_y_proba[:, class_to_calculate]))
+    adjusted_y_proba = apply_prevalence_adjustment(
+        adjusted_prevalence, y_true, y_proba, class_to_calculate
+    )
+    loss = -np.mean(
+        y_true * np.log(adjusted_y_proba[:, class_to_calculate])
+        + (1 - y_true) * np.log(1 - adjusted_y_proba[:, class_to_calculate])
+    )
     return loss
+
 
 def find_optimal_prevalence(y_true, y_proba, class_to_calculate=1, epsilon=1e-10):
     """
@@ -251,13 +306,17 @@ def find_optimal_prevalence(y_true, y_proba, class_to_calculate=1, epsilon=1e-10
         adjusted_probabilities (numpy.ndarray): The adjusted probabilities using the optimal prevalence.
     """
     y_proba = np.clip(y_proba, epsilon, 1 - epsilon)
-    
+
     def objective(adjusted_prevalence):
         return loss(adjusted_prevalence, y_true, y_proba, class_to_calculate)
 
-    result = minimize_scalar(objective, bounds=(0, 1), method='bounded')
-    return result.x, apply_prevalence_adjustment(result.x, y_true, y_proba, class_to_calculate)
-class data_loader():
+    result = minimize_scalar(objective, bounds=(0, 1), method="bounded")
+    return result.x, apply_prevalence_adjustment(
+        result.x, y_true, y_proba, class_to_calculate
+    )
+
+
+class data_loader:
     """
     A class for loading and preprocessing data from a CSV file.
 
@@ -299,35 +358,43 @@ class data_loader():
         - If there is no header, the columns must be in the order of proba_0,proba_1,...,label
         """
         self.data_path = data_path
-        self.Header = np.loadtxt(self.data_path, delimiter=',', max_rows=1, dtype=str)
-        if any('subgroup' in col for col in self.Header):
-            self.subgroups = [col for col in self.Header if 'subgroup' in col]
-            self.subgroup_indices = [i for i, col in enumerate(self.Header) if 'subgroup' in col]
+        self.Header = np.loadtxt(self.data_path, delimiter=",", max_rows=1, dtype=str)
+        if any("subgroup" in col for col in self.Header):
+            self.subgroups = [col for col in self.Header if "subgroup" in col]
+            self.subgroup_indices = [
+                i for i, col in enumerate(self.Header) if "subgroup" in col
+            ]
             self.have_subgroup = True
         else:
             self.have_subgroup = False
         if not self.have_subgroup:
-            if self.Header[-1] == 'label':
-                self.data = np.loadtxt(self.data_path, delimiter=',',skiprows=1)
+            if self.Header[-1] == "label":
+                self.data = np.loadtxt(self.data_path, delimiter=",", skiprows=1)
                 self.probs = self.data[:, :-1]
                 self.labels = self.data[:, -1:].astype(int)
             else:
-                self.data = np.loadtxt(self.data_path, delimiter=',')
+                self.data = np.loadtxt(self.data_path, delimiter=",")
                 self.probs = self.data[:, :-1].astype(float)
                 self.labels = self.data[:, -1:].astype(int)
         else:
-            self.data = np.loadtxt(self.data_path, delimiter=',',skiprows=1,dtype=str)
-            self.probs = self.data[:, :-len(self.subgroups)-1].astype(float)
+            self.data = np.loadtxt(self.data_path, delimiter=",", skiprows=1, dtype=str)
+            self.probs = self.data[:, : -len(self.subgroups) - 1].astype(float)
             self.labels = self.data[:, -1:].astype(int)
             self.subgroups_class = []
             self.subgroups_index = []
             for i, subgroup in enumerate(self.subgroups):
-                self.subgroups_class.append( np.unique(self.data[:, self.subgroup_indices[i]]))
+                self.subgroups_class.append(
+                    np.unique(self.data[:, self.subgroup_indices[i]])
+                )
                 indices = []
                 for j, subgroup_class in enumerate(self.subgroups_class[i]):
-                    indices.append(np.where(self.data[:, self.subgroup_indices[i]] == subgroup_class)[0])
+                    indices.append(
+                        np.where(
+                            self.data[:, self.subgroup_indices[i]] == subgroup_class
+                        )[0]
+                    )
                 self.subgroups_index.append(indices)
-    
+
     def transform_topclass(self):
         """
         Transforms the data to top class binary problem
@@ -337,12 +404,17 @@ class data_loader():
         """
         new_loader = copy.deepcopy(self)
         top_class = np.argmax(self.probs, axis=1)
-        new_loader.probs = np.column_stack((1 - np.max(self.probs, axis=1), np.max(self.probs, axis=1)))
-        new_loader.labels = (self.labels.flatten() == top_class).astype(int).reshape(-1, 1)
+        new_loader.probs = np.column_stack(
+            (1 - np.max(self.probs, axis=1), np.max(self.probs, axis=1))
+        )
+        new_loader.labels = (
+            (self.labels.flatten() == top_class).astype(int).reshape(-1, 1)
+        )
         new_loader.data = np.column_stack((new_loader.probs, new_loader.labels))
         return new_loader
-                  
-class fake_binary_data_generator():
+
+
+class fake_binary_data_generator:
     """A class for generating fake binary data and applying miscalibration.
 
     This class provides methods to generate binary classification data
@@ -362,7 +434,7 @@ class fake_binary_data_generator():
         """
         self.alpha_val = alpha_val
         self.beta_val = beta_val
-    
+
     def generate_data(self, sample_size):
         """Generate fake binary classification data.
 
@@ -375,18 +447,20 @@ class fake_binary_data_generator():
         """
         # Generate probabilities for class 1 using beta distribution
         class1_proba = beta.rvs(self.alpha_val, self.beta_val, size=sample_size)
-        
+
         # Calculate probabilities for class 0
         class0_proba = 1 - class1_proba
-        
+
         # Combine probabilities for both classes
-        X = np.concatenate((class0_proba.reshape(-1, 1), class1_proba.reshape(-1, 1)), axis=1)
-        
+        X = np.concatenate(
+            (class0_proba.reshape(-1, 1), class1_proba.reshape(-1, 1)), axis=1
+        )
+
         # Generate true labels using binomial distribution
         y_true = np.random.binomial(1, p=class1_proba)
-        
+
         return X, y_true
-    
+
     def linear_miscal(self, X, miscal_scale):
         """Apply linear miscalibration to the input probabilities.
 
@@ -402,15 +476,15 @@ class fake_binary_data_generator():
         """
         # Convert input probabilities to logits
         logits = softmax_to_logits(X)
-        
+
         # Apply linear scaling to logits
         miscal_logits = logits * miscal_scale
-        
+
         # Convert scaled logits back to probabilities
         miscal_probs = softmax(miscal_logits, axis=1)
-        
+
         return miscal_probs
-    
+
     def abraitary_miscal(self, logits, miscal_function):
         """Apply arbitrary miscalibration to the input logits.
 
@@ -426,8 +500,8 @@ class fake_binary_data_generator():
         """
         # Apply the custom miscalibration function to the logits
         miscal_logits = miscal_function(logits)
-        
+
         # Convert miscalibrated logits to probabilities
         miscal_probs = softmax(miscal_logits, axis=1)
-        
+
         return miscal_probs

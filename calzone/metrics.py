@@ -1,18 +1,21 @@
 """Metrics calculation functions for the Calibration Measure package."""
-__author__ = 'Kwok Lung Jason Fan'
-__copyright__ = 'Copyright 2024'
-__credits__ = ['Kwok Lung Jason Fan', 'Qian Cao']
-__license__ = 'Apache License 2.0'
-__version__ = '0.1'
-__maintainer__ = 'Kwok Lung Jason Fan'
-__email__ = 'kwoklung.fan@fda.hhs.gov'
-__status__ = 'Development'
+
+__author__ = "Kwok Lung Jason Fan"
+__copyright__ = "Copyright 2024"
+__credits__ = ["Kwok Lung Jason Fan", "Qian Cao"]
+__license__ = "Apache License 2.0"
+__version__ = "0.1"
+__maintainer__ = "Kwok Lung Jason Fan"
+__email__ = "kwoklung.fan@fda.hhs.gov"
+__status__ = "Development"
 import scipy.stats as stats
 import numpy as np
 from .utils import *
 import statsmodels.api as sm
 import statsmodels.nonparametric.smoothers_lowess as lowess
 import numpy.lib.recfunctions as rf
+
+
 def hosmer_lemeshow_test(reliability, confidence, bin_count):
     """
     Compute the Hosmer-Lemeshow test for goodness of fit.
@@ -36,7 +39,7 @@ def hosmer_lemeshow_test(reliability, confidence, bin_count):
         - This test can be sensitive to the number of groups and sample size.
         - It is recommended to use the Hosmer-Lemeshow test in conjunction with other metrics.
     """
-    
+
     # Convert inputs to numpy arrays for consistent handling
     reliability = np.array(reliability)
     confidence = np.array(confidence)
@@ -53,7 +56,9 @@ def hosmer_lemeshow_test(reliability, confidence, bin_count):
     expected = confidence * bin_count
 
     # Compute the Hosmer-Lemeshow statistic
-    chi_squared = np.sum((observed - expected)**2 / (expected * (1 - expected/bin_count)))
+    chi_squared = np.sum(
+        (observed - expected) ** 2 / (expected * (1 - expected / bin_count))
+    )
 
     # Compute degrees of freedom and p-value
     num_bins = len(bin_count)
@@ -61,6 +66,7 @@ def hosmer_lemeshow_test(reliability, confidence, bin_count):
     p_value = 1 - stats.chi2.cdf(chi_squared, df)
 
     return chi_squared, p_value, df
+
 
 def calculate_ece_mce(reliability, confindence, bin_counts):
     """
@@ -88,7 +94,7 @@ def calculate_ece_mce(reliability, confindence, bin_counts):
     total_count = np.sum(bin_counts)
 
     # Compute absolute difference between reliability and confidence
-    error = np.abs(reliability - confindence) 
+    error = np.abs(reliability - confindence)
 
     # Compute Maximum Calibration Error
     mce = np.max(error)
@@ -130,8 +136,17 @@ def spiegelhalter_z_test(y_true, y_proba, class_to_calculate=1):
     y_true[np.logical_not(mask)] = 0
 
     # Calculate components of the test statistic
-    numerator = np.sum((y_true - y_proba[:, class_to_calculate]) * (1 - 2 * y_proba[:, class_to_calculate]))
-    denominator = np.sqrt(np.sum(((1 - 2 * y_proba[:, class_to_calculate])**2) * y_proba[:, class_to_calculate] * (1 - y_proba[:, class_to_calculate])))
+    numerator = np.sum(
+        (y_true - y_proba[:, class_to_calculate])
+        * (1 - 2 * y_proba[:, class_to_calculate])
+    )
+    denominator = np.sqrt(
+        np.sum(
+            ((1 - 2 * y_proba[:, class_to_calculate]) ** 2)
+            * y_proba[:, class_to_calculate]
+            * (1 - y_proba[:, class_to_calculate])
+        )
+    )
 
     # Compute z-score and p-value
     z_score = numerator / denominator
@@ -140,7 +155,16 @@ def spiegelhalter_z_test(y_true, y_proba, class_to_calculate=1):
     return z_score, p_value
 
 
-def cox_regression_analysis(y_true, y_proba, epsilon=1e-10, class_to_calculate=1, print_results=False, fix_intercept=False, fix_slope=False, **kwargs):
+def cox_regression_analysis(
+    y_true,
+    y_proba,
+    epsilon=1e-10,
+    class_to_calculate=1,
+    print_results=False,
+    fix_intercept=False,
+    fix_slope=False,
+    **kwargs,
+):
     """
     Perform Cox regression analysis for classification calibration.
 
@@ -205,7 +229,9 @@ def cox_regression_analysis(y_true, y_proba, epsilon=1e-10, class_to_calculate=1
     return coef, intercept, coef_ci, intercept_ci
 
 
-def cal_ICI_cox(coef, intercept, y_proba, class_to_calculate=1, epsilon=1e-10, **kwargs):
+def cal_ICI_cox(
+    coef, intercept, y_proba, class_to_calculate=1, epsilon=1e-10, **kwargs
+):
     """
     Calculate the Integrated Calibration Index (ICI) for a given Cox regression model.
 
@@ -240,7 +266,18 @@ def cal_ICI_cox(coef, intercept, y_proba, class_to_calculate=1, epsilon=1e-10, *
     ICI = np.mean(np.abs(transformed_proba - proba_clipped))
 
     return ICI
-def lowess_regression_analysis(y_true, y_proba, epsilon=1e-10, class_to_calculate=1, span=0.5, delta=0.001, it=0, **kwargs):
+
+
+def lowess_regression_analysis(
+    y_true,
+    y_proba,
+    epsilon=1e-10,
+    class_to_calculate=1,
+    span=0.5,
+    delta=0.001,
+    it=0,
+    **kwargs,
+):
     """
     Perform Lowess regression analysis for classification calibration.
 
@@ -278,12 +315,20 @@ def lowess_regression_analysis(y_true, y_proba, epsilon=1e-10, class_to_calculat
     y_true[np.logical_not(mask)] = 0
 
     # Perform LOWESS regression
-    lowess_fit = lowess.lowess(y_true, y_proba[:, class_to_calculate], frac=span, delta=delta, it=it, return_sorted=True)
+    lowess_fit = lowess.lowess(
+        y_true,
+        y_proba[:, class_to_calculate],
+        frac=span,
+        delta=delta,
+        it=it,
+        return_sorted=True,
+    )
 
     # Calculate the Integrated Calibration Index (ICI)
     ICI = np.abs(lowess_fit[:, 0] - lowess_fit[:, 1]).mean()
 
     return ICI, lowess_fit[:, 0], lowess_fit[:, 1]
+
 
 def cal_ICI(func, y_proba, points=1000, class_to_calculate=1):
     """
@@ -316,6 +361,7 @@ def cal_ICI(func, y_proba, points=1000, class_to_calculate=1):
     # Calculate and return the ICI
     return np.trapz(np.abs(y - xcenter) * density, xcenter)
 
+
 def logit_func(coef, intercept):
     """
     Create a logistic function with given coefficient and intercept.
@@ -332,6 +378,7 @@ def logit_func(coef, intercept):
         f(x) = 1 / (1 + exp(-(coef * log(x / (1 - x)) + intercept)))
     """
     return lambda x: 1 / (1 + np.exp(-(coef * np.log(x / (1 - x)) + intercept)))
+
 
 def get_CI(result, alpha=0.05):
     """
@@ -351,12 +398,18 @@ def get_CI(result, alpha=0.05):
     """
     CI = {}
     for key in result.dtype.names:
-        CI[key] = (np.percentile(result[key], 100*(alpha/2)), np.percentile(result[key], 100*(1-alpha/2)))
+        CI[key] = (
+            np.percentile(result[key], 100 * (alpha / 2)),
+            np.percentile(result[key], 100 * (1 - alpha / 2)),
+        )
     return CI
-class CalibrationMetrics():
+
+
+class CalibrationMetrics:
     """
     A class for calculating calibration metrics for classification models.
     """
+
     def __init__(self, class_to_calculate=1, num_bins=10):
         """
         Initialize the CalibrationMetrics class.
@@ -368,7 +421,15 @@ class CalibrationMetrics():
         self.class_to_calculate = class_to_calculate
         self.num_bins = num_bins
 
-    def calculate_metrics(self, y_true, y_proba, metrics, perform_pervalance_adjustment=False, return_numpy=False, **kwargs):
+    def calculate_metrics(
+        self,
+        y_true,
+        y_proba,
+        metrics,
+        perform_pervalance_adjustment=False,
+        return_numpy=False,
+        **kwargs,
+    ):
         """
         Calculate the specified calibration metrics.
 
@@ -399,90 +460,162 @@ class CalibrationMetrics():
             dict or numpy.ndarray: A dictionary containing the calculated metrics, or a numpy array if return_numpy is True.
         """
         # Initialize results dictionary and set up metrics list
-        if metrics == 'all':
-            metrics = ['SpiegelhalterZ','ECE-H','MCE-H','HL-H','ECE-C','MCE-C','HL-C','COX','Loess']
+        if metrics == "all":
+            metrics = [
+                "SpiegelhalterZ",
+                "ECE-H",
+                "MCE-H",
+                "HL-H",
+                "ECE-C",
+                "MCE-C",
+                "HL-C",
+                "COX",
+                "Loess",
+            ]
         results = {}
         precompute_H = False
         precompute_C = False
 
         # Perform prevalence adjustment if requested
         if perform_pervalance_adjustment:
-            optimal_prevalance, y_proba = find_optimal_prevalence(y_true=y_true, y_proba=y_proba, class_to_calculate=self.class_to_calculate)
+            optimal_prevalance, y_proba = find_optimal_prevalence(
+                y_true=y_true,
+                y_proba=y_proba,
+                class_to_calculate=self.class_to_calculate,
+            )
             class_to_calculate = 1
-            results['Optimal prevalence'] = optimal_prevalance
+            results["Optimal prevalence"] = optimal_prevalance
         else:
             class_to_calculate = self.class_to_calculate
 
         # Calculate each requested metric
         for metric in metrics:
             # Spiegelhalter's Z-test
-            if metric == 'SpiegelhalterZ':
-                score, p_value = spiegelhalter_z_test(y_true=y_true, y_proba=y_proba, class_to_calculate=class_to_calculate)
-                results['SpiegelhalterZ score'] = score
-                results['SpiegelhalterZ p-value'] = p_value
+            if metric == "SpiegelhalterZ":
+                score, p_value = spiegelhalter_z_test(
+                    y_true=y_true,
+                    y_proba=y_proba,
+                    class_to_calculate=class_to_calculate,
+                )
+                results["SpiegelhalterZ score"] = score
+                results["SpiegelhalterZ p-value"] = p_value
 
             # Metrics using equal-space binning
-            elif metric in ['ECE-H', 'MCE-H', 'HL-H']:
+            elif metric in ["ECE-H", "MCE-H", "HL-H"]:
                 if not precompute_H:
                     # Precompute equal-space binning results for efficiency
-                    acc_H, confidence_H, bin_edges_H, bin_count_H = reliability_diagram(y_true=y_true, y_proba=y_proba, num_bins=self.num_bins, is_equal_freq=False)
-                    acc_H_class, confidence_H_class, bin_edges_H_class, bin_count_H_class = reliability_diagram(y_true=y_true, y_proba=y_proba, num_bins=self.num_bins, is_equal_freq=False, class_to_plot=class_to_calculate)
+                    acc_H, confidence_H, bin_edges_H, bin_count_H = reliability_diagram(
+                        y_true=y_true,
+                        y_proba=y_proba,
+                        num_bins=self.num_bins,
+                        is_equal_freq=False,
+                    )
+                    (
+                        acc_H_class,
+                        confidence_H_class,
+                        bin_edges_H_class,
+                        bin_count_H_class,
+                    ) = reliability_diagram(
+                        y_true=y_true,
+                        y_proba=y_proba,
+                        num_bins=self.num_bins,
+                        is_equal_freq=False,
+                        class_to_plot=class_to_calculate,
+                    )
                     precompute_H = True
 
-                if metric == 'ECE-H':
+                if metric == "ECE-H":
                     ece_h, mce_h = calculate_ece_mce(acc_H, confidence_H, bin_count_H)
-                    ece_h_class, mce_h_class = calculate_ece_mce(acc_H_class, confidence_H_class, bin_count_H_class)
-                    results['ECE-H topclass'] = ece_h
-                    results['ECE-H'] = ece_h_class
-                elif metric == 'MCE-H':
+                    ece_h_class, mce_h_class = calculate_ece_mce(
+                        acc_H_class, confidence_H_class, bin_count_H_class
+                    )
+                    results["ECE-H topclass"] = ece_h
+                    results["ECE-H"] = ece_h_class
+                elif metric == "MCE-H":
                     ece_h, mce_h = calculate_ece_mce(acc_H, confidence_H, bin_count_H)
-                    ece_h_class, mce_h_class = calculate_ece_mce(acc_H_class, confidence_H_class, bin_count_H_class)
-                    results['MCE-H topclass'] = mce_h
-                    results['MCE-H'] = mce_h_class
-                elif metric == 'HL-H':
-                    hl_h_score, hl_h, _ = hosmer_lemeshow_test(acc_H_class, confidence_H_class, bin_count_H_class)
-                    results['HL-H score'] = hl_h_score
-                    results['HL-H p-value'] = hl_h
+                    ece_h_class, mce_h_class = calculate_ece_mce(
+                        acc_H_class, confidence_H_class, bin_count_H_class
+                    )
+                    results["MCE-H topclass"] = mce_h
+                    results["MCE-H"] = mce_h_class
+                elif metric == "HL-H":
+                    hl_h_score, hl_h, _ = hosmer_lemeshow_test(
+                        acc_H_class, confidence_H_class, bin_count_H_class
+                    )
+                    results["HL-H score"] = hl_h_score
+                    results["HL-H p-value"] = hl_h
 
             # Metrics using equal-count binning
-            elif metric in ['ECE-C', 'MCE-C', 'HL-C']:
+            elif metric in ["ECE-C", "MCE-C", "HL-C"]:
                 if not precompute_C:
                     # Precompute equal-count binning results for efficiency
-                    acc_C, confidence_C, bin_edges_C, bin_count_C = reliability_diagram(y_true=y_true, y_proba=y_proba, num_bins=self.num_bins, is_equal_freq=True)
-                    acc_C_class, confidence_C_class, bin_edges_C_class, bin_count_C_class = reliability_diagram(y_true=y_true, y_proba=y_proba, num_bins=self.num_bins, is_equal_freq=True, class_to_plot=class_to_calculate)
+                    acc_C, confidence_C, bin_edges_C, bin_count_C = reliability_diagram(
+                        y_true=y_true,
+                        y_proba=y_proba,
+                        num_bins=self.num_bins,
+                        is_equal_freq=True,
+                    )
+                    (
+                        acc_C_class,
+                        confidence_C_class,
+                        bin_edges_C_class,
+                        bin_count_C_class,
+                    ) = reliability_diagram(
+                        y_true=y_true,
+                        y_proba=y_proba,
+                        num_bins=self.num_bins,
+                        is_equal_freq=True,
+                        class_to_plot=class_to_calculate,
+                    )
                     precompute_C = True
 
-                if metric == 'ECE-C':
+                if metric == "ECE-C":
                     ece_c, mce_c = calculate_ece_mce(acc_C, confidence_C, bin_count_C)
-                    ece_c_class, mce_c_class = calculate_ece_mce(acc_C_class, confidence_C_class, bin_count_C_class)
-                    results['ECE-C topclass'] = ece_c
-                    results['ECE-C'] = ece_c_class
-                elif metric == 'MCE-C':
+                    ece_c_class, mce_c_class = calculate_ece_mce(
+                        acc_C_class, confidence_C_class, bin_count_C_class
+                    )
+                    results["ECE-C topclass"] = ece_c
+                    results["ECE-C"] = ece_c_class
+                elif metric == "MCE-C":
                     ece_c, mce_c = calculate_ece_mce(acc_C, confidence_C, bin_count_C)
-                    ece_c_class, mce_c_class = calculate_ece_mce(acc_C_class, confidence_C_class, bin_count_C_class)
-                    results['MCE-C topclass'] = mce_c
-                    results['MCE-C'] = mce_c_class
-                elif metric == 'HL-C':
-                    hl_c_score, hl_c, _ = hosmer_lemeshow_test(acc_C_class, confidence_C_class, bin_count_C_class)
-                    results['HL-C score'] = hl_c_score
-                    results['HL-C p-value'] = hl_c
+                    ece_c_class, mce_c_class = calculate_ece_mce(
+                        acc_C_class, confidence_C_class, bin_count_C_class
+                    )
+                    results["MCE-C topclass"] = mce_c
+                    results["MCE-C"] = mce_c_class
+                elif metric == "HL-C":
+                    hl_c_score, hl_c, _ = hosmer_lemeshow_test(
+                        acc_C_class, confidence_C_class, bin_count_C_class
+                    )
+                    results["HL-C score"] = hl_c_score
+                    results["HL-C p-value"] = hl_c
 
             # Cox regression analysis
-            elif metric == 'COX':
-                coef, intercept, coef_ci, intercept_ci = cox_regression_analysis(y_true=y_true, y_proba=y_proba, **kwargs)
-                results['COX coef'] = coef
-                results['COX intercept'] = intercept
-                results['COX coef lowerci'] = coef_ci[0]
-                results['COX coef upperci'] = coef_ci[1]
-                results['COX intercept lowerci'] = intercept_ci[0]
-                results['COX intercept upperci'] = intercept_ci[1]
-                ICI = cal_ICI_cox(coef, intercept, y_proba, class_to_calculate=class_to_calculate, **kwargs)
-                results['COX ICI'] = ICI
+            elif metric == "COX":
+                coef, intercept, coef_ci, intercept_ci = cox_regression_analysis(
+                    y_true=y_true, y_proba=y_proba, **kwargs
+                )
+                results["COX coef"] = coef
+                results["COX intercept"] = intercept
+                results["COX coef lowerci"] = coef_ci[0]
+                results["COX coef upperci"] = coef_ci[1]
+                results["COX intercept lowerci"] = intercept_ci[0]
+                results["COX intercept upperci"] = intercept_ci[1]
+                ICI = cal_ICI_cox(
+                    coef,
+                    intercept,
+                    y_proba,
+                    class_to_calculate=class_to_calculate,
+                    **kwargs,
+                )
+                results["COX ICI"] = ICI
 
             # Loess regression analysis
-            elif metric == 'Loess':
-                loess_ICI, _, _ = lowess_regression_analysis(y_true, y_proba, class_to_calculate=class_to_calculate, **kwargs)
-                results['Loess ICI'] = loess_ICI
+            elif metric == "Loess":
+                loess_ICI, _, _ = lowess_regression_analysis(
+                    y_true, y_proba, class_to_calculate=class_to_calculate, **kwargs
+                )
+                results["Loess ICI"] = loess_ICI
 
         # Convert results to numpy array if requested
         if return_numpy:
@@ -490,7 +623,15 @@ class CalibrationMetrics():
 
         return results
 
-    def bootstrap(self, y_true, y_proba, metrics, perform_pervalance_adjustment=False, n_samples=1000, **kwargs):
+    def bootstrap(
+        self,
+        y_true,
+        y_proba,
+        metrics,
+        perform_pervalance_adjustment=False,
+        n_samples=1000,
+        **kwargs,
+    ):
         """
         Run bootstrap and return a numpy structured array with correct field names.
 
@@ -522,18 +663,34 @@ class CalibrationMetrics():
 
             # Calculate metrics for the first sample to get the keys
             if i == 0:
-                sample_results = self.calculate_metrics(y_true_sample, y_proba_sample, metrics, perform_pervalance_adjustment=perform_pervalance_adjustment, return_numpy=False, **kwargs)
+                sample_results = self.calculate_metrics(
+                    y_true_sample,
+                    y_proba_sample,
+                    metrics,
+                    perform_pervalance_adjustment=perform_pervalance_adjustment,
+                    return_numpy=False,
+                    **kwargs,
+                )
                 keys = sample_results.keys()
                 sample_results = np.array(list(sample_results.values()))
             else:
-                sample_results = self.calculate_metrics(y_true_sample, y_proba_sample, metrics, perform_pervalance_adjustment=perform_pervalance_adjustment, return_numpy=True, **kwargs)
-            
+                sample_results = self.calculate_metrics(
+                    y_true_sample,
+                    y_proba_sample,
+                    metrics,
+                    perform_pervalance_adjustment=perform_pervalance_adjustment,
+                    return_numpy=True,
+                    **kwargs,
+                )
+
             bootstrap_results.append(sample_results)
 
         # Create a structured array with correct field names
         dtype = [(key, float) for key in keys]
         unstructured_results = np.array(bootstrap_results)
-        structured_results = rf.unstructured_to_structured(unstructured_results, dtype=dtype)
+        structured_results = rf.unstructured_to_structured(
+            unstructured_results, dtype=dtype
+        )
 
         return structured_results
 
@@ -554,5 +711,7 @@ class CalibrationMetrics():
             adjusted_proba (array-like): Adjusted probabilities. First column is the adjusted probabilities for the other class,
                 second column is the adjusted probabilities for the class of interest.
         """
-        optimal_prevalence, adjusted_proba = find_optimal_prevalence(y_true, y_proba, class_to_calculate=self.class_to_calculate)
+        optimal_prevalence, adjusted_proba = find_optimal_prevalence(
+            y_true, y_proba, class_to_calculate=self.class_to_calculate
+        )
         return optimal_prevalence, adjusted_proba
