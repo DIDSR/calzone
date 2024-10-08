@@ -14,7 +14,7 @@ from .utils import *
 import statsmodels.api as sm
 import statsmodels.nonparametric.smoothers_lowess as lowess
 import numpy.lib.recfunctions as rf
-
+import contextlib
 
 def hosmer_lemeshow_test(reliability, confidence, bin_count):
     """
@@ -210,9 +210,11 @@ def cox_regression_analysis(
     # Fit the logistic regression model
     logit_model = sm.Logit(y_true, X)
     if fix_intercept == True:
-        logit_result = logit_model.fit_constrained("const=0", disp=0)
+        with contextlib.redirect_stdout(None):
+            logit_result = logit_model.fit_constrained("const=0", disp=0)
     elif fix_slope == True:
-        logit_result = logit_model.fit_constrained("x1=1", disp=0)
+        with contextlib.redirect_stdout(None):
+            logit_result = logit_model.fit_constrained("x1=1", disp=0)    
     else:
         logit_result = logit_model.fit(disp=0)
 
