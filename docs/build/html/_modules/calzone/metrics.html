@@ -101,7 +101,7 @@
 <span class="kn">import</span> <span class="nn">statsmodels.api</span> <span class="k">as</span> <span class="nn">sm</span>
 <span class="kn">import</span> <span class="nn">statsmodels.nonparametric.smoothers_lowess</span> <span class="k">as</span> <span class="nn">lowess</span>
 <span class="kn">import</span> <span class="nn">numpy.lib.recfunctions</span> <span class="k">as</span> <span class="nn">rf</span>
-
+<span class="kn">import</span> <span class="nn">contextlib</span>
 
 <div class="viewcode-block" id="hosmer_lemeshow_test">
 <a class="viewcode-back" href="../../calzone.html#calzone.metrics.hosmer_lemeshow_test">[docs]</a>
@@ -308,9 +308,11 @@
     <span class="c1"># Fit the logistic regression model</span>
     <span class="n">logit_model</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">Logit</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">X</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">fix_intercept</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span>
-        <span class="n">logit_result</span> <span class="o">=</span> <span class="n">logit_model</span><span class="o">.</span><span class="n">fit_constrained</span><span class="p">(</span><span class="s2">&quot;const=0&quot;</span><span class="p">,</span> <span class="n">disp</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="k">with</span> <span class="n">contextlib</span><span class="o">.</span><span class="n">redirect_stdout</span><span class="p">(</span><span class="kc">None</span><span class="p">):</span>
+            <span class="n">logit_result</span> <span class="o">=</span> <span class="n">logit_model</span><span class="o">.</span><span class="n">fit_constrained</span><span class="p">(</span><span class="s2">&quot;const=0&quot;</span><span class="p">,</span> <span class="n">disp</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
     <span class="k">elif</span> <span class="n">fix_slope</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span>
-        <span class="n">logit_result</span> <span class="o">=</span> <span class="n">logit_model</span><span class="o">.</span><span class="n">fit_constrained</span><span class="p">(</span><span class="s2">&quot;x1=1&quot;</span><span class="p">,</span> <span class="n">disp</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="k">with</span> <span class="n">contextlib</span><span class="o">.</span><span class="n">redirect_stdout</span><span class="p">(</span><span class="kc">None</span><span class="p">):</span>
+            <span class="n">logit_result</span> <span class="o">=</span> <span class="n">logit_model</span><span class="o">.</span><span class="n">fit_constrained</span><span class="p">(</span><span class="s2">&quot;x1=1&quot;</span><span class="p">,</span> <span class="n">disp</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>    
     <span class="k">else</span><span class="p">:</span>
         <span class="n">logit_result</span> <span class="o">=</span> <span class="n">logit_model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">disp</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 
