@@ -98,6 +98,7 @@
     "wellcal_dataloader = data_loader(data_path=\"../../../example_data/simulated_welldata.csv\")\n",
     "\n",
     "### calculating the top-class ECE-H\n",
+    "### This is done by setting the class_to_plot=None\n",
     "reliability,confindence,bin_edges,bin_counts = reliability_diagram(wellcal_dataloader.labels,wellcal_dataloader.probs,num_bins=10, class_to_plot=None, is_equal_freq=False)\n",
     "ece_h_top_class,mce_h_top_class = calculate_ece_mce(reliability,confindence,bin_counts=bin_counts)\n",
     "print(\"Top-class ECE-H: \",ece_h_top_class)\n",

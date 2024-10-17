@@ -1077,6 +1077,7 @@ There is two way to calculate the ECE and MCE in calzone. The first way is by ca
 \PYG{n}{wellcal\PYGZus{}dataloader} \PYG{o}{=} \PYG{n}{data\PYGZus{}loader}\PYG{p}{(}\PYG{n}{data\PYGZus{}path}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{../../../example\PYGZus{}data/simulated\PYGZus{}welldata.csv}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{)}
 
 \PYG{c+c1}{\PYGZsh{}\PYGZsh{}\PYGZsh{} calculating the top\PYGZhy{}class ECE\PYGZhy{}H}
+\PYG{c+c1}{\PYGZsh{}\PYGZsh{}\PYGZsh{} This is done by setting the class\PYGZus{}to\PYGZus{}plot=None}
 \PYG{n}{reliability}\PYG{p}{,}\PYG{n}{confindence}\PYG{p}{,}\PYG{n}{bin\PYGZus{}edges}\PYG{p}{,}\PYG{n}{bin\PYGZus{}counts} \PYG{o}{=} \PYG{n}{reliability\PYGZus{}diagram}\PYG{p}{(}\PYG{n}{wellcal\PYGZus{}dataloader}\PYG{o}{.}\PYG{n}{labels}\PYG{p}{,}\PYG{n}{wellcal\PYGZus{}dataloader}\PYG{o}{.}\PYG{n}{probs}\PYG{p}{,}\PYG{n}{num\PYGZus{}bins}\PYG{o}{=}\PYG{l+m+mi}{10}\PYG{p}{,} \PYG{n}{class\PYGZus{}to\PYGZus{}plot}\PYG{o}{=}\PYG{k+kc}{None}\PYG{p}{,} \PYG{n}{is\PYGZus{}equal\PYGZus{}freq}\PYG{o}{=}\PYG{k+kc}{False}\PYG{p}{)}
 \PYG{n}{ece\PYGZus{}h\PYGZus{}top\PYGZus{}class}\PYG{p}{,}\PYG{n}{mce\PYGZus{}h\PYGZus{}top\PYGZus{}class} \PYG{o}{=} \PYG{n}{calculate\PYGZus{}ece\PYGZus{}mce}\PYG{p}{(}\PYG{n}{reliability}\PYG{p}{,}\PYG{n}{confindence}\PYG{p}{,}\PYG{n}{bin\PYGZus{}counts}\PYG{o}{=}\PYG{n}{bin\PYGZus{}counts}\PYG{p}{)}
 \PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{Top\PYGZhy{}class ECE\PYGZhy{}H: }\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,}\PYG{n}{ece\PYGZus{}h\PYGZus{}top\PYGZus{}class}\PYG{p}{)}
