@@ -18,7 +18,7 @@ calzone is a comprehensive Python package for calculating and visualizing variou
 
 You can install calzone using pip:
 ```
-pip install -e "git+https://github.com/DIDSR/calzone.git"#egg=calzone`
+pip install -e "git+https://github.com/DIDSR/calzone.git#egg=calzone"
 ```
 
 Alternatively, you can clone the repository and install it locally:
