@@ -1,8 +1,5 @@
 import argparse
-import numpy as np
 import subprocess
-import time
-import matplotlib.pyplot as plt
 from nicegui import ui, app
 
 

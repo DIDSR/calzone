@@ -14,13 +14,28 @@ calzone is a comprehensive Python package for calculating and visualizing variou
 
 ## Installation
 
-You can install calzone using pip:
-pip install -e "git+https://github.com/DIDSR/calzone.git"
+`calzone` package require installation of `numpy`, `scipy`, `matplotlib` and `statsmodels`. If you need to run GUI, `nicegui` is also required.
 
+You can install calzone using pip:
+```
+pip install -e "git+https://github.com/DIDSR/calzone.git"#egg=calzone`
+```
+
+Alternatively, you can clone the repository and install it locally:
+```
+git clone https://github.com/DIDSR/calzone.git
+cd calzone
+pip install .
+```
 ## Usage
 
-run `python cal_metrics.py -h` to see the help information and usage. To use the package in your Python code, please refer to the examples in the documentation pages.
+run `python cal_metrics.py -h` to see the help information and usage. To use the package in your Python code, please refer to the examples in the documentation pages. 
+
+To use GUI, run `python GUI_cal_metrics.py` (GUI is under development, use with caution.)
 
 ## Documentation
 
 For detailed documentation and API reference, please visit our [documentation pdf](https://github.com/DIDSR/calzone/blob/main/docs/build/latex/calzone.pdf).
+
+
+## Disclaimer 

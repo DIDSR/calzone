@@ -1,0 +1,11 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+authors:
+- family-names: "Fan"
+  given-names: "Kwok Lung"
+  orcid: "https://orcid.org/0000-0002-2180-9082"
+- family-names: "Cao"
+  given-names: "Qian"
+title: "calzone: A Python package for measring calibration of probablistic models for classification"
+date-released: 2024-10-18
+url: "https://github.com/DIDSR/calzone"

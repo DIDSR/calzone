@@ -55,10 +55,12 @@ def perform_calculation(probs, labels, args, suffix=""):
 
     # Save metrics to CSV
     if args.save_metrics:
+        print("Saving result to", args.save_metrics)
         save_metrics_to_csv(result, keys, args.save_metrics, suffix)
 
     # Plot reliability diagram
     if args.plot:
+        print("Saving plot to", args.save_plot)
         plot_reliability(labels, probs, args, suffix)
 
     return result
