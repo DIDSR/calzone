@@ -18,12 +18,10 @@ def perform_calculation(probs, labels, args, suffix=""):
     Returns:
         numpy.ndarray: Calculated metrics and confidence intervals (if bootstrapping is used).
     """
-    # Initialize CalibrationMetrics object
     cal_metrics = CalibrationMetrics(
         class_to_calculate=args.class_to_calculate, num_bins=args.num_bins
     )
 
-    # Calculate metrics
     metrics_to_calculate = args.metrics.split(",") if args.metrics else ["all"]
     if metrics_to_calculate == ["all"]:
         metrics_to_calculate = "all"
@@ -37,7 +35,6 @@ def perform_calculation(probs, labels, args, suffix=""):
     keys = list(result.keys())
     result = np.array(list(result.values())).reshape(1, -1)
 
-    # Perform bootstrap if requested
     if args.n_bootstrap > 0:
         bootstrap_results = cal_metrics.bootstrap(
             y_true=labels,
@@ -49,20 +46,14 @@ def perform_calculation(probs, labels, args, suffix=""):
         CI = get_CI(bootstrap_results)
         result = np.vstack((result, np.array(list(CI.values())).T))
 
-    # Print metrics if verbose mode is on
     if args.verbose:
         print_metrics(result, keys, args.n_bootstrap, suffix)
 
-    # Save metrics to CSV
     if args.save_metrics:
-        print("Saving result to", args.save_metrics)
         save_metrics_to_csv(result, keys, args.save_metrics, suffix)
 
-    # Plot reliability diagram
     if args.plot:
-        print("Saving plot to", args.save_plot)
         plot_reliability(labels, probs, args, suffix)
-
     return result
 
 
@@ -85,14 +76,15 @@ def print_metrics(result, keys, n_bootstrap, suffix):
         print(print_header)
         for i, num in enumerate(keys):
             print(
-                f"{num}: {np.format_float_positional(result[0][i],3)}",
-                f"({np.format_float_positional(result[1][i],3)}, {np.format_float_positional(result[2][i],3)})",
+                f"{num}: {np.format_float_positional(result[0][i], 3)}",
+                f"({np.format_float_positional(result[1][i], 3)}, "
+                f"{np.format_float_positional(result[2][i], 3)})",
             )
     else:
         print_header = "Metrics:" if suffix == "" else f"Metrics for subgroup {suffix}:"
         print(print_header)
         for i, num in enumerate(keys):
-            print(f"{num}: {np.format_float_positional(result[0][i],3)}")
+            print(f"{num}: {np.format_float_positional(result[0][i], 3)}")
 
 
 def save_metrics_to_csv(result, keys, save_metrics, suffix):
@@ -119,6 +111,7 @@ def save_metrics_to_csv(result, keys, save_metrics, suffix):
         comments="",
         fmt="%s",
     )
+    print("Result saved to", filename)
 
 
 def plot_reliability(labels, probs, args, suffix):
@@ -133,20 +126,23 @@ def plot_reliability(labels, probs, args, suffix):
     """
     if suffix == "":
         filename = args.save_plot
-        if args.save_diagram_output == "":
-            diagram_filename = None
-        else:
-            diagram_filename = args.save_diagram_output
+        diagram_filename = args.save_diagram_output or None
     else:
-        split_filename = args.save_metrics.split(".")
+        split_filename = args.save_plot.split(".")
         pathwithoutextension = ".".join(split_filename[:-1])
-        filename = pathwithoutextension + "_" + suffix + ".png"
-        if args.save_diagram_output == "":
-            diagram_filename = None
-        else:
+        filename = pathwithoutextension + "_" + suffix + "." + split_filename[-1]
+        if args.save_diagram_output:
             split_filename = args.save_diagram_output.split(".")
             pathwithoutextension = ".".join(split_filename[:-1])
             diagram_filename = pathwithoutextension + "_" + suffix + ".csv"
+        else:
+            diagram_filename = None
+
+    valid_image_formats = ['.png', '.jpg', '.jpeg', '.gif', '.bmp', '.tiff', '.pdf']
+    if not any(filename.lower().endswith(fmt) for fmt in valid_image_formats):
+        print(filename)
+        raise ValueError("Invalid file format. Please provide a valid image format.")
+
     reliability, confidence, bin_edge, bin_count = reliability_diagram(
         y_true=labels,
         y_proba=probs,
@@ -162,6 +158,7 @@ def plot_reliability(labels, probs, args, suffix):
         title=suffix,
         error_bar=True,
     )
+    print("Plot saved to", filename)
 
 
 def main():
@@ -238,7 +235,10 @@ def main():
         help="Number of bins for reliability diagram",
     )
     parser.add_argument(
-        "--save_plot", default="", type=str, help="Save the plot to a file"
+        "--save_plot",
+        default="",
+        type=str,
+        help="Save the plot to a file. Must end with valid image formats.",
     )
     parser.add_argument(
         "--save_diagram_output",
@@ -252,14 +252,11 @@ def main():
 
     args = parser.parse_args()
 
-    # Load data from CSV
     loader = data_loader(args.csv_file)
 
-    # if transofrm it to top-class problem
     if args.topclass:
         loader = loader.transform_topclass()
 
-    # Perform calculations
     if not loader.have_subgroup:
         perform_calculation(
             probs=loader.probs, labels=loader.labels, args=args, suffix=""
