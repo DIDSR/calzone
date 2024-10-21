@@ -7,7 +7,11 @@ import platform
 
 
 def run_program():
+    clear_cache()
     output_area.value = ""  # Clear the output area
+    plot_image.clear()
+    plot_image.set_source(None)  # Set the image source to None
+    ui.update(plot_image)
     csv_file = csv_file_input.value
     save_metrics = save_metrics_input.value
     save_plot = save_plot_input.value
@@ -109,6 +113,7 @@ def clear_cache():
     ui.notify('Browser cache cleared')
 
     plot_image.clear()
+    plot_image.set_source(None)  # Set the image source to None
     ui.update(plot_image)
 
 

@@ -157,6 +157,7 @@ def plot_reliability(labels, probs, args, suffix):
         save_path=filename,
         title=suffix,
         error_bar=True,
+        return_fig=True
     )
     print("Plot saved to", filename)
 

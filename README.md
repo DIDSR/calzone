@@ -1,6 +1,7 @@
 # calzone: a python package for measuring calibration in probabilistic models
 
-calzone is a comprehensive Python package for calculating and visualizing various metrics to assess the calibration of probabilistic models.To accurately assess the calibration of machine learning models, it is essential to have a comprehensive and reprensative dataset with sufficient coverage of the prediction space. The calibration metrics is not meaningful if the dataset is not representative of true intended population.
+calzone is a comprehensive Python package for calculating and visualizing various metrics to assess the calibration of probabilistic models.
+To accurately assess the calibration of machine learning models, it is essential to have a comprehensive and reprensative dataset with sufficient coverage of the prediction space. The calibration metrics is not meaningful if the dataset is not representative of true intended population.
 
 
 ## Features
