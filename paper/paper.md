@@ -49,15 +49,15 @@ Classification is one of the most fundamental and important tasks in machine lea
 
 @Brocker_decompose has shown that the proper scoring rule can be decomposed into the resolution and reliability. That means even if the model has high resolution (high AUC), it may not be a reliable or calibrated model. In many high-risk machine learning applications, such as medical diagnosis, the reliability of the model is of paramount importance. 
 
-We refer to calibration as the agreement between the predicted probability and the true posterior probability of a class-of-interest, $P(D=1|\hat{p}=p) = p$. This is defined as moderate calibration by @Calster_weak_cal
+We refer calibration as the agreement between the predicted probability and the true posterior probability of a class-of-interest, $P(D=1|\hat{p}=p) = p$. This is defined as moderate calibration by @Calster_weak_cal .
 
-In the `calzone` package, we provide a set of functions and classes for calibration visualization and metrics computation. Existing libraries such as `scikit-learn` are often not dedicated to calibration metrics computation and don't provide calibration metrics computation that are widely used in the statistical literature. Most libraries for calibration are focusing calibrated the model instead of measuring the level of calibration with various metrics. `calzone` is dedicated to calibration metrics computation and visualization.
+In the `calzone` package, we provide a set of functions and classes for calibration visualization and metrics computation. Existing libraries such as `scikit-learn` are often not dedicated to calibration metrics computation and don't provide calibration metrics computation that are widely used in the statistical literature. Most libraries for calibration are focusing on calibrating the model instead of measuring the level of calibration with various metrics. `calzone` is dedicated to calibration metrics computation and visualization.
 
 # Functionality
 
 ## Reliability Diagram
 
-Reliability Diagram is a graphical representation of the calibration of a classification model [@Brocker_reldia]. It groups the predicted probabilities into bins and plots the mean predicted probability against the empirical frequency in each bin. The reliability diagram can be used to assess the calibration of the model and to identify any systematic errors in the predictions. In addition, we add the option to plot with error bars to show the confidence interval of the empirical frequency in each bin. The error bars are calculated using Wilson's score interval [@wilson_interval]. We provide a example simulated dataset in the `example_data` folder using beta-binomial distribution [@beta-binomial]. User can generate simulated data using the `fake_binary_data_generator` class in the `utils` module.
+Reliability Diagram is a graphical representation of the calibration of a classification model [@Brocker_reldia]. It groups the predicted probabilities into bins and plots the mean predicted probability against the empirical frequency in each bin. The reliability diagram can be used to assess the calibration of the model and to identify any systematic errors in the predictions. In addition, we add the option to plot with error bars to show the confidence interval of the empirical frequency in each bin. The error bars are calculated using Wilson's score interval [@wilson_interval]. We provide an example simulated dataset in the `example_data` folder using beta-binomial distribution [@beta-binomial]. Users can generate simulated data using the `fake_binary_data_generator` class in the `utils` module.
 
 ```python
 from calzone.utils import reliability_diagram
@@ -67,7 +67,7 @@ wellcal_dataloader = data_loader(
     data_path="example_data/simulated_welldata.csv"
 )
 
-reliability, confindence, bin_edges, bin_counts = reliability_diagram(
+reliability, confidence, bin_edges, bin_counts = reliability_diagram(
     wellcal_dataloader.labels,
     wellcal_dataloader.probs,
     num_bins=15,
@@ -76,7 +76,7 @@ reliability, confindence, bin_edges, bin_counts = reliability_diagram(
 
 plot_reliability_diagram(
     reliability,
-    confindence,
+    confidence,
     bin_counts,
     error_bar=True,
     title='Class 1 reliability diagram for well calibrated data'
@@ -90,10 +90,11 @@ plot_reliability_diagram(
 
 ### Expected Calibration Error (ECE) and Maximum Calibration Error (MCE)
 Expected Calibration Error (ECE), Maximum Calibration Error (MCE) and binning-based methods [@guo_calibration;@Naeini_ece] aim to measure the average deviation between predicted probability and true probability. We provide the option to use equal-width binning or equal-frequency binning, labeled as ECE-H and ECE-C respectively. Users can also choose to compute the metrics for the class-of-interest or the top-class. In the case of class-of-interest, the program will treat it as a 1-vs-rest classification problem. It can be computed in `calzone` as follows:
+
 ```python
 from calzone.metrics import calculate_ece_mce
 
-reliability, confindence, bin_edges, bin_counts = reliability_diagram(
+reliability, confidence, bin_edges, bin_counts = reliability_diagram(
     wellcal_dataloader.labels,
     wellcal_dataloader.probs,
     num_bins=10,
@@ -103,7 +104,7 @@ reliability, confindence, bin_edges, bin_counts = reliability_diagram(
 
 ece_h_classone, mce_h_classone = calculate_ece_mce(
     reliability,
-    confindence,
+    confidence,
     bin_counts=bin_counts
 )
 ```
@@ -120,7 +121,7 @@ from calzone.metrics import hosmer_lemeshow_test
 
 HL_H_ts, HL_H_p, df = hosmer_lemeshow_test(
     reliability,
-    confindence,
+    confidence,
     bin_count=bin_counts
 )
 ```
@@ -128,7 +129,7 @@ HL_H_ts, HL_H_p, df = hosmer_lemeshow_test(
 
 ### Cox's calibration slope/intercept
 Cox's calibration slope/intercept is a non-parametric method for assessing the calibration of a probabilistic model [@Cox]. A new logistic regression model is fitted to the data, with the predicted odds ($\frac{p}{1-p}$) as the dependent variable and the true probability as the independent variable. The slope and intercept of the regression line are then used to assess the calibration of the model. A slope of 1 and intercept of 0 indicates perfect calibration. To test whether the model is calibrated, fix the slope to 1 and fit the intercept. If the intercept is significantly different from 0, the model is not calibrated. Then, fix the intercept to 0 and fit the slope. If the slope is significantly different from 1, the model is not calibrated.
- In `calzone`, Cox's calibration slope/intercept can be computed as follows:
+In `calzone`, Cox's calibration slope/intercept can be computed as follows:
 
 ```python
 from calzone.metrics import cox_regression_analysis
@@ -189,7 +190,7 @@ And the TS of Z test is defined as:
 $$
 Z = \frac{B - E(B)}{\sqrt{\text{Var}(B)}} = \frac{ \sum_{i=1}^N (x_i - p_i)(1-2p_i)}{\sum_{i=1}^N (1-2p_i)^2 p_i (1-p_i)}
 $$
-and it is asymptotically distributed as a standard normal distribution. In `calzone`, it can be calculated using
+and it is asymptotically distributed as a standard normal distribution. In `calzone`, it can be calculated using:
 ```python
 from calzone.metrics import spiegelhalter_z_test
 
@@ -199,6 +200,7 @@ z, p_value = spiegelhalter_z_test(
     class_to_calculate=1
 )
 ```
+
 
 
 ### Metrics class
@@ -234,7 +236,7 @@ CalibrationMetrics.bootstrap(
 and it will return a structured numpy array.
 
 ## Subgroup analysis
-`calzone` will perform subgroup analysis by default in the command line user interface. If the user input csv file contains a subgroup column, the program will compute metrics for the entire dataset and for each subgroup.
+`calzone` will perform subgroup analysis by default in the command line user interface. If the user input CSV file contains a subgroup column, the program will compute metrics for the entire dataset and for each subgroup.
 
 ## Prevalence adjustment
 `calzone` also provides prevalence adjustment to account for prevalence changes between training data and testing data. Since calibration is defined using posterior probability, a mere shift in the prevalence of the testing data will result in miscalibration. It can be fixed by searching for the optimal derived original prevalence such that the adjusted probability minimizes a proper scoring rule such as cross-entropy loss. The formula of prevalence adjusted probability is:
@@ -244,7 +246,7 @@ $$
 where $\eta$ is the prevalence of the testing data, $\eta'$ is the prevalence of the training data, and $p$ is the predicted probability [@weijie_prevalence_adjustment;@prevalence_shift;@gu_likelihod_ratio;@Prevalence_HORSCH]. We search for the optimal $\eta'$ that minimizes the cross-entropy loss.
 
 ## Multiclass extension
-`calzone` also provides multiclass extension to calculate the metrics for multiclass classification. The user can specify the class to calculate the metrics using a 1-vs-rest approach and test the calibration of each class. Alternatively, the user can transform the data and make problem become a top-class calibration problem. The top-class calibration has a similar format to binary classification, but the class 0 probability is defined as 1 minus the probability of the class with the highest probability, and the class 1 probability is defined as the probability of the class with the highest probability. The labels are transformed into whether the predicted class equals the true class, 0 if not and 1 if yes. Notice that the interpretation of some metrics may change in the top-class transformation.
+`calzone` also provides multiclass extension to calculate the metrics for multiclass classification. The user can specify the class to calculate the metrics using a 1-vs-rest approach and test the calibration of each class. Alternatively, the user can transform the data and make the problem become a top-class calibration problem. The top-class calibration has a similar format to binary classification, but the class 0 probability is defined as 1 minus the probability of the class with the highest probability, and the class 1 probability is defined as the probability of the class with the highest probability. The labels are transformed into whether the predicted class equals the true class, 0 if not and 1 if yes. Notice that the interpretation of some metrics may change in the top-class transformation.
 
 ## Command line interface
 `calzone` also provides a command line interface to calculate the metrics. The user can visualize the calibration curve, calculate the metrics and their confidence intervals using the command line interface. To use the command line interface, the user can run `python cal_metrics.py -h` to see the help message.
