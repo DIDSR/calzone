@@ -256,7 +256,7 @@
 <span class="k">def</span> <span class="nf">cox_regression_analysis</span><span class="p">(</span>
     <span class="n">y_true</span><span class="p">,</span>
     <span class="n">y_proba</span><span class="p">,</span>
-    <span class="n">epsilon</span><span class="o">=</span><span class="mf">1e-10</span><span class="p">,</span>
+    <span class="n">epsilon</span><span class="o">=</span><span class="mf">1e-7</span><span class="p">,</span>
     <span class="n">class_to_calculate</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
     <span class="n">print_results</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
     <span class="n">fix_intercept</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
@@ -272,7 +272,7 @@
 <span class="sd">    Args:</span>
 <span class="sd">        y_true (array-like): True binary labels. If multi-class, will be converted to binary.</span>
 <span class="sd">        y_proba (array-like): Predicted probabilities. Should be of shape (n_samples, n_classes).</span>
-<span class="sd">        epsilon (float): Small value to avoid log(0) errors. Default is 1e-10.</span>
+<span class="sd">        epsilon (float): Small value to avoid log(0) errors. Default is 1e-7.</span>
 <span class="sd">        class_to_calculate (int): The class to treat as the positive class in binary classification. Default is 1.</span>
 <span class="sd">        print_results (bool): If True, prints the summary of the logistic regression results. Default is False.</span>
 <span class="sd">        fix_intercept (bool): If True, fixes the intercept to 0. Can&#39;t be used with fix_slope. Default is False.</span>
@@ -333,7 +333,7 @@
 <div class="viewcode-block" id="cal_ICI_cox">
 <a class="viewcode-back" href="../../calzone.html#calzone.metrics.cal_ICI_cox">[docs]</a>
 <span class="k">def</span> <span class="nf">cal_ICI_cox</span><span class="p">(</span>
-    <span class="n">coef</span><span class="p">,</span> <span class="n">intercept</span><span class="p">,</span> <span class="n">y_proba</span><span class="p">,</span> <span class="n">class_to_calculate</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">epsilon</span><span class="o">=</span><span class="mf">1e-10</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+    <span class="n">coef</span><span class="p">,</span> <span class="n">intercept</span><span class="p">,</span> <span class="n">y_proba</span><span class="p">,</span> <span class="n">class_to_calculate</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">epsilon</span><span class="o">=</span><span class="mf">1e-7</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
 <span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Calculate the Integrated Calibration Index (ICI) for a given Cox regression model.</span>
@@ -346,7 +346,7 @@
 <span class="sd">        intercept (float): The intercept from the Cox regression.</span>
 <span class="sd">        y_proba (array-like): Predicted probabilities. Should be of shape (n_samples, n_classes).</span>
 <span class="sd">        class_to_calculate (int): The class to calculate the ICI for in multi-class problems. Default is 1.</span>
-<span class="sd">        epsilon (float): Small value to avoid numerical instability when clipping probabilities. Default is 1e-10.</span>
+<span class="sd">        epsilon (float): Small value to avoid numerical instability when clipping probabilities. Default is 1e-7.</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        ICI (float): The Integrated Calibration Index.</span>
@@ -377,7 +377,7 @@
 <span class="k">def</span> <span class="nf">lowess_regression_analysis</span><span class="p">(</span>
     <span class="n">y_true</span><span class="p">,</span>
     <span class="n">y_proba</span><span class="p">,</span>
-    <span class="n">epsilon</span><span class="o">=</span><span class="mf">1e-10</span><span class="p">,</span>
+    <span class="n">epsilon</span><span class="o">=</span><span class="mf">1e-7</span><span class="p">,</span>
     <span class="n">class_to_calculate</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
     <span class="n">span</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
     <span class="n">delta</span><span class="o">=</span><span class="mf">0.001</span><span class="p">,</span>

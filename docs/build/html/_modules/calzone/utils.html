@@ -288,13 +288,13 @@
 
 <div class="viewcode-block" id="softmax_to_logits">
 <a class="viewcode-back" href="../../calzone.html#calzone.utils.softmax_to_logits">[docs]</a>
-<span class="k">def</span> <span class="nf">softmax_to_logits</span><span class="p">(</span><span class="n">probabilities</span><span class="p">,</span> <span class="n">epsilon</span><span class="o">=</span><span class="mf">1e-10</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">softmax_to_logits</span><span class="p">(</span><span class="n">probabilities</span><span class="p">,</span> <span class="n">epsilon</span><span class="o">=</span><span class="mf">1e-7</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Convert softmax probabilities to logits.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        probabilities (array-like): Input probabilities.</span>
-<span class="sd">        epsilon (float): Small value to avoid log(0). Default is 1e-10.</span>
+<span class="sd">        epsilon (float): Small value to avoid log(0). Default is 1e-7.</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        numpy.ndarray: Computed logits.</span>
@@ -398,7 +398,7 @@
 
 <div class="viewcode-block" id="find_optimal_prevalence">
 <a class="viewcode-back" href="../../calzone.html#calzone.utils.find_optimal_prevalence">[docs]</a>
-<span class="k">def</span> <span class="nf">find_optimal_prevalence</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_proba</span><span class="p">,</span> <span class="n">class_to_calculate</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">epsilon</span><span class="o">=</span><span class="mf">1e-10</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">find_optimal_prevalence</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_proba</span><span class="p">,</span> <span class="n">class_to_calculate</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">epsilon</span><span class="o">=</span><span class="mf">1e-7</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Find the optimal adjustment prevalence using scipy.optimize.</span>
 
@@ -406,7 +406,7 @@
 <span class="sd">        y_true (array-like): True labels.</span>
 <span class="sd">        y_proba (array-like): Predicted probabilities.</span>
 <span class="sd">        class_to_calculate (int): The class index to optimize for. Default is 1.</span>
-<span class="sd">        epsilon (float): Small value to avoid numerical instability. Default is 1e-10.</span>
+<span class="sd">        epsilon (float): Small value to avoid numerical instability. Default is 1e-7.</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        optimal_prevalence (float): The optimal prevalence.</span>

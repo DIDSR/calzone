@@ -65,7 +65,7 @@
 
 
 \title{calzone}
-\date{Oct 17, 2024}
+\date{Oct 22, 2024}
 \release{develop}
 \author{Kwok Lung "Jason" Fan, Qian Cao}
 \newcommand{\sphinxlogo}{\vbox{}}
@@ -3604,7 +3604,7 @@ density of the predicted probabilities.
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{calzone:calzone.metrics.cal_ICI_cox}}
 \pysigstartsignatures
-\pysiglinewithargsret{\sphinxcode{\sphinxupquote{calzone.metrics.}}\sphinxbfcode{\sphinxupquote{cal\_ICI\_cox}}}{\sphinxparam{\DUrole{n}{coef}}\sphinxparamcomma \sphinxparam{\DUrole{n}{intercept}}\sphinxparamcomma \sphinxparam{\DUrole{n}{y\_proba}}\sphinxparamcomma \sphinxparam{\DUrole{n}{class\_to\_calculate}\DUrole{o}{=}\DUrole{default_value}{1}}\sphinxparamcomma \sphinxparam{\DUrole{n}{epsilon}\DUrole{o}{=}\DUrole{default_value}{1e\sphinxhyphen{}10}}\sphinxparamcomma \sphinxparam{\DUrole{o}{**}\DUrole{n}{kwargs}}}{}
+\pysiglinewithargsret{\sphinxcode{\sphinxupquote{calzone.metrics.}}\sphinxbfcode{\sphinxupquote{cal\_ICI\_cox}}}{\sphinxparam{\DUrole{n}{coef}}\sphinxparamcomma \sphinxparam{\DUrole{n}{intercept}}\sphinxparamcomma \sphinxparam{\DUrole{n}{y\_proba}}\sphinxparamcomma \sphinxparam{\DUrole{n}{class\_to\_calculate}\DUrole{o}{=}\DUrole{default_value}{1}}\sphinxparamcomma \sphinxparam{\DUrole{n}{epsilon}\DUrole{o}{=}\DUrole{default_value}{1e\sphinxhyphen{}07}}\sphinxparamcomma \sphinxparam{\DUrole{o}{**}\DUrole{n}{kwargs}}}{}
 \pysigstopsignatures
 \sphinxAtStartPar
 Calculate the Integrated Calibration Index (ICI) for a given Cox regression model.
@@ -3632,7 +3632,7 @@ and the probabilities transformed by the fitted Cox regression model.
 
 \item {} 
 \sphinxAtStartPar
-\sphinxstyleliteralstrong{\sphinxupquote{epsilon}} (\sphinxstyleliteralemphasis{\sphinxupquote{float}}) \textendash{} Small value to avoid numerical instability when clipping probabilities. Default is 1e\sphinxhyphen{}10.
+\sphinxstyleliteralstrong{\sphinxupquote{epsilon}} (\sphinxstyleliteralemphasis{\sphinxupquote{float}}) \textendash{} Small value to avoid numerical instability when clipping probabilities. Default is 1e\sphinxhyphen{}7.
 
 \end{itemize}
 
@@ -3722,7 +3722,7 @@ Lower values of both ECE and MCE indicate better calibration.
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{calzone:calzone.metrics.cox_regression_analysis}}
 \pysigstartsignatures
-\pysiglinewithargsret{\sphinxcode{\sphinxupquote{calzone.metrics.}}\sphinxbfcode{\sphinxupquote{cox\_regression\_analysis}}}{\sphinxparam{\DUrole{n}{y\_true}}\sphinxparamcomma \sphinxparam{\DUrole{n}{y\_proba}}\sphinxparamcomma \sphinxparam{\DUrole{n}{epsilon}\DUrole{o}{=}\DUrole{default_value}{1e\sphinxhyphen{}10}}\sphinxparamcomma \sphinxparam{\DUrole{n}{class\_to\_calculate}\DUrole{o}{=}\DUrole{default_value}{1}}\sphinxparamcomma \sphinxparam{\DUrole{n}{print\_results}\DUrole{o}{=}\DUrole{default_value}{False}}\sphinxparamcomma \sphinxparam{\DUrole{n}{fix\_intercept}\DUrole{o}{=}\DUrole{default_value}{False}}\sphinxparamcomma \sphinxparam{\DUrole{n}{fix\_slope}\DUrole{o}{=}\DUrole{default_value}{False}}\sphinxparamcomma \sphinxparam{\DUrole{o}{**}\DUrole{n}{kwargs}}}{}
+\pysiglinewithargsret{\sphinxcode{\sphinxupquote{calzone.metrics.}}\sphinxbfcode{\sphinxupquote{cox\_regression\_analysis}}}{\sphinxparam{\DUrole{n}{y\_true}}\sphinxparamcomma \sphinxparam{\DUrole{n}{y\_proba}}\sphinxparamcomma \sphinxparam{\DUrole{n}{epsilon}\DUrole{o}{=}\DUrole{default_value}{1e\sphinxhyphen{}07}}\sphinxparamcomma \sphinxparam{\DUrole{n}{class\_to\_calculate}\DUrole{o}{=}\DUrole{default_value}{1}}\sphinxparamcomma \sphinxparam{\DUrole{n}{print\_results}\DUrole{o}{=}\DUrole{default_value}{False}}\sphinxparamcomma \sphinxparam{\DUrole{n}{fix\_intercept}\DUrole{o}{=}\DUrole{default_value}{False}}\sphinxparamcomma \sphinxparam{\DUrole{n}{fix\_slope}\DUrole{o}{=}\DUrole{default_value}{False}}\sphinxparamcomma \sphinxparam{\DUrole{o}{**}\DUrole{n}{kwargs}}}{}
 \pysigstopsignatures
 \sphinxAtStartPar
 Perform Cox regression analysis for classification calibration.
@@ -3742,7 +3742,7 @@ to assess the calibration of classification predictions.
 
 \item {} 
 \sphinxAtStartPar
-\sphinxstyleliteralstrong{\sphinxupquote{epsilon}} (\sphinxstyleliteralemphasis{\sphinxupquote{float}}) \textendash{} Small value to avoid log(0) errors. Default is 1e\sphinxhyphen{}10.
+\sphinxstyleliteralstrong{\sphinxupquote{epsilon}} (\sphinxstyleliteralemphasis{\sphinxupquote{float}}) \textendash{} Small value to avoid log(0) errors. Default is 1e\sphinxhyphen{}7.
 
 \item {} 
 \sphinxAtStartPar
@@ -3946,7 +3946,7 @@ f(x) = 1 / (1 + exp(\sphinxhyphen{}(coef * log(x / (1 \sphinxhyphen{} x)) + inte
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{calzone:calzone.metrics.lowess_regression_analysis}}
 \pysigstartsignatures
-\pysiglinewithargsret{\sphinxcode{\sphinxupquote{calzone.metrics.}}\sphinxbfcode{\sphinxupquote{lowess\_regression\_analysis}}}{\sphinxparam{\DUrole{n}{y\_true}}\sphinxparamcomma \sphinxparam{\DUrole{n}{y\_proba}}\sphinxparamcomma \sphinxparam{\DUrole{n}{epsilon}\DUrole{o}{=}\DUrole{default_value}{1e\sphinxhyphen{}10}}\sphinxparamcomma \sphinxparam{\DUrole{n}{class\_to\_calculate}\DUrole{o}{=}\DUrole{default_value}{1}}\sphinxparamcomma \sphinxparam{\DUrole{n}{span}\DUrole{o}{=}\DUrole{default_value}{0.5}}\sphinxparamcomma \sphinxparam{\DUrole{n}{delta}\DUrole{o}{=}\DUrole{default_value}{0.001}}\sphinxparamcomma \sphinxparam{\DUrole{n}{it}\DUrole{o}{=}\DUrole{default_value}{0}}\sphinxparamcomma \sphinxparam{\DUrole{o}{**}\DUrole{n}{kwargs}}}{}
+\pysiglinewithargsret{\sphinxcode{\sphinxupquote{calzone.metrics.}}\sphinxbfcode{\sphinxupquote{lowess\_regression\_analysis}}}{\sphinxparam{\DUrole{n}{y\_true}}\sphinxparamcomma \sphinxparam{\DUrole{n}{y\_proba}}\sphinxparamcomma \sphinxparam{\DUrole{n}{epsilon}\DUrole{o}{=}\DUrole{default_value}{1e\sphinxhyphen{}07}}\sphinxparamcomma \sphinxparam{\DUrole{n}{class\_to\_calculate}\DUrole{o}{=}\DUrole{default_value}{1}}\sphinxparamcomma \sphinxparam{\DUrole{n}{span}\DUrole{o}{=}\DUrole{default_value}{0.5}}\sphinxparamcomma \sphinxparam{\DUrole{n}{delta}\DUrole{o}{=}\DUrole{default_value}{0.001}}\sphinxparamcomma \sphinxparam{\DUrole{n}{it}\DUrole{o}{=}\DUrole{default_value}{0}}\sphinxparamcomma \sphinxparam{\DUrole{o}{**}\DUrole{n}{kwargs}}}{}
 \pysigstopsignatures
 \sphinxAtStartPar
 Perform Lowess regression analysis for classification calibration.
@@ -4577,7 +4577,7 @@ applies a linear scaling, and then converts back to probabilities.
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{calzone:calzone.utils.find_optimal_prevalence}}
 \pysigstartsignatures
-\pysiglinewithargsret{\sphinxcode{\sphinxupquote{calzone.utils.}}\sphinxbfcode{\sphinxupquote{find\_optimal\_prevalence}}}{\sphinxparam{\DUrole{n}{y\_true}}\sphinxparamcomma \sphinxparam{\DUrole{n}{y\_proba}}\sphinxparamcomma \sphinxparam{\DUrole{n}{class\_to\_calculate}\DUrole{o}{=}\DUrole{default_value}{1}}\sphinxparamcomma \sphinxparam{\DUrole{n}{epsilon}\DUrole{o}{=}\DUrole{default_value}{1e\sphinxhyphen{}10}}}{}
+\pysiglinewithargsret{\sphinxcode{\sphinxupquote{calzone.utils.}}\sphinxbfcode{\sphinxupquote{find\_optimal\_prevalence}}}{\sphinxparam{\DUrole{n}{y\_true}}\sphinxparamcomma \sphinxparam{\DUrole{n}{y\_proba}}\sphinxparamcomma \sphinxparam{\DUrole{n}{class\_to\_calculate}\DUrole{o}{=}\DUrole{default_value}{1}}\sphinxparamcomma \sphinxparam{\DUrole{n}{epsilon}\DUrole{o}{=}\DUrole{default_value}{1e\sphinxhyphen{}07}}}{}
 \pysigstopsignatures
 \sphinxAtStartPar
 Find the optimal adjustment prevalence using scipy.optimize.
@@ -4597,7 +4597,7 @@ Find the optimal adjustment prevalence using scipy.optimize.
 
 \item {} 
 \sphinxAtStartPar
-\sphinxstyleliteralstrong{\sphinxupquote{epsilon}} (\sphinxstyleliteralemphasis{\sphinxupquote{float}}) \textendash{} Small value to avoid numerical instability. Default is 1e\sphinxhyphen{}10.
+\sphinxstyleliteralstrong{\sphinxupquote{epsilon}} (\sphinxstyleliteralemphasis{\sphinxupquote{float}}) \textendash{} Small value to avoid numerical instability. Default is 1e\sphinxhyphen{}7.
 
 \end{itemize}
 
@@ -4845,7 +4845,7 @@ Remove rows containing NaN values from input arrays.
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{calzone:calzone.utils.softmax_to_logits}}
 \pysigstartsignatures
-\pysiglinewithargsret{\sphinxcode{\sphinxupquote{calzone.utils.}}\sphinxbfcode{\sphinxupquote{softmax\_to\_logits}}}{\sphinxparam{\DUrole{n}{probabilities}}\sphinxparamcomma \sphinxparam{\DUrole{n}{epsilon}\DUrole{o}{=}\DUrole{default_value}{1e\sphinxhyphen{}10}}}{}
+\pysiglinewithargsret{\sphinxcode{\sphinxupquote{calzone.utils.}}\sphinxbfcode{\sphinxupquote{softmax\_to\_logits}}}{\sphinxparam{\DUrole{n}{probabilities}}\sphinxparamcomma \sphinxparam{\DUrole{n}{epsilon}\DUrole{o}{=}\DUrole{default_value}{1e\sphinxhyphen{}07}}}{}
 \pysigstopsignatures
 \sphinxAtStartPar
 Convert softmax probabilities to logits.
@@ -4857,7 +4857,7 @@ Convert softmax probabilities to logits.
 
 \item {} 
 \sphinxAtStartPar
-\sphinxstyleliteralstrong{\sphinxupquote{epsilon}} (\sphinxstyleliteralemphasis{\sphinxupquote{float}}) \textendash{} Small value to avoid log(0). Default is 1e\sphinxhyphen{}10.
+\sphinxstyleliteralstrong{\sphinxupquote{epsilon}} (\sphinxstyleliteralemphasis{\sphinxupquote{float}}) \textendash{} Small value to avoid log(0). Default is 1e\sphinxhyphen{}7.
 
 \end{itemize}
 
