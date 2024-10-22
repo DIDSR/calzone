@@ -158,7 +158,7 @@ def spiegelhalter_z_test(y_true, y_proba, class_to_calculate=1):
 def cox_regression_analysis(
     y_true,
     y_proba,
-    epsilon=1e-10,
+    epsilon=1e-7,
     class_to_calculate=1,
     print_results=False,
     fix_intercept=False,
@@ -174,7 +174,7 @@ def cox_regression_analysis(
     Args:
         y_true (array-like): True binary labels. If multi-class, will be converted to binary.
         y_proba (array-like): Predicted probabilities. Should be of shape (n_samples, n_classes).
-        epsilon (float): Small value to avoid log(0) errors. Default is 1e-10.
+        epsilon (float): Small value to avoid log(0) errors. Default is 1e-7.
         class_to_calculate (int): The class to treat as the positive class in binary classification. Default is 1.
         print_results (bool): If True, prints the summary of the logistic regression results. Default is False.
         fix_intercept (bool): If True, fixes the intercept to 0. Can't be used with fix_slope. Default is False.
@@ -232,7 +232,7 @@ def cox_regression_analysis(
 
 
 def cal_ICI_cox(
-    coef, intercept, y_proba, class_to_calculate=1, epsilon=1e-10, **kwargs
+    coef, intercept, y_proba, class_to_calculate=1, epsilon=1e-7, **kwargs
 ):
     """
     Calculate the Integrated Calibration Index (ICI) for a given Cox regression model.
@@ -245,7 +245,7 @@ def cal_ICI_cox(
         intercept (float): The intercept from the Cox regression.
         y_proba (array-like): Predicted probabilities. Should be of shape (n_samples, n_classes).
         class_to_calculate (int): The class to calculate the ICI for in multi-class problems. Default is 1.
-        epsilon (float): Small value to avoid numerical instability when clipping probabilities. Default is 1e-10.
+        epsilon (float): Small value to avoid numerical instability when clipping probabilities. Default is 1e-7.
 
     Returns:
         ICI (float): The Integrated Calibration Index.
@@ -273,7 +273,7 @@ def cal_ICI_cox(
 def lowess_regression_analysis(
     y_true,
     y_proba,
-    epsilon=1e-10,
+    epsilon=1e-7,
     class_to_calculate=1,
     span=0.5,
     delta=0.001,

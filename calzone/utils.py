@@ -193,13 +193,13 @@ def reliability_diagram(
     return bin_accuracies, bin_confidences, bin_edges, bin_counts
 
 
-def softmax_to_logits(probabilities, epsilon=1e-10):
+def softmax_to_logits(probabilities, epsilon=1e-7):
     """
     Convert softmax probabilities to logits.
 
     Args:
         probabilities (array-like): Input probabilities.
-        epsilon (float): Small value to avoid log(0). Default is 1e-10.
+        epsilon (float): Small value to avoid log(0). Default is 1e-7.
 
     Returns:
         numpy.ndarray: Computed logits.
@@ -291,7 +291,7 @@ def loss(adjusted_prevalence, y_true, y_proba, class_to_calculate=1):
     return loss
 
 
-def find_optimal_prevalence(y_true, y_proba, class_to_calculate=1, epsilon=1e-10):
+def find_optimal_prevalence(y_true, y_proba, class_to_calculate=1, epsilon=1e-7):
     """
     Find the optimal adjustment prevalence using scipy.optimize.
 
@@ -299,7 +299,7 @@ def find_optimal_prevalence(y_true, y_proba, class_to_calculate=1, epsilon=1e-10
         y_true (array-like): True labels.
         y_proba (array-like): Predicted probabilities.
         class_to_calculate (int): The class index to optimize for. Default is 1.
-        epsilon (float): Small value to avoid numerical instability. Default is 1e-10.
+        epsilon (float): Small value to avoid numerical instability. Default is 1e-7.
 
     Returns:
         optimal_prevalence (float): The optimal prevalence.
