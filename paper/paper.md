@@ -1,5 +1,5 @@
 ---
-title: 'calzone: A Python package for measring calibration of probablistic models for classification'
+title: 'calzone: A Python package for measring calibration of probabilistic models for classification'
 tags:
   - Python
   - Machine Learning
