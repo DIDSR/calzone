@@ -18,7 +18,7 @@
 \contentsline {chapter}{\numberline {5}Hosmer\sphinxhyphen {}Lemeshow test (HL test)}{29}{chapter.5}%
 \contentsline {section}{\numberline {5.1}Theoretical Background}{29}{section.5.1}%
 \contentsline {section}{\numberline {5.2}Pros of HL test}{29}{section.5.2}%
-\contentsline {section}{\numberline {5.3}Cons of HL Test}{29}{section.5.3}%
+\contentsline {section}{\numberline {5.3}Cons of HL Test}{30}{section.5.3}%
 \contentsline {section}{\numberline {5.4}Calculating HL test statistics and p\sphinxhyphen {}value with calzone}{30}{section.5.4}%
 \contentsline {section}{\numberline {5.5}Size of HL test}{31}{section.5.5}%
 \contentsline {section}{\numberline {5.6}Reference}{33}{section.5.6}%

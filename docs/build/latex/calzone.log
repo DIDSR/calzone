@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2024.10.4)  22 OCT 2024 11:19
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2024.10.4)  24 OCT 2024 16:01
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1026,17 +1026,12 @@ Package pdftex.def Info: notebooks_ece_mce_12_1.png  used on input line 1310.
 
 ]
 Chapter 5.
-[29] [30]
-<notebooks_hl_test_13_1.png, id=494, 409.7709pt x 327.3831pt>
+[29] [30] [31]
+<notebooks_hl_test_13_1.png, id=498, 409.7709pt x 327.3831pt>
 File: notebooks_hl_test_13_1.png Graphic file (type png)
 <use notebooks_hl_test_13_1.png>
 Package pdftex.def Info: notebooks_hl_test_13_1.png  used on input line 1626.
 (pdftex.def)             Requested size: 426.85823pt x 341.02489pt.
-
-Underfull \vbox (badness 10000) detected at line 1630
- []
-
-[31]
 <notebooks_hl_test_14_1.png, id=499, 409.7709pt x 327.3831pt>
 File: notebooks_hl_test_14_1.png Graphic file (type png)
 <use notebooks_hl_test_14_1.png>
@@ -1133,7 +1128,7 @@ Overfull \vbox (0.52995pt too high) detected at line 3656
  []
 
 [65] [66] [67] [68] [69] [70]
-Overfull \hbox (73.01103pt too wide) in paragraph at lines 4372--4376
+Overfull \hbox (73.01103pt too wide) in paragraph at lines 4376--4380
 []\T1/qtm/m/n/10 Note: - If there is a header, it must be in the for-mat: proba
 _0,proba_1,...,subgroup_1(optional),subgroup_2(optional),...,label
  []
@@ -1261,20 +1256,20 @@ Underfull \hbox (badness 10000) in paragraph at lines 116--118
 [80
 
 ])
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 5020.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 5020.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 5024.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 5024.
  (./calzone.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 5020.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 5020.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 5024.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 5024.
 
 Package rerunfilecheck Info: File `calzone.out' has not changed.
 (rerunfilecheck)             Checksum: 0B3B85C9FAD9148DEFDEF8B454953F20;11017.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 5020.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 5024.
  ) 
 Here is how much of TeX's memory you used:
  18988 strings out of 481239
  318117 string characters out of 5920377
- 675920 words of memory out of 5000000
+ 674920 words of memory out of 5000000
  33621 multiletter control sequences out of 15000+600000
  596176 words of font info for 75 fonts, out of 8000000 for 9000
  1142 hyphenation exceptions out of 8191
@@ -1302,7 +1297,7 @@ fonts/type1/public/tex-gyre/qtmri.pfb></usr/share/texlive/texmf-dist/fonts/type
 xfonts/t1xtt.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/txfonts/t1xt
 t.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/txfonts/tcxtt.pfb></usr
 /share/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb>
-Output written on calzone.pdf (84 pages, 1435313 bytes).
+Output written on calzone.pdf (84 pages, 1435928 bytes).
 PDF statistics:
  953 PDF objects out of 1000 (max. 8388607)
  799 compressed objects within 8 object streams

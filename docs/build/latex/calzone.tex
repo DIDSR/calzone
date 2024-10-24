@@ -65,7 +65,7 @@
 
 
 \title{calzone}
-\date{Oct 22, 2024}
+\date{Oct 24, 2024}
 \release{develop}
 \author{Kwok Lung "Jason" Fan, Qian Cao}
 \newcommand{\sphinxlogo}{\vbox{}}
@@ -1352,7 +1352,7 @@ In order to calculate the Hosmer\sphinxhyphen{}Lemeshow test statistic, we need 
 \end{equation*}
 \sphinxAtStartPar
 where \(E_{1,m}\) is the expected number of class 1 events in the \(\text{m}^{th}\) bin, \(O_{1,m}\) is the observed number of class 1 events in the \(\text{m}^{th}\) bin, \(N_m\) is the total number of observations in the \(\text{m}^{th}\) bin, and \(M\) is the number of bins. The HL test statistic is distributed as a chi\sphinxhyphen{}squared distribution with \(M-2\) degrees of freedom. We can then use this test statistic to calculate the p\sphinxhyphen{}value for the test and determine
-whether we can reject the null hypothesis that the model is well\sphinxhyphen{}calibrated.
+whether we can reject the null hypothesis that the model is well\sphinxhyphen{}calibrated. (Notice that the degree of freedom of HL test is \(M-2\) by default but some literature suggests that the degree of freedom should be \(M\) instead when the samples is not used for training. We could not find a proof to this statement and we provides the option to specify the degree of freedom in the \sphinxcode{\sphinxupquote{calzone}}. The default value is still \(M-2\).)
 
 
 \section{Pros of HL test}
@@ -3843,7 +3843,7 @@ in the input structured array. It’s useful for bootstrap or Monte Carlo simula
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{calzone:calzone.metrics.hosmer_lemeshow_test}}
 \pysigstartsignatures
-\pysiglinewithargsret{\sphinxcode{\sphinxupquote{calzone.metrics.}}\sphinxbfcode{\sphinxupquote{hosmer\_lemeshow\_test}}}{\sphinxparam{\DUrole{n}{reliability}}\sphinxparamcomma \sphinxparam{\DUrole{n}{confidence}}\sphinxparamcomma \sphinxparam{\DUrole{n}{bin\_count}}}{}
+\pysiglinewithargsret{\sphinxcode{\sphinxupquote{calzone.metrics.}}\sphinxbfcode{\sphinxupquote{hosmer\_lemeshow\_test}}}{\sphinxparam{\DUrole{n}{reliability}}\sphinxparamcomma \sphinxparam{\DUrole{n}{confidence}}\sphinxparamcomma \sphinxparam{\DUrole{n}{bin\_count}}\sphinxparamcomma \sphinxparam{\DUrole{n}{df}\DUrole{o}{=}\DUrole{default_value}{None}}}{}
 \pysigstopsignatures
 \sphinxAtStartPar
 Compute the Hosmer\sphinxhyphen{}Lemeshow test for goodness of fit.
@@ -3864,6 +3864,10 @@ It compares observed and expected frequencies of events in groups of the data.
 \item {} 
 \sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{bin\_count}} (\sphinxstyleliteralemphasis{\sphinxupquote{array\sphinxhyphen{}like}}) \textendash{} Number of samples in each bin.
+
+\item {} 
+\sphinxAtStartPar
+\sphinxstyleliteralstrong{\sphinxupquote{df}} (\sphinxstyleliteralemphasis{\sphinxupquote{int}}\sphinxstyleliteralemphasis{\sphinxupquote{, }}\sphinxstyleliteralemphasis{\sphinxupquote{optional}}) \textendash{} Degrees of freedom for the test. Defaults is nbins \sphinxhyphen{} 2.
 
 \end{itemize}
 

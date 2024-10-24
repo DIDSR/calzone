@@ -105,7 +105,7 @@
 
 <div class="viewcode-block" id="hosmer_lemeshow_test">
 <a class="viewcode-back" href="../../calzone.html#calzone.metrics.hosmer_lemeshow_test">[docs]</a>
-<span class="k">def</span> <span class="nf">hosmer_lemeshow_test</span><span class="p">(</span><span class="n">reliability</span><span class="p">,</span> <span class="n">confidence</span><span class="p">,</span> <span class="n">bin_count</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">hosmer_lemeshow_test</span><span class="p">(</span><span class="n">reliability</span><span class="p">,</span> <span class="n">confidence</span><span class="p">,</span> <span class="n">bin_count</span><span class="p">,</span> <span class="n">df</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Compute the Hosmer-Lemeshow test for goodness of fit.</span>
 
@@ -116,6 +116,7 @@
 <span class="sd">        reliability (array-like): Observed proportion of positive samples in each bin.</span>
 <span class="sd">        confidence (array-like): Predicted probabilities for each bin.</span>
 <span class="sd">        bin_count (array-like): Number of samples in each bin.</span>
+<span class="sd">        df (int, optional): Degrees of freedom for the test. Defaults is nbins - 2.</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        chi_squared (float): The chi-squared statistic of the Hosmer-Lemeshow test.</span>
@@ -151,7 +152,10 @@
 
     <span class="c1"># Compute degrees of freedom and p-value</span>
     <span class="n">num_bins</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">bin_count</span><span class="p">)</span>
-    <span class="n">df</span> <span class="o">=</span> <span class="n">num_bins</span> <span class="o">-</span> <span class="mi">2</span>  <span class="c1"># Subtract 2 for the parameters estimated in the model</span>
+    <span class="k">if</span> <span class="n">df</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">num_bins</span> <span class="o">-</span> <span class="mi">2</span>  <span class="c1"># Subtract 2 for the parameters estimated in the model</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">df</span>
     <span class="n">p_value</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">stats</span><span class="o">.</span><span class="n">chi2</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">chi_squared</span><span class="p">,</span> <span class="n">df</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">chi_squared</span><span class="p">,</span> <span class="n">p_value</span><span class="p">,</span> <span class="n">df</span></div>

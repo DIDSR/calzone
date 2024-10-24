@@ -16,7 +16,7 @@ import statsmodels.nonparametric.smoothers_lowess as lowess
 import numpy.lib.recfunctions as rf
 import contextlib
 
-def hosmer_lemeshow_test(reliability, confidence, bin_count):
+def hosmer_lemeshow_test(reliability, confidence, bin_count, df=None):
     """
     Compute the Hosmer-Lemeshow test for goodness of fit.
 
@@ -27,6 +27,7 @@ def hosmer_lemeshow_test(reliability, confidence, bin_count):
         reliability (array-like): Observed proportion of positive samples in each bin.
         confidence (array-like): Predicted probabilities for each bin.
         bin_count (array-like): Number of samples in each bin.
+        df (int, optional): Degrees of freedom for the test. Defaults is nbins - 2.
 
     Returns:
         chi_squared (float): The chi-squared statistic of the Hosmer-Lemeshow test.
@@ -62,7 +63,10 @@ def hosmer_lemeshow_test(reliability, confidence, bin_count):
 
     # Compute degrees of freedom and p-value
     num_bins = len(bin_count)
-    df = num_bins - 2  # Subtract 2 for the parameters estimated in the model
+    if df is None:
+        df = num_bins - 2  # Subtract 2 for the parameters estimated in the model
+    else:
+        df = df
     p_value = 1 - stats.chi2.cdf(chi_squared, df)
 
     return chi_squared, p_value, df

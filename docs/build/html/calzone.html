@@ -386,7 +386,7 @@ in the input structured array. It’s useful for bootstrap or Monte Carlo simula
 
 <dl class="py function">
 <dt class="sig sig-object py" id="calzone.metrics.hosmer_lemeshow_test">
-<span class="sig-prename descclassname"><span class="pre">calzone.metrics.</span></span><span class="sig-name descname"><span class="pre">hosmer_lemeshow_test</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">reliability</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">confidence</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bin_count</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/calzone/metrics.html#hosmer_lemeshow_test"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#calzone.metrics.hosmer_lemeshow_test" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">calzone.metrics.</span></span><span class="sig-name descname"><span class="pre">hosmer_lemeshow_test</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">reliability</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">confidence</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bin_count</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/calzone/metrics.html#hosmer_lemeshow_test"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#calzone.metrics.hosmer_lemeshow_test" title="Link to this definition"></a></dt>
 <dd><p>Compute the Hosmer-Lemeshow test for goodness of fit.</p>
 <p>This test is used to assess the calibration of binary classification models with full probability outputs.
 It compares observed and expected frequencies of events in groups of the data.</p>
@@ -396,6 +396,7 @@ It compares observed and expected frequencies of events in groups of the data.</
 <li><p><strong>reliability</strong> (<em>array-like</em>) – Observed proportion of positive samples in each bin.</p></li>
 <li><p><strong>confidence</strong> (<em>array-like</em>) – Predicted probabilities for each bin.</p></li>
 <li><p><strong>bin_count</strong> (<em>array-like</em>) – Number of samples in each bin.</p></li>
+<li><p><strong>df</strong> (<em>int</em><em>, </em><em>optional</em>) – Degrees of freedom for the test. Defaults is nbins - 2.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
