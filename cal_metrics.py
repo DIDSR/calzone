@@ -21,7 +21,10 @@ def perform_calculation(probs, labels, args, suffix=""):
     cal_metrics = CalibrationMetrics(
         class_to_calculate=args.class_to_calculate, num_bins=args.num_bins
     )
-
+    if args.hl_test_validation:
+        df = args.num_bins
+    else:
+        df = args.num_bins - 2
     metrics_to_calculate = args.metrics.split(",") if args.metrics else ["all"]
     if metrics_to_calculate == ["all"]:
         metrics_to_calculate = "all"
@@ -30,6 +33,7 @@ def perform_calculation(probs, labels, args, suffix=""):
         y_proba=probs,
         metrics=metrics_to_calculate,
         perform_pervalance_adjustment=args.prevalence_adjustment,
+        df = df
     )
 
     keys = list(result.keys())
@@ -42,6 +46,7 @@ def perform_calculation(probs, labels, args, suffix=""):
             n_samples=args.n_bootstrap,
             metrics=metrics_to_calculate,
             perform_pervalance_adjustment=args.prevalence_adjustment,
+            df = df
         )
         CI = get_CI(bootstrap_results)
         result = np.vstack((result, np.array(list(CI.values())).T))
@@ -213,6 +218,12 @@ def main():
         type=int,
         default=10,
         help="Number of bins for ECE/MCE/HL calculations (default: 10)",
+    )
+    parser.add_argument(
+        "--hl_test_validation",
+        default=False,
+        action="store_true",
+        help="Using nbin instead of nbin-2 as HL test DOF. Use it if the dataset is validation set.",
     )
     parser.add_argument(
         "--topclass",

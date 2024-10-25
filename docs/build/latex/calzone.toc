@@ -21,7 +21,7 @@
 \contentsline {section}{\numberline {5.3}Cons of HL Test}{30}{section.5.3}%
 \contentsline {section}{\numberline {5.4}Calculating HL test statistics and p\sphinxhyphen {}value with calzone}{30}{section.5.4}%
 \contentsline {section}{\numberline {5.5}Size of HL test}{31}{section.5.5}%
-\contentsline {section}{\numberline {5.6}Reference}{33}{section.5.6}%
+\contentsline {section}{\numberline {5.6}Reference}{34}{section.5.6}%
 \contentsline {chapter}{\numberline {6}COX calibration analysis}{35}{chapter.6}%
 \contentsline {section}{\numberline {6.1}Theoretical Background}{35}{section.6.1}%
 \contentsline {section}{\numberline {6.2}Pros of Cox calibration analysis}{35}{section.6.2}%

@@ -63,6 +63,11 @@ def run_program():
         args.append("--verbose")
     if topclass_checkbox.value:
         args.append("--topclass")
+    if hl_test_validation_checkbox.value:
+        if not any(metric in selected_metrics for metric in ["HL-H", "HL-C"]):
+            ui.notify("Error: HL test validation requires either HL-H or HL-C metric to be selected.", type="error")
+            return
+        args.append("--hl_test_validation")
 
     command = ["python", "cal_metrics.py"] + args
     print("Running command:", " ".join(command))
@@ -110,7 +115,6 @@ def clear_cache():
         }
         clearCache();
     ''')
-    ui.notify('Browser cache cleared')
 
     plot_image.clear()
     plot_image.set_source(None)  # Set the image source to None
@@ -159,6 +163,7 @@ with ui.row().classes('w-full justify-center'):
                                              value=1, step=1)
         num_bins_input = ui.number(label='Number of Bins for ECE/MCE/HL Test',
                                    value=10, min=2, step=1)
+        hl_test_validation_checkbox = ui.checkbox('HL Test Validation set', value=False)
 
     with ui.column().classes('w-1/3 p-4'):
         ui.label('Output Paths:')

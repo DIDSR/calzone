@@ -65,7 +65,7 @@
 
 
 \title{calzone}
-\date{Oct 24, 2024}
+\date{Oct 25, 2024}
 \release{develop}
 \author{Kwok Lung "Jason" Fan, Qian Cao}
 \newcommand{\sphinxlogo}{\vbox{}}
@@ -274,7 +274,8 @@ usage: cal\_metrics.py [-h] [--csv\_file CSV\_FILE] [--metrics METRICS]
                       [--prevalence\_adjustment] [--n\_bootstrap N\_BOOTSTRAP]
                       [--bootstrap\_ci BOOTSTRAP\_CI]
                       [--class\_to\_calculate CLASS\_TO\_CALCULATE]
-                      [--num\_bins NUM\_BINS] [--topclass]
+                      [--num\_bins NUM\_BINS]
+                      [--hl\_test\_validation HL\_TEST\_VALIDATION] [--topclass]
                       [--save\_metrics SAVE\_METRICS] [--plot]
                       [--plot\_bins PLOT\_BINS] [--save\_plot SAVE\_PLOT]
                       [--save\_diagram\_output SAVE\_DIAGRAM\_OUTPUT] [--verbose]
@@ -301,6 +302,9 @@ options:
                         Class to calculate metrics for (default: 1)
   --num\_bins NUM\_BINS   Number of bins for ECE/MCE/HL calculations (default:
                         10)
+  --hl\_test\_validation HL\_TEST\_VALIDATION
+                        Using nbin instead of nbin-2 as HL test DOF. Use it if
+                        the dataset is validation set.
   --topclass            Whether to transform the problem to top-class problem.
   --save\_metrics SAVE\_METRICS
                         Save the metrics to a csv file
@@ -308,7 +312,8 @@ options:
   --plot\_bins PLOT\_BINS
                         Number of bins for reliability diagram
   --save\_plot SAVE\_PLOT
-                        Save the plot to a file
+                        Save the plot to a file. Must end with valid image
+                        formats.
   --save\_diagram\_output SAVE\_DIAGRAM\_OUTPUT
                         Save the reliability diagram output to a file
   --verbose             Print verbose output
@@ -340,6 +345,7 @@ options:
 \PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZhy{}}\PYG{n}{save\PYGZus{}diagram\PYGZus{}output} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{../../../example\PYGZus{}data/simulated\PYGZus{}welldata\PYGZus{}diagram\PYGZus{}output.csv}\PYG{l+s+s1}{\PYGZsq{}}
 \PYG{c+c1}{\PYGZsh{}\PYGZsh{}\PYGZsh{} save\PYGZus{}diagram\PYGZus{}output only when you want to save the reliability diagram output}
 \PYG{c+c1}{\PYGZsh{}\PYGZhy{}\PYGZhy{}prevalence\PYGZus{}adjustment \PYGZsh{} only when you want to apply prevalence adjustment}
+\PYG{c+c1}{\PYGZsh{}\PYGZhy{}\PYGZhy{}hl\PYGZus{}test\PYGZus{}validation \PYGZsh{}use it only when the data is from validation set}
 \end{sphinxVerbatim}
 }
 
@@ -1352,7 +1358,7 @@ In order to calculate the Hosmer\sphinxhyphen{}Lemeshow test statistic, we need 
 \end{equation*}
 \sphinxAtStartPar
 where \(E_{1,m}\) is the expected number of class 1 events in the \(\text{m}^{th}\) bin, \(O_{1,m}\) is the observed number of class 1 events in the \(\text{m}^{th}\) bin, \(N_m\) is the total number of observations in the \(\text{m}^{th}\) bin, and \(M\) is the number of bins. The HL test statistic is distributed as a chi\sphinxhyphen{}squared distribution with \(M-2\) degrees of freedom. We can then use this test statistic to calculate the p\sphinxhyphen{}value for the test and determine
-whether we can reject the null hypothesis that the model is well\sphinxhyphen{}calibrated. (Notice that the degree of freedom of HL test is \(M-2\) by default but some literature suggests that the degree of freedom should be \(M\) instead when the samples is not used for training. We could not find a proof to this statement and we provides the option to specify the degree of freedom in the \sphinxcode{\sphinxupquote{calzone}}. The default value is still \(M-2\).)
+whether we can reject the null hypothesis that the model is well\sphinxhyphen{}calibrated. Notice that the degree of freedom of HL test is \(M-2\) by default but some literature suggests that the degree of freedom should be \(M\) instead when the samples is not used for training. We provides the option to specify the degree of freedom in the \sphinxcode{\sphinxupquote{calzone}}. The default value is still \(M-2\).
 
 
 \section{Pros of HL test}
@@ -1687,8 +1693,71 @@ The size of HL-C is : 0.116
 \end{sphinxuseclass}
 \end{sphinxuseclass}
 \sphinxAtStartPar
-We can see that both the equal\sphinxhyphen{}width and the equal\sphinxhyphen{}count method have the incorrect size.
+We can see that both the equal\sphinxhyphen{}width and the equal\sphinxhyphen{}count method have the incorrect size. The simulation support the claim that the degree of freedom should be M instead of M\sphinxhyphen{}2. We can show it with simulation. We are not proving the claim here since it is beyond the scope of this documentation.
 
+\begin{sphinxuseclass}{nbinput}
+{
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+\llap{\color{nbsphinxin}[6]:\,\hspace{\fboxrule}\hspace{\fboxsep}}\PYG{c+c1}{\PYGZsh{}\PYGZsh{}\PYGZsh{} The size of HL Test}
+\PYG{k+kn}{from} \PYG{n+nn}{calzone}\PYG{n+nn}{.}\PYG{n+nn}{utils} \PYG{k+kn}{import} \PYG{n}{fake\PYGZus{}binary\PYGZus{}data\PYGZus{}generator}
+\PYG{k+kn}{from} \PYG{n+nn}{importlib} \PYG{k+kn}{import} \PYG{n}{reload}
+\PYG{k+kn}{import} \PYG{n+nn}{calzone}\PYG{n+nn}{.}\PYG{n+nn}{metrics}
+\PYG{n}{reload}\PYG{p}{(}\PYG{n}{calzone}\PYG{o}{.}\PYG{n}{metrics}\PYG{p}{)}
+\PYG{k+kn}{from} \PYG{n+nn}{calzone}\PYG{n+nn}{.}\PYG{n+nn}{metrics} \PYG{k+kn}{import} \PYG{n}{CalibrationMetrics}
+\PYG{n}{np}\PYG{o}{.}\PYG{n}{random}\PYG{o}{.}\PYG{n}{seed}\PYG{p}{(}\PYG{l+m+mi}{123}\PYG{p}{)}
+\PYG{n}{fakedata\PYGZus{}generator} \PYG{o}{=} \PYG{n}{fake\PYGZus{}binary\PYGZus{}data\PYGZus{}generator}\PYG{p}{(}\PYG{n}{alpha\PYGZus{}val}\PYG{o}{=}\PYG{l+m+mf}{0.5}\PYG{p}{,} \PYG{n}{beta\PYGZus{}val}\PYG{o}{=}\PYG{l+m+mf}{0.5}\PYG{p}{)}
+\PYG{n}{cal\PYGZus{}metrics} \PYG{o}{=} \PYG{n}{CalibrationMetrics}\PYG{p}{(}\PYG{p}{)}
+\PYG{n}{sample\PYGZus{}size} \PYG{o}{=} \PYG{l+m+mi}{1000}
+\PYG{n}{simulation\PYGZus{}size} \PYG{o}{=} \PYG{l+m+mi}{10000}
+\PYG{n}{results} \PYG{o}{=} \PYG{p}{[}\PYG{p}{]}
+\PYG{c+c1}{\PYGZsh{} generate data}
+\PYG{k}{for} \PYG{n}{i} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{n}{simulation\PYGZus{}size}\PYG{p}{)}\PYG{p}{:}
+    \PYG{n}{X}\PYG{p}{,} \PYG{n}{y} \PYG{o}{=} \PYG{n}{fakedata\PYGZus{}generator}\PYG{o}{.}\PYG{n}{generate\PYGZus{}data}\PYG{p}{(}\PYG{n}{sample\PYGZus{}size}\PYG{p}{)}
+    \PYG{k}{if} \PYG{n}{i} \PYG{o}{==} \PYG{l+m+mi}{0}\PYG{p}{:}
+        \PYG{n}{tempresult} \PYG{o}{=} \PYG{n}{cal\PYGZus{}metrics}\PYG{o}{.}\PYG{n}{calculate\PYGZus{}metrics}\PYG{p}{(}\PYG{n}{y}\PYG{p}{,} \PYG{n}{X}\PYG{p}{,} \PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{HL\PYGZhy{}H}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{HL\PYGZhy{}C}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{]}\PYG{p}{,}\PYG{n}{return\PYGZus{}numpy}\PYG{o}{=}\PYG{k+kc}{False}\PYG{p}{,} \PYG{n}{df} \PYG{o}{=} \PYG{l+m+mi}{10}\PYG{p}{)}
+        \PYG{n}{keys} \PYG{o}{=} \PYG{n+nb}{list}\PYG{p}{(}\PYG{n}{tempresult}\PYG{o}{.}\PYG{n}{keys}\PYG{p}{(}\PYG{p}{)}\PYG{p}{)}
+        \PYG{n}{results}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n}{np}\PYG{o}{.}\PYG{n}{array}\PYG{p}{(}\PYG{n+nb}{list}\PYG{p}{(}\PYG{n}{tempresult}\PYG{o}{.}\PYG{n}{values}\PYG{p}{(}\PYG{p}{)}\PYG{p}{)}\PYG{p}{)}\PYG{p}{)}
+    \PYG{k}{else}\PYG{p}{:}
+        \PYG{n}{tempresult} \PYG{o}{=} \PYG{n}{cal\PYGZus{}metrics}\PYG{o}{.}\PYG{n}{calculate\PYGZus{}metrics}\PYG{p}{(}\PYG{n}{y}\PYG{p}{,} \PYG{n}{X}\PYG{p}{,} \PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{HL\PYGZhy{}H}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{HL\PYGZhy{}C}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{]}\PYG{p}{,}\PYG{n}{return\PYGZus{}numpy}\PYG{o}{=}\PYG{k+kc}{True}\PYG{p}{,} \PYG{n}{df} \PYG{o}{=} \PYG{l+m+mi}{10}\PYG{p}{)}
+        \PYG{n}{results}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n}{tempresult}\PYG{p}{)}
+\PYG{n}{results} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{array}\PYG{p}{(}\PYG{n}{results}\PYG{p}{)}
+
+\PYG{n}{hl\PYGZus{}h\PYGZus{}pvalue} \PYG{o}{=} \PYG{n}{results}\PYG{p}{[}\PYG{p}{:}\PYG{p}{,}\PYG{l+m+mi}{1}\PYG{p}{]}
+\PYG{n}{hl\PYGZus{}c\PYGZus{}pvalue} \PYG{o}{=} \PYG{n}{results}\PYG{p}{[}\PYG{p}{:}\PYG{p}{,}\PYG{l+m+mi}{3}\PYG{p}{]}
+\PYG{n}{size\PYGZus{}h} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{mean}\PYG{p}{(}\PYG{n}{hl\PYGZus{}h\PYGZus{}pvalue} \PYG{o}{\PYGZlt{}} \PYG{l+m+mf}{0.05}\PYG{p}{)}
+\PYG{n}{size\PYGZus{}c} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{mean}\PYG{p}{(}\PYG{n}{hl\PYGZus{}c\PYGZus{}pvalue} \PYG{o}{\PYGZlt{}} \PYG{l+m+mf}{0.05}\PYG{p}{)}
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{The size of HL\PYGZhy{}H with df=M is :}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,} \PYG{n+nb}{round}\PYG{p}{(}\PYG{n}{size\PYGZus{}h}\PYG{p}{,}\PYG{l+m+mi}{3}\PYG{p}{)}\PYG{p}{)}
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{The size of HL\PYGZhy{}C with df=M  is :}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,} \PYG{n+nb}{round}\PYG{p}{(}\PYG{n}{size\PYGZus{}c}\PYG{p}{,}\PYG{l+m+mi}{3}\PYG{p}{)}\PYG{p}{)}
+\end{sphinxVerbatim}
+}
+
+\end{sphinxuseclass}
+\begin{sphinxuseclass}{nboutput}
+\begin{sphinxuseclass}{nblast}
+{
+
+\kern-\sphinxverbatimsmallskipamount\kern-\baselineskip
+\kern+\FrameHeightAdjust\kern-\fboxrule
+\vspace{\nbsphinxcodecellspacing}
+
+\sphinxsetup{VerbatimColor={named}{white}}
+\begin{sphinxuseclass}{output_area}
+\begin{sphinxuseclass}{}
+
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+The size of HL-H with df=M is : 0.047
+The size of HL-C with df=M  is : 0.055
+\end{sphinxVerbatim}
+
+
+
+\end{sphinxuseclass}
+\end{sphinxuseclass}
+}
+
+\end{sphinxuseclass}
+\end{sphinxuseclass}
 
 \section{Reference}
 \label{\detokenize{notebooks/hl_test:Reference}}
@@ -3843,7 +3912,7 @@ in the input structured array. It’s useful for bootstrap or Monte Carlo simula
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{calzone:calzone.metrics.hosmer_lemeshow_test}}
 \pysigstartsignatures
-\pysiglinewithargsret{\sphinxcode{\sphinxupquote{calzone.metrics.}}\sphinxbfcode{\sphinxupquote{hosmer\_lemeshow\_test}}}{\sphinxparam{\DUrole{n}{reliability}}\sphinxparamcomma \sphinxparam{\DUrole{n}{confidence}}\sphinxparamcomma \sphinxparam{\DUrole{n}{bin\_count}}\sphinxparamcomma \sphinxparam{\DUrole{n}{df}\DUrole{o}{=}\DUrole{default_value}{None}}}{}
+\pysiglinewithargsret{\sphinxcode{\sphinxupquote{calzone.metrics.}}\sphinxbfcode{\sphinxupquote{hosmer\_lemeshow\_test}}}{\sphinxparam{\DUrole{n}{reliability}}\sphinxparamcomma \sphinxparam{\DUrole{n}{confidence}}\sphinxparamcomma \sphinxparam{\DUrole{n}{bin\_count}}\sphinxparamcomma \sphinxparam{\DUrole{n}{df}\DUrole{o}{=}\DUrole{default_value}{None}}\sphinxparamcomma \sphinxparam{\DUrole{o}{**}\DUrole{n}{kwargs}}}{}
 \pysigstopsignatures
 \sphinxAtStartPar
 Compute the Hosmer\sphinxhyphen{}Lemeshow test for goodness of fit.

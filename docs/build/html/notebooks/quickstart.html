@@ -191,7 +191,8 @@ usage: cal_metrics.py [-h] [--csv_file CSV_FILE] [--metrics METRICS]
                       [--prevalence_adjustment] [--n_bootstrap N_BOOTSTRAP]
                       [--bootstrap_ci BOOTSTRAP_CI]
                       [--class_to_calculate CLASS_TO_CALCULATE]
-                      [--num_bins NUM_BINS] [--topclass]
+                      [--num_bins NUM_BINS]
+                      [--hl_test_validation HL_TEST_VALIDATION] [--topclass]
                       [--save_metrics SAVE_METRICS] [--plot]
                       [--plot_bins PLOT_BINS] [--save_plot SAVE_PLOT]
                       [--save_diagram_output SAVE_DIAGRAM_OUTPUT] [--verbose]
@@ -218,6 +219,9 @@ options:
                         Class to calculate metrics for (default: 1)
   --num_bins NUM_BINS   Number of bins for ECE/MCE/HL calculations (default:
                         10)
+  --hl_test_validation HL_TEST_VALIDATION
+                        Using nbin instead of nbin-2 as HL test DOF. Use it if
+                        the dataset is validation set.
   --topclass            Whether to transform the problem to top-class problem.
   --save_metrics SAVE_METRICS
                         Save the metrics to a csv file
@@ -225,7 +229,8 @@ options:
   --plot_bins PLOT_BINS
                         Number of bins for reliability diagram
   --save_plot SAVE_PLOT
-                        Save the plot to a file
+                        Save the plot to a file. Must end with valid image
+                        formats.
   --save_diagram_output SAVE_DIAGRAM_OUTPUT
                         Save the reliability diagram output to a file
   --verbose             Print verbose output
@@ -250,6 +255,7 @@ options:
 <span class="o">--</span><span class="n">save_diagram_output</span> <span class="s1">&#39;../../../example_data/simulated_welldata_diagram_output.csv&#39;</span>
 <span class="c1">### save_diagram_output only when you want to save the reliability diagram output</span>
 <span class="c1">#--prevalence_adjustment # only when you want to apply prevalence adjustment</span>
+<span class="c1">#--hl_test_validation #use it only when the data is from validation set</span>
 </pre></div>
 </div>
 </div>

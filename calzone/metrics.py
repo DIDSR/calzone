@@ -16,7 +16,7 @@ import statsmodels.nonparametric.smoothers_lowess as lowess
 import numpy.lib.recfunctions as rf
 import contextlib
 
-def hosmer_lemeshow_test(reliability, confidence, bin_count, df=None):
+def hosmer_lemeshow_test(reliability, confidence, bin_count, df=None, **kwargs):
     """
     Compute the Hosmer-Lemeshow test for goodness of fit.
 
@@ -546,7 +546,7 @@ class CalibrationMetrics:
                     results["MCE-H"] = mce_h_class
                 elif metric == "HL-H":
                     hl_h_score, hl_h, _ = hosmer_lemeshow_test(
-                        acc_H_class, confidence_H_class, bin_count_H_class
+                        acc_H_class, confidence_H_class, bin_count_H_class, **kwargs
                     )
                     results["HL-H score"] = hl_h_score
                     results["HL-H p-value"] = hl_h
@@ -591,7 +591,7 @@ class CalibrationMetrics:
                     results["MCE-C"] = mce_c_class
                 elif metric == "HL-C":
                     hl_c_score, hl_c, _ = hosmer_lemeshow_test(
-                        acc_C_class, confidence_C_class, bin_count_C_class
+                        acc_C_class, confidence_C_class, bin_count_C_class, **kwargs
                     )
                     results["HL-C score"] = hl_c_score
                     results["HL-C p-value"] = hl_c

@@ -105,7 +105,7 @@
 
 <div class="viewcode-block" id="hosmer_lemeshow_test">
 <a class="viewcode-back" href="../../calzone.html#calzone.metrics.hosmer_lemeshow_test">[docs]</a>
-<span class="k">def</span> <span class="nf">hosmer_lemeshow_test</span><span class="p">(</span><span class="n">reliability</span><span class="p">,</span> <span class="n">confidence</span><span class="p">,</span> <span class="n">bin_count</span><span class="p">,</span> <span class="n">df</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">hosmer_lemeshow_test</span><span class="p">(</span><span class="n">reliability</span><span class="p">,</span> <span class="n">confidence</span><span class="p">,</span> <span class="n">bin_count</span><span class="p">,</span> <span class="n">df</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Compute the Hosmer-Lemeshow test for goodness of fit.</span>
 
@@ -667,7 +667,7 @@
                     <span class="n">results</span><span class="p">[</span><span class="s2">&quot;MCE-H&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">mce_h_class</span>
                 <span class="k">elif</span> <span class="n">metric</span> <span class="o">==</span> <span class="s2">&quot;HL-H&quot;</span><span class="p">:</span>
                     <span class="n">hl_h_score</span><span class="p">,</span> <span class="n">hl_h</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">hosmer_lemeshow_test</span><span class="p">(</span>
-                        <span class="n">acc_H_class</span><span class="p">,</span> <span class="n">confidence_H_class</span><span class="p">,</span> <span class="n">bin_count_H_class</span>
+                        <span class="n">acc_H_class</span><span class="p">,</span> <span class="n">confidence_H_class</span><span class="p">,</span> <span class="n">bin_count_H_class</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
                     <span class="p">)</span>
                     <span class="n">results</span><span class="p">[</span><span class="s2">&quot;HL-H score&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">hl_h_score</span>
                     <span class="n">results</span><span class="p">[</span><span class="s2">&quot;HL-H p-value&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">hl_h</span>
@@ -712,7 +712,7 @@
                     <span class="n">results</span><span class="p">[</span><span class="s2">&quot;MCE-C&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">mce_c_class</span>
                 <span class="k">elif</span> <span class="n">metric</span> <span class="o">==</span> <span class="s2">&quot;HL-C&quot;</span><span class="p">:</span>
                     <span class="n">hl_c_score</span><span class="p">,</span> <span class="n">hl_c</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">hosmer_lemeshow_test</span><span class="p">(</span>
-                        <span class="n">acc_C_class</span><span class="p">,</span> <span class="n">confidence_C_class</span><span class="p">,</span> <span class="n">bin_count_C_class</span>
+                        <span class="n">acc_C_class</span><span class="p">,</span> <span class="n">confidence_C_class</span><span class="p">,</span> <span class="n">bin_count_C_class</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
                     <span class="p">)</span>
                     <span class="n">results</span><span class="p">[</span><span class="s2">&quot;HL-C score&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">hl_c_score</span>
                     <span class="n">results</span><span class="p">[</span><span class="s2">&quot;HL-C p-value&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">hl_c</span>

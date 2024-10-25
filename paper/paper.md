@@ -89,7 +89,7 @@ plot_reliability_diagram(
 `calzone` provides functions to compute various calibration metrics. `calzone` also has a `CalibrationMetrics()` class which allows the user to compute the calibration metrics in a more convenient way. The following are the metrics that are currently supported in `calzone`: 
 
 ### Expected Calibration Error (ECE) and Maximum Calibration Error (MCE)
-Expected Calibration Error (ECE), Maximum Calibration Error (MCE) and binning-based methods [@guo_calibration;@Naeini_ece] aim to measure the average deviation between predicted probability and true probability. We provide the option to use equal-width binning or equal-frequency binning, labeled as ECE-H and ECE-C respectively. Users can also choose to compute the metrics for the class-of-interest or the top-class. In the case of class-of-interest, the program will treat it as a 1-vs-rest classification problem. It can be computed in `calzone` as follows:
+Expected Calibration Error (ECE), Maximum Calibration Error (MCE) and binning-based methods [@guo_calibration;@Naeini_ece] aim to measure the average deviation between predicted probability and true probability. We provide the option to use equal-width binning or equal-count binning, labeled as ECE-H and ECE-C respectively. Users can also choose to compute the metrics for the class-of-interest or the top-class. In the case of class-of-interest, the program will treat it as a 1-vs-rest classification problem. It can be computed in `calzone` as follows:
 
 ```python
 from calzone.metrics import calculate_ece_mce
@@ -125,6 +125,7 @@ HL_H_ts, HL_H_p, df = hosmer_lemeshow_test(
     bin_count=bin_counts
 )
 ```
+When performing HL test on validation set that are not used in training, we observed from simulation that the degree of freedom of HL test changes from $M-2$ to $M$ but we currently do not have a proof to it but allows the user to choose the degree of freedom in the program.
 
 
 ### Cox's calibration slope/intercept
@@ -142,7 +143,7 @@ cox_slope, cox_intercept, cox_slope_ci, cox_intercept_ci = cox_regression_analys
     fix_slope=True
 )
 ```
-The values of the slope and intercept give you a sense of the form of miscalibration. A slope greater than 1 indicates that the model is overconfident at high probabilities and underconfident at low probabilities, and vice versa. An intercept greater than 0 indicates that the model is overconfident in general, and vice versa. Notice that even if the slope is 1 and the intercept is 0, the model might not be calibrated, as Cox's calibration analysis fails to capture some types of miscalibration.
+The values of the slope and intercept give you a sense of the form of miscalibration. A slope greater than 1 indicates that the model is overconfident at high probabilities and underconfident at low probabilities, and vice versa. An intercept greater than 0 indicates that the model is overconfident in general, and vice versa. Notice that even if the slope is 1 and the intercept is 0, the model might not be calibrated, as Cox's calibration analysis fails to capture some types of miscalibration, including quadratic effects or other non-linearities.
 
 ### Integrated calibration index (ICI)
 
