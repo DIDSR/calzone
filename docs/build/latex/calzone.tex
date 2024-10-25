@@ -1358,7 +1358,7 @@ In order to calculate the Hosmer\sphinxhyphen{}Lemeshow test statistic, we need 
 \end{equation*}
 \sphinxAtStartPar
 where \(E_{1,m}\) is the expected number of class 1 events in the \(\text{m}^{th}\) bin, \(O_{1,m}\) is the observed number of class 1 events in the \(\text{m}^{th}\) bin, \(N_m\) is the total number of observations in the \(\text{m}^{th}\) bin, and \(M\) is the number of bins. The HL test statistic is distributed as a chi\sphinxhyphen{}squared distribution with \(M-2\) degrees of freedom. We can then use this test statistic to calculate the p\sphinxhyphen{}value for the test and determine
-whether we can reject the null hypothesis that the model is well\sphinxhyphen{}calibrated. Notice that the degree of freedom of HL test is \(M-2\) by default but some literature suggests that the degree of freedom should be \(M\) instead when the samples is not used for training. We provides the option to specify the degree of freedom in the \sphinxcode{\sphinxupquote{calzone}}. The default value is still \(M-2\).
+whether we can reject the null hypothesis that the model is well\sphinxhyphen{}calibrated. Notice that the degree of freedom of HL test is \(M-2\) by default but sthe degree of freedom should be \(M\) instead when the samples is not used for training. We provides the option to specify the degree of freedom in the \sphinxcode{\sphinxupquote{calzone}}. The default value is still \(M-2\).
 
 
 \section{Pros of HL test}
@@ -1393,7 +1393,8 @@ There are again two ways to calculate the HL test statistics and p\sphinxhyphen{
 \PYG{c+c1}{\PYGZsh{}\PYGZsh{}\PYGZsh{} calculating the HL\PYGZhy{}H TS}
 \PYG{n}{reliability}\PYG{p}{,}\PYG{n}{confindence}\PYG{p}{,}\PYG{n}{bin\PYGZus{}edges}\PYG{p}{,}\PYG{n}{bin\PYGZus{}counts} \PYG{o}{=} \PYG{n}{reliability\PYGZus{}diagram}\PYG{p}{(}\PYG{n}{wellcal\PYGZus{}dataloader}\PYG{o}{.}\PYG{n}{labels}\PYG{p}{,}\PYG{n}{wellcal\PYGZus{}dataloader}\PYG{o}{.}\PYG{n}{probs}\PYG{p}{,}\PYG{n}{num\PYGZus{}bins}\PYG{o}{=}\PYG{l+m+mi}{10}\PYG{p}{,} \PYG{n}{class\PYGZus{}to\PYGZus{}plot}\PYG{o}{=}\PYG{l+m+mi}{1}\PYG{p}{,} \PYG{n}{is\PYGZus{}equal\PYGZus{}freq}\PYG{o}{=}\PYG{k+kc}{False}\PYG{p}{)}
 
-\PYG{n}{HL\PYGZus{}H\PYGZus{}ts}\PYG{p}{,}\PYG{n}{HL\PYGZus{}H\PYGZus{}p}\PYG{p}{,}\PYG{n}{df} \PYG{o}{=} \PYG{n}{hosmer\PYGZus{}lemeshow\PYGZus{}test}\PYG{p}{(}\PYG{n}{reliability}\PYG{p}{,}\PYG{n}{confindence}\PYG{p}{,}\PYG{n}{bin\PYGZus{}count}\PYG{o}{=}\PYG{n}{bin\PYGZus{}counts}\PYG{p}{)}
+\PYG{c+c1}{\PYGZsh{}df = 10 instead 8 since it is validation data}
+\PYG{n}{HL\PYGZus{}H\PYGZus{}ts}\PYG{p}{,}\PYG{n}{HL\PYGZus{}H\PYGZus{}p}\PYG{p}{,}\PYG{n}{df} \PYG{o}{=} \PYG{n}{hosmer\PYGZus{}lemeshow\PYGZus{}test}\PYG{p}{(}\PYG{n}{reliability}\PYG{p}{,}\PYG{n}{confindence}\PYG{p}{,}\PYG{n}{bin\PYGZus{}count}\PYG{o}{=}\PYG{n}{bin\PYGZus{}counts}\PYG{p}{,} \PYG{n}{df}\PYG{o}{=}\PYG{l+m+mi}{10}\PYG{p}{)}
 \PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{HL\PYGZhy{}H Test Statistic: }\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,}\PYG{n}{HL\PYGZus{}H\PYGZus{}ts}\PYG{p}{)}
 \PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{HL\PYGZhy{}H p\PYGZhy{}value: }\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,}\PYG{n}{HL\PYGZus{}H\PYGZus{}p}\PYG{p}{)}
 \end{sphinxVerbatim}
@@ -1415,7 +1416,7 @@ There are again two ways to calculate the HL test statistics and p\sphinxhyphen{
 
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 HL-H Test Statistic:  8.884991559088098
-HL-H p-value:  0.35209071874348785
+HL-H p-value:  0.5430520576015005
 \end{sphinxVerbatim}
 
 
@@ -1432,7 +1433,7 @@ HL-H p-value:  0.35209071874348785
 \llap{\color{nbsphinxin}[2]:\,\hspace{\fboxrule}\hspace{\fboxsep}}\PYG{c+c1}{\PYGZsh{}\PYGZsh{}\PYGZsh{} similar for HL\PYGZhy{}C model}
 \PYG{n}{reliability}\PYG{p}{,}\PYG{n}{confindence}\PYG{p}{,}\PYG{n}{bin\PYGZus{}edges}\PYG{p}{,}\PYG{n}{bin\PYGZus{}counts} \PYG{o}{=} \PYG{n}{reliability\PYGZus{}diagram}\PYG{p}{(}\PYG{n}{wellcal\PYGZus{}dataloader}\PYG{o}{.}\PYG{n}{labels}\PYG{p}{,}\PYG{n}{wellcal\PYGZus{}dataloader}\PYG{o}{.}\PYG{n}{probs}\PYG{p}{,}\PYG{n}{num\PYGZus{}bins}\PYG{o}{=}\PYG{l+m+mi}{10}\PYG{p}{,} \PYG{n}{class\PYGZus{}to\PYGZus{}plot}\PYG{o}{=}\PYG{l+m+mi}{1}\PYG{p}{,} \PYG{n}{is\PYGZus{}equal\PYGZus{}freq}\PYG{o}{=}\PYG{k+kc}{True}\PYG{p}{)}
 
-\PYG{n}{HL\PYGZus{}C\PYGZus{}ts}\PYG{p}{,}\PYG{n}{HL\PYGZus{}C\PYGZus{}p}\PYG{p}{,}\PYG{n}{df} \PYG{o}{=} \PYG{n}{hosmer\PYGZus{}lemeshow\PYGZus{}test}\PYG{p}{(}\PYG{n}{reliability}\PYG{p}{,}\PYG{n}{confindence}\PYG{p}{,}\PYG{n}{bin\PYGZus{}count}\PYG{o}{=}\PYG{n}{bin\PYGZus{}counts}\PYG{p}{)}
+\PYG{n}{HL\PYGZus{}C\PYGZus{}ts}\PYG{p}{,}\PYG{n}{HL\PYGZus{}C\PYGZus{}p}\PYG{p}{,}\PYG{n}{df} \PYG{o}{=} \PYG{n}{hosmer\PYGZus{}lemeshow\PYGZus{}test}\PYG{p}{(}\PYG{n}{reliability}\PYG{p}{,}\PYG{n}{confindence}\PYG{p}{,}\PYG{n}{bin\PYGZus{}count}\PYG{o}{=}\PYG{n}{bin\PYGZus{}counts}\PYG{p}{,} \PYG{n}{df}\PYG{o}{=}\PYG{l+m+mi}{10}\PYG{p}{)}
 \PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{HL\PYGZhy{}C Test Statistic: }\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,}\PYG{n}{HL\PYGZus{}C\PYGZus{}ts}\PYG{p}{)}
 \PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{HL\PYGZhy{}C p\PYGZhy{}value: }\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,}\PYG{n}{HL\PYGZus{}C\PYGZus{}p}\PYG{p}{)}
 \end{sphinxVerbatim}
@@ -1454,7 +1455,7 @@ HL-H p-value:  0.35209071874348785
 
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 HL-C Test Statistic:  3.694947603203135
-HL-C p-value:  0.8835446575708198
+HL-C p-value:  0.9600610057855211
 \end{sphinxVerbatim}
 
 
@@ -1474,7 +1475,7 @@ We can see the result from equal\sphinxhyphen{}width binning and equal\sphinxhyp
 \llap{\color{nbsphinxin}[3]:\,\hspace{\fboxrule}\hspace{\fboxsep}}\PYG{c+c1}{\PYGZsh{}\PYGZsh{}\PYGZsh{} using the CalibrationMetrics class}
 \PYG{k+kn}{from} \PYG{n+nn}{calzone}\PYG{n+nn}{.}\PYG{n+nn}{metrics} \PYG{k+kn}{import} \PYG{n}{CalibrationMetrics}
 \PYG{n}{calmetrics} \PYG{o}{=} \PYG{n}{CalibrationMetrics}\PYG{p}{(}\PYG{n}{class\PYGZus{}to\PYGZus{}calculate}\PYG{o}{=}\PYG{l+m+mi}{1}\PYG{p}{)}
-\PYG{n}{calmetrics}\PYG{o}{.}\PYG{n}{calculate\PYGZus{}metrics}\PYG{p}{(}\PYG{n}{wellcal\PYGZus{}dataloader}\PYG{o}{.}\PYG{n}{labels}\PYG{p}{,} \PYG{n}{wellcal\PYGZus{}dataloader}\PYG{o}{.}\PYG{n}{probs}\PYG{p}{,} \PYG{n}{metrics}\PYG{o}{=}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{HL\PYGZhy{}H}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{HL\PYGZhy{}C}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{]}\PYG{p}{)}
+\PYG{n}{calmetrics}\PYG{o}{.}\PYG{n}{calculate\PYGZus{}metrics}\PYG{p}{(}\PYG{n}{wellcal\PYGZus{}dataloader}\PYG{o}{.}\PYG{n}{labels}\PYG{p}{,} \PYG{n}{wellcal\PYGZus{}dataloader}\PYG{o}{.}\PYG{n}{probs}\PYG{p}{,} \PYG{n}{metrics}\PYG{o}{=}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{HL\PYGZhy{}H}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{HL\PYGZhy{}C}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{]}\PYG{p}{,}\PYG{n}{df}\PYG{o}{=}\PYG{l+m+mi}{10}\PYG{p}{)}
 \end{sphinxVerbatim}
 }
 
@@ -1494,9 +1495,9 @@ We can see the result from equal\sphinxhyphen{}width binning and equal\sphinxhyp
 
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 \llap{\color{nbsphinxout}[3]:\,\hspace{\fboxrule}\hspace{\fboxsep}}\{'HL-H score': 8.884991559088098,
- 'HL-H p-value': 0.35209071874348785,
+ 'HL-H p-value': 0.5430520576015005,
  'HL-C score': 3.694947603203135,
- 'HL-C p-value': 0.8835446575708198\}
+ 'HL-C p-value': 0.9600610057855211\}
 \end{sphinxVerbatim}
 
 
@@ -1529,11 +1530,11 @@ We will show the size of HL test. Notice that the size of HL test had been shown
 \PYG{k}{for} \PYG{n}{i} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{n}{simulation\PYGZus{}size}\PYG{p}{)}\PYG{p}{:}
     \PYG{n}{X}\PYG{p}{,} \PYG{n}{y} \PYG{o}{=} \PYG{n}{fakedata\PYGZus{}generator}\PYG{o}{.}\PYG{n}{generate\PYGZus{}data}\PYG{p}{(}\PYG{n}{sample\PYGZus{}size}\PYG{p}{)}
     \PYG{k}{if} \PYG{n}{i} \PYG{o}{==} \PYG{l+m+mi}{0}\PYG{p}{:}
-        \PYG{n}{tempresult} \PYG{o}{=} \PYG{n}{cal\PYGZus{}metrics}\PYG{o}{.}\PYG{n}{calculate\PYGZus{}metrics}\PYG{p}{(}\PYG{n}{y}\PYG{p}{,} \PYG{n}{X}\PYG{p}{,} \PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{HL\PYGZhy{}H}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{HL\PYGZhy{}C}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{]}\PYG{p}{,}\PYG{n}{return\PYGZus{}numpy}\PYG{o}{=}\PYG{k+kc}{False}\PYG{p}{)}
+        \PYG{n}{tempresult} \PYG{o}{=} \PYG{n}{cal\PYGZus{}metrics}\PYG{o}{.}\PYG{n}{calculate\PYGZus{}metrics}\PYG{p}{(}\PYG{n}{y}\PYG{p}{,} \PYG{n}{X}\PYG{p}{,} \PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{HL\PYGZhy{}H}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{HL\PYGZhy{}C}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{]}\PYG{p}{,}\PYG{n}{return\PYGZus{}numpy}\PYG{o}{=}\PYG{k+kc}{False}\PYG{p}{,} \PYG{n}{df}\PYG{o}{=}\PYG{l+m+mi}{10}\PYG{p}{)}
         \PYG{n}{keys} \PYG{o}{=} \PYG{n+nb}{list}\PYG{p}{(}\PYG{n}{tempresult}\PYG{o}{.}\PYG{n}{keys}\PYG{p}{(}\PYG{p}{)}\PYG{p}{)}
         \PYG{n}{results}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n}{np}\PYG{o}{.}\PYG{n}{array}\PYG{p}{(}\PYG{n+nb}{list}\PYG{p}{(}\PYG{n}{tempresult}\PYG{o}{.}\PYG{n}{values}\PYG{p}{(}\PYG{p}{)}\PYG{p}{)}\PYG{p}{)}\PYG{p}{)}
     \PYG{k}{else}\PYG{p}{:}
-        \PYG{n}{tempresult} \PYG{o}{=} \PYG{n}{cal\PYGZus{}metrics}\PYG{o}{.}\PYG{n}{calculate\PYGZus{}metrics}\PYG{p}{(}\PYG{n}{y}\PYG{p}{,} \PYG{n}{X}\PYG{p}{,} \PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{HL\PYGZhy{}H}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{HL\PYGZhy{}C}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{]}\PYG{p}{,}\PYG{n}{return\PYGZus{}numpy}\PYG{o}{=}\PYG{k+kc}{True}\PYG{p}{)}
+        \PYG{n}{tempresult} \PYG{o}{=} \PYG{n}{cal\PYGZus{}metrics}\PYG{o}{.}\PYG{n}{calculate\PYGZus{}metrics}\PYG{p}{(}\PYG{n}{y}\PYG{p}{,} \PYG{n}{X}\PYG{p}{,} \PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{HL\PYGZhy{}H}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{HL\PYGZhy{}C}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{]}\PYG{p}{,}\PYG{n}{return\PYGZus{}numpy}\PYG{o}{=}\PYG{k+kc}{True}\PYG{p}{,} \PYG{n}{df}\PYG{o}{=}\PYG{l+m+mi}{10}\PYG{p}{)}
         \PYG{n}{results}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n}{tempresult}\PYG{p}{)}
 \PYG{n}{results} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{array}\PYG{p}{(}\PYG{n}{results}\PYG{p}{)}
 \end{sphinxVerbatim}
@@ -1570,8 +1571,8 @@ We will show the size of HL test. Notice that the size of HL test had been shown
 
 
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
-The size of HL-H is : 0.117
-The size of HL-C is : 0.116
+The size of HL-H is : 0.047
+The size of HL-C is : 0.055
 \end{sphinxVerbatim}
 
 
@@ -1693,71 +1694,8 @@ The size of HL-C is : 0.116
 \end{sphinxuseclass}
 \end{sphinxuseclass}
 \sphinxAtStartPar
-We can see that both the equal\sphinxhyphen{}width and the equal\sphinxhyphen{}count method have the incorrect size. The simulation support the claim that the degree of freedom should be M instead of M\sphinxhyphen{}2. We can show it with simulation. We are not proving the claim here since it is beyond the scope of this documentation.
+We can see the equal\sphinxhyphen{}width and equal\sphinxhyphen{}count binning gives a different result.
 
-\begin{sphinxuseclass}{nbinput}
-{
-\begin{sphinxVerbatim}[commandchars=\\\{\}]
-\llap{\color{nbsphinxin}[6]:\,\hspace{\fboxrule}\hspace{\fboxsep}}\PYG{c+c1}{\PYGZsh{}\PYGZsh{}\PYGZsh{} The size of HL Test}
-\PYG{k+kn}{from} \PYG{n+nn}{calzone}\PYG{n+nn}{.}\PYG{n+nn}{utils} \PYG{k+kn}{import} \PYG{n}{fake\PYGZus{}binary\PYGZus{}data\PYGZus{}generator}
-\PYG{k+kn}{from} \PYG{n+nn}{importlib} \PYG{k+kn}{import} \PYG{n}{reload}
-\PYG{k+kn}{import} \PYG{n+nn}{calzone}\PYG{n+nn}{.}\PYG{n+nn}{metrics}
-\PYG{n}{reload}\PYG{p}{(}\PYG{n}{calzone}\PYG{o}{.}\PYG{n}{metrics}\PYG{p}{)}
-\PYG{k+kn}{from} \PYG{n+nn}{calzone}\PYG{n+nn}{.}\PYG{n+nn}{metrics} \PYG{k+kn}{import} \PYG{n}{CalibrationMetrics}
-\PYG{n}{np}\PYG{o}{.}\PYG{n}{random}\PYG{o}{.}\PYG{n}{seed}\PYG{p}{(}\PYG{l+m+mi}{123}\PYG{p}{)}
-\PYG{n}{fakedata\PYGZus{}generator} \PYG{o}{=} \PYG{n}{fake\PYGZus{}binary\PYGZus{}data\PYGZus{}generator}\PYG{p}{(}\PYG{n}{alpha\PYGZus{}val}\PYG{o}{=}\PYG{l+m+mf}{0.5}\PYG{p}{,} \PYG{n}{beta\PYGZus{}val}\PYG{o}{=}\PYG{l+m+mf}{0.5}\PYG{p}{)}
-\PYG{n}{cal\PYGZus{}metrics} \PYG{o}{=} \PYG{n}{CalibrationMetrics}\PYG{p}{(}\PYG{p}{)}
-\PYG{n}{sample\PYGZus{}size} \PYG{o}{=} \PYG{l+m+mi}{1000}
-\PYG{n}{simulation\PYGZus{}size} \PYG{o}{=} \PYG{l+m+mi}{10000}
-\PYG{n}{results} \PYG{o}{=} \PYG{p}{[}\PYG{p}{]}
-\PYG{c+c1}{\PYGZsh{} generate data}
-\PYG{k}{for} \PYG{n}{i} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{n}{simulation\PYGZus{}size}\PYG{p}{)}\PYG{p}{:}
-    \PYG{n}{X}\PYG{p}{,} \PYG{n}{y} \PYG{o}{=} \PYG{n}{fakedata\PYGZus{}generator}\PYG{o}{.}\PYG{n}{generate\PYGZus{}data}\PYG{p}{(}\PYG{n}{sample\PYGZus{}size}\PYG{p}{)}
-    \PYG{k}{if} \PYG{n}{i} \PYG{o}{==} \PYG{l+m+mi}{0}\PYG{p}{:}
-        \PYG{n}{tempresult} \PYG{o}{=} \PYG{n}{cal\PYGZus{}metrics}\PYG{o}{.}\PYG{n}{calculate\PYGZus{}metrics}\PYG{p}{(}\PYG{n}{y}\PYG{p}{,} \PYG{n}{X}\PYG{p}{,} \PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{HL\PYGZhy{}H}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{HL\PYGZhy{}C}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{]}\PYG{p}{,}\PYG{n}{return\PYGZus{}numpy}\PYG{o}{=}\PYG{k+kc}{False}\PYG{p}{,} \PYG{n}{df} \PYG{o}{=} \PYG{l+m+mi}{10}\PYG{p}{)}
-        \PYG{n}{keys} \PYG{o}{=} \PYG{n+nb}{list}\PYG{p}{(}\PYG{n}{tempresult}\PYG{o}{.}\PYG{n}{keys}\PYG{p}{(}\PYG{p}{)}\PYG{p}{)}
-        \PYG{n}{results}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n}{np}\PYG{o}{.}\PYG{n}{array}\PYG{p}{(}\PYG{n+nb}{list}\PYG{p}{(}\PYG{n}{tempresult}\PYG{o}{.}\PYG{n}{values}\PYG{p}{(}\PYG{p}{)}\PYG{p}{)}\PYG{p}{)}\PYG{p}{)}
-    \PYG{k}{else}\PYG{p}{:}
-        \PYG{n}{tempresult} \PYG{o}{=} \PYG{n}{cal\PYGZus{}metrics}\PYG{o}{.}\PYG{n}{calculate\PYGZus{}metrics}\PYG{p}{(}\PYG{n}{y}\PYG{p}{,} \PYG{n}{X}\PYG{p}{,} \PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{HL\PYGZhy{}H}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{HL\PYGZhy{}C}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{]}\PYG{p}{,}\PYG{n}{return\PYGZus{}numpy}\PYG{o}{=}\PYG{k+kc}{True}\PYG{p}{,} \PYG{n}{df} \PYG{o}{=} \PYG{l+m+mi}{10}\PYG{p}{)}
-        \PYG{n}{results}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n}{tempresult}\PYG{p}{)}
-\PYG{n}{results} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{array}\PYG{p}{(}\PYG{n}{results}\PYG{p}{)}
-
-\PYG{n}{hl\PYGZus{}h\PYGZus{}pvalue} \PYG{o}{=} \PYG{n}{results}\PYG{p}{[}\PYG{p}{:}\PYG{p}{,}\PYG{l+m+mi}{1}\PYG{p}{]}
-\PYG{n}{hl\PYGZus{}c\PYGZus{}pvalue} \PYG{o}{=} \PYG{n}{results}\PYG{p}{[}\PYG{p}{:}\PYG{p}{,}\PYG{l+m+mi}{3}\PYG{p}{]}
-\PYG{n}{size\PYGZus{}h} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{mean}\PYG{p}{(}\PYG{n}{hl\PYGZus{}h\PYGZus{}pvalue} \PYG{o}{\PYGZlt{}} \PYG{l+m+mf}{0.05}\PYG{p}{)}
-\PYG{n}{size\PYGZus{}c} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{mean}\PYG{p}{(}\PYG{n}{hl\PYGZus{}c\PYGZus{}pvalue} \PYG{o}{\PYGZlt{}} \PYG{l+m+mf}{0.05}\PYG{p}{)}
-\PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{The size of HL\PYGZhy{}H with df=M is :}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,} \PYG{n+nb}{round}\PYG{p}{(}\PYG{n}{size\PYGZus{}h}\PYG{p}{,}\PYG{l+m+mi}{3}\PYG{p}{)}\PYG{p}{)}
-\PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{The size of HL\PYGZhy{}C with df=M  is :}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,} \PYG{n+nb}{round}\PYG{p}{(}\PYG{n}{size\PYGZus{}c}\PYG{p}{,}\PYG{l+m+mi}{3}\PYG{p}{)}\PYG{p}{)}
-\end{sphinxVerbatim}
-}
-
-\end{sphinxuseclass}
-\begin{sphinxuseclass}{nboutput}
-\begin{sphinxuseclass}{nblast}
-{
-
-\kern-\sphinxverbatimsmallskipamount\kern-\baselineskip
-\kern+\FrameHeightAdjust\kern-\fboxrule
-\vspace{\nbsphinxcodecellspacing}
-
-\sphinxsetup{VerbatimColor={named}{white}}
-\begin{sphinxuseclass}{output_area}
-\begin{sphinxuseclass}{}
-
-
-\begin{sphinxVerbatim}[commandchars=\\\{\}]
-The size of HL-H with df=M is : 0.047
-The size of HL-C with df=M  is : 0.055
-\end{sphinxVerbatim}
-
-
-
-\end{sphinxuseclass}
-\end{sphinxuseclass}
-}
-
-\end{sphinxuseclass}
-\end{sphinxuseclass}
 
 \section{Reference}
 \label{\detokenize{notebooks/hl_test:Reference}}

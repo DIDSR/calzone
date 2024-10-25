@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2024.10.4)  25 OCT 2024 10:42
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2024.10.4)  25 OCT 2024 17:05
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1030,26 +1030,23 @@ Chapter 5.
 <notebooks_hl_test_13_1.png, id=498, 409.7709pt x 327.3831pt>
 File: notebooks_hl_test_13_1.png Graphic file (type png)
 <use notebooks_hl_test_13_1.png>
-Package pdftex.def Info: notebooks_hl_test_13_1.png  used on input line 1632.
+Package pdftex.def Info: notebooks_hl_test_13_1.png  used on input line 1633.
 (pdftex.def)             Requested size: 426.85823pt x 341.02489pt.
 <notebooks_hl_test_14_1.png, id=499, 409.7709pt x 327.3831pt>
 File: notebooks_hl_test_14_1.png Graphic file (type png)
 <use notebooks_hl_test_14_1.png>
-Package pdftex.def Info: notebooks_hl_test_14_1.png  used on input line 1687.
+Package pdftex.def Info: notebooks_hl_test_14_1.png  used on input line 1688.
 (pdftex.def)             Requested size: 426.85823pt x 341.02489pt.
 
-Underfull \vbox (badness 10000) detected at line 1691
+Underfull \vbox (badness 10000) detected at line 1692
  []
 
-[32 <./notebooks_hl_test_13_1.png>]
-Underfull \vbox (badness 2932) detected at line 1731
- []
+[32 <./notebooks_hl_test_13_1.png>] [33 <./notebooks_hl_test_14_1.png>]
+[34
 
-[33 <./notebooks_hl_test_14_1.png>] [34]
+]
 Chapter 6.
-[35
-
-] [36] [37] [38] [39] [40
+[35] [36] [37] [38] [39] [40
 
 ]
 Chapter 7.
@@ -1057,7 +1054,7 @@ Chapter 7.
 <notebooks_ici_8_1.png, id=555, 409.7709pt x 327.3831pt>
 File: notebooks_ici_8_1.png Graphic file (type png)
 <use notebooks_ici_8_1.png>
-Package pdftex.def Info: notebooks_ici_8_1.png  used on input line 2414.
+Package pdftex.def Info: notebooks_ici_8_1.png  used on input line 2352.
 (pdftex.def)             Requested size: 426.85823pt x 341.02489pt.
  [44 <./notebooks_ici_8_1.png>]
 Chapter 8.
@@ -1068,10 +1065,10 @@ Chapter 8.
 File: notebooks_spiegelhalter_z_9_1.png Graphic file (type png)
 <use notebooks_spiegelhalter_z_9_1.png>
 Package pdftex.def Info: notebooks_spiegelhalter_z_9_1.png  used on input line 
-2684.
+2622.
 (pdftex.def)             Requested size: 426.85823pt x 341.02489pt.
 
-Underfull \vbox (badness 10000) detected at line 2688
+Underfull \vbox (badness 10000) detected at line 2626
  []
 
 [47] [48 <./notebooks_spiegelhalter_z_9_1.png>]
@@ -1081,17 +1078,17 @@ Chapter 9.
 ] [50] [51] [52]
 Chapter 10.
 
-Overfull \vbox (0.92192pt too high) detected at line 3114
+Overfull \vbox (0.92192pt too high) detected at line 3052
  []
 
 [53
 
 ] [54]
-Underfull \vbox (badness 10000) detected at line 3222
+Underfull \vbox (badness 10000) detected at line 3160
  []
 
 
-Overfull \vbox (3.52196pt too high) detected at line 3222
+Overfull \vbox (3.52196pt too high) detected at line 3160
  []
 
 [55] [56]
@@ -1099,16 +1096,16 @@ Chapter 11.
 <notebooks_topclass_2_0.png, id=621, 507.3354pt x 393.8715pt>
 File: notebooks_topclass_2_0.png Graphic file (type png)
 <use notebooks_topclass_2_0.png>
-Package pdftex.def Info: notebooks_topclass_2_0.png  used on input line 3290.
+Package pdftex.def Info: notebooks_topclass_2_0.png  used on input line 3228.
 (pdftex.def)             Requested size: 469.77333pt x 364.72809pt.
 
-Underfull \vbox (badness 10000) detected at line 3294
+Underfull \vbox (badness 10000) detected at line 3232
  []
 
 [57
 
 ]
-Underfull \vbox (badness 10000) detected at line 3342
+Underfull \vbox (badness 10000) detected at line 3280
  []
 
 [58 <./notebooks_topclass_2_0.png>] [59] [60
@@ -1124,14 +1121,14 @@ LaTeX Font Info:    Font shape `TS1/txtt/m/it' in size <10> not available
 (Font)              Font shape `TS1/txtt/m/sl' tried instead on input line 1.
  [64]
 LaTeX Font Info:    Trying to load font information for U+fontawesomefree1 on i
-nput line 3662.
+nput line 3600.
 
 (/usr/share/texlive/texmf-dist/tex/latex/fontawesome5/ufontawesomefree1.fd)
-Overfull \vbox (0.52995pt too high) detected at line 3725
+Overfull \vbox (0.52995pt too high) detected at line 3663
  []
 
 [65] [66] [67] [68] [69] [70]
-Overfull \hbox (73.01103pt too wide) in paragraph at lines 4445--4449
+Overfull \hbox (73.01103pt too wide) in paragraph at lines 4383--4387
 []\T1/qtm/m/n/10 Note: - If there is a header, it must be in the for-mat: proba
 _0,proba_1,...,subgroup_1(optional),subgroup_2(optional),...,label
  []
@@ -1259,15 +1256,15 @@ Underfull \hbox (badness 10000) in paragraph at lines 116--118
 [80
 
 ])
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 5093.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 5093.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 5031.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 5031.
  (./calzone.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 5093.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 5093.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 5031.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 5031.
 
 Package rerunfilecheck Info: File `calzone.out' has not changed.
 (rerunfilecheck)             Checksum: 0B3B85C9FAD9148DEFDEF8B454953F20;11017.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 5093.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 5031.
  ) 
 Here is how much of TeX's memory you used:
  18988 strings out of 481239
@@ -1300,7 +1297,7 @@ fonts/type1/public/tex-gyre/qtmri.pfb></usr/share/texlive/texmf-dist/fonts/type
 xfonts/t1xtt.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/txfonts/t1xt
 t.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/txfonts/tcxtt.pfb></usr
 /share/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb>
-Output written on calzone.pdf (84 pages, 1437732 bytes).
+Output written on calzone.pdf (84 pages, 1437776 bytes).
 PDF statistics:
  953 PDF objects out of 1000 (max. 8388607)
  799 compressed objects within 8 object streams

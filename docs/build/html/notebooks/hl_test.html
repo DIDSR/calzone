@@ -108,7 +108,7 @@ widely used in the literature and industry since it is simple to implement and i
 <div class="math notranslate nohighlight">
 \[\text{HL} = \sum_{m=1}^{M} \left[\frac{(O_{1,m}-E_{1,m})^2}{E_{1,m}} + \frac{(O_{0,m}-E_{0,m})^2}{E_{0,m}}\right]  = \sum_{m=1}^{M} \frac{(O_{1,m}-E_{1,m})^2}{E_{1,m}(1-\frac{E_{1,m}}{N_m})} \sim \chi^2_{M-2}\]</div>
 <p>where <span class="math notranslate nohighlight">\(E_{1,m}\)</span> is the expected number of class 1 events in the <span class="math notranslate nohighlight">\(\text{m}^{th}\)</span> bin, <span class="math notranslate nohighlight">\(O_{1,m}\)</span> is the observed number of class 1 events in the <span class="math notranslate nohighlight">\(\text{m}^{th}\)</span> bin, <span class="math notranslate nohighlight">\(N_m\)</span> is the total number of observations in the <span class="math notranslate nohighlight">\(\text{m}^{th}\)</span> bin, and <span class="math notranslate nohighlight">\(M\)</span> is the number of bins. The HL test statistic is distributed as a chi-squared distribution with <span class="math notranslate nohighlight">\(M-2\)</span> degrees of freedom. We can then use this test statistic to calculate the p-value for the test and determine
-whether we can reject the null hypothesis that the model is well-calibrated. Notice that the degree of freedom of HL test is <span class="math notranslate nohighlight">\(M-2\)</span> by default but some literature suggests that the degree of freedom should be <span class="math notranslate nohighlight">\(M\)</span> instead when the samples is not used for training. We provides the option to specify the degree of freedom in the <code class="docutils literal notranslate"><span class="pre">calzone</span></code>. The default value is still <span class="math notranslate nohighlight">\(M-2\)</span>.</p>
+whether we can reject the null hypothesis that the model is well-calibrated. Notice that the degree of freedom of HL test is <span class="math notranslate nohighlight">\(M-2\)</span> by default but sthe degree of freedom should be <span class="math notranslate nohighlight">\(M\)</span> instead when the samples is not used for training. We provides the option to specify the degree of freedom in the <code class="docutils literal notranslate"><span class="pre">calzone</span></code>. The default value is still <span class="math notranslate nohighlight">\(M-2\)</span>.</p>
 </section>
 <section id="Pros-of-HL-test">
 <h2>Pros of HL test<a class="headerlink" href="#Pros-of-HL-test" title="Link to this heading"></a></h2>
@@ -137,7 +137,8 @@ is still a useful tool to quickly check the calibration of a model and provide a
 <span class="c1">### calculating the HL-H TS</span>
 <span class="n">reliability</span><span class="p">,</span><span class="n">confindence</span><span class="p">,</span><span class="n">bin_edges</span><span class="p">,</span><span class="n">bin_counts</span> <span class="o">=</span> <span class="n">reliability_diagram</span><span class="p">(</span><span class="n">wellcal_dataloader</span><span class="o">.</span><span class="n">labels</span><span class="p">,</span><span class="n">wellcal_dataloader</span><span class="o">.</span><span class="n">probs</span><span class="p">,</span><span class="n">num_bins</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">class_to_plot</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">is_equal_freq</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
-<span class="n">HL_H_ts</span><span class="p">,</span><span class="n">HL_H_p</span><span class="p">,</span><span class="n">df</span> <span class="o">=</span> <span class="n">hosmer_lemeshow_test</span><span class="p">(</span><span class="n">reliability</span><span class="p">,</span><span class="n">confindence</span><span class="p">,</span><span class="n">bin_count</span><span class="o">=</span><span class="n">bin_counts</span><span class="p">)</span>
+<span class="c1">#df = 10 instead 8 since it is validation data</span>
+<span class="n">HL_H_ts</span><span class="p">,</span><span class="n">HL_H_p</span><span class="p">,</span><span class="n">df</span> <span class="o">=</span> <span class="n">hosmer_lemeshow_test</span><span class="p">(</span><span class="n">reliability</span><span class="p">,</span><span class="n">confindence</span><span class="p">,</span><span class="n">bin_count</span><span class="o">=</span><span class="n">bin_counts</span><span class="p">,</span> <span class="n">df</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;HL-H Test Statistic: &quot;</span><span class="p">,</span><span class="n">HL_H_ts</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;HL-H p-value: &quot;</span><span class="p">,</span><span class="n">HL_H_p</span><span class="p">)</span>
 </pre></div>
@@ -149,7 +150,7 @@ is still a useful tool to quickly check the calibration of a model and provide a
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 HL-H Test Statistic:  8.884991559088098
-HL-H p-value:  0.35209071874348785
+HL-H p-value:  0.5430520576015005
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
@@ -159,7 +160,7 @@ HL-H p-value:  0.35209071874348785
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### similar for HL-C model</span>
 <span class="n">reliability</span><span class="p">,</span><span class="n">confindence</span><span class="p">,</span><span class="n">bin_edges</span><span class="p">,</span><span class="n">bin_counts</span> <span class="o">=</span> <span class="n">reliability_diagram</span><span class="p">(</span><span class="n">wellcal_dataloader</span><span class="o">.</span><span class="n">labels</span><span class="p">,</span><span class="n">wellcal_dataloader</span><span class="o">.</span><span class="n">probs</span><span class="p">,</span><span class="n">num_bins</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">class_to_plot</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">is_equal_freq</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-<span class="n">HL_C_ts</span><span class="p">,</span><span class="n">HL_C_p</span><span class="p">,</span><span class="n">df</span> <span class="o">=</span> <span class="n">hosmer_lemeshow_test</span><span class="p">(</span><span class="n">reliability</span><span class="p">,</span><span class="n">confindence</span><span class="p">,</span><span class="n">bin_count</span><span class="o">=</span><span class="n">bin_counts</span><span class="p">)</span>
+<span class="n">HL_C_ts</span><span class="p">,</span><span class="n">HL_C_p</span><span class="p">,</span><span class="n">df</span> <span class="o">=</span> <span class="n">hosmer_lemeshow_test</span><span class="p">(</span><span class="n">reliability</span><span class="p">,</span><span class="n">confindence</span><span class="p">,</span><span class="n">bin_count</span><span class="o">=</span><span class="n">bin_counts</span><span class="p">,</span> <span class="n">df</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;HL-C Test Statistic: &quot;</span><span class="p">,</span><span class="n">HL_C_ts</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;HL-C p-value: &quot;</span><span class="p">,</span><span class="n">HL_C_p</span><span class="p">)</span>
 </pre></div>
@@ -171,7 +172,7 @@ HL-H p-value:  0.35209071874348785
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 HL-C Test Statistic:  3.694947603203135
-HL-C p-value:  0.8835446575708198
+HL-C p-value:  0.9600610057855211
 </pre></div></div>
 </div>
 <p>We can see the result from equal-width binning and equal-count binning are different. We will demostrate how to use the calzone.metrics.CalibrationMetrics class.</p>
@@ -182,7 +183,7 @@ HL-C p-value:  0.8835446575708198
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### using the CalibrationMetrics class</span>
 <span class="kn">from</span> <span class="nn">calzone.metrics</span> <span class="kn">import</span> <span class="n">CalibrationMetrics</span>
 <span class="n">calmetrics</span> <span class="o">=</span> <span class="n">CalibrationMetrics</span><span class="p">(</span><span class="n">class_to_calculate</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">calmetrics</span><span class="o">.</span><span class="n">calculate_metrics</span><span class="p">(</span><span class="n">wellcal_dataloader</span><span class="o">.</span><span class="n">labels</span><span class="p">,</span> <span class="n">wellcal_dataloader</span><span class="o">.</span><span class="n">probs</span><span class="p">,</span> <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;HL-H&#39;</span><span class="p">,</span> <span class="s1">&#39;HL-C&#39;</span><span class="p">])</span>
+<span class="n">calmetrics</span><span class="o">.</span><span class="n">calculate_metrics</span><span class="p">(</span><span class="n">wellcal_dataloader</span><span class="o">.</span><span class="n">labels</span><span class="p">,</span> <span class="n">wellcal_dataloader</span><span class="o">.</span><span class="n">probs</span><span class="p">,</span> <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;HL-H&#39;</span><span class="p">,</span> <span class="s1">&#39;HL-C&#39;</span><span class="p">],</span><span class="n">df</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -193,9 +194,9 @@ HL-C p-value:  0.8835446575708198
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 {&#39;HL-H score&#39;: 8.884991559088098,
- &#39;HL-H p-value&#39;: 0.35209071874348785,
+ &#39;HL-H p-value&#39;: 0.5430520576015005,
  &#39;HL-C score&#39;: 3.694947603203135,
- &#39;HL-C p-value&#39;: 0.8835446575708198}
+ &#39;HL-C p-value&#39;: 0.9600610057855211}
 </pre></div></div>
 </div>
 </section>
@@ -218,11 +219,11 @@ HL-C p-value:  0.8835446575708198
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">simulation_size</span><span class="p">):</span>
     <span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">fakedata_generator</span><span class="o">.</span><span class="n">generate_data</span><span class="p">(</span><span class="n">sample_size</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="n">tempresult</span> <span class="o">=</span> <span class="n">cal_metrics</span><span class="o">.</span><span class="n">calculate_metrics</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;HL-H&#39;</span><span class="p">,</span> <span class="s1">&#39;HL-C&#39;</span><span class="p">],</span><span class="n">return_numpy</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">tempresult</span> <span class="o">=</span> <span class="n">cal_metrics</span><span class="o">.</span><span class="n">calculate_metrics</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;HL-H&#39;</span><span class="p">,</span> <span class="s1">&#39;HL-C&#39;</span><span class="p">],</span><span class="n">return_numpy</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">df</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
         <span class="n">keys</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">tempresult</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
         <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">tempresult</span><span class="o">.</span><span class="n">values</span><span class="p">())))</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">tempresult</span> <span class="o">=</span> <span class="n">cal_metrics</span><span class="o">.</span><span class="n">calculate_metrics</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;HL-H&#39;</span><span class="p">,</span> <span class="s1">&#39;HL-C&#39;</span><span class="p">],</span><span class="n">return_numpy</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">tempresult</span> <span class="o">=</span> <span class="n">cal_metrics</span><span class="o">.</span><span class="n">calculate_metrics</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;HL-H&#39;</span><span class="p">,</span> <span class="s1">&#39;HL-C&#39;</span><span class="p">],</span><span class="n">return_numpy</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">df</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
         <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tempresult</span><span class="p">)</span>
 <span class="n">results</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
 </pre></div>
@@ -248,8 +249,8 @@ HL-C p-value:  0.8835446575708198
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-The size of HL-H is : 0.117
-The size of HL-C is : 0.116
+The size of HL-H is : 0.047
+The size of HL-C is : 0.055
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
@@ -310,53 +311,7 @@ Text(0.5, 1.0, &#39;P-value distribution of the HL test&#39;)
 <img alt="../_images/notebooks_hl_test_14_1.png" src="../_images/notebooks_hl_test_14_1.png" />
 </div>
 </div>
-<p>We can see that both the equal-width and the equal-count method have the incorrect size. The simulation support the claim that the degree of freedom should be M instead of M-2. We can show it with simulation. We are not proving the claim here since it is beyond the scope of this documentation.</p>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### The size of HL Test</span>
-<span class="kn">from</span> <span class="nn">calzone.utils</span> <span class="kn">import</span> <span class="n">fake_binary_data_generator</span>
-<span class="kn">from</span> <span class="nn">importlib</span> <span class="kn">import</span> <span class="n">reload</span>
-<span class="kn">import</span> <span class="nn">calzone.metrics</span>
-<span class="n">reload</span><span class="p">(</span><span class="n">calzone</span><span class="o">.</span><span class="n">metrics</span><span class="p">)</span>
-<span class="kn">from</span> <span class="nn">calzone.metrics</span> <span class="kn">import</span> <span class="n">CalibrationMetrics</span>
-<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">123</span><span class="p">)</span>
-<span class="n">fakedata_generator</span> <span class="o">=</span> <span class="n">fake_binary_data_generator</span><span class="p">(</span><span class="n">alpha_val</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">beta_val</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
-<span class="n">cal_metrics</span> <span class="o">=</span> <span class="n">CalibrationMetrics</span><span class="p">()</span>
-<span class="n">sample_size</span> <span class="o">=</span> <span class="mi">1000</span>
-<span class="n">simulation_size</span> <span class="o">=</span> <span class="mi">10000</span>
-<span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="c1"># generate data</span>
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">simulation_size</span><span class="p">):</span>
-    <span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">fakedata_generator</span><span class="o">.</span><span class="n">generate_data</span><span class="p">(</span><span class="n">sample_size</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="n">tempresult</span> <span class="o">=</span> <span class="n">cal_metrics</span><span class="o">.</span><span class="n">calculate_metrics</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;HL-H&#39;</span><span class="p">,</span> <span class="s1">&#39;HL-C&#39;</span><span class="p">],</span><span class="n">return_numpy</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">df</span> <span class="o">=</span> <span class="mi">10</span><span class="p">)</span>
-        <span class="n">keys</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">tempresult</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
-        <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">tempresult</span><span class="o">.</span><span class="n">values</span><span class="p">())))</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">tempresult</span> <span class="o">=</span> <span class="n">cal_metrics</span><span class="o">.</span><span class="n">calculate_metrics</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;HL-H&#39;</span><span class="p">,</span> <span class="s1">&#39;HL-C&#39;</span><span class="p">],</span><span class="n">return_numpy</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">df</span> <span class="o">=</span> <span class="mi">10</span><span class="p">)</span>
-        <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tempresult</span><span class="p">)</span>
-<span class="n">results</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
-
-<span class="n">hl_h_pvalue</span> <span class="o">=</span> <span class="n">results</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span>
-<span class="n">hl_c_pvalue</span> <span class="o">=</span> <span class="n">results</span><span class="p">[:,</span><span class="mi">3</span><span class="p">]</span>
-<span class="n">size_h</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">hl_h_pvalue</span> <span class="o">&lt;</span> <span class="mf">0.05</span><span class="p">)</span>
-<span class="n">size_c</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">hl_c_pvalue</span> <span class="o">&lt;</span> <span class="mf">0.05</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The size of HL-H with df=M is :&quot;</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">size_h</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The size of HL-C with df=M  is :&quot;</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">size_c</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>
-</pre></div>
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-The size of HL-H with df=M is : 0.047
-The size of HL-C with df=M  is : 0.055
-</pre></div></div>
-</div>
+<p>We can see the equal-width and equal-count binning gives a different result.</p>
 </section>
 <section id="Reference">
 <h2>Reference<a class="headerlink" href="#Reference" title="Link to this heading"></a></h2>
