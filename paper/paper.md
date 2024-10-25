@@ -125,8 +125,7 @@ HL_H_ts, HL_H_p, df = hosmer_lemeshow_test(
     bin_count=bin_counts
 )
 ```
-When performing HL test on validation set that are not used in training, we observed from simulation that the degree of freedom of HL test changes from $M-2$ to $M$ but we currently do not have a proof to it but allows the user to choose the degree of freedom in the program.
-
+When performing the HL test on validation sets that are not used in training, the degree of freedom of the HL test changes from $M-2$ to $M$. Intuitively, $\frac{(O_{1,m}-E_{1,m})^2}{E_{1,m}(1-\frac{E_{1,m}}{N_m})}$ is the difference squared divided by the variance of a binomial distribution and follows a chi-square distribution with 1 degree of freedom. Hence, the sum of $M$ chi-square distributions with 1 degree of freedom is a chi-square distribution with $M$ degrees of freedom if the data has no effect on the model. In `calzone`, user can sepecify the degree of freedom of the HL test by setting the `df` parameter.
 
 ### Cox's calibration slope/intercept
 Cox's calibration slope/intercept is a non-parametric method for assessing the calibration of a probabilistic model [@Cox]. A new logistic regression model is fitted to the data, with the predicted odds ($\frac{p}{1-p}$) as the dependent variable and the true probability as the independent variable. The slope and intercept of the regression line are then used to assess the calibration of the model. A slope of 1 and intercept of 0 indicates perfect calibration. To test whether the model is calibrated, fix the slope to 1 and fit the intercept. If the intercept is significantly different from 0, the model is not calibrated. Then, fix the intercept to 0 and fit the slope. If the slope is significantly different from 1, the model is not calibrated.
