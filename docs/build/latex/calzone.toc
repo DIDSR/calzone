@@ -50,12 +50,15 @@
 \contentsline {chapter}{\numberline {10}Subgroup analysis}{53}{chapter.10}%
 \contentsline {chapter}{\numberline {11}Multiclass extension}{57}{chapter.11}%
 \contentsline {chapter}{\numberline {12}Running GUI}{61}{chapter.12}%
-\contentsline {chapter}{\numberline {13}calzone}{63}{chapter.13}%
-\contentsline {section}{\numberline {13.1}calzone package}{63}{section.13.1}%
-\contentsline {subsection}{\numberline {13.1.1}Submodules}{63}{subsection.13.1.1}%
-\contentsline {subsection}{\numberline {13.1.2}calzone.metrics module}{63}{subsection.13.1.2}%
-\contentsline {subsection}{\numberline {13.1.3}calzone.utils module}{69}{subsection.13.1.3}%
-\contentsline {subsection}{\numberline {13.1.4}calzone.vis module}{75}{subsection.13.1.4}%
-\contentsline {subsection}{\numberline {13.1.5}Module contents}{76}{subsection.13.1.5}%
-\contentsline {chapter}{Python Module Index}{77}{section*.48}%
-\contentsline {chapter}{Index}{79}{section*.49}%
+\contentsline {chapter}{\numberline {13}Validating metrics with external packages}{63}{chapter.13}%
+\contentsline {section}{\numberline {13.1}Reliability diagram}{63}{section.13.1}%
+\contentsline {section}{\numberline {13.2}Expected calibration error and Z test}{64}{section.13.2}%
+\contentsline {chapter}{\numberline {14}calzone}{67}{chapter.14}%
+\contentsline {section}{\numberline {14.1}calzone package}{67}{section.14.1}%
+\contentsline {subsection}{\numberline {14.1.1}Submodules}{67}{subsection.14.1.1}%
+\contentsline {subsection}{\numberline {14.1.2}calzone.metrics module}{67}{subsection.14.1.2}%
+\contentsline {subsection}{\numberline {14.1.3}calzone.utils module}{73}{subsection.14.1.3}%
+\contentsline {subsection}{\numberline {14.1.4}calzone.vis module}{79}{subsection.14.1.4}%
+\contentsline {subsection}{\numberline {14.1.5}Module contents}{80}{subsection.14.1.5}%
+\contentsline {chapter}{Python Module Index}{81}{section*.48}%
+\contentsline {chapter}{Index}{83}{section*.49}%

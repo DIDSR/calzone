@@ -42,4 +42,5 @@ We hope you find calzone useful in your machine learning projects!
    notebooks/subgroup.ipynb
    notebooks/topclass.ipynb
    notebooks/GUI.ipynb
+   notebooks/validation.ipynb
    modules

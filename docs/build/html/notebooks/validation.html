@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Validating metrics with external packages &mdash; calzone develop documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../_static/nbsphinx-code-cells.css?v=2aa19091" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=16816911"></script>
+        <script src="../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="calzone" href="../modules.html" />
+    <link rel="prev" title="Running GUI" href="GUI.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            calzone
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Welcome to the documentation for calzone</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="metrics_summary.html">Summary and guide for calzone</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reliability_diagram.html">Reliability diagram</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ece_mce.html">Exepected Calibration Error(ECE) and Maximum Calibration Error (MCE)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hl_test.html">Hosmer-Lemeshow test (HL test)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cox.html">COX calibration analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ici.html">Integrated Calibration Index (ICI)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="spiegelhalter_z.html">Spiegelhalter’s Z-test</a></li>
+<li class="toctree-l1"><a class="reference internal" href="prevalence_adjustment.html">Prevalence adjustment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="subgroup.html">Subgroup analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="topclass.html">Multiclass extension</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GUI.html">Running GUI</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Validating metrics with external packages</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#Reliability-diagram">Reliability diagram</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Expected-calibration-error-and-Z-test">Expected calibration error and Z test</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../modules.html">calzone</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">calzone</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Validating metrics with external packages</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/notebooks/validation.ipynb.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="Validating-metrics-with-external-packages">
+<h1>Validating metrics with external packages<a class="headerlink" href="#Validating-metrics-with-external-packages" title="Link to this heading"></a></h1>
+<p>In this notebook, we want to validate the metrics we have implemented in the <code class="docutils literal notranslate"><span class="pre">calzone</span></code> package using other packages or programs.</p>
+<section id="Reliability-diagram">
+<h2>Reliability diagram<a class="headerlink" href="#Reliability-diagram" title="Link to this heading"></a></h2>
+<p>We will use scikit-learn’s <code class="docutils literal notranslate"><span class="pre">calibration_curve</span></code> function to calculate the reliability diagram</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[46]:
+</pre></div>
+</div>
+<div class="input_area highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">from</span><span class="w"> </span><span class="n">calzone.utils</span><span class="w"> </span><span class="n">import</span><span class="w"> </span><span class="n">reliability_diagram</span><span class="p">,</span><span class="n">data_loader</span>
+<span class="n">from</span><span class="w"> </span><span class="n">calzone.metrics</span><span class="w"> </span><span class="n">import</span><span class="w"> </span><span class="n">calculate_ece_mce</span><span class="p">,</span><span class="n">hosmer_lemeshow_test</span>
+<span class="n">import</span><span class="w"> </span><span class="n">numpy</span><span class="w"> </span><span class="n">as</span><span class="w"> </span><span class="n">np</span>
+<span class="n">from</span><span class="w"> </span><span class="n">sklearn.calibration</span><span class="w"> </span><span class="n">import</span><span class="w"> </span><span class="n">calibration_curve</span>
+<span class="c1">### loading the data</span>
+<span class="n">wellcal_dataloader</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">data_loader</span><span class="p">(</span><span class="n">data_path</span><span class="o">=</span><span class="s">&quot;../../../example_data/simulated_welldata.csv&quot;</span><span class="p">)</span>
+
+<span class="n">scikit_reliability_H</span><span class="p">,</span><span class="n">scikit_confidence_H</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">calibration_curve</span><span class="p">(</span><span class="n">wellcal_dataloader.labels</span><span class="p">,</span><span class="n">wellcal_dataloader.probs</span><span class="p">[</span><span class="o">:</span><span class="p">,</span><span class="m">1</span><span class="p">],</span><span class="n">n_bins</span><span class="o">=</span><span class="m">15</span><span class="p">,</span><span class="n">strategy</span><span class="o">=</span><span class="s">&#39;uniform&#39;</span><span class="p">,</span><span class="n">pos_label</span><span class="o">=</span><span class="m">1</span><span class="p">)</span>
+<span class="n">scikit_reliability_C</span><span class="p">,</span><span class="n">scikit_confidence_C</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">calibration_curve</span><span class="p">(</span><span class="n">wellcal_dataloader.labels</span><span class="p">,</span><span class="n">wellcal_dataloader.probs</span><span class="p">[</span><span class="o">:</span><span class="p">,</span><span class="m">1</span><span class="p">],</span><span class="n">n_bins</span><span class="o">=</span><span class="m">15</span><span class="p">,</span><span class="n">strategy</span><span class="o">=</span><span class="s">&#39;quantile&#39;</span><span class="p">,</span><span class="n">pos_label</span><span class="o">=</span><span class="m">1</span><span class="p">)</span>
+<span class="n">calzone_reliability_H</span><span class="p">,</span><span class="n">calzone_confindence_H</span><span class="p">,</span><span class="n">bin_edge_H</span><span class="p">,</span><span class="n">bin_count_H</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">reliability_diagram</span><span class="p">(</span><span class="n">wellcal_dataloader.labels</span><span class="p">,</span><span class="n">wellcal_dataloader.probs</span><span class="p">,</span><span class="n">num_bins</span><span class="o">=</span><span class="m">15</span><span class="p">,</span><span class="w"> </span><span class="n">class_to_plot</span><span class="o">=</span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="n">is_equal_freq</span><span class="o">=</span><span class="n">False</span><span class="p">)</span>
+<span class="n">calzone_reliability_C</span><span class="p">,</span><span class="n">calzone_confindence_C</span><span class="p">,</span><span class="n">bin_edge_C</span><span class="p">,</span><span class="n">bin_count_C</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">reliability_diagram</span><span class="p">(</span><span class="n">wellcal_dataloader.labels</span><span class="p">,</span><span class="n">wellcal_dataloader.probs</span><span class="p">,</span><span class="n">num_bins</span><span class="o">=</span><span class="m">15</span><span class="p">,</span><span class="w"> </span><span class="n">class_to_plot</span><span class="o">=</span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="n">is_equal_freq</span><span class="o">=</span><span class="n">True</span><span class="p">)</span>
+
+<span class="nf">print</span><span class="p">(</span><span class="s">&quot;Difference for uniform/histogram binning:&quot;</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="s">&quot;Reliability difference:&quot;</span><span class="p">,</span><span class="w"> </span><span class="nf">np.round</span><span class="p">(</span><span class="nf">np.abs</span><span class="p">(</span><span class="n">scikit_reliability_H</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">calzone_reliability_H</span><span class="p">),</span><span class="w"> </span><span class="m">5</span><span class="p">))</span>
+<span class="nf">print</span><span class="p">(</span><span class="s">&quot;Confidence difference:&quot;</span><span class="p">,</span><span class="w"> </span><span class="nf">np.round</span><span class="p">(</span><span class="nf">np.abs</span><span class="p">(</span><span class="n">scikit_confidence_H</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">calzone_confindence_H</span><span class="p">),</span><span class="w"> </span><span class="m">5</span><span class="p">))</span>
+<span class="nf">print</span><span class="p">(</span><span class="s">&quot;\nDifference for quantile/equal frequency binning:&quot;</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="s">&quot;Reliability difference:&quot;</span><span class="p">,</span><span class="w"> </span><span class="nf">np.round</span><span class="p">(</span><span class="nf">np.abs</span><span class="p">(</span><span class="n">scikit_reliability_C</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">calzone_reliability_C</span><span class="p">),</span><span class="w"> </span><span class="m">5</span><span class="p">))</span>
+<span class="nf">print</span><span class="p">(</span><span class="s">&quot;Confidence difference:&quot;</span><span class="p">,</span><span class="w"> </span><span class="nf">np.round</span><span class="p">(</span><span class="nf">np.abs</span><span class="p">(</span><span class="n">scikit_confidence_C</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">calzone_confindence_C</span><span class="p">),</span><span class="w"> </span><span class="m">5</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Difference for uniform/histogram binning:
+Reliability difference: [0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+Confidence difference: [0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+
+Difference for quantile/equal frequency binning:
+Reliability difference: [1.e-05 0.e+00 0.e+00 0.e+00 0.e+00 0.e+00 0.e+00 0.e+00 0.e+00 0.e+00
+ 0.e+00 0.e+00 0.e+00 0.e+00 0.e+00]
+Confidence difference: [1.e-05 0.e+00 0.e+00 0.e+00 0.e+00 0.e+00 0.e+00 0.e+00 0.e+00 0.e+00
+ 0.e+00 0.e+00 0.e+00 0.e+00 0.e+00]
+</pre></div></div>
+</div>
+<p>We can see that the <code class="docutils literal notranslate"><span class="pre">calzone</span></code> package return the same Reliability diagram as the <code class="docutils literal notranslate"><span class="pre">sckit-learn</span></code> package. We will move to test the expected calibration error.</p>
+</section>
+<section id="Expected-calibration-error-and-Z-test">
+<h2>Expected calibration error and Z test<a class="headerlink" href="#Expected-calibration-error-and-Z-test" title="Link to this heading"></a></h2>
+<p>We will use <code class="docutils literal notranslate"><span class="pre">mapie</span></code> package to validate some of the metrics in <code class="docutils literal notranslate"><span class="pre">calzone</span></code>. Description of <code class="docutils literal notranslate"><span class="pre">mapie</span></code> can be found <a class="reference external" href="https://github.com/scikit-learn-contrib/MAPIE/tree/master">here</a>.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[43]:
+</pre></div>
+</div>
+<div class="input_area highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">from</span><span class="w"> </span><span class="n">mapie.metrics</span><span class="w"> </span><span class="n">import</span><span class="w"> </span><span class="n">spiegelhalter_p_value</span><span class="p">,</span><span class="n">top_label_ece</span><span class="p">,</span><span class="n">spiegelhalter_statistic</span>
+<span class="n">from</span><span class="w"> </span><span class="n">calzone.metrics</span><span class="w"> </span><span class="n">import</span><span class="w"> </span><span class="n">spiegelhalter_z_test</span>
+<span class="n">calzone_reliability_topclass_H</span><span class="p">,</span><span class="n">calzone_confindence_topclass_H</span><span class="p">,</span><span class="n">bin_edge_topclass_H</span><span class="p">,</span><span class="n">bin_count_topclass_H</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">reliability_diagram</span><span class="p">(</span><span class="n">wellcal_dataloader.labels</span><span class="p">,</span><span class="n">wellcal_dataloader.probs</span><span class="p">,</span><span class="n">num_bins</span><span class="o">=</span><span class="m">15</span><span class="p">,</span><span class="w"> </span><span class="n">class_to_plot</span><span class="o">=</span><span class="n">None</span><span class="p">,</span><span class="w"> </span><span class="n">is_equal_freq</span><span class="o">=</span><span class="n">False</span><span class="p">)</span>
+<span class="n">calzone_reliability_topclass_C</span><span class="p">,</span><span class="n">calzone_confindence_topclass_C</span><span class="p">,</span><span class="n">bin_edge_topclass_C</span><span class="p">,</span><span class="n">bin_count_topclass_C</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">reliability_diagram</span><span class="p">(</span><span class="n">wellcal_dataloader.labels</span><span class="p">,</span><span class="n">wellcal_dataloader.probs</span><span class="p">,</span><span class="n">num_bins</span><span class="o">=</span><span class="m">15</span><span class="p">,</span><span class="w"> </span><span class="n">class_to_plot</span><span class="o">=</span><span class="n">None</span><span class="p">,</span><span class="w"> </span><span class="n">is_equal_freq</span><span class="o">=</span><span class="n">True</span><span class="p">)</span>
+
+<span class="nf">print</span><span class="p">(</span><span class="s">&quot;MAPIE topclass ECE-H:&quot;</span><span class="p">,</span><span class="nf">top_label_ece</span><span class="p">(</span><span class="n">wellcal_dataloader.labels</span><span class="p">,</span><span class="n">wellcal_dataloader.probs</span><span class="p">,</span><span class="n">num_bins</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">15</span><span class="p">,</span><span class="n">split_strategy</span><span class="o">=</span><span class="s">&#39;uniform&#39;</span><span class="p">))</span>
+<span class="nf">print</span><span class="p">(</span><span class="s">&quot;calzone topclass ECE-H:&quot;</span><span class="p">,</span><span class="nf">calculate_ece_mce</span><span class="p">(</span><span class="n">calzone_reliability_topclass_H</span><span class="p">,</span><span class="n">calzone_confindence_topclass_H</span><span class="p">,</span><span class="n">bin_count_topclass_H</span><span class="p">)[</span><span class="m">0</span><span class="p">])</span>
+<br/></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+MAPIE topclass ECE-H: 0.009092291386189822
+calzone topclass ECE-H: 0.009098499582108283
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[40]:
+</pre></div>
+</div>
+<div class="input_area highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">print</span><span class="p">(</span><span class="s">&quot;MAPIE topclass ECE-C:&quot;</span><span class="p">,</span><span class="nf">top_label_ece</span><span class="p">(</span><span class="n">wellcal_dataloader.labels</span><span class="p">,</span><span class="n">wellcal_dataloader.probs</span><span class="p">,</span><span class="n">num_bins</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">15</span><span class="p">,</span><span class="n">split_strategy</span><span class="o">=</span><span class="s">&#39;quantile&#39;</span><span class="p">))</span>
+<span class="nf">print</span><span class="p">(</span><span class="s">&quot;calzone topclass ECE-C:&quot;</span><span class="p">,</span><span class="nf">calculate_ece_mce</span><span class="p">(</span><span class="n">calzone_reliability_topclass_C</span><span class="p">,</span><span class="n">calzone_confindence_topclass_C</span><span class="p">,</span><span class="n">bin_count_topclass_C</span><span class="p">)[</span><span class="m">0</span><span class="p">])</span>
+<br/></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+MAPIE topclass ECE-C: 0.016227424850494457
+calzone topclass ECE-C: 0.016263864264387196
+</pre></div></div>
+</div>
+<p>We can see that both package return a very similar result for ECE. We will also move to validate spiegelhalter’s z test. We found out that the <code class="docutils literal notranslate"><span class="pre">mapie</span></code> package incorrectly calculates the p-value by using a one-sided test. Therefore, we will only compare the test statistic but not the p-value.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[45]:
+</pre></div>
+</div>
+<div class="input_area highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">print</span><span class="p">(</span><span class="s">&quot;MAPIE Z statistic&quot;</span><span class="p">,</span><span class="w"> </span><span class="nf">spiegelhalter_statistic</span><span class="p">(</span><span class="n">wellcal_dataloader.labels</span><span class="p">,</span><span class="n">wellcal_dataloader.probs</span><span class="p">[</span><span class="o">:</span><span class="p">,</span><span class="m">1</span><span class="p">]))</span>
+<span class="nf">print</span><span class="p">(</span><span class="s">&quot;calzone Z statistic&quot;</span><span class="p">,</span><span class="w"> </span><span class="nf">spiegelhalter_z_test</span><span class="p">(</span><span class="n">wellcal_dataloader.labels</span><span class="p">,</span><span class="n">wellcal_dataloader.probs</span><span class="p">)[</span><span class="m">0</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+MAPIE Z statistic 0.3763269161877356
+calzone Z statistic 0.3763269161877356
+</pre></div></div>
+</div>
+<p>For other metrics, we could not find any external packages that could be used to cross validate our implementation. However, we perform some test for type 1 error rate for cox slope and intercept and both return sensible values. For the ICI, we compare it with empirical ECE and found they are very similar. Lastly, we will use a quick r code to calculate the HL test test statistic to make sure it is correct.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[51]:
+</pre></div>
+</div>
+<div class="input_area highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">hl_result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">hosmer_lemeshow_test</span><span class="p">(</span><span class="n">calzone_reliability_C</span><span class="p">,</span><span class="n">calzone_confindence_C</span><span class="p">,</span><span class="n">bin_count_C</span><span class="p">,</span><span class="n">df</span><span class="o">=</span><span class="nf">len</span><span class="p">(</span><span class="n">bin_count_C</span><span class="p">))</span>
+<span class="nf">print</span><span class="p">(</span><span class="s">&quot;calzone HL-C TS=&quot;</span><span class="p">,</span><span class="n">hl_result</span><span class="p">[</span><span class="m">0</span><span class="p">],</span><span class="s">&quot;p-value=&quot;</span><span class="p">,</span><span class="n">hl_result</span><span class="p">[</span><span class="m">1</span><span class="p">],</span><span class="s">&#39;df=&#39;</span><span class="p">,</span><span class="n">hl_result</span><span class="p">[</span><span class="m">2</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+calzone HL-C TS= 6.298957873650591 p-value= 0.9742765471951074 df= 15
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">library</span><span class="p">(</span><span class="n">ResourceSelection</span><span class="p">)</span>
+
+<span class="c1"># Read the CSV file</span>
+<span class="n">data</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">read.csv</span><span class="p">(</span><span class="s">&quot;../../../example_data/simulated_welldata.csv&quot;</span><span class="p">)</span>
+<span class="n">predicted_prob</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">data</span><span class="p">[,</span><span class="m">2</span><span class="p">]</span><span class="w">  </span><span class="c1"># First column with predicted probabilities</span>
+<span class="n">labels</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">data</span><span class="p">[,</span><span class="m">3</span><span class="p">]</span><span class="w">         </span><span class="c1"># Third column with actual labels</span>
+
+
+<span class="c1"># Perform Hosmer-Lemeshow test</span>
+<span class="n">hltest</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">function</span><span class="p">(</span><span class="n">observed</span><span class="p">,</span><span class="w"> </span><span class="n">predicted</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">hl_test</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">hoslem.test</span><span class="p">(</span><span class="n">observed</span><span class="p">,</span><span class="w"> </span><span class="n">predicted</span><span class="p">,</span><span class="n">g</span><span class="o">=</span><span class="m">15</span><span class="p">)</span>
+
+<span class="w">  </span><span class="nf">cat</span><span class="p">(</span><span class="s">&quot;Hosmer-Lemeshow Test Results:\n&quot;</span><span class="p">)</span>
+<span class="w">  </span><span class="nf">cat</span><span class="p">(</span><span class="s">&quot;Chi-square statistic:&quot;</span><span class="p">,</span><span class="w"> </span><span class="nf">round</span><span class="p">(</span><span class="n">hl_test</span><span class="o">$</span><span class="n">statistic</span><span class="p">,</span><span class="w"> </span><span class="m">4</span><span class="p">),</span><span class="w"> </span><span class="s">&quot;\n&quot;</span><span class="p">)</span>
+<span class="w">  </span><span class="nf">cat</span><span class="p">(</span><span class="s">&quot;Degrees of freedom:&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">hl_test</span><span class="o">$</span><span class="n">parameter</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;\n&quot;</span><span class="p">)</span>
+<span class="w">  </span><span class="nf">cat</span><span class="p">(</span><span class="s">&quot;p-value:&quot;</span><span class="p">,</span><span class="w"> </span><span class="nf">round</span><span class="p">(</span><span class="n">hl_test</span><span class="o">$</span><span class="n">p.value</span><span class="p">,</span><span class="w"> </span><span class="m">4</span><span class="p">),</span><span class="w"> </span><span class="s">&quot;\n&quot;</span><span class="p">)</span>
+
+<span class="w">  </span><span class="nf">return</span><span class="p">(</span><span class="n">hl_test</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="n">result</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">hltest</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span><span class="w"> </span><span class="n">predicted_prob</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+ResourceSelection 0.3-6          2023-06-27
+
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Hosmer-Lemeshow Test Results:
+Chi-square statistic: 6.299
+Degrees of freedom: 13
+p-value: 0.9346
+</pre></div></div>
+</div>
+<p>We see that the test statistics are the same. The R package doesn’t allow user input degree of freedom so the p-value is different as expected.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="GUI.html" class="btn btn-neutral float-left" title="Running GUI" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../modules.html" class="btn btn-neutral float-right" title="calzone" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright No copyright.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

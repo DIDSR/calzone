@@ -65,7 +65,7 @@
 
 
 \title{calzone}
-\date{Oct 25, 2024}
+\date{Oct 29, 2024}
 \release{develop}
 \author{Kwok Lung "Jason" Fan, Qian Cao}
 \newcommand{\sphinxlogo}{\vbox{}}
@@ -3321,6 +3321,322 @@ Then simply run the following command on calzone directory:
 
 \end{sphinxuseclass}
 \end{sphinxuseclass}
+\sphinxstepscope
+
+
+\chapter{Validating metrics with external packages}
+\label{\detokenize{notebooks/validation:Validating-metrics-with-external-packages}}\label{\detokenize{notebooks/validation::doc}}
+\sphinxAtStartPar
+In this notebook, we want to validate the metrics we have implemented in the \sphinxcode{\sphinxupquote{calzone}} package using other packages or programs.
+
+
+\section{Reliability diagram}
+\label{\detokenize{notebooks/validation:Reliability-diagram}}
+\sphinxAtStartPar
+We will use scikit\sphinxhyphen{}learn’s \sphinxcode{\sphinxupquote{calibration\_curve}} function to calculate the reliability diagram
+
+\begin{sphinxuseclass}{nbinput}
+{
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+\llap{\color{nbsphinxin}[46]:\,\hspace{\fboxrule}\hspace{\fboxsep}}\PYG{n}{from}\PYG{+w}{ }\PYG{n}{calzone.utils}\PYG{+w}{ }\PYG{n}{import}\PYG{+w}{ }\PYG{n}{reliability\PYGZus{}diagram}\PYG{p}{,}\PYG{n}{data\PYGZus{}loader}
+\PYG{n}{from}\PYG{+w}{ }\PYG{n}{calzone.metrics}\PYG{+w}{ }\PYG{n}{import}\PYG{+w}{ }\PYG{n}{calculate\PYGZus{}ece\PYGZus{}mce}\PYG{p}{,}\PYG{n}{hosmer\PYGZus{}lemeshow\PYGZus{}test}
+\PYG{n}{import}\PYG{+w}{ }\PYG{n}{numpy}\PYG{+w}{ }\PYG{n}{as}\PYG{+w}{ }\PYG{n}{np}
+\PYG{n}{from}\PYG{+w}{ }\PYG{n}{sklearn.calibration}\PYG{+w}{ }\PYG{n}{import}\PYG{+w}{ }\PYG{n}{calibration\PYGZus{}curve}
+\PYG{c+c1}{\PYGZsh{}\PYGZsh{}\PYGZsh{} loading the data}
+\PYG{n}{wellcal\PYGZus{}dataloader}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n+nf}{data\PYGZus{}loader}\PYG{p}{(}\PYG{n}{data\PYGZus{}path}\PYG{o}{=}\PYG{l+s}{\PYGZdq{}}\PYG{l+s}{../../../example\PYGZus{}data/simulated\PYGZus{}welldata.csv\PYGZdq{}}\PYG{p}{)}
+
+\PYG{n}{scikit\PYGZus{}reliability\PYGZus{}H}\PYG{p}{,}\PYG{n}{scikit\PYGZus{}confidence\PYGZus{}H}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n+nf}{calibration\PYGZus{}curve}\PYG{p}{(}\PYG{n}{wellcal\PYGZus{}dataloader.labels}\PYG{p}{,}\PYG{n}{wellcal\PYGZus{}dataloader.probs}\PYG{p}{[}\PYG{o}{:}\PYG{p}{,}\PYG{l+m}{1}\PYG{p}{]}\PYG{p}{,}\PYG{n}{n\PYGZus{}bins}\PYG{o}{=}\PYG{l+m}{15}\PYG{p}{,}\PYG{n}{strategy}\PYG{o}{=}\PYG{l+s}{\PYGZsq{}}\PYG{l+s}{uniform\PYGZsq{}}\PYG{p}{,}\PYG{n}{pos\PYGZus{}label}\PYG{o}{=}\PYG{l+m}{1}\PYG{p}{)}
+\PYG{n}{scikit\PYGZus{}reliability\PYGZus{}C}\PYG{p}{,}\PYG{n}{scikit\PYGZus{}confidence\PYGZus{}C}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n+nf}{calibration\PYGZus{}curve}\PYG{p}{(}\PYG{n}{wellcal\PYGZus{}dataloader.labels}\PYG{p}{,}\PYG{n}{wellcal\PYGZus{}dataloader.probs}\PYG{p}{[}\PYG{o}{:}\PYG{p}{,}\PYG{l+m}{1}\PYG{p}{]}\PYG{p}{,}\PYG{n}{n\PYGZus{}bins}\PYG{o}{=}\PYG{l+m}{15}\PYG{p}{,}\PYG{n}{strategy}\PYG{o}{=}\PYG{l+s}{\PYGZsq{}}\PYG{l+s}{quantile\PYGZsq{}}\PYG{p}{,}\PYG{n}{pos\PYGZus{}label}\PYG{o}{=}\PYG{l+m}{1}\PYG{p}{)}
+\PYG{n}{calzone\PYGZus{}reliability\PYGZus{}H}\PYG{p}{,}\PYG{n}{calzone\PYGZus{}confindence\PYGZus{}H}\PYG{p}{,}\PYG{n}{bin\PYGZus{}edge\PYGZus{}H}\PYG{p}{,}\PYG{n}{bin\PYGZus{}count\PYGZus{}H}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n+nf}{reliability\PYGZus{}diagram}\PYG{p}{(}\PYG{n}{wellcal\PYGZus{}dataloader.labels}\PYG{p}{,}\PYG{n}{wellcal\PYGZus{}dataloader.probs}\PYG{p}{,}\PYG{n}{num\PYGZus{}bins}\PYG{o}{=}\PYG{l+m}{15}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{class\PYGZus{}to\PYGZus{}plot}\PYG{o}{=}\PYG{l+m}{1}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{is\PYGZus{}equal\PYGZus{}freq}\PYG{o}{=}\PYG{n}{False}\PYG{p}{)}
+\PYG{n}{calzone\PYGZus{}reliability\PYGZus{}C}\PYG{p}{,}\PYG{n}{calzone\PYGZus{}confindence\PYGZus{}C}\PYG{p}{,}\PYG{n}{bin\PYGZus{}edge\PYGZus{}C}\PYG{p}{,}\PYG{n}{bin\PYGZus{}count\PYGZus{}C}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n+nf}{reliability\PYGZus{}diagram}\PYG{p}{(}\PYG{n}{wellcal\PYGZus{}dataloader.labels}\PYG{p}{,}\PYG{n}{wellcal\PYGZus{}dataloader.probs}\PYG{p}{,}\PYG{n}{num\PYGZus{}bins}\PYG{o}{=}\PYG{l+m}{15}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{class\PYGZus{}to\PYGZus{}plot}\PYG{o}{=}\PYG{l+m}{1}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{is\PYGZus{}equal\PYGZus{}freq}\PYG{o}{=}\PYG{n}{True}\PYG{p}{)}
+
+\PYG{n+nf}{print}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}}\PYG{l+s}{Difference for uniform/histogram binning:\PYGZdq{}}\PYG{p}{)}
+\PYG{n+nf}{print}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}}\PYG{l+s}{Reliability difference:\PYGZdq{}}\PYG{p}{,}\PYG{+w}{ }\PYG{n+nf}{np.round}\PYG{p}{(}\PYG{n+nf}{np.abs}\PYG{p}{(}\PYG{n}{scikit\PYGZus{}reliability\PYGZus{}H}\PYG{+w}{ }\PYG{o}{\PYGZhy{}}\PYG{+w}{ }\PYG{n}{calzone\PYGZus{}reliability\PYGZus{}H}\PYG{p}{)}\PYG{p}{,}\PYG{+w}{ }\PYG{l+m}{5}\PYG{p}{)}\PYG{p}{)}
+\PYG{n+nf}{print}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}}\PYG{l+s}{Confidence difference:\PYGZdq{}}\PYG{p}{,}\PYG{+w}{ }\PYG{n+nf}{np.round}\PYG{p}{(}\PYG{n+nf}{np.abs}\PYG{p}{(}\PYG{n}{scikit\PYGZus{}confidence\PYGZus{}H}\PYG{+w}{ }\PYG{o}{\PYGZhy{}}\PYG{+w}{ }\PYG{n}{calzone\PYGZus{}confindence\PYGZus{}H}\PYG{p}{)}\PYG{p}{,}\PYG{+w}{ }\PYG{l+m}{5}\PYG{p}{)}\PYG{p}{)}
+\PYG{n+nf}{print}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}}\PYG{l+s}{\PYGZbs{}nDifference for quantile/equal frequency binning:\PYGZdq{}}\PYG{p}{)}
+\PYG{n+nf}{print}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}}\PYG{l+s}{Reliability difference:\PYGZdq{}}\PYG{p}{,}\PYG{+w}{ }\PYG{n+nf}{np.round}\PYG{p}{(}\PYG{n+nf}{np.abs}\PYG{p}{(}\PYG{n}{scikit\PYGZus{}reliability\PYGZus{}C}\PYG{+w}{ }\PYG{o}{\PYGZhy{}}\PYG{+w}{ }\PYG{n}{calzone\PYGZus{}reliability\PYGZus{}C}\PYG{p}{)}\PYG{p}{,}\PYG{+w}{ }\PYG{l+m}{5}\PYG{p}{)}\PYG{p}{)}
+\PYG{n+nf}{print}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}}\PYG{l+s}{Confidence difference:\PYGZdq{}}\PYG{p}{,}\PYG{+w}{ }\PYG{n+nf}{np.round}\PYG{p}{(}\PYG{n+nf}{np.abs}\PYG{p}{(}\PYG{n}{scikit\PYGZus{}confidence\PYGZus{}C}\PYG{+w}{ }\PYG{o}{\PYGZhy{}}\PYG{+w}{ }\PYG{n}{calzone\PYGZus{}confindence\PYGZus{}C}\PYG{p}{)}\PYG{p}{,}\PYG{+w}{ }\PYG{l+m}{5}\PYG{p}{)}\PYG{p}{)}
+\end{sphinxVerbatim}
+}
+
+\end{sphinxuseclass}
+\begin{sphinxuseclass}{nboutput}
+\begin{sphinxuseclass}{nblast}
+{
+
+\kern-\sphinxverbatimsmallskipamount\kern-\baselineskip
+\kern+\FrameHeightAdjust\kern-\fboxrule
+\vspace{\nbsphinxcodecellspacing}
+
+\sphinxsetup{VerbatimColor={named}{white}}
+\begin{sphinxuseclass}{output_area}
+\begin{sphinxuseclass}{}
+
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+Difference for uniform/histogram binning:
+Reliability difference: [0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+Confidence difference: [0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+
+Difference for quantile/equal frequency binning:
+Reliability difference: [1.e-05 0.e+00 0.e+00 0.e+00 0.e+00 0.e+00 0.e+00 0.e+00 0.e+00 0.e+00
+ 0.e+00 0.e+00 0.e+00 0.e+00 0.e+00]
+Confidence difference: [1.e-05 0.e+00 0.e+00 0.e+00 0.e+00 0.e+00 0.e+00 0.e+00 0.e+00 0.e+00
+ 0.e+00 0.e+00 0.e+00 0.e+00 0.e+00]
+\end{sphinxVerbatim}
+
+
+
+\end{sphinxuseclass}
+\end{sphinxuseclass}
+}
+
+\end{sphinxuseclass}
+\end{sphinxuseclass}
+\sphinxAtStartPar
+We can see that the \sphinxcode{\sphinxupquote{calzone}} package return the same Reliability diagram as the \sphinxcode{\sphinxupquote{sckit\sphinxhyphen{}learn}} package. We will move to test the expected calibration error.
+
+
+\section{Expected calibration error and Z test}
+\label{\detokenize{notebooks/validation:Expected-calibration-error-and-Z-test}}
+\sphinxAtStartPar
+We will use \sphinxcode{\sphinxupquote{mapie}} package to validate some of the metrics in \sphinxcode{\sphinxupquote{calzone}}. Description of \sphinxcode{\sphinxupquote{mapie}} can be found \sphinxhref{https://github.com/scikit-learn-contrib/MAPIE/tree/master}{here}.
+
+\begin{sphinxuseclass}{nbinput}
+{
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+\llap{\color{nbsphinxin}[43]:\,\hspace{\fboxrule}\hspace{\fboxsep}}\PYG{n}{from}\PYG{+w}{ }\PYG{n}{mapie.metrics}\PYG{+w}{ }\PYG{n}{import}\PYG{+w}{ }\PYG{n}{spiegelhalter\PYGZus{}p\PYGZus{}value}\PYG{p}{,}\PYG{n}{top\PYGZus{}label\PYGZus{}ece}\PYG{p}{,}\PYG{n}{spiegelhalter\PYGZus{}statistic}
+\PYG{n}{from}\PYG{+w}{ }\PYG{n}{calzone.metrics}\PYG{+w}{ }\PYG{n}{import}\PYG{+w}{ }\PYG{n}{spiegelhalter\PYGZus{}z\PYGZus{}test}
+\PYG{n}{calzone\PYGZus{}reliability\PYGZus{}topclass\PYGZus{}H}\PYG{p}{,}\PYG{n}{calzone\PYGZus{}confindence\PYGZus{}topclass\PYGZus{}H}\PYG{p}{,}\PYG{n}{bin\PYGZus{}edge\PYGZus{}topclass\PYGZus{}H}\PYG{p}{,}\PYG{n}{bin\PYGZus{}count\PYGZus{}topclass\PYGZus{}H}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n+nf}{reliability\PYGZus{}diagram}\PYG{p}{(}\PYG{n}{wellcal\PYGZus{}dataloader.labels}\PYG{p}{,}\PYG{n}{wellcal\PYGZus{}dataloader.probs}\PYG{p}{,}\PYG{n}{num\PYGZus{}bins}\PYG{o}{=}\PYG{l+m}{15}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{class\PYGZus{}to\PYGZus{}plot}\PYG{o}{=}\PYG{n}{None}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{is\PYGZus{}equal\PYGZus{}freq}\PYG{o}{=}\PYG{n}{False}\PYG{p}{)}
+\PYG{n}{calzone\PYGZus{}reliability\PYGZus{}topclass\PYGZus{}C}\PYG{p}{,}\PYG{n}{calzone\PYGZus{}confindence\PYGZus{}topclass\PYGZus{}C}\PYG{p}{,}\PYG{n}{bin\PYGZus{}edge\PYGZus{}topclass\PYGZus{}C}\PYG{p}{,}\PYG{n}{bin\PYGZus{}count\PYGZus{}topclass\PYGZus{}C}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n+nf}{reliability\PYGZus{}diagram}\PYG{p}{(}\PYG{n}{wellcal\PYGZus{}dataloader.labels}\PYG{p}{,}\PYG{n}{wellcal\PYGZus{}dataloader.probs}\PYG{p}{,}\PYG{n}{num\PYGZus{}bins}\PYG{o}{=}\PYG{l+m}{15}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{class\PYGZus{}to\PYGZus{}plot}\PYG{o}{=}\PYG{n}{None}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{is\PYGZus{}equal\PYGZus{}freq}\PYG{o}{=}\PYG{n}{True}\PYG{p}{)}
+
+\PYG{n+nf}{print}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}}\PYG{l+s}{MAPIE topclass ECE\PYGZhy{}H:\PYGZdq{}}\PYG{p}{,}\PYG{n+nf}{top\PYGZus{}label\PYGZus{}ece}\PYG{p}{(}\PYG{n}{wellcal\PYGZus{}dataloader.labels}\PYG{p}{,}\PYG{n}{wellcal\PYGZus{}dataloader.probs}\PYG{p}{,}\PYG{n}{num\PYGZus{}bins}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m}{15}\PYG{p}{,}\PYG{n}{split\PYGZus{}strategy}\PYG{o}{=}\PYG{l+s}{\PYGZsq{}}\PYG{l+s}{uniform\PYGZsq{}}\PYG{p}{)}\PYG{p}{)}
+\PYG{n+nf}{print}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}}\PYG{l+s}{calzone topclass ECE\PYGZhy{}H:\PYGZdq{}}\PYG{p}{,}\PYG{n+nf}{calculate\PYGZus{}ece\PYGZus{}mce}\PYG{p}{(}\PYG{n}{calzone\PYGZus{}reliability\PYGZus{}topclass\PYGZus{}H}\PYG{p}{,}\PYG{n}{calzone\PYGZus{}confindence\PYGZus{}topclass\PYGZus{}H}\PYG{p}{,}\PYG{n}{bin\PYGZus{}count\PYGZus{}topclass\PYGZus{}H}\PYG{p}{)}\PYG{p}{[}\PYG{l+m}{0}\PYG{p}{]}\PYG{p}{)}
+
+\end{sphinxVerbatim}
+}
+
+\end{sphinxuseclass}
+\begin{sphinxuseclass}{nboutput}
+\begin{sphinxuseclass}{nblast}
+{
+
+\kern-\sphinxverbatimsmallskipamount\kern-\baselineskip
+\kern+\FrameHeightAdjust\kern-\fboxrule
+\vspace{\nbsphinxcodecellspacing}
+
+\sphinxsetup{VerbatimColor={named}{white}}
+\begin{sphinxuseclass}{output_area}
+\begin{sphinxuseclass}{}
+
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+MAPIE topclass ECE-H: 0.009092291386189822
+calzone topclass ECE-H: 0.009098499582108283
+\end{sphinxVerbatim}
+
+
+
+\end{sphinxuseclass}
+\end{sphinxuseclass}
+}
+
+\end{sphinxuseclass}
+\end{sphinxuseclass}
+\begin{sphinxuseclass}{nbinput}
+{
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+\llap{\color{nbsphinxin}[40]:\,\hspace{\fboxrule}\hspace{\fboxsep}}\PYG{n+nf}{print}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}}\PYG{l+s}{MAPIE topclass ECE\PYGZhy{}C:\PYGZdq{}}\PYG{p}{,}\PYG{n+nf}{top\PYGZus{}label\PYGZus{}ece}\PYG{p}{(}\PYG{n}{wellcal\PYGZus{}dataloader.labels}\PYG{p}{,}\PYG{n}{wellcal\PYGZus{}dataloader.probs}\PYG{p}{,}\PYG{n}{num\PYGZus{}bins}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m}{15}\PYG{p}{,}\PYG{n}{split\PYGZus{}strategy}\PYG{o}{=}\PYG{l+s}{\PYGZsq{}}\PYG{l+s}{quantile\PYGZsq{}}\PYG{p}{)}\PYG{p}{)}
+\PYG{n+nf}{print}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}}\PYG{l+s}{calzone topclass ECE\PYGZhy{}C:\PYGZdq{}}\PYG{p}{,}\PYG{n+nf}{calculate\PYGZus{}ece\PYGZus{}mce}\PYG{p}{(}\PYG{n}{calzone\PYGZus{}reliability\PYGZus{}topclass\PYGZus{}C}\PYG{p}{,}\PYG{n}{calzone\PYGZus{}confindence\PYGZus{}topclass\PYGZus{}C}\PYG{p}{,}\PYG{n}{bin\PYGZus{}count\PYGZus{}topclass\PYGZus{}C}\PYG{p}{)}\PYG{p}{[}\PYG{l+m}{0}\PYG{p}{]}\PYG{p}{)}
+
+\end{sphinxVerbatim}
+}
+
+\end{sphinxuseclass}
+\begin{sphinxuseclass}{nboutput}
+\begin{sphinxuseclass}{nblast}
+{
+
+\kern-\sphinxverbatimsmallskipamount\kern-\baselineskip
+\kern+\FrameHeightAdjust\kern-\fboxrule
+\vspace{\nbsphinxcodecellspacing}
+
+\sphinxsetup{VerbatimColor={named}{white}}
+\begin{sphinxuseclass}{output_area}
+\begin{sphinxuseclass}{}
+
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+MAPIE topclass ECE-C: 0.016227424850494457
+calzone topclass ECE-C: 0.016263864264387196
+\end{sphinxVerbatim}
+
+
+
+\end{sphinxuseclass}
+\end{sphinxuseclass}
+}
+
+\end{sphinxuseclass}
+\end{sphinxuseclass}
+\sphinxAtStartPar
+We can see that both package return a very similar result for ECE. We will also move to validate spiegelhalter’s z test. We found out that the \sphinxcode{\sphinxupquote{mapie}} package incorrectly calculates the p\sphinxhyphen{}value by using a one\sphinxhyphen{}sided test. Therefore, we will only compare the test statistic but not the p\sphinxhyphen{}value.
+
+\begin{sphinxuseclass}{nbinput}
+{
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+\llap{\color{nbsphinxin}[45]:\,\hspace{\fboxrule}\hspace{\fboxsep}}\PYG{n+nf}{print}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}}\PYG{l+s}{MAPIE Z statistic\PYGZdq{}}\PYG{p}{,}\PYG{+w}{ }\PYG{n+nf}{spiegelhalter\PYGZus{}statistic}\PYG{p}{(}\PYG{n}{wellcal\PYGZus{}dataloader.labels}\PYG{p}{,}\PYG{n}{wellcal\PYGZus{}dataloader.probs}\PYG{p}{[}\PYG{o}{:}\PYG{p}{,}\PYG{l+m}{1}\PYG{p}{]}\PYG{p}{)}\PYG{p}{)}
+\PYG{n+nf}{print}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}}\PYG{l+s}{calzone Z statistic\PYGZdq{}}\PYG{p}{,}\PYG{+w}{ }\PYG{n+nf}{spiegelhalter\PYGZus{}z\PYGZus{}test}\PYG{p}{(}\PYG{n}{wellcal\PYGZus{}dataloader.labels}\PYG{p}{,}\PYG{n}{wellcal\PYGZus{}dataloader.probs}\PYG{p}{)}\PYG{p}{[}\PYG{l+m}{0}\PYG{p}{]}\PYG{p}{)}
+\end{sphinxVerbatim}
+}
+
+\end{sphinxuseclass}
+\begin{sphinxuseclass}{nboutput}
+\begin{sphinxuseclass}{nblast}
+{
+
+\kern-\sphinxverbatimsmallskipamount\kern-\baselineskip
+\kern+\FrameHeightAdjust\kern-\fboxrule
+\vspace{\nbsphinxcodecellspacing}
+
+\sphinxsetup{VerbatimColor={named}{white}}
+\begin{sphinxuseclass}{output_area}
+\begin{sphinxuseclass}{}
+
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+MAPIE Z statistic 0.3763269161877356
+calzone Z statistic 0.3763269161877356
+\end{sphinxVerbatim}
+
+
+
+\end{sphinxuseclass}
+\end{sphinxuseclass}
+}
+
+\end{sphinxuseclass}
+\end{sphinxuseclass}
+\sphinxAtStartPar
+For other metrics, we could not find any external packages that could be used to cross validate our implementation. However, we perform some test for type 1 error rate for cox slope and intercept and both return sensible values. For the ICI, we compare it with empirical ECE and found they are very similar. Lastly, we will use a quick r code to calculate the HL test test statistic to make sure it is correct.
+
+\begin{sphinxuseclass}{nbinput}
+{
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+\llap{\color{nbsphinxin}[51]:\,\hspace{\fboxrule}\hspace{\fboxsep}}\PYG{n}{hl\PYGZus{}result}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n+nf}{hosmer\PYGZus{}lemeshow\PYGZus{}test}\PYG{p}{(}\PYG{n}{calzone\PYGZus{}reliability\PYGZus{}C}\PYG{p}{,}\PYG{n}{calzone\PYGZus{}confindence\PYGZus{}C}\PYG{p}{,}\PYG{n}{bin\PYGZus{}count\PYGZus{}C}\PYG{p}{,}\PYG{n}{df}\PYG{o}{=}\PYG{n+nf}{len}\PYG{p}{(}\PYG{n}{bin\PYGZus{}count\PYGZus{}C}\PYG{p}{)}\PYG{p}{)}
+\PYG{n+nf}{print}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}}\PYG{l+s}{calzone HL\PYGZhy{}C TS=\PYGZdq{}}\PYG{p}{,}\PYG{n}{hl\PYGZus{}result}\PYG{p}{[}\PYG{l+m}{0}\PYG{p}{]}\PYG{p}{,}\PYG{l+s}{\PYGZdq{}}\PYG{l+s}{p\PYGZhy{}value=\PYGZdq{}}\PYG{p}{,}\PYG{n}{hl\PYGZus{}result}\PYG{p}{[}\PYG{l+m}{1}\PYG{p}{]}\PYG{p}{,}\PYG{l+s}{\PYGZsq{}}\PYG{l+s}{df=\PYGZsq{}}\PYG{p}{,}\PYG{n}{hl\PYGZus{}result}\PYG{p}{[}\PYG{l+m}{2}\PYG{p}{]}\PYG{p}{)}
+\end{sphinxVerbatim}
+}
+
+\end{sphinxuseclass}
+\begin{sphinxuseclass}{nboutput}
+\begin{sphinxuseclass}{nblast}
+{
+
+\kern-\sphinxverbatimsmallskipamount\kern-\baselineskip
+\kern+\FrameHeightAdjust\kern-\fboxrule
+\vspace{\nbsphinxcodecellspacing}
+
+\sphinxsetup{VerbatimColor={named}{white}}
+\begin{sphinxuseclass}{output_area}
+\begin{sphinxuseclass}{}
+
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+calzone HL-C TS= 6.298957873650591 p-value= 0.9742765471951074 df= 15
+\end{sphinxVerbatim}
+
+
+
+\end{sphinxuseclass}
+\end{sphinxuseclass}
+}
+
+\end{sphinxuseclass}
+\end{sphinxuseclass}
+\begin{sphinxuseclass}{nbinput}
+{
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+\llap{\color{nbsphinxin}[1]:\,\hspace{\fboxrule}\hspace{\fboxsep}}\PYG{n+nf}{library}\PYG{p}{(}\PYG{n}{ResourceSelection}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{} Read the CSV file}
+\PYG{n}{data}\PYG{+w}{ }\PYG{o}{\PYGZlt{}\PYGZhy{}}\PYG{+w}{ }\PYG{n+nf}{read.csv}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}}\PYG{l+s}{../../../example\PYGZus{}data/simulated\PYGZus{}welldata.csv\PYGZdq{}}\PYG{p}{)}
+\PYG{n}{predicted\PYGZus{}prob}\PYG{+w}{ }\PYG{o}{\PYGZlt{}\PYGZhy{}}\PYG{+w}{ }\PYG{n}{data}\PYG{p}{[}\PYG{p}{,}\PYG{l+m}{2}\PYG{p}{]}\PYG{+w}{  }\PYG{c+c1}{\PYGZsh{} First column with predicted probabilities}
+\PYG{n}{labels}\PYG{+w}{ }\PYG{o}{\PYGZlt{}\PYGZhy{}}\PYG{+w}{ }\PYG{n}{data}\PYG{p}{[}\PYG{p}{,}\PYG{l+m}{3}\PYG{p}{]}\PYG{+w}{         }\PYG{c+c1}{\PYGZsh{} Third column with actual labels}
+
+
+\PYG{c+c1}{\PYGZsh{} Perform Hosmer\PYGZhy{}Lemeshow test}
+\PYG{n}{hltest}\PYG{+w}{ }\PYG{o}{\PYGZlt{}\PYGZhy{}}\PYG{+w}{ }\PYG{n+nf}{function}\PYG{p}{(}\PYG{n}{observed}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{predicted}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
+\PYG{+w}{  }\PYG{n}{hl\PYGZus{}test}\PYG{+w}{ }\PYG{o}{\PYGZlt{}\PYGZhy{}}\PYG{+w}{ }\PYG{n+nf}{hoslem.test}\PYG{p}{(}\PYG{n}{observed}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{predicted}\PYG{p}{,}\PYG{n}{g}\PYG{o}{=}\PYG{l+m}{15}\PYG{p}{)}
+
+\PYG{+w}{  }\PYG{n+nf}{cat}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}}\PYG{l+s}{Hosmer\PYGZhy{}Lemeshow Test Results:\PYGZbs{}n\PYGZdq{}}\PYG{p}{)}
+\PYG{+w}{  }\PYG{n+nf}{cat}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}}\PYG{l+s}{Chi\PYGZhy{}square statistic:\PYGZdq{}}\PYG{p}{,}\PYG{+w}{ }\PYG{n+nf}{round}\PYG{p}{(}\PYG{n}{hl\PYGZus{}test}\PYG{o}{\PYGZdl{}}\PYG{n}{statistic}\PYG{p}{,}\PYG{+w}{ }\PYG{l+m}{4}\PYG{p}{)}\PYG{p}{,}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}}\PYG{l+s}{\PYGZbs{}n\PYGZdq{}}\PYG{p}{)}
+\PYG{+w}{  }\PYG{n+nf}{cat}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}}\PYG{l+s}{Degrees of freedom:\PYGZdq{}}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{hl\PYGZus{}test}\PYG{o}{\PYGZdl{}}\PYG{n}{parameter}\PYG{p}{,}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}}\PYG{l+s}{\PYGZbs{}n\PYGZdq{}}\PYG{p}{)}
+\PYG{+w}{  }\PYG{n+nf}{cat}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}}\PYG{l+s}{p\PYGZhy{}value:\PYGZdq{}}\PYG{p}{,}\PYG{+w}{ }\PYG{n+nf}{round}\PYG{p}{(}\PYG{n}{hl\PYGZus{}test}\PYG{o}{\PYGZdl{}}\PYG{n}{p.value}\PYG{p}{,}\PYG{+w}{ }\PYG{l+m}{4}\PYG{p}{)}\PYG{p}{,}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}}\PYG{l+s}{\PYGZbs{}n\PYGZdq{}}\PYG{p}{)}
+
+\PYG{+w}{  }\PYG{n+nf}{return}\PYG{p}{(}\PYG{n}{hl\PYGZus{}test}\PYG{p}{)}
+\PYG{p}{\PYGZcb{}}
+
+\PYG{n}{result}\PYG{+w}{ }\PYG{o}{\PYGZlt{}\PYGZhy{}}\PYG{+w}{ }\PYG{n+nf}{hltest}\PYG{p}{(}\PYG{n}{labels}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{predicted\PYGZus{}prob}\PYG{p}{)}
+\end{sphinxVerbatim}
+}
+
+\end{sphinxuseclass}
+\begin{sphinxuseclass}{nboutput}
+{
+
+\kern-\sphinxverbatimsmallskipamount\kern-\baselineskip
+\kern+\FrameHeightAdjust\kern-\fboxrule
+\vspace{\nbsphinxcodecellspacing}
+
+\sphinxsetup{VerbatimColor={named}{nbsphinx-stderr}}
+\begin{sphinxuseclass}{output_area}
+\begin{sphinxuseclass}{stderr}
+
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+ResourceSelection 0.3-6          2023-06-27
+
+\end{sphinxVerbatim}
+
+
+
+\end{sphinxuseclass}
+\end{sphinxuseclass}
+}
+
+\end{sphinxuseclass}
+\begin{sphinxuseclass}{nboutput}
+\begin{sphinxuseclass}{nblast}
+{
+
+\kern-\sphinxverbatimsmallskipamount\kern-\baselineskip
+\kern+\FrameHeightAdjust\kern-\fboxrule
+\vspace{\nbsphinxcodecellspacing}
+
+\sphinxsetup{VerbatimColor={named}{white}}
+\begin{sphinxuseclass}{output_area}
+\begin{sphinxuseclass}{}
+
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+Hosmer-Lemeshow Test Results:
+Chi-square statistic: 6.299
+Degrees of freedom: 13
+p-value: 0.9346
+\end{sphinxVerbatim}
+
+
+
+\end{sphinxuseclass}
+\end{sphinxuseclass}
+}
+
+\end{sphinxuseclass}
+\end{sphinxuseclass}
+\sphinxAtStartPar
+We see that the test statistics are the same. The R package doesn’t allow user input degree of freedom so the p\sphinxhyphen{}value is different as expected.
+
 \sphinxstepscope
 
 
