@@ -3518,7 +3518,13 @@ calzone Z statistic 0.3763269161877356
 \end{sphinxuseclass}
 \end{sphinxuseclass}
 \sphinxAtStartPar
-For other metrics, we could not find any external packages that could be used to cross validate our implementation. However, we perform some test for type 1 error rate for cox slope and intercept and both return sensible values. For the ICI, we compare it with empirical ECE and found they are very similar. Lastly, we will use a quick r code to calculate the HL test test statistic to make sure it is correct.
+For other metrics, we could not find any external packages that could be used to cross validate our implementation. However, we perform some simulations to test the type 1 error rate for cox slope and intercept and both return sensible values. For the ICI, we compare it with empirical ECE and found they are very similar.
+
+
+\section{HL test}
+\label{\detokenize{notebooks/validation:HL-test}}
+\sphinxAtStartPar
+Lastly, we will use a quick r code to calculate the HL test test statistic to make sure it is correct.
 
 \begin{sphinxuseclass}{nbinput}
 {
@@ -3557,7 +3563,8 @@ calzone HL-C TS= 6.298957873650591 p-value= 0.9742765471951074 df= 15
 \begin{sphinxuseclass}{nbinput}
 {
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
-\llap{\color{nbsphinxin}[1]:\,\hspace{\fboxrule}\hspace{\fboxsep}}\PYG{n+nf}{library}\PYG{p}{(}\PYG{n}{ResourceSelection}\PYG{p}{)}
+\llap{\color{nbsphinxin}[1]:\,\hspace{\fboxrule}\hspace{\fboxsep}}\PYG{c+c1}{\PYGZsh{}\PYGZsh{}\PYGZsh{} This section is r code}
+\PYG{n+nf}{library}\PYG{p}{(}\PYG{n}{ResourceSelection}\PYG{p}{)}
 
 \PYG{c+c1}{\PYGZsh{} Read the CSV file}
 \PYG{n}{data}\PYG{+w}{ }\PYG{o}{\PYGZlt{}\PYGZhy{}}\PYG{+w}{ }\PYG{n+nf}{read.csv}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}}\PYG{l+s}{../../../example\PYGZus{}data/simulated\PYGZus{}welldata.csv\PYGZdq{}}\PYG{p}{)}

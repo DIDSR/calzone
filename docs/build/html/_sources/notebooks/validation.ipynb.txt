@@ -25,11 +25,7 @@
   {
    "cell_type": "code",
    "execution_count": 46,
-   "metadata": {
-    "vscode": {
-     "languageId": "r"
-    }
-   },
+   "metadata": {},
    "outputs": [
     {
      "name": "stdout",
@@ -87,11 +83,7 @@
   {
    "cell_type": "code",
    "execution_count": 43,
-   "metadata": {
-    "vscode": {
-     "languageId": "r"
-    }
-   },
+   "metadata": {},
    "outputs": [
     {
      "name": "stdout",
@@ -115,11 +107,7 @@
   {
    "cell_type": "code",
    "execution_count": 40,
-   "metadata": {
-    "vscode": {
-     "languageId": "r"
-    }
-   },
+   "metadata": {},
    "outputs": [
     {
      "name": "stdout",
@@ -145,11 +133,7 @@
   {
    "cell_type": "code",
    "execution_count": 45,
-   "metadata": {
-    "vscode": {
-     "languageId": "r"
-    }
-   },
+   "metadata": {},
    "outputs": [
     {
      "name": "stdout",
@@ -169,17 +153,17 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "For other metrics, we could not find any external packages that could be used to cross validate our implementation. However, we perform some test for type 1 error rate for cox slope and intercept and both return sensible values. For the ICI, we compare it with empirical ECE and found they are very similar. Lastly, we will use a quick r code to calculate the HL test test statistic to make sure it is correct."
+    "For other metrics, we could not find any external packages that could be used to cross validate our implementation. However, we perform some simulations to test the type 1 error rate for cox slope and intercept and both return sensible values. For the ICI, we compare it with empirical ECE and found they are very similar. \n",
+    "\n",
+    "## HL test\n",
+    "\n",
+    "Lastly, we will use a quick r code to calculate the HL test test statistic to make sure it is correct."
    ]
   },
   {
    "cell_type": "code",
    "execution_count": 51,
-   "metadata": {
-    "vscode": {
-     "languageId": "r"
-    }
-   },
+   "metadata": {},
    "outputs": [
     {
      "name": "stdout",
@@ -197,11 +181,7 @@
   {
    "cell_type": "code",
    "execution_count": 1,
-   "metadata": {
-    "vscode": {
-     "languageId": "r"
-    }
-   },
+   "metadata": {},
    "outputs": [
     {
      "name": "stderr",
@@ -223,6 +203,7 @@
     }
    ],
    "source": [
+    "### This section is r code\n",
     "library(ResourceSelection)\n",
     "\n",
     "# Read the CSV file\n",
@@ -256,17 +237,17 @@
  ],
  "metadata": {
   "kernelspec": {
-   "display_name": "R",
-   "language": "R",
-   "name": "ir"
+   "display_name": "uq",
+   "language": "python",
+   "name": "python3"
   },
   "language_info": {
    "codemirror_mode": "r",
    "file_extension": ".r",
    "mimetype": "text/x-r-source",
-   "name": "R",
+   "name": "python",
    "pygments_lexer": "r",
-   "version": "4.3.1"
+   "version": "3.12.0"
   }
  },
  "nbformat": 4,

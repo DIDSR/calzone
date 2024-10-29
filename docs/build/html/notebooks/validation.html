@@ -66,6 +66,7 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Validating metrics with external packages</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#Reliability-diagram">Reliability diagram</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#Expected-calibration-error-and-Z-test">Expected calibration error and Z test</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#HL-test">HL test</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../modules.html">calzone</a></li>
@@ -207,7 +208,11 @@ MAPIE Z statistic 0.3763269161877356
 calzone Z statistic 0.3763269161877356
 </pre></div></div>
 </div>
-<p>For other metrics, we could not find any external packages that could be used to cross validate our implementation. However, we perform some test for type 1 error rate for cox slope and intercept and both return sensible values. For the ICI, we compare it with empirical ECE and found they are very similar. Lastly, we will use a quick r code to calculate the HL test test statistic to make sure it is correct.</p>
+<p>For other metrics, we could not find any external packages that could be used to cross validate our implementation. However, we perform some simulations to test the type 1 error rate for cox slope and intercept and both return sensible values. For the ICI, we compare it with empirical ECE and found they are very similar.</p>
+</section>
+<section id="HL-test">
+<h2>HL test<a class="headerlink" href="#HL-test" title="Link to this heading"></a></h2>
+<p>Lastly, we will use a quick r code to calculate the HL test test statistic to make sure it is correct.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[51]:
 </pre></div>
@@ -229,7 +234,8 @@ calzone HL-C TS= 6.298957873650591 p-value= 0.9742765471951074 df= 15
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
-<div class="input_area highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">library</span><span class="p">(</span><span class="n">ResourceSelection</span><span class="p">)</span>
+<div class="input_area highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1">### This section is r code</span>
+<span class="nf">library</span><span class="p">(</span><span class="n">ResourceSelection</span><span class="p">)</span>
 
 <span class="c1"># Read the CSV file</span>
 <span class="n">data</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">read.csv</span><span class="p">(</span><span class="s">&quot;../../../example_data/simulated_welldata.csv&quot;</span><span class="p">)</span>
