@@ -54,6 +54,7 @@
 \contentsline {section}{\numberline {13.1}Reliability diagram}{63}{section.13.1}%
 \contentsline {section}{\numberline {13.2}Expected calibration error and Z test}{64}{section.13.2}%
 \contentsline {section}{\numberline {13.3}HL test}{65}{section.13.3}%
+\contentsline {section}{\numberline {13.4}reference}{66}{section.13.4}%
 \contentsline {chapter}{\numberline {14}calzone}{67}{chapter.14}%
 \contentsline {section}{\numberline {14.1}calzone package}{67}{section.14.1}%
 \contentsline {subsection}{\numberline {14.1.1}Submodules}{67}{subsection.14.1.1}%

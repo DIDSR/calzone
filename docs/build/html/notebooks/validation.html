@@ -67,6 +67,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#Reliability-diagram">Reliability diagram</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#Expected-calibration-error-and-Z-test">Expected calibration error and Z test</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#HL-test">HL test</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#reference">reference</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../modules.html">calzone</a></li>
@@ -103,7 +104,7 @@
 <h2>Reliability diagram<a class="headerlink" href="#Reliability-diagram" title="Link to this heading"></a></h2>
 <p>We will use scikit-learn’s <code class="docutils literal notranslate"><span class="pre">calibration_curve</span></code> function to calculate the reliability diagram</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">calzone.utils</span> <span class="kn">import</span> <span class="n">reliability_diagram</span><span class="p">,</span><span class="n">data_loader</span>
@@ -113,17 +114,21 @@
 <span class="c1">### loading the data</span>
 <span class="n">wellcal_dataloader</span> <span class="o">=</span> <span class="n">data_loader</span><span class="p">(</span><span class="n">data_path</span><span class="o">=</span><span class="s2">&quot;../../../example_data/simulated_welldata.csv&quot;</span><span class="p">)</span>
 
+<span class="c1">###scikit-learn implementation</span>
 <span class="n">scikit_reliability_H</span><span class="p">,</span><span class="n">scikit_confidence_H</span> <span class="o">=</span> <span class="n">calibration_curve</span><span class="p">(</span><span class="n">wellcal_dataloader</span><span class="o">.</span><span class="n">labels</span><span class="p">,</span><span class="n">wellcal_dataloader</span><span class="o">.</span><span class="n">probs</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span><span class="n">n_bins</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span><span class="n">strategy</span><span class="o">=</span><span class="s1">&#39;uniform&#39;</span><span class="p">,</span><span class="n">pos_label</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 <span class="n">scikit_reliability_C</span><span class="p">,</span><span class="n">scikit_confidence_C</span> <span class="o">=</span> <span class="n">calibration_curve</span><span class="p">(</span><span class="n">wellcal_dataloader</span><span class="o">.</span><span class="n">labels</span><span class="p">,</span><span class="n">wellcal_dataloader</span><span class="o">.</span><span class="n">probs</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span><span class="n">n_bins</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span><span class="n">strategy</span><span class="o">=</span><span class="s1">&#39;quantile&#39;</span><span class="p">,</span><span class="n">pos_label</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1">### calzone implementation</span>
 <span class="n">calzone_reliability_H</span><span class="p">,</span><span class="n">calzone_confindence_H</span><span class="p">,</span><span class="n">bin_edge_H</span><span class="p">,</span><span class="n">bin_count_H</span> <span class="o">=</span> <span class="n">reliability_diagram</span><span class="p">(</span><span class="n">wellcal_dataloader</span><span class="o">.</span><span class="n">labels</span><span class="p">,</span><span class="n">wellcal_dataloader</span><span class="o">.</span><span class="n">probs</span><span class="p">,</span><span class="n">num_bins</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">class_to_plot</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">is_equal_freq</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 <span class="n">calzone_reliability_C</span><span class="p">,</span><span class="n">calzone_confindence_C</span><span class="p">,</span><span class="n">bin_edge_C</span><span class="p">,</span><span class="n">bin_count_C</span> <span class="o">=</span> <span class="n">reliability_diagram</span><span class="p">(</span><span class="n">wellcal_dataloader</span><span class="o">.</span><span class="n">labels</span><span class="p">,</span><span class="n">wellcal_dataloader</span><span class="o">.</span><span class="n">probs</span><span class="p">,</span><span class="n">num_bins</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">class_to_plot</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">is_equal_freq</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Difference for uniform/histogram binning:&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Reliability difference:&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">scikit_reliability_H</span> <span class="o">-</span> <span class="n">calzone_reliability_H</span><span class="p">),</span> <span class="mi">5</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Confidence difference:&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">scikit_confidence_H</span> <span class="o">-</span> <span class="n">calzone_confindence_H</span><span class="p">),</span> <span class="mi">5</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Difference for quantile/equal frequency binning:&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Reliability difference:&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">scikit_reliability_C</span> <span class="o">-</span> <span class="n">calzone_reliability_C</span><span class="p">),</span> <span class="mi">5</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Confidence difference:&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">scikit_confidence_C</span> <span class="o">-</span> <span class="n">calzone_confindence_C</span><span class="p">),</span> <span class="mi">5</span><span class="p">))</span>
+<span class="c1">###showing the difference between the two implementations</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Difference for equal-width binning:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Reliability difference:&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">scikit_reliability_H</span> <span class="o">-</span> <span class="n">calzone_reliability_H</span><span class="p">),</span> <span class="mi">4</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Confidence difference:&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">scikit_confidence_H</span> <span class="o">-</span> <span class="n">calzone_confindence_H</span><span class="p">),</span> <span class="mi">4</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Difference for equal-count binning:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Reliability difference:&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">scikit_reliability_C</span> <span class="o">-</span> <span class="n">calzone_reliability_C</span><span class="p">),</span> <span class="mi">4</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Confidence difference:&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">scikit_confidence_C</span> <span class="o">-</span> <span class="n">calzone_confindence_C</span><span class="p">),</span> <span class="mi">4</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
@@ -132,15 +137,13 @@
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-Difference for uniform/histogram binning:
+Difference for equal-width binning:
 Reliability difference: [0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
 Confidence difference: [0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
 
-Difference for quantile/equal frequency binning:
-Reliability difference: [1.e-05 0.e+00 0.e+00 0.e+00 0.e+00 0.e+00 0.e+00 0.e+00 0.e+00 0.e+00
- 0.e+00 0.e+00 0.e+00 0.e+00 0.e+00]
-Confidence difference: [1.e-05 0.e+00 0.e+00 0.e+00 0.e+00 0.e+00 0.e+00 0.e+00 0.e+00 0.e+00
- 0.e+00 0.e+00 0.e+00 0.e+00 0.e+00]
+Difference for equal-count binning:
+Reliability difference: [0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+Confidence difference: [0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
 </pre></div></div>
 </div>
 <p>We can see that the <code class="docutils literal notranslate"><span class="pre">calzone</span></code> package return the same Reliability diagram as the <code class="docutils literal notranslate"><span class="pre">sckit-learn</span></code> package. We will move to test the expected calibration error.</p>
@@ -149,7 +152,7 @@ Confidence difference: [1.e-05 0.e+00 0.e+00 0.e+00 0.e+00 0.e+00 0.e+00 0.e+00 
 <h2>Expected calibration error and Z test<a class="headerlink" href="#Expected-calibration-error-and-Z-test" title="Link to this heading"></a></h2>
 <p>We will use <code class="docutils literal notranslate"><span class="pre">mapie</span></code> package to validate some of the metrics in <code class="docutils literal notranslate"><span class="pre">calzone</span></code>. Description of <code class="docutils literal notranslate"><span class="pre">mapie</span></code> can be found <a class="reference external" href="https://github.com/scikit-learn-contrib/MAPIE/tree/master">here</a>.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[43]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">mapie.metrics</span> <span class="kn">import</span> <span class="n">spiegelhalter_p_value</span><span class="p">,</span><span class="n">top_label_ece</span><span class="p">,</span><span class="n">spiegelhalter_statistic</span>
@@ -157,6 +160,7 @@ Confidence difference: [1.e-05 0.e+00 0.e+00 0.e+00 0.e+00 0.e+00 0.e+00 0.e+00 
 <span class="n">calzone_reliability_topclass_H</span><span class="p">,</span><span class="n">calzone_confindence_topclass_H</span><span class="p">,</span><span class="n">bin_edge_topclass_H</span><span class="p">,</span><span class="n">bin_count_topclass_H</span> <span class="o">=</span> <span class="n">reliability_diagram</span><span class="p">(</span><span class="n">wellcal_dataloader</span><span class="o">.</span><span class="n">labels</span><span class="p">,</span><span class="n">wellcal_dataloader</span><span class="o">.</span><span class="n">probs</span><span class="p">,</span><span class="n">num_bins</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">class_to_plot</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">is_equal_freq</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 <span class="n">calzone_reliability_topclass_C</span><span class="p">,</span><span class="n">calzone_confindence_topclass_C</span><span class="p">,</span><span class="n">bin_edge_topclass_C</span><span class="p">,</span><span class="n">bin_count_topclass_C</span> <span class="o">=</span> <span class="n">reliability_diagram</span><span class="p">(</span><span class="n">wellcal_dataloader</span><span class="o">.</span><span class="n">labels</span><span class="p">,</span><span class="n">wellcal_dataloader</span><span class="o">.</span><span class="n">probs</span><span class="p">,</span><span class="n">num_bins</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">class_to_plot</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">is_equal_freq</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
+<span class="c1">### compare MAPIE and calzone equal-width binning</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;MAPIE topclass ECE-H:&quot;</span><span class="p">,</span><span class="n">top_label_ece</span><span class="p">(</span><span class="n">wellcal_dataloader</span><span class="o">.</span><span class="n">labels</span><span class="p">,</span><span class="n">wellcal_dataloader</span><span class="o">.</span><span class="n">probs</span><span class="p">,</span><span class="n">num_bins</span> <span class="o">=</span> <span class="mi">15</span><span class="p">,</span><span class="n">split_strategy</span><span class="o">=</span><span class="s1">&#39;uniform&#39;</span><span class="p">))</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;calzone topclass ECE-H:&quot;</span><span class="p">,</span><span class="n">calculate_ece_mce</span><span class="p">(</span><span class="n">calzone_reliability_topclass_H</span><span class="p">,</span><span class="n">calzone_confindence_topclass_H</span><span class="p">,</span><span class="n">bin_count_topclass_H</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
 <br/></pre></div>
@@ -172,10 +176,11 @@ calzone topclass ECE-H: 0.009098499582108283
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[40]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;MAPIE topclass ECE-C:&quot;</span><span class="p">,</span><span class="n">top_label_ece</span><span class="p">(</span><span class="n">wellcal_dataloader</span><span class="o">.</span><span class="n">labels</span><span class="p">,</span><span class="n">wellcal_dataloader</span><span class="o">.</span><span class="n">probs</span><span class="p">,</span><span class="n">num_bins</span> <span class="o">=</span> <span class="mi">15</span><span class="p">,</span><span class="n">split_strategy</span><span class="o">=</span><span class="s1">&#39;quantile&#39;</span><span class="p">))</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### compare MAPIE and calzone equal-count binning</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;MAPIE topclass ECE-C:&quot;</span><span class="p">,</span><span class="n">top_label_ece</span><span class="p">(</span><span class="n">wellcal_dataloader</span><span class="o">.</span><span class="n">labels</span><span class="p">,</span><span class="n">wellcal_dataloader</span><span class="o">.</span><span class="n">probs</span><span class="p">,</span><span class="n">num_bins</span> <span class="o">=</span> <span class="mi">15</span><span class="p">,</span><span class="n">split_strategy</span><span class="o">=</span><span class="s1">&#39;quantile&#39;</span><span class="p">))</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;calzone topclass ECE-C:&quot;</span><span class="p">,</span><span class="n">calculate_ece_mce</span><span class="p">(</span><span class="n">calzone_reliability_topclass_C</span><span class="p">,</span><span class="n">calzone_confindence_topclass_C</span><span class="p">,</span><span class="n">bin_count_topclass_C</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
 <br/></pre></div>
 </div>
@@ -191,10 +196,11 @@ calzone topclass ECE-C: 0.016263864264387196
 </div>
 <p>We can see that both package return a very similar result for ECE. We will also move to validate spiegelhalter’s z test. We found out that the <code class="docutils literal notranslate"><span class="pre">mapie</span></code> package incorrectly calculates the p-value by using a one-sided test. Therefore, we will only compare the test statistic but not the p-value.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[45]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;MAPIE Z statistic&quot;</span><span class="p">,</span> <span class="n">spiegelhalter_statistic</span><span class="p">(</span><span class="n">wellcal_dataloader</span><span class="o">.</span><span class="n">labels</span><span class="p">,</span><span class="n">wellcal_dataloader</span><span class="o">.</span><span class="n">probs</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]))</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### compare the Z statistics</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;MAPIE Z statistic&quot;</span><span class="p">,</span> <span class="n">spiegelhalter_statistic</span><span class="p">(</span><span class="n">wellcal_dataloader</span><span class="o">.</span><span class="n">labels</span><span class="p">,</span><span class="n">wellcal_dataloader</span><span class="o">.</span><span class="n">probs</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]))</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;calzone Z statistic&quot;</span><span class="p">,</span> <span class="n">spiegelhalter_z_test</span><span class="p">(</span><span class="n">wellcal_dataloader</span><span class="o">.</span><span class="n">labels</span><span class="p">,</span><span class="n">wellcal_dataloader</span><span class="o">.</span><span class="n">probs</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
 </pre></div>
 </div>
@@ -280,6 +286,12 @@ p-value: 0.9346
 </pre></div></div>
 </div>
 <p>We see that the test statistics are the same. The R package doesn’t allow user input degree of freedom so the p-value is different as expected.</p>
+</section>
+<section id="reference">
+<h2>reference<a class="headerlink" href="#reference" title="Link to this heading"></a></h2>
+<p>Taquet, V., Blot, V., Morzadec, T., Lacombe, L., &amp; Brunel, N. (2022). MAPIE: an open-source library for distribution-free uncertainty quantification. arXiv preprint arXiv:2207.12274.</p>
+<p>Pedregosa, F., Varoquaux, Ga”el, Gramfort, A., Michel, V., Thirion, B., Grisel, O., … others. (2011). Scikit-learn: Machine learning in Python. Journal of Machine Learning Research, 12(Oct), 2825–2830.</p>
+<p>Lele, S. R., Keim, J. L., &amp; Solymos, P. (2017). Resource selection (probability) functions for use-availability data. Package ‘ResourceSelection’, Version 0.3-2.</p>
 </section>
 </section>
 
