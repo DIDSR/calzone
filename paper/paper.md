@@ -47,19 +47,19 @@ bibliography: paper.bib
 `calzone` is a Python package for evaluating the calibration of probabilistic outputs of classifier models. It provides a set of functions and classes for visualizing calibration and computing calibration metrics given a representative dataset with the model's predictions and true class labels. The metrics provided in `calzone` include: Expected Calibration Error (ECE), Maximum Calibration Error (MCE), Hosmer-Lemeshow (HL) statistic, Integrated Calibration Index (ICI), Spiegelhalter's Z-statistics and Cox's calibration slope/intercept. The package is designed with versatility in mind. For many of the metrics, users can adjust the binning scheme and toggle between top-class or class-wise calculations. 
 
 # Statement of need
-Classification is one of the most fundamental tasks in machine learning. Classification models are often evaluated by a proper scoring rule, such as the cross-entropy or mean square error. Examination of the distinguishing power (resolution), such as AUC or Se/Sp are also used to evaluate the model performance. However, the reliability or calibration performance of the model is often overlooked. 
+Classification is one of the most fundamental tasks in machine learning. Classification models are often evaluated by a proper scoring rule, such as cross-entropy or mean square error. Examination of the discrimination performance (resolution), such as AUC or Se/Sp are also used to evaluate the model performance. However, the reliability or calibration performance of the model is often overlooked. 
 
 @Brocker_decompose has shown that the proper scoring rule can be decomposed into the resolution and reliability. That means even if the model has high resolution (high AUC), it may not be a reliable or calibrated model. In many high-risk machine learning applications, such as medical diagnosis, the reliability of the model is of paramount importance. 
 
-We refer calibration as the agreement between the predicted probability and the true posterior probability of a class-of-interest, $P(D=1|\hat{p}=p) = p$. This is defined as moderate calibration by @Calster_weak_cal .
+We refer to calibration as the agreement between the predicted probability and the true posterior probability of a class-of-interest, $P(D=1|\hat{p}=p) = p$. This is also termed as moderate calibration by @Calster_weak_cal .
 
-In the `calzone` package, we provide a set of functions and classes for calibration visualization and metrics computation. Existing libraries such as `scikit-learn` are often not dedicated to calibration metrics computation and don't provide calibration metrics computation that are widely used in the statistical literature. Most libraries for calibration are focusing on calibrating the model instead of measuring the level of calibration with various metrics. `calzone` is dedicated to calibration metrics computation and visualization.
+In the `calzone` package, we provide a set of functions and classes for calibration visualization and metrics computation. Existing libraries such as `scikit-learn` are often not dedicated to calibration metrics computation and don't provide calibration metrics computation that are widely used in the statistical literature. Other libraries are focused on implementing calibration methods instead of ways to evaluate calibration [TODO: cite]. 
 
 # Functionality
 
 ## Reliability Diagram
 
-Reliability Diagram is a graphical representation of the calibration of a classification model [@Brocker_reldia]. It groups the predicted probabilities into bins and plots the mean predicted probability against the empirical frequency in each bin. The reliability diagram can be used to assess the calibration of the model and to identify any systematic errors in the predictions. In addition, we add the option to plot with error bars to show the confidence interval of the empirical frequency in each bin. The error bars are calculated using Wilson's score interval [@wilson_interval]. We provide an example simulated dataset in the `example_data` folder using beta-binomial distribution [@beta-binomial]. Users can generate simulated data using the `fake_binary_data_generator` class in the `utils` module.
+The reliability diagram is a graphical representation of the calibration of a classification model [@Brocker_reldia]. It groups the predicted probabilities into bins and plots the mean predicted probability against the empirical frequency in each bin. The reliability diagram can be used to assess the calibration of the model and to identify any systematic errors in the predictions. In addition, `calzone` gives the option to also plot the confidence interval of the empirical frequency in each bin. The confidence intervals are calculated using Wilson's score interval [@wilson_interval]. We provide an example analsis in the `example_data` folder using beta-binomial distribution [@beta-binomial]. Users can generate simulated data using the `fake_binary_data_generator` class in the `utils` module.
 
 ```python
 from calzone.utils import reliability_diagram
@@ -88,10 +88,10 @@ plot_reliability_diagram(
 
 ## Calibration metrics
 
-`calzone` provides functions to compute various calibration metrics. `calzone` also has a `CalibrationMetrics()` class which allows the user to compute the calibration metrics in a more convenient way. The following are the metrics that are currently supported in `calzone`: 
+`calzone` provides functions to compute various calibration metrics. The `CalibrationMetrics()` class allows the user to compute the calibration metrics in a more convenient way. The following are metrics that are currently supported in `calzone`: 
 
 ### Expected Calibration Error (ECE) and Maximum Calibration Error (MCE)
-Expected Calibration Error (ECE), Maximum Calibration Error (MCE) and binning-based methods [@guo_calibration;@Naeini_ece] aim to measure the average deviation between predicted probability and true probability. We provide the option to use equal-width binning or equal-count binning, labeled as ECE-H and ECE-C respectively. Users can also choose to compute the metrics for the class-of-interest or the top-class. In the case of class-of-interest, the program will treat it as a 1-vs-rest classification problem. It can be computed in `calzone` as follows:
+Expected Calibration Error (ECE), Maximum Calibration Error (MCE) and other binning-based methods [@guo_calibration;@Naeini_ece] aim to measure the average deviation between predicted probability and true probability. We provide the option to use equal-width binning or equal-count binning, labeled as ECE-H and ECE-C respectively. Users can also choose to compute the metrics for the class-of-interest or the top-class. In the case of class-of-interest, `calzone` will evaluate the calibration of a one-vs-rest classification problem. The following snipped demonstrates how these metrics are calculated in our package:
 
 ```python
 from calzone.metrics import calculate_ece_mce
@@ -113,7 +113,7 @@ ece_h_classone, mce_h_classone = calculate_ece_mce(
 
 
 ### Hosmer-Lemeshow statistic (HL)
-Hosmer-Lemeshow statistic (HL) is a statistical test for the calibration of a probabilistic model. It is a chi-square based test that compares the observed and expected number of events in each bin. The null hypothesis is that the model is well calibrated. HL-test first bins data into predicted probability bins (equal-width $H$ or equal-count $C$) and the test statistic is calculated as:
+The Hosmer-Lemeshow (HL) statistical test is for evaluating the calibration of a probabilistic model. It is a chi-square-based test that compares the observed and expected number of events in each bin. The null hypothesis is that the model is well calibrated. HL-test first bins data into predicted probability bins (equal-width $H$ or equal-count $C$) and the test statistic is calculated as:
 $$
 \text{HL} = \sum_{m=1}^{M} \frac{(O_{1,m}-E_{1,m})^2}{E_{1,m}(1-\frac{E_{1,m}}{N_m})}  \sim \chi^2_{M-2}
 $$
@@ -127,7 +127,7 @@ HL_H_ts, HL_H_p, df = hosmer_lemeshow_test(
     bin_count=bin_counts
 )
 ```
-When performing the HL test on validation sets that are not used in training, the degree of freedom of the HL test changes from $M-2$ to $M$. Intuitively, $\frac{(O_{1,m}-E_{1,m})^2}{E_{1,m}(1-\frac{E_{1,m}}{N_m})}$ is the difference squared divided by the variance of a binomial distribution and follows a chi-square distribution with 1 degree of freedom. Hence, the sum of $M$ chi-square distributions with 1 degree of freedom is a chi-square distribution with $M$ degrees of freedom if the data has no effect on the model. In `calzone`, user can sepecify the degree of freedom of the HL test by setting the `df` parameter.
+In `calzone`, user can sepecify the degree of freedom of the HL test by setting the `df` parameter.This is useful because when performing the HL test on validation sets that are not used in training, the degree of freedom of the HL test changes from $M-2$ to $M$ [TODO: cite]. Intuitively, $\frac{(O_{1,m}-E_{1,m})^2}{E_{1,m}(1-\frac{E_{1,m}}{N_m})}$ is the difference squared divided by the variance of a binomial distribution and follows a chi-square distribution with 1 degree of freedom. Hence, the sum of $M$ chi-square distributions with 1 degree of freedom is a chi-square distribution with $M$ degrees of freedom if the data has no effect on the model. 
 
 ### Cox's calibration slope/intercept
 Cox's calibration slope/intercept is a non-parametric method for assessing the calibration of a probabilistic model [@Cox]. A new logistic regression model is fitted to the data, with the predicted odds ($\frac{p}{1-p}$) as the dependent variable and the true probability as the independent variable. The slope and intercept of the regression line are then used to assess the calibration of the model. A slope of 1 and intercept of 0 indicates perfect calibration. To test whether the model is calibrated, fix the slope to 1 and fit the intercept. If the intercept is significantly different from 0, the model is not calibrated. Then, fix the intercept to 0 and fit the slope. If the slope is significantly different from 1, the model is not calibrated.
@@ -144,11 +144,7 @@ cox_slope, cox_intercept, cox_slope_ci, cox_intercept_ci = cox_regression_analys
     fix_slope=True
 )
 ```
-The values of the slope and intercept give you a sense of the form of miscalibration. A slope greater than 1 indicates that the model is overconfident at high probabilities and underconfident at low probabilities, and vice versa. An intercept greater than 0 indicates that the model is overconfident in general, and vice versa. Notice that even if the slope is 1 and the intercept is 0, the model might not be calibrated, as Cox's calibration analysis fails to capture some types of miscalibration, including quadratic effects or other non-linearities.
-
-### Integrated calibration index (ICI)
-
-The integrated calibration index (ICI) is very similar to Expected calibration error (ECE). It also tries to measure the average deviation between predicted probability and true probability. However, ICI does not use binning to estimate the true probability of a group of samples with similar predicted probability. Instead, ICI uses curve smoothing techniques to fit the regression curve and uses the regression result as the true probability [@ICI_austin]. The ICI is then calculated using the following formula:
+The values of the slope and intercept can represent miscalibration throughout the range of probabiliy outputs. The integrated calibration index (ICI) is very similar to Expected calibration error (ECE). It also tries to measure the average deviation between predicted probability and true probability. However, ICI does not use binning to estimate the true probability of a group of samples with similar predicted probability. Instead, ICI uses curve smoothing techniques to fit the regression curve and uses the regression result as the true probability [@ICI_austin]. The ICI is then calculated using the following formula:
 $$
 \text{ICI} = \frac{1}{n}\sum_{i=1}^{n} |f(p_i)-p_i|
 $$
@@ -179,8 +175,7 @@ loess_ici, lowess_fit_p, lowess_fit_p_correct = lowess_regression_analysis(
 )
 ```
 
-
-Notice that flexible curve fitting methods such as loess regression are very sensitive to the choice of span and delta parameters. The user can visualize the fitting result to avoid overfitting or underfitting.
+Notice that flexible curve fitting methods such as Loess regression are very sensitive to the choice of span and delta parameters. The user can visualize the fitting result to avoid overfitting or underfitting.
 
 ### Spiegelhalter's Z-test
 
@@ -203,8 +198,6 @@ z, p_value = spiegelhalter_z_test(
 )
 ```
 
-
-
 ### Metrics class
 `calzone` also provides a class called `CalibrationMetrics()` to calculate all the metrics mentioned above. The user can also use this class to calculate the metrics.
 
@@ -220,9 +213,9 @@ CalibrationMetrics.calculate_metrics(
 )
 ```
 # Other features
-## Bootstrapping
+## Confidence intervals
 
-`calzone` also provides bootstrapping to calculate the confidence intervals of the metrics. The user can specify the number of bootstrap samples and the confidence level. 
+In addition to point estimates of calibration performance, `calzone` also provides bootstrapping to calculate the confidence intervals of the metrics. The user can specify the number of bootstrap samples and the confidence level. 
 ```python
 from calzone.metrics import CalibrationMetrics
 
@@ -235,7 +228,7 @@ CalibrationMetrics.bootstrap(
     n_samples=1000
 )
 ```
-and it will return a structured numpy array.
+and a structured numpy array will be returned.
 
 ## Subgroup analysis
 `calzone` will perform subgroup analysis by default in the command line user interface. If the user input CSV file contains a subgroup column, the program will compute metrics for the entire dataset and for each subgroup.
