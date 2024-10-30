@@ -6,6 +6,8 @@ tags:
   - Artificial Intelligence
   - Calibration
   - Probablistic models
+  - Metric
+  - Evaluation
 authors:
   - name: Kwok Lung Fan
     orcid: 0000-0002-8246-4751
@@ -42,10 +44,10 @@ bibliography: paper.bib
 ---
 
 # Summary
-`calzone` is a Python package for measuring calibration of probabilistic models for classification problems. It provides a set of functions and classes for calibration visualization and calibration metrics computation given a representative dataset with the model's predictions and the true labels. The metrics provided in `calzone` include the following: Expected Calibration Error (ECE), Maximum Calibration Error (MCE), Hosmer-Lemeshow statistic (HL), Integrated Calibration Index (ICI), Spiegelhalter's Z-statistics and Cox's calibration slope/intercept. Some metrics come with variations such as binning scheme and top-class or class-wise.
+`calzone` is a Python package for evaluating the calibration of probabilistic outputs of classifier models. It provides a set of functions and classes for visualizing calibration and computing calibration metrics given a representative dataset with the model's predictions and true class labels. The metrics provided in `calzone` include: Expected Calibration Error (ECE), Maximum Calibration Error (MCE), Hosmer-Lemeshow (HL) statistic, Integrated Calibration Index (ICI), Spiegelhalter's Z-statistics and Cox's calibration slope/intercept. The package is designed with versatility in mind. For many of the metrics, users can adjust the binning scheme and toggle between top-class or class-wise calculations. 
 
 # Statement of need
-Classification is one of the most fundamental and important tasks in machine learning. The performance of classification models is often evaluated by a proper scoring rule, such as the cross-entropy or mean square error. Examination of the distinguishing power (resolution), such as AUC or Se/Sp are also used to evaluate the model performance. However, the reliability or calibration performance of the model is often overlooked. 
+Classification is one of the most fundamental tasks in machine learning. Classification models are often evaluated by a proper scoring rule, such as the cross-entropy or mean square error. Examination of the distinguishing power (resolution), such as AUC or Se/Sp are also used to evaluate the model performance. However, the reliability or calibration performance of the model is often overlooked. 
 
 @Brocker_decompose has shown that the proper scoring rule can be decomposed into the resolution and reliability. That means even if the model has high resolution (high AUC), it may not be a reliable or calibrated model. In many high-risk machine learning applications, such as medical diagnosis, the reliability of the model is of paramount importance. 
 
