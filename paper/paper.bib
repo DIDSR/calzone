@@ -100,7 +100,12 @@ Conclusions
 Prevalence scaling can be used to change computer PM output to reflect clinically more appropriate prevalence. Relatively small changes in clinical prevalence can have large effects on the computer classifier's optimal operating point.}
 }
 
-
+@book{hosmer2013applied,
+  title={Applied logistic regression},
+  author={Hosmer Jr, David W and Lemeshow, Stanley and Sturdivant, Rodney X},
+  year={2013},
+  publisher={John Wiley \& Sons}
+}
 @article{Brocker_decompose,
 author = {Bröcker, Jochen},
 title = {Reliability, sufficiency, and the decomposition of proper scores},
@@ -162,6 +167,32 @@ eprint = {
     abstract = { Scores produced by statistical classifiers in many clinical decision support systems and other medical diagnostic devices are generally on an arbitrary scale, so the clinical meaning of these scores is unclear. Calibration of classifier scores to a meaningful scale such as the probability of disease is potentially useful when such scores are used by a physician. In this work, we investigated three methods (parametric, semi-parametric, and non-parametric) for calibrating classifier scores to the probability of disease scale and developed uncertainty estimation techniques for these methods. We showed that classifier scores on arbitrary scales can be calibrated to the probability of disease scale without affecting their discrimination performance. With a finite dataset to train the calibration function, it is important to accompany the probability estimate with its confidence interval. Our simulations indicate that, when a dataset used for finding the transformation for calibration is also used for estimating the performance of calibration, the resubstitution bias exists for a performance metric involving the truth states in evaluating the calibration performance. However, the bias is small for the parametric and semi-parametric methods when the sample size is moderate to large (>100 per class). }
 }
 
+@article{DIAMOND199285,
+title = {What price perfection? Calibration and discrimination of clinical prediction models},
+journal = {Journal of Clinical Epidemiology},
+volume = {45},
+number = {1},
+pages = {85-89},
+year = {1992},
+issn = {0895-4356},
+doi = {https://doi.org/10.1016/0895-4356(92)90192-P},
+url = {https://www.sciencedirect.com/science/article/pii/089543569290192P},
+author = {George A. Diamond}
+}
+@article{taquet2022mapie,
+  title={MAPIE: an open-source library for distribution-free uncertainty quantification},
+  author={Taquet, Vianney and Blot, Vincent and Morzadec, Thomas and Lacombe, Louis and Brunel, Nicolas},
+  journal={arXiv preprint arXiv:2207.12274},
+  year={2022}
+}
+
+@Manual{ResourceSelection,
+  title = {ResourceSelection: Resource Selection (Probability) Functions for Use-Availability Data},
+  author = {Subhash R. Lele and Jonah L. Keim and Peter Solymos},
+  year = {2024},
+  note = {R package version 0.3-6},
+  url = {https://github.com/psolymos/ResourceSelection},
+}
 @article{scikit,
   title={Scikit-learn: Machine learning in Python},
   author={Pedregosa, Fabian and Varoquaux, Ga{\"e}l and Gramfort, Alexandre and Michel, Vincent and Thirion, Bertrand and Grisel, Olivier and Blondel, Mathieu and Prettenhofer, Peter and Weiss, Ron and Dubourg, Vincent and others},
