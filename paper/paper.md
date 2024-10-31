@@ -53,13 +53,13 @@ Classification is one of the most fundamental tasks in machine learning. Classif
 
 We refer to calibration as the agreement between the predicted probability and the true posterior probability of a class-of-interest, $P(D=1|\hat{p}=p) = p$. This is also termed as moderate calibration by @Calster_weak_cal .
 
-In the `calzone` package, we provide a set of functions and classes for calibration visualization and metrics computation. Existing libraries such as `scikit-learn` are often not dedicated to calibration metrics computation and don't provide calibration metrics computation that are widely used in the statistical literature. Other libraries are focused on implementing calibration methods instead of ways to evaluate calibration [TODO: cite]. 
+In the `calzone` package, we provide a set of functions and classes for calibration visualization and metrics computation. Existing libraries such as `scikit-learn` are often not dedicated to calibration metrics computation and don't provide calibration metrics computation that are widely used in the statistical literature. Other libraries such as `uncertainty-toolbox` are focused on implementing calibration methods and visualization instead of ways to evaluate calibration [@uncertaintyToolbox]. 
 
 # Functionality
 
 ## Reliability Diagram
 
-The reliability diagram is a graphical representation of the calibration of a classification model [@Brocker_reldia]. It groups the predicted probabilities into bins and plots the mean predicted probability against the empirical frequency in each bin. The reliability diagram can be used to assess the calibration of the model and to identify any systematic errors in the predictions. In addition, `calzone` gives the option to also plot the confidence interval of the empirical frequency in each bin. The confidence intervals are calculated using Wilson's score interval [@wilson_interval]. We provide an example analsis in the `example_data` folder using beta-binomial distribution [@beta-binomial]. Users can generate simulated data using the `fake_binary_data_generator` class in the `utils` module.
+The reliability diagram is a graphical representation of the calibration of a classification model [@Brocker_reldia]. It groups the predicted probabilities into bins and plots the mean predicted probability against the empirical frequency in each bin. The reliability diagram can be used to assess the calibration of the model and to identify any systematic errors in the predictions. In addition, `calzone` gives the option to also plot the confidence interval of the empirical frequency in each bin. The confidence intervals are calculated using Wilson's score interval [@wilson_interval]. We provide an example analysis in the `example_data` folder using beta-binomial distribution [@beta-binomial]. Users can generate simulated data using the `fake_binary_data_generator` class in the `utils` module.
 
 ```python
 from calzone.utils import reliability_diagram
@@ -91,7 +91,7 @@ plot_reliability_diagram(
 `calzone` provides functions to compute various calibration metrics. The `CalibrationMetrics()` class allows the user to compute the calibration metrics in a more convenient way. The following are metrics that are currently supported in `calzone`: 
 
 ### Expected Calibration Error (ECE) and Maximum Calibration Error (MCE)
-Expected Calibration Error (ECE), Maximum Calibration Error (MCE) and other binning-based methods [@guo_calibration;@Naeini_ece] aim to measure the average deviation between predicted probability and true probability. We provide the option to use equal-width binning or equal-count binning, labeled as ECE-H and ECE-C respectively. Users can also choose to compute the metrics for the class-of-interest or the top-class. In the case of class-of-interest, `calzone` will evaluate the calibration of a one-vs-rest classification problem. The following snipped demonstrates how these metrics are calculated in our package:
+Expected Calibration Error (ECE), Maximum Calibration Error (MCE) and other binning-based methods [@guo_calibration;@Naeini_ece] aim to measure the average deviation between predicted probability and true probability. We provide the option to use equal-width binning or equal-count binning, labeled as ECE-H and ECE-C respectively. Users can also choose to compute the metrics for the class-of-interest or the top-class. In the case of class-of-interest, `calzone` will evaluate the calibration of a one-vs-rest classification problem. The following snippet demonstrates how these metrics are calculated in our package:
 
 ```python
 from calzone.metrics import calculate_ece_mce
@@ -113,11 +113,7 @@ ece_h_classone, mce_h_classone = calculate_ece_mce(
 
 
 ### Hosmer-Lemeshow statistic (HL)
-<<<<<<< HEAD
-Hosmer-Lemeshow statistic (HL) is a statistical test for the calibration of a probabilistic model [@hl_test]. It is a chi-square based test that compares the observed and expected number of events in each bin. The null hypothesis is that the model is well calibrated. HL-test first bins data into predicted probability bins (equal-width $H$ or equal-count $C$) and the test statistic is calculated as:
-=======
 The Hosmer-Lemeshow (HL) statistical test is for evaluating the calibration of a probabilistic model. It is a chi-square-based test that compares the observed and expected number of events in each bin. The null hypothesis is that the model is well calibrated. HL-test first bins data into predicted probability bins (equal-width $H$ or equal-count $C$) and the test statistic is calculated as:
->>>>>>> cdd3f8ac405788615653f94d7b4144af7e9acab0
 $$
 \text{HL} = \sum_{m=1}^{M} \frac{(O_{1,m}-E_{1,m})^2}{E_{1,m}(1-\frac{E_{1,m}}{N_m})}  \sim \chi^2_{M-2}
 $$
@@ -131,11 +127,7 @@ HL_H_ts, HL_H_p, df = hosmer_lemeshow_test(
     bin_count=bin_counts
 )
 ```
-<<<<<<< HEAD
-When performing the HL test on validation sets that are not used in training, the degree of freedom of the HL test changes from $M-2$ to $M$. Intuitively, $\frac{(O_{1,m}-E_{1,m})^2}{E_{1,m}(1-\frac{E_{1,m}}{N_m})}$ is the difference squared divided by the variance of a binomial distribution and follows a chi-square distribution with 1 degree of freedom. Hence, the sum of $M$ chi-square distributions with 1 degree of freedom is a chi-square distribution with $M$ degrees of freedom if the data has no effect on the model [@hosmer2013applied]. The increase in degree of freedom for validation samples has often been overlooked but it is crucial for the test to maintain the correct type 1 error rate. In `calzone`, users can specify the degree of freedom of the HL test by setting the `df` parameter.
-=======
-In `calzone`, user can sepecify the degree of freedom of the HL test by setting the `df` parameter.This is useful because when performing the HL test on validation sets that are not used in training, the degree of freedom of the HL test changes from $M-2$ to $M$ [TODO: cite]. Intuitively, $\frac{(O_{1,m}-E_{1,m})^2}{E_{1,m}(1-\frac{E_{1,m}}{N_m})}$ is the difference squared divided by the variance of a binomial distribution and follows a chi-square distribution with 1 degree of freedom. Hence, the sum of $M$ chi-square distributions with 1 degree of freedom is a chi-square distribution with $M$ degrees of freedom if the data has no effect on the model. 
->>>>>>> cdd3f8ac405788615653f94d7b4144af7e9acab0
+When performing the HL test on validation sets that are not used in training, the degree of freedom of the HL test changes from $M-2$ to $M$[@hosmer2013applied]. Intuitively, $\frac{(O_{1,m}-E_{1,m})^2}{E_{1,m}(1-\frac{E_{1,m}}{N_m})}$ is the difference squared divided by the variance of a binomial distribution and follows a chi-square distribution with 1 degree of freedom. Hence, the sum of $M$ chi-square distributions with 1 degree of freedom is a chi-square distribution with $M$ degrees of freedom if the data has no effect on the model. The increase in degree of freedom for validation samples has often been overlooked but it is crucial for the test to maintain the correct type 1 error rate. In `calzone`, users can specify the degree of freedom of the HL test by setting the `df` parameter.
 
 ### Cox's calibration slope/intercept
 Cox's calibration slope/intercept is a regression analysis method for assessing the calibration of a probabilistic model [@Cox]. A new logistic regression model is fitted to the data, with the predicted odds ($\frac{p}{1-p}$) as the independent variable and the outcome as the dependent variable. The slope and intercept of the regression line are then used to assess the calibration of the model. A slope of 1 and intercept of 0 indicates perfect calibration. To test whether the model is calibrated, fix the slope to 1 and fit the intercept. If the intercept is significantly different from 0, the model is not calibrated. Then, fix the intercept to 0 and fit the slope. If the slope is significantly different from 1, the model is not calibrated.
