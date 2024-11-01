@@ -90,7 +90,7 @@ plot_reliability_diagram(
 `calzone` provides functions to compute various calibration metrics. The `CalibrationMetrics()` class allows the user to compute the calibration metrics in a more convenient way. The following are metrics that are currently supported in `calzone`: 
 
 ### Expected Calibration Error (ECE) and Maximum Calibration Error (MCE)
-Expected Calibration Error (ECE), Maximum Calibration Error (MCE) and other binning-based methods [@guo_calibration;@Naeini_ece] aim to measure the average deviation between predicted probability and true probability. We provide the option to use equal-width binning or equal-count binning, labeled as ECE-H and ECE-C respectively. Users can also choose to compute the metrics for the class-of-interest or the top-class. In the case of class-of-interest, `calzone` will evaluate the calibration of a one-vs-rest classification problem. The following snippet demonstrates how these metrics are calculated in our package:
+Expected Calibration Error (ECE), Maximum Calibration Error (MCE) and other binning-based methods [@guo_calibration;@Naeini_ece] aim to measure the average absolute deviation between predicted probability and true probability. We provide the option to use equal-width binning or equal-count binning, labeled as ECE-H and ECE-C respectively. Users can also choose to compute the metrics for the class-of-interest or the top-class. In the case of class-of-interest, `calzone` will evaluate the calibration of a one-vs-rest classification problem. The following snippet demonstrates how these metrics are calculated in our package:
 
 ```python
 from calzone.metrics import calculate_ece_mce
