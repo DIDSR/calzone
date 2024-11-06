@@ -53,13 +53,13 @@ Classification is one of the most common applications in machine learning. Class
 
 We define calibration as the agreement between the predicted probability and the true posterior probability of a class-of-interest, $P(D=1|\hat{p}=p) = p$. This has been defined as moderate calibration by @Calster_weak_cal .
 
-In the `calzone` package, we provide a set of functions and classes for calibration visualization and metrics computation. Existing libraries such as `scikit-learn` are often not dedicated to calibration metrics computation or don't provide calibration metrics computation that are widely used in the statistical literature. Other libraries such as `uncertainty-toolbox` are focused on implementing calibration methods and visualization instead of ways to evaluate calibration [@uncertaintyToolbox]. 
+In the `calzone` package, we provide a set of functions and classes for visualizing calibration and evaluating calibration metrics. Existing libraries such as `scikit-learn` are often not dedicated to calibration metrics computation or lacks calibration metrics that are widely used in the statistical literature. Other libraries such as `uncertainty-toolbox` are focused on implementing calibration methods instead of calibration assessment. [@uncertaintyToolbox]. 
 
 # Functionality
 
 ## Reliability Diagram
 
-The reliability diagram (also referred to as a calibration plot) is a graphical representation of the calibration of a classification model [@Murphy_reliability;@Brocker_reldia]. It groups the predicted probabilities into bins and plots the mean predicted probability against the empirical frequency in each bin. The reliability diagram can be used to assess the calibration of the model and to identify any systematic errors in the predictions. In addition, `calzone` gives the option to also plot the confidence interval of the empirical frequency in each bin. The confidence intervals are calculated using Wilson's score interval [@wilson_interval]. We provide example data in the `example_data` folder which are simulated using a beta-binomial distribution [@beta-binomial]. The predicted probabilities are sampled from a beta distribution and the true labels are assigned by performing Bernoulli trials with the sampled probabilities. Users can generate simulated data using the `fake_binary_data_generator` class in the `utils` module.
+The reliability diagram (also referred to as the calibration plot) is a graphical representation of the calibration of a classification model [@Murphy_reliability;@Brocker_reldia]. It groups the predicted probabilities into bins and plots the mean predicted probability against the empirical frequency in each bin. The reliability diagram can be used to assess the calibration of the model and to identify any systematic errors in the predictions. In addition, `calzone` gives the option to also plot the confidence interval of the empirical frequency in each bin. The confidence intervals are calculated using Wilson's score interval [@wilson_interval]. We provide example data in the `example_data` folder which are simulated using a beta-binomial distribution [@beta-binomial]. The predicted probabilities are sampled from a beta distribution and the true labels are assigned by performing Bernoulli trials with the sampled probabilities. Users can generate simulated data using the `fake_binary_data_generator` class in the `utils` module.
 
 ```python
 from calzone.utils import reliability_diagram
@@ -219,7 +219,7 @@ CalibrationMetrics.calculate_metrics(
 # Other features
 ## Confidence intervals
 
-In addition to point estimates of calibration performance, `calzone` also provides bootstrapping to calculate the confidence intervals of the metrics. The user can specify the number of bootstrap samples and the confidence level. 
+In addition to point estimates of calibration performance, `calzone` also provides functionality to compute confidence intervals for all metrics. For most metrics, this is computed through bootstrapping. The user can specify the number of bootstrap samples and the confidence level. 
 ```python
 from calzone.metrics import CalibrationMetrics
 
@@ -232,7 +232,7 @@ CalibrationMetrics.bootstrap(
     n_samples=1000
 )
 ```
-and a structured numpy array will be returned.
+and a structured NumPy array will be returned.
 
 ## Subgroup analysis
 `calzone` will perform subgroup analysis by default in the command line user interface. If the user input CSV file contains a subgroup column, the program will compute metrics for the entire dataset and for each subgroup.
@@ -251,10 +251,10 @@ where $\eta$ is the prevalence of the testing data, $\eta'$ is the prevalence of
 We compared the results calculated by `calzone` with external packages for some metrics to ensure the correctness of the implementation. For reliability diagram, we compared the result with the `sklearn.calibration.calibration_curve()` function in `scikit-learn` [@scikit]. For top-class ECE and SpiegelHalter's Z score, we compared the result with the `MAPIE` package [@taquet2022mapie]. For Hosmer-Lemeshow statistic, we compared the result with the `ResourceSelection` package in R language [@ResourceSelection]. Their results are consistent with ours. For other metrics such as ICI, no external package is available, so we compared the result with ECE as they are similar and we obtained reasonably similar results. We include the validation codes in our documentation.
 
 ## Command line interface
-`calzone` also provides a command line interface to calculate the metrics. The user can visualize the calibration curve, calculate the metrics and their confidence intervals using the command line interface. To use the command line interface, the user can run `python cal_metrics.py -h` to see the help message.
+`calzone` also provides a command line interface. Users can visualize the calibration curve, calculate calibration metrics and their confidence intervals using the command line interface. To use the command line interface, the user can run `python cal_metrics.py -h` to see the help message.
 
 # Acknowledgements
-The authors acknowledge the Research Participation Program at the Center for Devices and Radiological Health administered by the Oak Ridge Institute for Science and Education through an interagency agreement between the U.S. Department of Energy and the U.S. Food and Drug Administration (FDA). 
+The authors acknowledge the Research Participation Program at the Center for Devices and Radiological Health administered by the Oak Ridge Institute for Science and Education through an interagency agreement between the U.S. Department of Energy and the U.S. Food and Drug Administration. 
 
 # Conflicts of interest
 The authors declare no conflicts of interest.
