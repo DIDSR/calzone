@@ -152,7 +152,7 @@ The integrated calibration index (ICI) is very similar to Expected calibration e
 $$
 \text{ICI} = \frac{1}{n}\sum_{i=1}^{n} |f(p_i)-p_i|
 $$
-where $f$ is the fitting function and $p$ is the predicted probability. The curve fitting is usually done with loess regression. However, it is possible to use any curve fitting method to calculate the ICI. In `calzone`, we provide Cox's ICI and loess ICI support while the user can also use any curve fitting method to calculate the ICI using functions in `calzone`.
+where $f$ is the fitting function and $p$ is the predicted probability. The curve fitting is usually done with Locally Weighted Scatterplot Smoothing (LOWESS). However, it is possible to use any curve fitting method to calculate the ICI. In `calzone`, we provide Cox's ICI and loess ICI support while the user can also use any curve fitting method to calculate the ICI using functions in `calzone`.
 ```python
 from calzone.metrics import (
     cox_regression_analysis,
@@ -168,7 +168,7 @@ cox_ici = cal_ICI_cox(
     class_to_calculate=1
 )
 
-### calculating loess ICI
+### calculating LOWESS ICI
 loess_ici, lowess_fit_p, lowess_fit_p_correct = lowess_regression_analysis(
     wellcal_dataloader.labels,
     wellcal_dataloader.probs,
@@ -179,7 +179,7 @@ loess_ici, lowess_fit_p, lowess_fit_p_correct = lowess_regression_analysis(
 )
 ```
 
-Notice that flexible curve fitting methods such as Loess regression are very sensitive to the choice of span and delta parameters. The user can visualize the fitting result to avoid overfitting or underfitting.
+Notice that flexible curve fitting methods such as LOWESS regression are very sensitive to the choice of span and delta parameters. The user can visualize the fitting result to avoid overfitting or underfitting.
 
 ### Spiegelhalter's Z-test
 
