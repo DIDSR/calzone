@@ -55,7 +55,7 @@ We define calibration as the agreement between the predicted probability and the
 
 In the `calzone` package, we provide a set of functions and classes for visualizing calibration and evaluating calibration metrics given a representative dataset from the intended population. Existing libraries such as `scikit-learn` lacks calibration metrics that are widely used in the statistical literature. Other libraries such as `uncertainty-toolbox` are focused on implementing calibration methods but do not include any calibration assessment. [@uncertaintyToolbox]. 
 
-# Package description
+# Software description
 
 ## Input data
 To evaluate the calibration of a model, users need a representative dataset from the intended population. The dataset should contain the true class labels and the model's predicted probabilities. In `calzone`, the dataset can be loaded from a CSV file using the `data_loader` function. The description of the input CSV file format can be found in the `calzone` documentation. Alternatively, users can pass the true class labels and the model's predicted probabilities as NumPy arrays to the `calzone` functions.
