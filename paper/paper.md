@@ -53,7 +53,7 @@ Classification is one of the most common applications in machine learning. Class
 
 We define calibration as the agreement between the predicted probability and the true posterior probability of a class-of-interest, $P(D=1|\hat{p}=p) = p$. This has been defined as moderate calibration by @Calster_weak_cal and is also referred as the reliability of the model.
 
-In the `calzone` package, we provide a set of functions and classes for visualizing calibration and evaluating calibration metrics given a representative dataset from the intended population. Existing libraries such as `scikit-learn` lacks calibration metrics that are widely used in the statistical literature. Other libraries such as `uncertainty-toolbox` are focused on implementing calibration methods but do not include any calibration assessment. [@uncertaintyToolbox]. 
+In the `calzone` package, we provide a set of functions and classes for visualizing calibration and evaluating calibration metrics given a representative dataset from the intended population. Existing libraries such as `scikit-learn` lacks calibration metrics that are widely used in the statistical literature. Other libraries such as `uncertainty-toolbox` are focused on implementing calibration methods and not calibration assessment. [@uncertaintyToolbox]. 
 
 # Software description
 
@@ -64,11 +64,12 @@ To evaluate the calibration of a model, users need a representative dataset from
 
 The reliability diagram (also referred to as the calibration plot) is a graphical representation of the calibration of a classification model [@Murphy_reliability;@Brocker_reldia]. It groups the predicted probabilities into bins and plots the mean predicted probability against the empirical frequency in each bin. The reliability diagram can be used to assess the calibration of the model and to identify any systematic errors in the predictions. In addition, `calzone` gives the option to also plot the confidence interval of the empirical frequency in each bin. The confidence intervals are calculated using the Wilson's score interval [@wilson_interval].
 
- We provide example data in the `example_data` folder which are simulated using a beta-binomial distribution [@beta-binomial]. More description can be found in the documentation. In the example code below, we will instead use the scikit-learn function to simulate data and fit a simple logistic model to illustrate. Figure \autoref{fig:reldia} shows an example of the reliability diagram for class 1 with 15 equal-width bins for a well-calibrated dataset, where the x-axis is the mean predicted probability and the y-axis is the empirical frequency.
+ We provide example data in the `example_data` folder which are simulated using a beta-binomial distribution [@beta-binomial]. More description can be found in the documentation. In the example code below, we will instead use the scikit-learn function to simulate data and fit a simple logistic model to illustrate. \autoref{fig:reldia} shows an example of the reliability diagram for class 1 with 15 equal-width bins for a well-calibrated dataset, where the x-axis is the mean predicted probability and the y-axis is the empirical frequency.
 ```python
 from calzone.utils import reliability_diagram
 from calzone.vis import plot_reliability_diagram
-# Import sklearn for simulation
+
+# Generate a random binary classification dataset
 import sklearn.linear_model
 import sklearn.datasets
 
