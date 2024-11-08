@@ -336,37 +336,55 @@ def lowess_regression_analysis(
     return ICI, lowess_fit[:, 0], lowess_fit[:, 1]
 
 
-def cal_ICI(func, y_proba, points=1000, class_to_calculate=1):
+def cal_ICI_func(func, y_proba, class_to_calculate=1):
     """
     Calculate the Integrated Calibration Index (ICI) for a given calibration function.
 
     Args:
         func (callable): The calibration function to evaluate.
         y_proba (array-like): Predicted probabilities for each class. Shape (n_samples, n_classes).
-        points (int, optional): Number of points to use for numerical integration. Defaults to 1000.
         class_to_calculate (int, optional): The class index to calculate the ICI for. Defaults to 1.
 
     Returns:
         float: The Integrated Calibration Index (ICI) value.
 
     Note:
-        The ICI is calculated by integrating the absolute difference between
-        the calibration function and the identity function, weighted by the
-        density of the predicted probabilities.
+
+
+        The ICI is calculated by calculating the mean absolute difference between
+        predicted probabilities and the calibration function evaluated at predicted probabilities.
     """
-    # Generate evenly spaced points for integration
-    x = np.linspace(0, 1, points)
-    xcenter = (x[:-1] + x[1:]) / 2
-
-    # Calculate the density of predicted probabilities
-    density = np.histogram(y_proba[:, class_to_calculate], bins=x, density=True)[0]
-
     # Apply the calibration function
-    y = func(xcenter)
+
+    y_adjust = func(y_proba[:, class_to_calculate])
 
     # Calculate and return the ICI
-    return np.trapz(np.abs(y - xcenter) * density, xcenter)
 
+    return np.mean(np.abs(y_adjust - y_proba[:, class_to_calculate]))
+
+
+def cal_ICI(y_adjust, y_proba):
+    """
+
+    Calculate the Integrated Calibration Index (ICI) for given adjusted probabilities.
+
+    Args:
+
+
+        y_adjust (array-like): Adjusted probabilities. Shape (n_samples,).
+        y_proba (array-like): Original predicted probabilities. Shape (n_samples,).
+
+    Returns:
+        float: The Integrated Calibration Index (ICI) value.
+
+    Note:
+
+        The ICI is calculated by calculating the mean absolute difference between
+        predicted probabilities and the adjusted probabilities.
+    """
+    # Calculate and return the ICI
+
+    return np.mean(np.abs(y_adjust - y_proba))
 
 def logit_func(coef, intercept):
     """

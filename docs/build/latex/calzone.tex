@@ -65,7 +65,7 @@
 
 
 \title{calzone}
-\date{Oct 29, 2024}
+\date{Nov 08, 2024}
 \release{develop}
 \author{Kwok Lung "Jason" Fan, Qian Cao}
 \newcommand{\sphinxlogo}{\vbox{}}
@@ -3907,27 +3907,19 @@ second column is the adjusted probabilities for the class of interest.
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{calzone:calzone.metrics.cal_ICI}}
 \pysigstartsignatures
-\pysiglinewithargsret{\sphinxcode{\sphinxupquote{calzone.metrics.}}\sphinxbfcode{\sphinxupquote{cal\_ICI}}}{\sphinxparam{\DUrole{n}{func}}\sphinxparamcomma \sphinxparam{\DUrole{n}{y\_proba}}\sphinxparamcomma \sphinxparam{\DUrole{n}{points}\DUrole{o}{=}\DUrole{default_value}{1000}}\sphinxparamcomma \sphinxparam{\DUrole{n}{class\_to\_calculate}\DUrole{o}{=}\DUrole{default_value}{1}}}{}
+\pysiglinewithargsret{\sphinxcode{\sphinxupquote{calzone.metrics.}}\sphinxbfcode{\sphinxupquote{cal\_ICI}}}{\sphinxparam{\DUrole{n}{y\_adjust}}\sphinxparamcomma \sphinxparam{\DUrole{n}{y\_proba}}}{}
 \pysigstopsignatures
 \sphinxAtStartPar
-Calculate the Integrated Calibration Index (ICI) for a given calibration function.
+Calculate the Integrated Calibration Index (ICI) for given adjusted probabilities.
 \begin{quote}\begin{description}
 \sphinxlineitem{Parameters}\begin{itemize}
 \item {} 
 \sphinxAtStartPar
-\sphinxstyleliteralstrong{\sphinxupquote{func}} (\sphinxstyleliteralemphasis{\sphinxupquote{callable}}) \textendash{} The calibration function to evaluate.
+\sphinxstyleliteralstrong{\sphinxupquote{y\_adjust}} (\sphinxstyleliteralemphasis{\sphinxupquote{array\sphinxhyphen{}like}}) \textendash{} Adjusted probabilities. Shape (n\_samples,).
 
 \item {} 
 \sphinxAtStartPar
-\sphinxstyleliteralstrong{\sphinxupquote{y\_proba}} (\sphinxstyleliteralemphasis{\sphinxupquote{array\sphinxhyphen{}like}}) \textendash{} Predicted probabilities for each class. Shape (n\_samples, n\_classes).
-
-\item {} 
-\sphinxAtStartPar
-\sphinxstyleliteralstrong{\sphinxupquote{points}} (\sphinxstyleliteralemphasis{\sphinxupquote{int}}\sphinxstyleliteralemphasis{\sphinxupquote{, }}\sphinxstyleliteralemphasis{\sphinxupquote{optional}}) \textendash{} Number of points to use for numerical integration. Defaults to 1000.
-
-\item {} 
-\sphinxAtStartPar
-\sphinxstyleliteralstrong{\sphinxupquote{class\_to\_calculate}} (\sphinxstyleliteralemphasis{\sphinxupquote{int}}\sphinxstyleliteralemphasis{\sphinxupquote{, }}\sphinxstyleliteralemphasis{\sphinxupquote{optional}}) \textendash{} The class index to calculate the ICI for. Defaults to 1.
+\sphinxstyleliteralstrong{\sphinxupquote{y\_proba}} (\sphinxstyleliteralemphasis{\sphinxupquote{array\sphinxhyphen{}like}}) \textendash{} Original predicted probabilities. Shape (n\_samples,).
 
 \end{itemize}
 
@@ -3939,9 +3931,8 @@ Calculate the Integrated Calibration Index (ICI) for a given calibration functio
 
 \begin{sphinxadmonition}{note}{Note:}
 \sphinxAtStartPar
-The ICI is calculated by integrating the absolute difference between
-the calibration function and the identity function, weighted by the
-density of the predicted probabilities.
+The ICI is calculated by calculating the mean absolute difference between
+predicted probabilities and the adjusted probabilities.
 \end{sphinxadmonition}
 
 \end{fulllineitems}
@@ -4000,6 +3991,45 @@ The function applies the inverse logit transformation to the predicted probabili
 using the coefficients from the Cox regression.
 
 \end{itemize}
+\end{sphinxadmonition}
+
+\end{fulllineitems}
+
+\index{cal\_ICI\_func() (in module calzone.metrics)@\spxentry{cal\_ICI\_func()}\spxextra{in module calzone.metrics}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{calzone:calzone.metrics.cal_ICI_func}}
+\pysigstartsignatures
+\pysiglinewithargsret{\sphinxcode{\sphinxupquote{calzone.metrics.}}\sphinxbfcode{\sphinxupquote{cal\_ICI\_func}}}{\sphinxparam{\DUrole{n}{func}}\sphinxparamcomma \sphinxparam{\DUrole{n}{y\_proba}}\sphinxparamcomma \sphinxparam{\DUrole{n}{class\_to\_calculate}\DUrole{o}{=}\DUrole{default_value}{1}}}{}
+\pysigstopsignatures
+\sphinxAtStartPar
+Calculate the Integrated Calibration Index (ICI) for a given calibration function.
+\begin{quote}\begin{description}
+\sphinxlineitem{Parameters}\begin{itemize}
+\item {} 
+\sphinxAtStartPar
+\sphinxstyleliteralstrong{\sphinxupquote{func}} (\sphinxstyleliteralemphasis{\sphinxupquote{callable}}) \textendash{} The calibration function to evaluate.
+
+\item {} 
+\sphinxAtStartPar
+\sphinxstyleliteralstrong{\sphinxupquote{y\_proba}} (\sphinxstyleliteralemphasis{\sphinxupquote{array\sphinxhyphen{}like}}) \textendash{} Predicted probabilities for each class. Shape (n\_samples, n\_classes).
+
+\item {} 
+\sphinxAtStartPar
+\sphinxstyleliteralstrong{\sphinxupquote{class\_to\_calculate}} (\sphinxstyleliteralemphasis{\sphinxupquote{int}}\sphinxstyleliteralemphasis{\sphinxupquote{, }}\sphinxstyleliteralemphasis{\sphinxupquote{optional}}) \textendash{} The class index to calculate the ICI for. Defaults to 1.
+
+\end{itemize}
+
+\sphinxlineitem{Returns}
+\sphinxAtStartPar
+\sphinxstylestrong{float} \textendash{} The Integrated Calibration Index (ICI) value.
+
+\end{description}\end{quote}
+
+\begin{sphinxadmonition}{note}{Note:}
+\sphinxAtStartPar
+The ICI is calculated by calculating the mean absolute difference between
+predicted probabilities and the calibration function evaluated at predicted probabilities.
 \end{sphinxadmonition}
 
 \end{fulllineitems}

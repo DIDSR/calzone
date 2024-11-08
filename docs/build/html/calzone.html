@@ -67,6 +67,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#calzone.metrics.CalibrationMetrics"><code class="docutils literal notranslate"><span class="pre">CalibrationMetrics</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#calzone.metrics.cal_ICI"><code class="docutils literal notranslate"><span class="pre">cal_ICI()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#calzone.metrics.cal_ICI_cox"><code class="docutils literal notranslate"><span class="pre">cal_ICI_cox()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#calzone.metrics.cal_ICI_func"><code class="docutils literal notranslate"><span class="pre">cal_ICI_func()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#calzone.metrics.calculate_ece_mce"><code class="docutils literal notranslate"><span class="pre">calculate_ece_mce()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#calzone.metrics.cox_regression_analysis"><code class="docutils literal notranslate"><span class="pre">cox_regression_analysis()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#calzone.metrics.get_CI"><code class="docutils literal notranslate"><span class="pre">get_CI()</span></code></a></li>
@@ -240,15 +241,13 @@ second column is the adjusted probabilities for the class of interest.</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="calzone.metrics.cal_ICI">
-<span class="sig-prename descclassname"><span class="pre">calzone.metrics.</span></span><span class="sig-name descname"><span class="pre">cal_ICI</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_proba</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">points</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">class_to_calculate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/calzone/metrics.html#cal_ICI"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#calzone.metrics.cal_ICI" title="Link to this definition"></a></dt>
-<dd><p>Calculate the Integrated Calibration Index (ICI) for a given calibration function.</p>
+<span class="sig-prename descclassname"><span class="pre">calzone.metrics.</span></span><span class="sig-name descname"><span class="pre">cal_ICI</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y_adjust</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_proba</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/calzone/metrics.html#cal_ICI"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#calzone.metrics.cal_ICI" title="Link to this definition"></a></dt>
+<dd><p>Calculate the Integrated Calibration Index (ICI) for given adjusted probabilities.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>func</strong> (<em>callable</em>) – The calibration function to evaluate.</p></li>
-<li><p><strong>y_proba</strong> (<em>array-like</em>) – Predicted probabilities for each class. Shape (n_samples, n_classes).</p></li>
-<li><p><strong>points</strong> (<em>int</em><em>, </em><em>optional</em>) – Number of points to use for numerical integration. Defaults to 1000.</p></li>
-<li><p><strong>class_to_calculate</strong> (<em>int</em><em>, </em><em>optional</em>) – The class index to calculate the ICI for. Defaults to 1.</p></li>
+<li><p><strong>y_adjust</strong> (<em>array-like</em>) – Adjusted probabilities. Shape (n_samples,).</p></li>
+<li><p><strong>y_proba</strong> (<em>array-like</em>) – Original predicted probabilities. Shape (n_samples,).</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -257,9 +256,8 @@ second column is the adjusted probabilities for the class of interest.</p></li>
 </dl>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The ICI is calculated by integrating the absolute difference between
-the calibration function and the identity function, weighted by the
-density of the predicted probabilities.</p>
+<p>The ICI is calculated by calculating the mean absolute difference between
+predicted probabilities and the adjusted probabilities.</p>
 </div>
 </dd></dl>
 
@@ -290,6 +288,29 @@ and the probabilities transformed by the fitted Cox regression model.</p>
 <li><p>The function applies the inverse logit transformation to the predicted probabilities
 using the coefficients from the Cox regression.</p></li>
 </ul>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="calzone.metrics.cal_ICI_func">
+<span class="sig-prename descclassname"><span class="pre">calzone.metrics.</span></span><span class="sig-name descname"><span class="pre">cal_ICI_func</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_proba</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">class_to_calculate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/calzone/metrics.html#cal_ICI_func"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#calzone.metrics.cal_ICI_func" title="Link to this definition"></a></dt>
+<dd><p>Calculate the Integrated Calibration Index (ICI) for a given calibration function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>func</strong> (<em>callable</em>) – The calibration function to evaluate.</p></li>
+<li><p><strong>y_proba</strong> (<em>array-like</em>) – Predicted probabilities for each class. Shape (n_samples, n_classes).</p></li>
+<li><p><strong>class_to_calculate</strong> (<em>int</em><em>, </em><em>optional</em>) – The class index to calculate the ICI for. Defaults to 1.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>float</strong> – The Integrated Calibration Index (ICI) value.</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The ICI is calculated by calculating the mean absolute difference between
+predicted probabilities and the calibration function evaluated at predicted probabilities.</p>
 </div>
 </dd></dl>
 

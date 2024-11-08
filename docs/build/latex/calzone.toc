@@ -59,8 +59,8 @@
 \contentsline {section}{\numberline {14.1}calzone package}{67}{section.14.1}%
 \contentsline {subsection}{\numberline {14.1.1}Submodules}{67}{subsection.14.1.1}%
 \contentsline {subsection}{\numberline {14.1.2}calzone.metrics module}{67}{subsection.14.1.2}%
-\contentsline {subsection}{\numberline {14.1.3}calzone.utils module}{73}{subsection.14.1.3}%
+\contentsline {subsection}{\numberline {14.1.3}calzone.utils module}{74}{subsection.14.1.3}%
 \contentsline {subsection}{\numberline {14.1.4}calzone.vis module}{79}{subsection.14.1.4}%
 \contentsline {subsection}{\numberline {14.1.5}Module contents}{80}{subsection.14.1.5}%
-\contentsline {chapter}{Python Module Index}{81}{section*.48}%
-\contentsline {chapter}{Index}{83}{section*.49}%
+\contentsline {chapter}{Python Module Index}{81}{section*.49}%
+\contentsline {chapter}{Index}{83}{section*.50}%

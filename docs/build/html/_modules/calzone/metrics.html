@@ -442,39 +442,60 @@
 
 
 
-<div class="viewcode-block" id="cal_ICI">
-<a class="viewcode-back" href="../../calzone.html#calzone.metrics.cal_ICI">[docs]</a>
-<span class="k">def</span> <span class="nf">cal_ICI</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">y_proba</span><span class="p">,</span> <span class="n">points</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">class_to_calculate</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+<div class="viewcode-block" id="cal_ICI_func">
+<a class="viewcode-back" href="../../calzone.html#calzone.metrics.cal_ICI_func">[docs]</a>
+<span class="k">def</span> <span class="nf">cal_ICI_func</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">y_proba</span><span class="p">,</span> <span class="n">class_to_calculate</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Calculate the Integrated Calibration Index (ICI) for a given calibration function.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        func (callable): The calibration function to evaluate.</span>
 <span class="sd">        y_proba (array-like): Predicted probabilities for each class. Shape (n_samples, n_classes).</span>
-<span class="sd">        points (int, optional): Number of points to use for numerical integration. Defaults to 1000.</span>
 <span class="sd">        class_to_calculate (int, optional): The class index to calculate the ICI for. Defaults to 1.</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        float: The Integrated Calibration Index (ICI) value.</span>
 
 <span class="sd">    Note:</span>
-<span class="sd">        The ICI is calculated by integrating the absolute difference between</span>
-<span class="sd">        the calibration function and the identity function, weighted by the</span>
-<span class="sd">        density of the predicted probabilities.</span>
+
+
+<span class="sd">        The ICI is calculated by calculating the mean absolute difference between</span>
+<span class="sd">        predicted probabilities and the calibration function evaluated at predicted probabilities.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="c1"># Generate evenly spaced points for integration</span>
-    <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">points</span><span class="p">)</span>
-    <span class="n">xcenter</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span> <span class="o">/</span> <span class="mi">2</span>
-
-    <span class="c1"># Calculate the density of predicted probabilities</span>
-    <span class="n">density</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">histogram</span><span class="p">(</span><span class="n">y_proba</span><span class="p">[:,</span> <span class="n">class_to_calculate</span><span class="p">],</span> <span class="n">bins</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
-
     <span class="c1"># Apply the calibration function</span>
-    <span class="n">y</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="n">xcenter</span><span class="p">)</span>
+
+    <span class="n">y_adjust</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="n">y_proba</span><span class="p">[:,</span> <span class="n">class_to_calculate</span><span class="p">])</span>
 
     <span class="c1"># Calculate and return the ICI</span>
-    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">trapz</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">y</span> <span class="o">-</span> <span class="n">xcenter</span><span class="p">)</span> <span class="o">*</span> <span class="n">density</span><span class="p">,</span> <span class="n">xcenter</span><span class="p">)</span></div>
 
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">y_adjust</span> <span class="o">-</span> <span class="n">y_proba</span><span class="p">[:,</span> <span class="n">class_to_calculate</span><span class="p">]))</span></div>
+
+
+
+<div class="viewcode-block" id="cal_ICI">
+<a class="viewcode-back" href="../../calzone.html#calzone.metrics.cal_ICI">[docs]</a>
+<span class="k">def</span> <span class="nf">cal_ICI</span><span class="p">(</span><span class="n">y_adjust</span><span class="p">,</span> <span class="n">y_proba</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    Calculate the Integrated Calibration Index (ICI) for given adjusted probabilities.</span>
+
+<span class="sd">    Args:</span>
+
+
+<span class="sd">        y_adjust (array-like): Adjusted probabilities. Shape (n_samples,).</span>
+<span class="sd">        y_proba (array-like): Original predicted probabilities. Shape (n_samples,).</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        float: The Integrated Calibration Index (ICI) value.</span>
+
+<span class="sd">    Note:</span>
+
+<span class="sd">        The ICI is calculated by calculating the mean absolute difference between</span>
+<span class="sd">        predicted probabilities and the adjusted probabilities.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Calculate and return the ICI</span>
+
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">y_adjust</span> <span class="o">-</span> <span class="n">y_proba</span><span class="p">))</span></div>
 
 
 <div class="viewcode-block" id="logit_func">
