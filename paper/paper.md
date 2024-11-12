@@ -275,6 +275,8 @@ We compared the results calculated by `calzone` with external packages for some 
 # Acknowledgements
 The mention of commercial products, their sources, or their use in connection with material reported herein is not to be construed as either an actual or implied endorsement of such products by the Department of Health and Human Services. This is a contribution of the U.S. Food and Drug Administration and is not subject to copyright.
 
+This article reflects the views of the author and should not be construed to represent FDA’s views or policies
+
 The authors acknowledge the Research Participation Program at the Center for Devices and Radiological Health administered by the Oak Ridge Institute for Science and Education through an interagency agreement between the U.S. Department of Energy and the U.S. Food and Drug Administration. 
 
 # Conflicts of interest
