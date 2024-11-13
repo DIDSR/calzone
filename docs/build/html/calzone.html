@@ -87,6 +87,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#calzone.utils.reliability_diagram"><code class="docutils literal notranslate"><span class="pre">reliability_diagram()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#calzone.utils.removing_nan"><code class="docutils literal notranslate"><span class="pre">removing_nan()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#calzone.utils.softmax_to_logits"><code class="docutils literal notranslate"><span class="pre">softmax_to_logits()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#calzone.utils.transform_topclass"><code class="docutils literal notranslate"><span class="pre">transform_topclass()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#module-calzone.vis">calzone.vis module</a><ul>
@@ -961,6 +962,23 @@ applies a linear scaling, and then converts back to probabilities.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>numpy.ndarray</strong> – Computed logits.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="calzone.utils.transform_topclass">
+<span class="sig-prename descclassname"><span class="pre">calzone.utils.</span></span><span class="sig-name descname"><span class="pre">transform_topclass</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">probs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">labels</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/calzone/utils.html#transform_topclass"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#calzone.utils.transform_topclass" title="Link to this definition"></a></dt>
+<dd><p>Transforms the data to top class binary problem</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>probs</strong> (<em>numpy.ndarray</em>) – Array of probability values</p></li>
+<li><p><strong>labels</strong> (<em>numpy.ndarray</em>) – Array of label values</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>tuple</strong> – (transformed_probs, transformed_labels)</p>
 </dd>
 </dl>
 </dd></dl>

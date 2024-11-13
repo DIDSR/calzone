@@ -425,6 +425,29 @@
 
 
 
+
+<div class="viewcode-block" id="transform_topclass">
+<a class="viewcode-back" href="../../calzone.html#calzone.utils.transform_topclass">[docs]</a>
+<span class="k">def</span> <span class="nf">transform_topclass</span><span class="p">(</span><span class="n">probs</span><span class="p">,</span> <span class="n">labels</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Transforms the data to top class binary problem</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        probs (numpy.ndarray): Array of probability values</span>
+<span class="sd">        labels (numpy.ndarray): Array of label values</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        tuple: (transformed_probs, transformed_labels)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">top_class</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">probs</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">transformed_probs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">column_stack</span><span class="p">(</span>
+        <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">probs</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">probs</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+    <span class="p">)</span>
+    <span class="n">transformed_labels</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="p">(</span><span class="n">labels</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span> <span class="o">==</span> <span class="n">top_class</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">transformed_probs</span><span class="p">,</span> <span class="n">transformed_labels</span></div>
+
 <div class="viewcode-block" id="data_loader">
 <a class="viewcode-back" href="../../calzone.html#calzone.utils.data_loader">[docs]</a>
 <span class="k">class</span> <span class="nc">data_loader</span><span class="p">:</span>
@@ -529,7 +552,6 @@
         <span class="n">new_loader</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">column_stack</span><span class="p">((</span><span class="n">new_loader</span><span class="o">.</span><span class="n">probs</span><span class="p">,</span> <span class="n">new_loader</span><span class="o">.</span><span class="n">labels</span><span class="p">))</span>
         <span class="k">return</span> <span class="n">new_loader</span></div>
 </div>
-
 
 
 <div class="viewcode-block" id="fake_binary_data_generator">

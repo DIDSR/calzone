@@ -65,7 +65,7 @@
 
 
 \title{calzone}
-\date{Nov 08, 2024}
+\date{Nov 13, 2024}
 \release{develop}
 \author{Kwok Lung "Jason" Fan, Qian Cao}
 \newcommand{\sphinxlogo}{\vbox{}}
@@ -5245,6 +5245,35 @@ Convert softmax probabilities to logits.
 \sphinxlineitem{Returns}
 \sphinxAtStartPar
 \sphinxstylestrong{numpy.ndarray} \textendash{} Computed logits.
+
+\end{description}\end{quote}
+
+\end{fulllineitems}
+
+\index{transform\_topclass() (in module calzone.utils)@\spxentry{transform\_topclass()}\spxextra{in module calzone.utils}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{calzone:calzone.utils.transform_topclass}}
+\pysigstartsignatures
+\pysiglinewithargsret{\sphinxcode{\sphinxupquote{calzone.utils.}}\sphinxbfcode{\sphinxupquote{transform\_topclass}}}{\sphinxparam{\DUrole{n}{probs}}\sphinxparamcomma \sphinxparam{\DUrole{n}{labels}}}{}
+\pysigstopsignatures
+\sphinxAtStartPar
+Transforms the data to top class binary problem
+\begin{quote}\begin{description}
+\sphinxlineitem{Parameters}\begin{itemize}
+\item {} 
+\sphinxAtStartPar
+\sphinxstyleliteralstrong{\sphinxupquote{probs}} (\sphinxstyleliteralemphasis{\sphinxupquote{numpy.ndarray}}) \textendash{} Array of probability values
+
+\item {} 
+\sphinxAtStartPar
+\sphinxstyleliteralstrong{\sphinxupquote{labels}} (\sphinxstyleliteralemphasis{\sphinxupquote{numpy.ndarray}}) \textendash{} Array of label values
+
+\end{itemize}
+
+\sphinxlineitem{Returns}
+\sphinxAtStartPar
+\sphinxstylestrong{tuple} \textendash{} (transformed\_probs, transformed\_labels)
 
 \end{description}\end{quote}
 

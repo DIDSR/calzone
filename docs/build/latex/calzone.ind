@@ -95,7 +95,7 @@
   \indexspace
   \bigletter P
   \item \spxentry{plot\_reliability\_diagram()}\spxextra{in module calzone.vis}, \hyperpage{79}
-  \item \spxentry{plot\_roc\_curve()}\spxextra{in module calzone.vis}, \hyperpage{79}
+  \item \spxentry{plot\_roc\_curve()}\spxextra{in module calzone.vis}, \hyperpage{80}
   \item \spxentry{probs}\spxextra{calzone.utils.data\_loader attribute}, \hyperpage{74}
 
   \indexspace
@@ -116,5 +116,6 @@
   \bigletter T
   \item \spxentry{transform\_topclass()}\spxextra{calzone.utils.data\_loader method}, 
 		\hyperpage{75}
+  \item \spxentry{transform\_topclass()}\spxextra{in module calzone.utils}, \hyperpage{79}
 
 \end{sphinxtheindex}

@@ -46,9 +46,10 @@
 \indexentry{reliability\_diagram() (in module calzone.utils)@\spxentry{reliability\_diagram()}\spxextra{in module calzone.utils}|hyperpage}{78}
 \indexentry{removing\_nan() (in module calzone.utils)@\spxentry{removing\_nan()}\spxextra{in module calzone.utils}|hyperpage}{78}
 \indexentry{softmax\_to\_logits() (in module calzone.utils)@\spxentry{softmax\_to\_logits()}\spxextra{in module calzone.utils}|hyperpage}{79}
+\indexentry{transform\_topclass() (in module calzone.utils)@\spxentry{transform\_topclass()}\spxextra{in module calzone.utils}|hyperpage}{79}
 \indexentry{module@\spxentry{module}!calzone.vis@\spxentry{calzone.vis}|hyperpage}{79}
 \indexentry{calzone.vis@\spxentry{calzone.vis}!module@\spxentry{module}|hyperpage}{79}
 \indexentry{plot\_reliability\_diagram() (in module calzone.vis)@\spxentry{plot\_reliability\_diagram()}\spxextra{in module calzone.vis}|hyperpage}{79}
-\indexentry{plot\_roc\_curve() (in module calzone.vis)@\spxentry{plot\_roc\_curve()}\spxextra{in module calzone.vis}|hyperpage}{79}
+\indexentry{plot\_roc\_curve() (in module calzone.vis)@\spxentry{plot\_roc\_curve()}\spxextra{in module calzone.vis}|hyperpage}{80}
 \indexentry{module@\spxentry{module}!calzone@\spxentry{calzone}|hyperpage}{80}
 \indexentry{calzone@\spxentry{calzone}!module@\spxentry{module}|hyperpage}{80}

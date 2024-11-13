@@ -316,6 +316,26 @@ def find_optimal_prevalence(y_true, y_proba, class_to_calculate=1, epsilon=1e-7)
     )
 
 
+
+def transform_topclass(probs, labels):
+    """
+    Transforms the data to top class binary problem
+
+    Args:
+        probs (numpy.ndarray): Array of probability values
+        labels (numpy.ndarray): Array of label values
+
+    Returns:
+        tuple: (transformed_probs, transformed_labels)
+    """
+    top_class = np.argmax(probs, axis=1)
+    transformed_probs = np.column_stack(
+        (1 - np.max(probs, axis=1), np.max(probs, axis=1))
+    )
+    transformed_labels = (
+        (labels.flatten() == top_class).astype(int).reshape(-1, 1)
+    )
+    return transformed_probs, transformed_labels
 class data_loader:
     """
     A class for loading and preprocessing data from a CSV file.
@@ -412,7 +432,6 @@ class data_loader:
         )
         new_loader.data = np.column_stack((new_loader.probs, new_loader.labels))
         return new_loader
-
 
 class fake_binary_data_generator:
     """A class for generating fake binary data and applying miscalibration.
