@@ -336,6 +336,7 @@ def transform_topclass(probs, labels):
         (labels.flatten() == top_class).astype(int).reshape(-1, 1)
     )
     return transformed_probs, transformed_labels
+
 class data_loader:
     """
     A class for loading and preprocessing data from a CSV file.
