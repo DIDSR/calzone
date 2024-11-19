@@ -132,8 +132,8 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="c1"># Convert inputs to numpy arrays for consistent handling</span>
-    <span class="n">reliability</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">reliability</span><span class="p">)</span>
-    <span class="n">confidence</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">confidence</span><span class="p">)</span>
+    <span class="n">reliability</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">reliability</span><span class="p">),</span><span class="mf">1e-7</span><span class="p">,</span><span class="mi">1</span><span class="o">-</span><span class="mf">1e-7</span><span class="p">)</span>
+    <span class="n">confidence</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">confidence</span><span class="p">),</span><span class="mf">1e-7</span><span class="p">,</span><span class="mi">1</span><span class="o">-</span><span class="mf">1e-7</span><span class="p">)</span>
     <span class="n">bin_count</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">bin_count</span><span class="p">)</span>
 
     <span class="c1"># Remove bins with zero count to avoid division by zero</span>

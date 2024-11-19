@@ -42,8 +42,8 @@ def hosmer_lemeshow_test(reliability, confidence, bin_count, df=None, **kwargs):
     """
 
     # Convert inputs to numpy arrays for consistent handling
-    reliability = np.array(reliability)
-    confidence = np.array(confidence)
+    reliability = np.clip(np.array(reliability),1e-7,1-1e-7)
+    confidence = np.clip(np.array(confidence),1e-7,1-1e-7)
     bin_count = np.array(bin_count)
 
     # Remove bins with zero count to avoid division by zero
