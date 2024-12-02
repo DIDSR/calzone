@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2024.10.4)  19 NOV 2024 11:47
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2024.10.4)  2 DEC 2024 12:37
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1298,7 +1298,7 @@ fonts/type1/public/tex-gyre/qtmri.pfb></usr/share/texlive/texmf-dist/fonts/type
 xfonts/t1xtt.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/txfonts/t1xt
 t.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/txfonts/tcxtt.pfb></usr
 /share/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb>
-Output written on calzone.pdf (88 pages, 1449111 bytes).
+Output written on calzone.pdf (88 pages, 1449106 bytes).
 PDF statistics:
  1003 PDF objects out of 1200 (max. 8388607)
  844 compressed objects within 9 object streams

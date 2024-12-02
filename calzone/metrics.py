@@ -215,12 +215,12 @@ def cox_regression_analysis(
     logit_model = sm.Logit(y_true, X)
     if fix_intercept == True:
         with contextlib.redirect_stdout(None):
-            logit_result = logit_model.fit_constrained("const=0", disp=0)
+            logit_result = logit_model.fit_constrained("const=0", disp=0,**kwargs)
     elif fix_slope == True:
         with contextlib.redirect_stdout(None):
-            logit_result = logit_model.fit_constrained("x1=1", disp=0)    
+            logit_result = logit_model.fit_constrained("x1=1", disp=0,**kwargs)    
     else:
-        logit_result = logit_model.fit(disp=0)
+        logit_result = logit_model.fit(disp=0,**kwargs)
 
     # Print results if requested
     if print_results:
