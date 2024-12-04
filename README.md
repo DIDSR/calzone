@@ -1,6 +1,6 @@
 # calzone: a python package for measuring calibration in probabilistic models
 
-calzone is a comprehensive Python package for calculating and visualizing various metrics to assess the calibration of probabilistic models.
+`calzone` is a comprehensive Python package for calculating and visualizing various metrics to assess the calibration of probabilistic models.
 To accurately assess the calibration of machine learning models, it is essential to have a comprehensive and reprensative dataset with sufficient coverage of the prediction space. The calibration metrics is not meaningful if the dataset is not representative of true intended population.
 
 
@@ -38,7 +38,7 @@ To use GUI, run `python GUI_cal_metrics.py`. Support for the GUI is experiment a
 
 ## Documentation
 
-For detailed documentation and API reference, please visit our [documentation pdf](https://github.com/DIDSR/calzone/blob/main/docs/build/latex/calzone.pdf).
+For a detailed manual and API reference, please visit our [documentation page](https://calzone-docs.readthedocs.io/en/latest/index.html).
 
 ## Support
 If you encounter any issues or have questions about the package, please open an issue on our [GitHub repository](https://github.com/DIDSR/calzone/issues) or contact us at [kwoklung.fan@fda.hhs.gov](kwoklung.fan@fda.hhs.gov) or [qian.cao@fda.hhs.gov](qian.cao@fda.hhs.gov).
