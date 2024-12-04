@@ -62,7 +62,7 @@
 <li class="toctree-l1"><a class="reference internal" href="prevalence_adjustment.html">Prevalence adjustment</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Subgroup analysis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="topclass.html">Multiclass extension</a></li>
-<li class="toctree-l1"><a class="reference internal" href="GUI.html">Running GUI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GUI.html">Running the GUI</a></li>
 <li class="toctree-l1"><a class="reference internal" href="validation.html">Validating metrics with external packages</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../modules.html">calzone</a></li>
 </ul>
@@ -98,7 +98,7 @@
 <p>where n &gt;= 1 and m &gt;= 1.</p>
 <p>In this example, we will use the example simulated dataset in the calzone package with only one subgroup field and two subgroups. See quickstart for more details.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### import the packages and read the data</span>
@@ -107,6 +107,7 @@
 <span class="kn">from</span> <span class="nn">calzone.metrics</span> <span class="kn">import</span> <span class="n">CalibrationMetrics</span>
 
 <span class="n">dataset</span> <span class="o">=</span> <span class="n">data_loader</span><span class="p">(</span><span class="s1">&#39;../../../example_data/simulated_data_subgroup.csv&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s1">&#39;../../../example_data/simulated_data_subgroup.csv&#39;</span><span class="p">,</span><span class="n">dtype</span><span class="o">=</span><span class="nb">str</span><span class="p">)[:</span><span class="mi">5</span><span class="p">])</span> <span class="c1">#first 5 lines of the csv files</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Whether the dataset has subgroup:&quot;</span><span class="p">,</span><span class="n">dataset</span><span class="o">.</span><span class="n">have_subgroup</span><span class="p">)</span>
 
 <span class="c1">### Create the CalibrationMetrics class</span>
@@ -119,6 +120,11 @@
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
+[&#39;proba_0,proba_1,subgroup_1,label&#39;
+ &#39;0.1444156178040511,0.8555843821959489,A,0&#39;
+ &#39;0.8552048445812981,0.1447951554187019,A,0&#39;
+ &#39;0.2569696048872897,0.7430303951127103,A,0&#39;
+ &#39;0.39931305655530125,0.6006869434446988,A,1&#39;]
 Whether the dataset has subgroup: True
 </pre></div></div>
 </div>

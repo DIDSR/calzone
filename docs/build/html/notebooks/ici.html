@@ -70,7 +70,7 @@
 <li class="toctree-l1"><a class="reference internal" href="prevalence_adjustment.html">Prevalence adjustment</a></li>
 <li class="toctree-l1"><a class="reference internal" href="subgroup.html">Subgroup analysis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="topclass.html">Multiclass extension</a></li>
-<li class="toctree-l1"><a class="reference internal" href="GUI.html">Running GUI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GUI.html">Running the GUI</a></li>
 <li class="toctree-l1"><a class="reference internal" href="validation.html">Validating metrics with external packages</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../modules.html">calzone</a></li>
 </ul>
@@ -105,7 +105,7 @@
 <h2>Theoretical Background<a class="headerlink" href="#Theoretical-Background" title="Link to this heading"></a></h2>
 <p>Integrated Calibration Index (ICI) is essentially the same as expected calibration error (ECE) in terms of the idea. They both try to measure the average deviation of the predicted probabilities from the true probabilities. However, ECE is calculated by grouping the samples into bins and then calculating the weighted average of the deviation of the mean predicted probabilities from the empirical accuracy. ICI, on the other hand, is calculated by fitting a smooth curve using the samples itself
 and therefore doesn’t require binning. However, the choice of the curve fitting method can affect the result and is arbitrary. The most common choice is locally estimated scatterplot smoothing (LOESS) (Cleveland, 1979). People also use other methods such as polynomial fitting and spline fitting. Interestingly, not many people have looked into using COX regression results to calculate ICI, which is implemented in calzone. Notice that the Cox-ICI can be way off from the truth if the logistic
-regression is not a good fit.</p>
+regression does not result in a good fit.</p>
 <p>The formula for ICI is:</p>
 <div class="math notranslate nohighlight">
 \[\text{ICI} = \int_0^1 |\mathbb{S}(p)-p| \, dF_{\hat{P}}(p)\]</div>
@@ -116,7 +116,7 @@ regression is not a good fit.</p>
 </section>
 <section id="Pros-of-ICI">
 <h2>Pros of ICI<a class="headerlink" href="#Pros-of-ICI" title="Link to this heading"></a></h2>
-<p>The main advantage of ICI is that it skips the need for binning while still giving you an easily interpretable metric. It is essentially the same as ECE and can be interpreted as the average deviation from the true probability. ICI can capture any type of miscalibration if the calibration curve is well-described by the fitting method.</p>
+<p>The main advantage of ICI is that it skips the need for binning while still giving an easily interpretable metric. It is essentially the same as ECE and can be interpreted as the average deviation from the true probability. ICI can capture any type of miscalibration if the calibration curve is well-described by the fitting method.</p>
 </section>
 <section id="Cons-of-ICI">
 <h2>Cons of ICI<a class="headerlink" href="#Cons-of-ICI" title="Link to this heading"></a></h2>

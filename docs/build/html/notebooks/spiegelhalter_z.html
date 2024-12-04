@@ -63,14 +63,14 @@
 <li class="toctree-l2"><a class="reference internal" href="#Pros-of-Spiegelhalter's-Z-test">Pros of Spiegelhalter’s Z test</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#Cons-of-Spiegelhalter's-Z-test">Cons of Spiegelhalter’s Z test</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#Calculating-the-Spieegelhalter-Z-score-and-p-value-using-calzone">Calculating the Spieegelhalter Z score and p-value using calzone</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#Testing-the-size-of-Spiegelhalter's-z-test">Testing the size of Spiegelhalter’s z test</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#P-value-of-Spiegelhalter's-z-test">P-value of Spiegelhalter’s z test</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#Reference">Reference</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="prevalence_adjustment.html">Prevalence adjustment</a></li>
 <li class="toctree-l1"><a class="reference internal" href="subgroup.html">Subgroup analysis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="topclass.html">Multiclass extension</a></li>
-<li class="toctree-l1"><a class="reference internal" href="GUI.html">Running GUI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GUI.html">Running the GUI</a></li>
 <li class="toctree-l1"><a class="reference internal" href="validation.html">Validating metrics with external packages</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../modules.html">calzone</a></li>
 </ul>
@@ -115,7 +115,7 @@
 <p>and the Speigelhalter’s Z-test is defined as:</p>
 <div class="math notranslate nohighlight">
 \[Z = \frac{B - E(B)}{\sqrt{\text{Var}(B)}} = \frac{ \sum_{i=1}^N (x_i - p_i)(1-2p_i)}{\sum_{i=1}^N (1-2p_i)^2 p_i (1-p_i)}\]</div>
-<p>and <span class="math notranslate nohighlight">\(Z\)</span> is approximately standard normal distributed under the null hypothesis of calibration. Spiegelhalter’s Z-test has the right size in many situations and it is powerful in many situations. We recommend using Spiegelhalter’s Z-test to test the calibration of probabilistic models.</p>
+<p>and <span class="math notranslate nohighlight">\(Z\)</span> is approximately standard normal distributed under the null hypothesis of calibration. Spiegelhalter’s Z-test has the right size in many situations and it is powerful in many situations.</p>
 </section>
 <section id="Pros-of-Spiegelhalter's-Z-test">
 <h2>Pros of Spiegelhalter’s Z test<a class="headerlink" href="#Pros-of-Spiegelhalter's-Z-test" title="Link to this heading"></a></h2>
@@ -172,8 +172,8 @@ Z-score: 0.3763269161877356, p-value: 0.7066738713391099
 </pre></div></div>
 </div>
 </section>
-<section id="Testing-the-size-of-Spiegelhalter's-z-test">
-<h2>Testing the size of Spiegelhalter’s z test<a class="headerlink" href="#Testing-the-size-of-Spiegelhalter's-z-test" title="Link to this heading"></a></h2>
+<section id="P-value-of-Spiegelhalter's-z-test">
+<h2>P-value of Spiegelhalter’s z test<a class="headerlink" href="#P-value-of-Spiegelhalter's-z-test" title="Link to this heading"></a></h2>
 <p>Like to HL test, we can check whether the Spiegelhalter’s z test has the correct size.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:

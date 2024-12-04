@@ -67,7 +67,7 @@
 <li class="toctree-l1"><a class="reference internal" href="prevalence_adjustment.html">Prevalence adjustment</a></li>
 <li class="toctree-l1"><a class="reference internal" href="subgroup.html">Subgroup analysis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="topclass.html">Multiclass extension</a></li>
-<li class="toctree-l1"><a class="reference internal" href="GUI.html">Running GUI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GUI.html">Running the GUI</a></li>
 <li class="toctree-l1"><a class="reference internal" href="validation.html">Validating metrics with external packages</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../modules.html">calzone</a></li>
 </ul>
@@ -98,10 +98,10 @@
              
   <section id="Quick-Start">
 <h1>Quick Start<a class="headerlink" href="#Quick-Start" title="Link to this heading"></a></h1>
-<p>The tutorial provides a quick start to the calzone package. Including the installation and the basic command line interface useage.</p>
+<p>This tutorial provides a quick start to the calzone package, including a discussion of the installation and the basic command line interface useage.</p>
 <section id="Installation">
 <h2>Installation<a class="headerlink" href="#Installation" title="Link to this heading"></a></h2>
-<p>calzone dependencies are numpy, scipy, statsmodels and matplotlib. If you are experienced developer, you probably already have numpy, scipy and matplolib installed. If you don’t have a package install, you can install them with conda</p>
+<p>Calzone dependencies are numpy, scipy, statsmodels and matplotlib. If you are experienced developer, you probably already have numpy, scipy and matplolib installed. If you don’t have a package install, you can install them with conda</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
@@ -125,7 +125,7 @@
 </pre></div>
 </div>
 </div>
-<p>Then, you can process to install the calzone package from github if you only want to use the calculator inside you python script:</p>
+<p>Then, you can install the calzone package from github if you only want to use the calculator inside you python script:</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
@@ -149,14 +149,15 @@
 </section>
 <section id="Command-line-interface">
 <h2>Command line interface<a class="headerlink" href="#Command-line-interface" title="Link to this heading"></a></h2>
-<p>First, you need to prepare your dataset in a specified format. The dataset should be a CSV file with the following columns:</p>
+<p>First, you need to prepare your dataset in a specific format. The dataset should be a CSV file with the following columns:</p>
 <p>proba_0, proba_1, …, proba_n, label</p>
-<p>where n &gt;= 1.</p>
+<p>where n &gt;= 1. The proba_i columns are the probabilities of the i-th class, and the label column is the true class label.</p>
 <p>Or if you have subgroups, the dataset should be a CSV file with the following columns:</p>
 <p>proba_0, proba_1, …, proba_n, subgroup_1, subgroup_2, …, subgroup_m, label</p>
-<p>where n &gt;= 1 and m &gt;= 1.</p>
+<p>where n &gt;= 1 and m &gt;= 1. The subgroup_j columns are the values of the j-th subgroup type, and its values should be categorical.</p>
 <p>In the case of multi-class, you need to specify the class-of-interest, and the problem will be treated as 1-vs-all binary classification. To test the full calibration of the whole model, you need to test the calibration of each class.</p>
 <p>The program also works if your csv file has no header.It will assume the first [:-1] columns are the probabilities and the last column is the label.</p>
+<p>We provides examples dataset in csv format in the e examples folder and it illustrate the input format of dataset.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
@@ -173,7 +174,41 @@
 </pre></div>
 </div>
 </div>
-<p>To use CLI, you can use the script in the calzone directory. The program will save the metrics into the output csv file with the CI(if you turn on boostrap). The program will also save the relibaility diagram if you apply –plot flag. There is an optional flag –prevalence_adjustment which try to derive the original model prevalence and apply prevalence adjustment. See more on prevalence adjustment in the prevalecne adjustment notebook.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### Snippet of the csv file format</span>
+<span class="c1">#Without subgroups</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Without subgroups&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s1">&#39;../../../example_data/simulated_welldata.csv&#39;</span><span class="p">,</span><span class="n">dtype</span><span class="o">=</span><span class="nb">str</span><span class="p">)[:</span><span class="mi">5</span><span class="p">])</span> <span class="c1">#first 5 lines of the without subgroups csv files</span>
+<span class="c1">#With subgroups</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;With subgroups&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s1">&#39;../../../example_data/simulated_data_subgroup.csv&#39;</span><span class="p">,</span><span class="n">dtype</span><span class="o">=</span><span class="nb">str</span><span class="p">)[:</span><span class="mi">5</span><span class="p">])</span> <span class="c1">#first 5 lines of the with subgroups csv files</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Without subgroups
+[&#39;proba_0,proba_1,label&#39;
+ &#39;1.444156178040510996e-01,8.555843821959489004e-01,0.000000000000000000e+00&#39;
+ &#39;8.552048445812980848e-01,1.447951554187018874e-01,0.000000000000000000e+00&#39;
+ &#39;2.569696048872897043e-01,7.430303951127102957e-01,0.000000000000000000e+00&#39;
+ &#39;3.993130565553012490e-01,6.006869434446987510e-01,1.000000000000000000e+00&#39;]
+With subgroups
+[&#39;proba_0,proba_1,subgroup_1,label&#39;
+ &#39;0.1444156178040511,0.8555843821959489,A,0&#39;
+ &#39;0.8552048445812981,0.1447951554187019,A,0&#39;
+ &#39;0.2569696048872897,0.7430303951127103,A,0&#39;
+ &#39;0.39931305655530125,0.6006869434446988,A,1&#39;]
+</pre></div></div>
+</div>
+<p>To use the command line interface (CLI), you can use the script in the calzone directory. The program will save the metrics into the output csv file with the CI (if you turn on boostrap). The program will also save the relibaility diagram if you apply –plot flag. There is an optional flag –prevalence_adjustment which tries to derive the original model prevalence and apply prevalence adjustment. See more on prevalence adjustment in the prevalecne adjustment notebook.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
@@ -294,10 +329,11 @@ Loess ICI: 0.006 (0.004, 0.016)
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_quickstart_16_1.png" src="../_images/notebooks_quickstart_16_1.png" />
+<img alt="../_images/notebooks_quickstart_17_1.png" src="../_images/notebooks_quickstart_17_1.png" />
 </div>
 </div>
-<p>We can also test it on a miscalibrated dataset</p>
+<p>We use the CLI to compute the metrics and reliability diagram for the example dataset. The metrics and its 95% confidence interval will be printed and saved in a file. The reliability diagram will be saved in a separate file.</p>
+<p>We can also test it on a miscalibrated dataset. The miscalibration is introduced by mutliply the log of probabilities by 2 and convert it back to probabilities.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
@@ -351,10 +387,10 @@ Loess ICI: 0.074 (0.065, 0.083)
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_quickstart_18_1.png" src="../_images/notebooks_quickstart_18_1.png" />
+<img alt="../_images/notebooks_quickstart_19_1.png" src="../_images/notebooks_quickstart_19_1.png" />
 </div>
 </div>
-<p>If your data has subgroup in it, simply run the script with the same argument as the one above. It will automatically detect the subgroup and generate the corresponding plots and metrics for each subgroup as well as the overall plot and metrics.</p>
+<p>If your data has subgroups in it, simply run the script with the same argument as the one above. It will automatically detect the subgroup and generate the corresponding plots and metrics for each subgroup as well as the overall plot and metrics.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
@@ -408,7 +444,7 @@ Loess ICI: 0.037 (0.032, 0.043)
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_quickstart_20_1.png" src="../_images/notebooks_quickstart_20_1.png" />
+<img alt="../_images/notebooks_quickstart_21_1.png" src="../_images/notebooks_quickstart_21_1.png" />
 </div>
 </div>
 <div class="nboutput docutils container">
@@ -445,7 +481,7 @@ Loess ICI: 0.006 (0.003, 0.016)
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_quickstart_20_3.png" src="../_images/notebooks_quickstart_20_3.png" />
+<img alt="../_images/notebooks_quickstart_21_3.png" src="../_images/notebooks_quickstart_21_3.png" />
 </div>
 </div>
 <div class="nboutput docutils container">
@@ -482,7 +518,7 @@ Loess ICI: 0.07 (0.062, 0.078)
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_quickstart_20_5.png" src="../_images/notebooks_quickstart_20_5.png" />
+<img alt="../_images/notebooks_quickstart_21_5.png" src="../_images/notebooks_quickstart_21_5.png" />
 </div>
 </div>
 </section>

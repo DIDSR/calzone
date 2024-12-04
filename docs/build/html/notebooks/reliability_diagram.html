@@ -65,7 +65,7 @@
 <li class="toctree-l1"><a class="reference internal" href="prevalence_adjustment.html">Prevalence adjustment</a></li>
 <li class="toctree-l1"><a class="reference internal" href="subgroup.html">Subgroup analysis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="topclass.html">Multiclass extension</a></li>
-<li class="toctree-l1"><a class="reference internal" href="GUI.html">Running GUI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GUI.html">Running the GUI</a></li>
 <li class="toctree-l1"><a class="reference internal" href="validation.html">Validating metrics with external packages</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../modules.html">calzone</a></li>
 </ul>
@@ -129,7 +129,7 @@
 </div>
 </div>
 <p>The error bar in the reliability diagram is the 95% confidence interval calculated using wilson score interval which assume that samples in a bin is a series of Bernoulli trials with the success probability equal to the mean predicted probability. The confidence interval is only for reference and might not be exact.</p>
-<p>Since we have a binary classification problem, The mean predicted probability will not go below 0.5 for top-class reliability diagram. We will proceed to plot the class 1 reliability diagram.</p>
+<p>Since we have a binary classification problem, The mean predicted probability will not go below 0.5 for the top-class reliability diagram. We will proceed to plot the class 1 reliability diagram.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
 </pre></div>
@@ -148,7 +148,7 @@
 <img alt="../_images/notebooks_reliability_diagram_5_0.png" src="../_images/notebooks_reliability_diagram_5_0.png" />
 </div>
 </div>
-<p>Class-by-class reliability diagram reveal more information about the model’s calibbration. The top-class reliability diagram could be misleading as it could shows reasonable calibration for the top-class, but the model could be overconfident for the other classes. We can demonstrate in the following example.</p>
+<p>Class-by-class reliability diagrams reveal more information about the model’s calibration. The top-class reliability diagram could be misleading as it could shows reasonable calibration for the top-class, but the model could be overconfident for the other classes. We can demonstrate in the following example.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[40]:
 </pre></div>
@@ -214,7 +214,7 @@
 <img alt="../_images/notebooks_reliability_diagram_9_0.png" src="../_images/notebooks_reliability_diagram_9_0.png" />
 </div>
 </div>
-<p>The example shows us that the prevalence shift in the testing data could lead to mis-calibration in a posterior sense. The calzone provide a method to calibrate it. The prevalence is not related to the model and the model could still have the correct likelihood ratio. See more discussion in the prevalence adjustment section.</p>
+<p>The example shows us that the prevalence shift in the testing data could lead to mis-calibration in a posterior sense. Calzone provides a method to calibrate it. The prevalence is not related to the model and the model could still have the correct likelihood ratio. See more discussion in the prevalence adjustment section.</p>
 <section id="References">
 <h2>References<a class="headerlink" href="#References" title="Link to this heading"></a></h2>
 <p>Bröcker, J., &amp; Smith, L. A. (2007). Increasing the Reliability of Reliability Diagrams. Weather and Forecasting, 22(3), 651–661. <a class="reference external" href="https://doi.org/10.1175/WAF993.1">https://doi.org/10.1175/WAF993.1</a></p>

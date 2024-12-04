@@ -57,7 +57,7 @@
    "source": [
     "The error bar in the reliability diagram is the 95% confidence interval calculated using wilson score interval which assume that samples in a bin is a series of Bernoulli trials with the success probability equal to the mean predicted probability. The confidence interval is only for reference and might not be exact.\n",
     "\n",
-    "Since we have a binary classification problem, The mean predicted probability will not go below 0.5 for top-class reliability diagram. We will proceed to plot the class 1 reliability diagram."
+    "Since we have a binary classification problem, The mean predicted probability will not go below 0.5 for the top-class reliability diagram. We will proceed to plot the class 1 reliability diagram."
    ]
   },
   {
@@ -87,7 +87,7 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "Class-by-class reliability diagram reveal more information about the model's calibbration. The top-class reliability diagram could be misleading as it could shows reasonable calibration for the top-class, but the model could be overconfident for the other classes. We can demonstrate in the following example."
+    "Class-by-class reliability diagrams reveal more information about the model's calibration. The top-class reliability diagram could be misleading as it could shows reasonable calibration for the top-class, but the model could be overconfident for the other classes. We can demonstrate in the following example."
    ]
   },
   {
@@ -170,7 +170,7 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "The example shows us that the prevalence shift in the testing data could lead to mis-calibration in a posterior sense. The calzone provide a method to calibrate it. The prevalence is not related to the model and the model could still have the correct likelihood ratio. See more discussion in the prevalence adjustment section."
+    "The example shows us that the prevalence shift in the testing data could lead to mis-calibration in a posterior sense. Calzone provides a method to calibrate it. The prevalence is not related to the model and the model could still have the correct likelihood ratio. See more discussion in the prevalence adjustment section."
    ]
   },
   {

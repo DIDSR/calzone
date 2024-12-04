@@ -9,16 +9,16 @@ Welcome to the documentation for calzone
 
 calzone is a Python package for calculation of various calibration metrics. This work is credited to Kwok Lung (Jason) Fan and Qian Cao.
 
-The calzone package provides a suite of tools for assessing and improving the calibration of machine learning models, particularly in binary classification tasks. It offers various calibration metrics and visualization tools for reliability diagrams.  Please read the summary and guide first  before using the package.
+The calzone package provides a suite of tools for assessing and improving the calibration of machine learning models, particularly for binary classification tasks. It offers calibration metrics and visualization tools for displaying reliability diagrams.  Please read the summary and guide section in this documentation first before using the package.
 
 Key features of calzone include:
 
-* Calculation of various calibration metrics (e.g., ECE, MCE, Hosmer-Lemeshow test, spiegelhalter z test, etc.)
+* Calculation of calibration metrics (ECE, MCE, Hosmer-Lemeshow test, spiegelhalter z test, etc.)
 * Visualization functions for reliability diagrams
 * Bootstrapping capabilities for confidence interval estimation
 * Subgroup analysis for calibration metrics
-* Provides command line interface scripts for batch processing
-* Multi-class extension by 1-vs-rest or top-class only
+* Command line interface scripts for batch processing
+* Multi-class extension by using 1-vs-rest or top-class only
 
 To accurately assess the calibration of machine learning models, it is essential to have a comprehensive and reprensative dataset with sufficient coverage of the prediction space. The calibration metrics is not meaningful if the dataset is not representative of true intended population.
 

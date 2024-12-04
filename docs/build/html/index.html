@@ -60,7 +60,7 @@
 <li class="toctree-l1"><a class="reference internal" href="notebooks/prevalence_adjustment.html">Prevalence adjustment</a></li>
 <li class="toctree-l1"><a class="reference internal" href="notebooks/subgroup.html">Subgroup analysis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="notebooks/topclass.html">Multiclass extension</a></li>
-<li class="toctree-l1"><a class="reference internal" href="notebooks/GUI.html">Running GUI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/GUI.html">Running the GUI</a></li>
 <li class="toctree-l1"><a class="reference internal" href="notebooks/validation.html">Validating metrics with external packages</a></li>
 <li class="toctree-l1"><a class="reference internal" href="modules.html">calzone</a></li>
 </ul>
@@ -92,15 +92,15 @@
   <section id="welcome-to-the-documentation-for-calzone">
 <h1>Welcome to the documentation for calzone<a class="headerlink" href="#welcome-to-the-documentation-for-calzone" title="Link to this heading"></a></h1>
 <p>calzone is a Python package for calculation of various calibration metrics. This work is credited to Kwok Lung (Jason) Fan and Qian Cao.</p>
-<p>The calzone package provides a suite of tools for assessing and improving the calibration of machine learning models, particularly in binary classification tasks. It offers various calibration metrics and visualization tools for reliability diagrams.  Please read the summary and guide first  before using the package.</p>
+<p>The calzone package provides a suite of tools for assessing and improving the calibration of machine learning models, particularly for binary classification tasks. It offers calibration metrics and visualization tools for displaying reliability diagrams.  Please read the summary and guide section in this documentation first before using the package.</p>
 <p>Key features of calzone include:</p>
 <ul class="simple">
-<li><p>Calculation of various calibration metrics (e.g., ECE, MCE, Hosmer-Lemeshow test, spiegelhalter z test, etc.)</p></li>
+<li><p>Calculation of calibration metrics (ECE, MCE, Hosmer-Lemeshow test, spiegelhalter z test, etc.)</p></li>
 <li><p>Visualization functions for reliability diagrams</p></li>
 <li><p>Bootstrapping capabilities for confidence interval estimation</p></li>
 <li><p>Subgroup analysis for calibration metrics</p></li>
-<li><p>Provides command line interface scripts for batch processing</p></li>
-<li><p>Multi-class extension by 1-vs-rest or top-class only</p></li>
+<li><p>Command line interface scripts for batch processing</p></li>
+<li><p>Multi-class extension by using 1-vs-rest or top-class only</p></li>
 </ul>
 <p>To accurately assess the calibration of machine learning models, it is essential to have a comprehensive and reprensative dataset with sufficient coverage of the prediction space. The calibration metrics is not meaningful if the dataset is not representative of true intended population.</p>
 <p>We hope you find calzone useful in your machine learning projects!</p>
@@ -136,7 +136,7 @@
 <li class="toctree-l2"><a class="reference internal" href="notebooks/hl_test.html#Pros-of-HL-test">Pros of HL test</a></li>
 <li class="toctree-l2"><a class="reference internal" href="notebooks/hl_test.html#Cons-of-HL-Test">Cons of HL Test</a></li>
 <li class="toctree-l2"><a class="reference internal" href="notebooks/hl_test.html#Calculating-HL-test-statistics-and-p-value-with-calzone">Calculating HL test statistics and p-value with calzone</a></li>
-<li class="toctree-l2"><a class="reference internal" href="notebooks/hl_test.html#Size-of-HL-test">Size of HL test</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/hl_test.html#P-value-of-HL-test">P-value of HL test</a></li>
 <li class="toctree-l2"><a class="reference internal" href="notebooks/hl_test.html#Reference">Reference</a></li>
 </ul>
 </li>
@@ -145,7 +145,7 @@
 <li class="toctree-l2"><a class="reference internal" href="notebooks/cox.html#Pros-of-Cox-calibration-analysis">Pros of Cox calibration analysis</a></li>
 <li class="toctree-l2"><a class="reference internal" href="notebooks/cox.html#Cons-of-Cox-calibration-analysis">Cons of Cox calibration analysis</a></li>
 <li class="toctree-l2"><a class="reference internal" href="notebooks/cox.html#Calculating-Cox-slope-and-intercept-with-calzone">Calculating Cox slope and intercept with calzone</a></li>
-<li class="toctree-l2"><a class="reference internal" href="notebooks/cox.html#Size-of-COX-slope-and-intecept-test">Size of COX slope and intecept test</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/cox.html#P-value-of-COX-slope-and-intecept-test">P-value of COX slope and intecept test</a></li>
 <li class="toctree-l2"><a class="reference internal" href="notebooks/cox.html#References">References</a></li>
 </ul>
 </li>
@@ -163,7 +163,7 @@
 <li class="toctree-l2"><a class="reference internal" href="notebooks/spiegelhalter_z.html#Pros-of-Spiegelhalter's-Z-test">Pros of Spiegelhalter’s Z test</a></li>
 <li class="toctree-l2"><a class="reference internal" href="notebooks/spiegelhalter_z.html#Cons-of-Spiegelhalter's-Z-test">Cons of Spiegelhalter’s Z test</a></li>
 <li class="toctree-l2"><a class="reference internal" href="notebooks/spiegelhalter_z.html#Calculating-the-Spieegelhalter-Z-score-and-p-value-using-calzone">Calculating the Spieegelhalter Z score and p-value using calzone</a></li>
-<li class="toctree-l2"><a class="reference internal" href="notebooks/spiegelhalter_z.html#Testing-the-size-of-Spiegelhalter's-z-test">Testing the size of Spiegelhalter’s z test</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/spiegelhalter_z.html#P-value-of-Spiegelhalter's-z-test">P-value of Spiegelhalter’s z test</a></li>
 <li class="toctree-l2"><a class="reference internal" href="notebooks/spiegelhalter_z.html#Reference">Reference</a></li>
 </ul>
 </li>
@@ -175,7 +175,7 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="notebooks/subgroup.html">Subgroup analysis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="notebooks/topclass.html">Multiclass extension</a></li>
-<li class="toctree-l1"><a class="reference internal" href="notebooks/GUI.html">Running GUI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/GUI.html">Running the GUI</a></li>
 <li class="toctree-l1"><a class="reference internal" href="notebooks/validation.html">Validating metrics with external packages</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="notebooks/validation.html#Reliability-diagram">Reliability diagram</a></li>
 <li class="toctree-l2"><a class="reference internal" href="notebooks/validation.html#Expected-calibration-error-and-Z-test">Expected calibration error and Z test</a></li>

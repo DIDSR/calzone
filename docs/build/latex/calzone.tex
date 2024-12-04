@@ -65,7 +65,7 @@
 
 
 \title{calzone}
-\date{Dec 02, 2024}
+\date{Dec 04, 2024}
 \release{develop}
 \author{Kwok Lung "Jason" Fan, Qian Cao}
 \newcommand{\sphinxlogo}{\vbox{}}
@@ -90,14 +90,14 @@
 calzone is a Python package for calculation of various calibration metrics. This work is credited to Kwok Lung (Jason) Fan and Qian Cao.
 
 \sphinxAtStartPar
-The calzone package provides a suite of tools for assessing and improving the calibration of machine learning models, particularly in binary classification tasks. It offers various calibration metrics and visualization tools for reliability diagrams.  Please read the summary and guide first  before using the package.
+The calzone package provides a suite of tools for assessing and improving the calibration of machine learning models, particularly for binary classification tasks. It offers calibration metrics and visualization tools for displaying reliability diagrams.  Please read the summary and guide section in this documentation first before using the package.
 
 \sphinxAtStartPar
 Key features of calzone include:
 \begin{itemize}
 \item {} 
 \sphinxAtStartPar
-Calculation of various calibration metrics (e.g., ECE, MCE, Hosmer\sphinxhyphen{}Lemeshow test, spiegelhalter z test, etc.)
+Calculation of calibration metrics (ECE, MCE, Hosmer\sphinxhyphen{}Lemeshow test, spiegelhalter z test, etc.)
 
 \item {} 
 \sphinxAtStartPar
@@ -113,11 +113,11 @@ Subgroup analysis for calibration metrics
 
 \item {} 
 \sphinxAtStartPar
-Provides command line interface scripts for batch processing
+Command line interface scripts for batch processing
 
 \item {} 
 \sphinxAtStartPar
-Multi\sphinxhyphen{}class extension by 1\sphinxhyphen{}vs\sphinxhyphen{}rest or top\sphinxhyphen{}class only
+Multi\sphinxhyphen{}class extension by using 1\sphinxhyphen{}vs\sphinxhyphen{}rest or top\sphinxhyphen{}class only
 
 \end{itemize}
 
@@ -133,13 +133,13 @@ We hope you find calzone useful in your machine learning projects!
 \chapter{Quick Start}
 \label{\detokenize{notebooks/quickstart:Quick-Start}}\label{\detokenize{notebooks/quickstart::doc}}
 \sphinxAtStartPar
-The tutorial provides a quick start to the calzone package. Including the installation and the basic command line interface useage.
+This tutorial provides a quick start to the calzone package, including a discussion of the installation and the basic command line interface useage.
 
 
 \section{Installation}
 \label{\detokenize{notebooks/quickstart:Installation}}
 \sphinxAtStartPar
-calzone dependencies are numpy, scipy, statsmodels and matplotlib. If you are experienced developer, you probably already have numpy, scipy and matplolib installed. If you don’t have a package install, you can install them with conda
+Calzone dependencies are numpy, scipy, statsmodels and matplotlib. If you are experienced developer, you probably already have numpy, scipy and matplolib installed. If you don’t have a package install, you can install them with conda
 
 \begin{sphinxuseclass}{nbinput}
 \begin{sphinxuseclass}{nblast}
@@ -171,7 +171,7 @@ Alternatively, you can install the dependencies with pip
 \end{sphinxuseclass}
 \end{sphinxuseclass}
 \sphinxAtStartPar
-Then, you can process to install the calzone package from github if you only want to use the calculator inside you python script:
+Then, you can install the calzone package from github if you only want to use the calculator inside you python script:
 
 \begin{sphinxuseclass}{nbinput}
 \begin{sphinxuseclass}{nblast}
@@ -203,13 +203,13 @@ If you want to run the command line interface or GUI interface, you need to clon
 \section{Command line interface}
 \label{\detokenize{notebooks/quickstart:Command-line-interface}}
 \sphinxAtStartPar
-First, you need to prepare your dataset in a specified format. The dataset should be a CSV file with the following columns:
+First, you need to prepare your dataset in a specific format. The dataset should be a CSV file with the following columns:
 
 \sphinxAtStartPar
 proba\_0, proba\_1, …, proba\_n, label
 
 \sphinxAtStartPar
-where n \textgreater{}= 1.
+where n \textgreater{}= 1. The proba\_i columns are the probabilities of the i\sphinxhyphen{}th class, and the label column is the true class label.
 
 \sphinxAtStartPar
 Or if you have subgroups, the dataset should be a CSV file with the following columns:
@@ -218,13 +218,16 @@ Or if you have subgroups, the dataset should be a CSV file with the following co
 proba\_0, proba\_1, …, proba\_n, subgroup\_1, subgroup\_2, …, subgroup\_m, label
 
 \sphinxAtStartPar
-where n \textgreater{}= 1 and m \textgreater{}= 1.
+where n \textgreater{}= 1 and m \textgreater{}= 1. The subgroup\_j columns are the values of the j\sphinxhyphen{}th subgroup type, and its values should be categorical.
 
 \sphinxAtStartPar
 In the case of multi\sphinxhyphen{}class, you need to specify the class\sphinxhyphen{}of\sphinxhyphen{}interest, and the problem will be treated as 1\sphinxhyphen{}vs\sphinxhyphen{}all binary classification. To test the full calibration of the whole model, you need to test the calibration of each class.
 
 \sphinxAtStartPar
 The program also works if your csv file has no header.It will assume the first {[}:\sphinxhyphen{}1{]} columns are the probabilities and the last column is the label.
+
+\sphinxAtStartPar
+We provides examples dataset in csv format in the e examples folder and it illustrate the input format of dataset.
 
 \begin{sphinxuseclass}{nbinput}
 \begin{sphinxuseclass}{nblast}
@@ -244,8 +247,59 @@ The program also works if your csv file has no header.It will assume the first {
 
 \end{sphinxuseclass}
 \end{sphinxuseclass}
+\begin{sphinxuseclass}{nbinput}
+{
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+\llap{\color{nbsphinxin}[3]:\,\hspace{\fboxrule}\hspace{\fboxsep}}\PYG{c+c1}{\PYGZsh{}\PYGZsh{}\PYGZsh{} Snippet of the csv file format}
+\PYG{c+c1}{\PYGZsh{}Without subgroups}
+\PYG{k+kn}{import} \PYG{n+nn}{numpy} \PYG{k}{as} \PYG{n+nn}{np}
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{Without subgroups}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{)}
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{n}{np}\PYG{o}{.}\PYG{n}{loadtxt}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{../../../example\PYGZus{}data/simulated\PYGZus{}welldata.csv}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{,}\PYG{n}{dtype}\PYG{o}{=}\PYG{n+nb}{str}\PYG{p}{)}\PYG{p}{[}\PYG{p}{:}\PYG{l+m+mi}{5}\PYG{p}{]}\PYG{p}{)} \PYG{c+c1}{\PYGZsh{}first 5 lines of the without subgroups csv files}
+\PYG{c+c1}{\PYGZsh{}With subgroups}
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{With subgroups}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{)}
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{n}{np}\PYG{o}{.}\PYG{n}{loadtxt}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{../../../example\PYGZus{}data/simulated\PYGZus{}data\PYGZus{}subgroup.csv}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{,}\PYG{n}{dtype}\PYG{o}{=}\PYG{n+nb}{str}\PYG{p}{)}\PYG{p}{[}\PYG{p}{:}\PYG{l+m+mi}{5}\PYG{p}{]}\PYG{p}{)} \PYG{c+c1}{\PYGZsh{}first 5 lines of the with subgroups csv files}
+\end{sphinxVerbatim}
+}
+
+\end{sphinxuseclass}
+\begin{sphinxuseclass}{nboutput}
+\begin{sphinxuseclass}{nblast}
+{
+
+\kern-\sphinxverbatimsmallskipamount\kern-\baselineskip
+\kern+\FrameHeightAdjust\kern-\fboxrule
+\vspace{\nbsphinxcodecellspacing}
+
+\sphinxsetup{VerbatimColor={named}{white}}
+\begin{sphinxuseclass}{output_area}
+\begin{sphinxuseclass}{}
+
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+Without subgroups
+['proba\_0,proba\_1,label'
+ '1.444156178040510996e-01,8.555843821959489004e-01,0.000000000000000000e+00'
+ '8.552048445812980848e-01,1.447951554187018874e-01,0.000000000000000000e+00'
+ '2.569696048872897043e-01,7.430303951127102957e-01,0.000000000000000000e+00'
+ '3.993130565553012490e-01,6.006869434446987510e-01,1.000000000000000000e+00']
+With subgroups
+['proba\_0,proba\_1,subgroup\_1,label'
+ '0.1444156178040511,0.8555843821959489,A,0'
+ '0.8552048445812981,0.1447951554187019,A,0'
+ '0.2569696048872897,0.7430303951127103,A,0'
+ '0.39931305655530125,0.6006869434446988,A,1']
+\end{sphinxVerbatim}
+
+
+
+\end{sphinxuseclass}
+\end{sphinxuseclass}
+}
+
+\end{sphinxuseclass}
+\end{sphinxuseclass}
 \sphinxAtStartPar
-To use CLI, you can use the script in the calzone directory. The program will save the metrics into the output csv file with the CI(if you turn on boostrap). The program will also save the relibaility diagram if you apply \textendash{}plot flag. There is an optional flag \textendash{}prevalence\_adjustment which try to derive the original model prevalence and apply prevalence adjustment. See more on prevalence adjustment in the prevalecne adjustment notebook.
+To use the command line interface (CLI), you can use the script in the calzone directory. The program will save the metrics into the output csv file with the CI (if you turn on boostrap). The program will also save the relibaility diagram if you apply \textendash{}plot flag. There is an optional flag \textendash{}prevalence\_adjustment which tries to derive the original model prevalence and apply prevalence adjustment. See more on prevalence adjustment in the prevalecne adjustment notebook.
 
 \begin{sphinxuseclass}{nbinput}
 {
@@ -406,7 +460,7 @@ Loess ICI: 0.006 (0.004, 0.016)
 
 \begin{sphinxuseclass}{output_area}
 \begin{sphinxuseclass}{}
-\noindent\sphinxincludegraphics[width=702\sphinxpxdimen,height=530\sphinxpxdimen]{{notebooks_quickstart_16_1}.png}
+\noindent\sphinxincludegraphics[width=702\sphinxpxdimen,height=530\sphinxpxdimen]{{notebooks_quickstart_17_1}.png}
 
 \end{sphinxuseclass}
 \end{sphinxuseclass}
@@ -415,7 +469,10 @@ Loess ICI: 0.006 (0.004, 0.016)
 \end{sphinxuseclass}
 \end{sphinxuseclass}
 \sphinxAtStartPar
-We can also test it on a miscalibrated dataset
+We use the CLI to compute the metrics and reliability diagram for the example dataset. The metrics and its 95\% confidence interval will be printed and saved in a file. The reliability diagram will be saved in a separate file.
+
+\sphinxAtStartPar
+We can also test it on a miscalibrated dataset. The miscalibration is introduced by mutliply the log of probabilities by 2 and convert it back to probabilities.
 
 \begin{sphinxuseclass}{nbinput}
 {
@@ -492,7 +549,7 @@ Loess ICI: 0.074 (0.065, 0.083)
 
 \begin{sphinxuseclass}{output_area}
 \begin{sphinxuseclass}{}
-\noindent\sphinxincludegraphics[width=702\sphinxpxdimen,height=530\sphinxpxdimen]{{notebooks_quickstart_18_1}.png}
+\noindent\sphinxincludegraphics[width=702\sphinxpxdimen,height=530\sphinxpxdimen]{{notebooks_quickstart_19_1}.png}
 
 \end{sphinxuseclass}
 \end{sphinxuseclass}
@@ -501,7 +558,7 @@ Loess ICI: 0.074 (0.065, 0.083)
 \end{sphinxuseclass}
 \end{sphinxuseclass}
 \sphinxAtStartPar
-If your data has subgroup in it, simply run the script with the same argument as the one above. It will automatically detect the subgroup and generate the corresponding plots and metrics for each subgroup as well as the overall plot and metrics.
+If your data has subgroups in it, simply run the script with the same argument as the one above. It will automatically detect the subgroup and generate the corresponding plots and metrics for each subgroup as well as the overall plot and metrics.
 
 \begin{sphinxuseclass}{nbinput}
 {
@@ -577,7 +634,7 @@ Loess ICI: 0.037 (0.032, 0.043)
 
 \begin{sphinxuseclass}{output_area}
 \begin{sphinxuseclass}{}
-\noindent\sphinxincludegraphics[width=702\sphinxpxdimen,height=530\sphinxpxdimen]{{notebooks_quickstart_20_1}.png}
+\noindent\sphinxincludegraphics[width=702\sphinxpxdimen,height=530\sphinxpxdimen]{{notebooks_quickstart_21_1}.png}
 
 \end{sphinxuseclass}
 \end{sphinxuseclass}
@@ -639,7 +696,7 @@ Loess ICI: 0.006 (0.003, 0.016)
 
 \begin{sphinxuseclass}{output_area}
 \begin{sphinxuseclass}{}
-\noindent\sphinxincludegraphics[width=702\sphinxpxdimen,height=545\sphinxpxdimen]{{notebooks_quickstart_20_3}.png}
+\noindent\sphinxincludegraphics[width=702\sphinxpxdimen,height=545\sphinxpxdimen]{{notebooks_quickstart_21_3}.png}
 
 \end{sphinxuseclass}
 \end{sphinxuseclass}
@@ -702,7 +759,7 @@ Loess ICI: 0.07 (0.062, 0.078)
 
 \begin{sphinxuseclass}{output_area}
 \begin{sphinxuseclass}{}
-\noindent\sphinxincludegraphics[width=702\sphinxpxdimen,height=545\sphinxpxdimen]{{notebooks_quickstart_20_5}.png}
+\noindent\sphinxincludegraphics[width=702\sphinxpxdimen,height=545\sphinxpxdimen]{{notebooks_quickstart_21_5}.png}
 
 \end{sphinxuseclass}
 \end{sphinxuseclass}
@@ -796,13 +853,14 @@ calzone aims to access whether a model achieves moderate calibration, meaning wh
 To accurately assess the calibration of machine learning models, it is essential to have a comprehensive and reprensative dataset with sufficient coverage of the prediction space. The calibration metrics is not meaningful if the dataset is not representative of true intended population.
 
 \sphinxAtStartPar
-calzone takes in a csv dataset which contains the probability of each class and the true label. Most metrics in calzone only work with binary classification and which transforms the problem into 1\sphinxhyphen{}vs\sphinxhyphen{}rest when calcualte the metrics. Therefore, you need to specify the class\sphinxhyphen{}of\sphinxhyphen{}interest when using the metrics. The only exception is the \(ECE_{top}\) and \(MCE_{top}\) metrics which works for multi\sphinxhyphen{}class problems. See the corresponding documentation for more details.
+calzone takes in a csv dataset which contains the probability of each class and the true label. Most metrics in calzone only work with binary classification and which transforms the problem into 1\sphinxhyphen{}vs\sphinxhyphen{}rest when calcualte the metrics. Therefore, you need to specify the class\sphinxhyphen{}of\sphinxhyphen{}interest when using the metrics. The only exception is the Top\sphinxhyphen{}class Expected calibration error (\(ECE_{top}\)) and Top\sphinxhyphen{}class Maximum calibration error (\(MCE_{top}\)) metrics which only measure the calibration of
+the class with highest predicted probability hence works for multi\sphinxhyphen{}class problems. See the corresponding documentation for more details.
 
 \sphinxAtStartPar
 We recommend visualizing calibration using reliability diagrams. If you observe general over\sphinxhyphen{} or under\sphinxhyphen{}estimation of probabilities for a given class, consider applying a prevalence adjustment to determine if it’s solely due to prevalence shift. After prevalence adjustment, plot the reliability diagrams again and examine the results of calibration metrics.
 
 \sphinxAtStartPar
-For a general sense of average probability deviation, we recommend using the Cox and Loess integrated calibration index (ICI). To test for calibration, we suggest using Spiegelhalter’s z\sphinxhyphen{}test. Other metrics such as Expected Calibration Error (ECE), Cox slope/intercept, and Hosmer\sphinxhyphen{}Lemeshow (HL) test depends strongly on binning and should be used with caution.
+For a general sense of average probability deviation, we recommend using the Cox and Loess integrated calibration index (ICI) as they don’t depend on binning. Alternativly, ECE can be used to measure the same but the result will depend on the binning scheme you used. If the probabilities distribution is highly skewed toward 0 and 1, use equal\sphinxhyphen{}count binning for ECE.
 
 \sphinxAtStartPar
 Please refer to the notebooks for detailed descriptions of each metric.
@@ -865,7 +923,7 @@ Reliability Diagram is a tool to visualize the calibration of a model given a se
 The error bar in the reliability diagram is the 95\% confidence interval calculated using wilson score interval which assume that samples in a bin is a series of Bernoulli trials with the success probability equal to the mean predicted probability. The confidence interval is only for reference and might not be exact.
 
 \sphinxAtStartPar
-Since we have a binary classification problem, The mean predicted probability will not go below 0.5 for top\sphinxhyphen{}class reliability diagram. We will proceed to plot the class 1 reliability diagram.
+Since we have a binary classification problem, The mean predicted probability will not go below 0.5 for the top\sphinxhyphen{}class reliability diagram. We will proceed to plot the class 1 reliability diagram.
 
 \begin{sphinxuseclass}{nbinput}
 {
@@ -899,7 +957,7 @@ Since we have a binary classification problem, The mean predicted probability wi
 \end{sphinxuseclass}
 \end{sphinxuseclass}
 \sphinxAtStartPar
-Class\sphinxhyphen{}by\sphinxhyphen{}class reliability diagram reveal more information about the model’s calibbration. The top\sphinxhyphen{}class reliability diagram could be misleading as it could shows reasonable calibration for the top\sphinxhyphen{}class, but the model could be overconfident for the other classes. We can demonstrate in the following example.
+Class\sphinxhyphen{}by\sphinxhyphen{}class reliability diagrams reveal more information about the model’s calibration. The top\sphinxhyphen{}class reliability diagram could be misleading as it could shows reasonable calibration for the top\sphinxhyphen{}class, but the model could be overconfident for the other classes. We can demonstrate in the following example.
 
 \begin{sphinxuseclass}{nbinput}
 \begin{sphinxuseclass}{nblast}
@@ -996,7 +1054,7 @@ Class\sphinxhyphen{}by\sphinxhyphen{}class reliability diagram reveal more infor
 \end{sphinxuseclass}
 \end{sphinxuseclass}
 \sphinxAtStartPar
-The example shows us that the prevalence shift in the testing data could lead to mis\sphinxhyphen{}calibration in a posterior sense. The calzone provide a method to calibrate it. The prevalence is not related to the model and the model could still have the correct likelihood ratio. See more discussion in the prevalence adjustment section.
+The example shows us that the prevalence shift in the testing data could lead to mis\sphinxhyphen{}calibration in a posterior sense. Calzone provides a method to calibrate it. The prevalence is not related to the model and the model could still have the correct likelihood ratio. See more discussion in the prevalence adjustment section.
 
 
 \section{References}
@@ -1033,8 +1091,8 @@ Similarly, we can also define the Maximum Calibration Error (MCE) as the maximum
 \subsection{Estimated ECE and MCE}
 \label{\detokenize{notebooks/ece_mce:Estimated-ECE-and-MCE}}
 \sphinxAtStartPar
-We can’t compute ECE and MCE directly from the data. Alternatively, we can group the data into bins and compute an Estimated ECE and MCE from the grouped data. In most literature, the estimated ECE and MCE are simply referred to as ECE and MCE. We adopt the same convention but want to remind the reader that the estimated ECE and MCE are not the same as the true ECE and MCE and they heavily depend on the binning method. In the text below, we will use the terms ECE and MCE to refer to the
-estimated ECE and MCE, and true ECE and MCE to refer to the true ECE and MCE.
+We can’t compute ECE and MCE directly from the data, but we can group the data into bins and compute an Estimated ECE and MCE from the grouped data. In most literature, the estimated ECE and MCE are simply referred to as ECE and MCE. We adopt the same convention but want to remind the reader that the estimated ECE and MCE are not the same as the true ECE and MCE and they heavily depend on the binning method. In the text below, we will use the terms ECE and MCE to refer to the estimated ECE and
+MCE, and true ECE and MCE to refer to the true ECE and MCE.
 \begin{equation*}
 \begin{split}\text{ECE}  = \sum_{m=1}^M \frac{|B_m|}{n} |acc(B_m) - conf(B_m)|\end{split}
 \end{equation*}
@@ -1050,7 +1108,7 @@ Both ECE and MCE group the data based on the predicted probability. This means t
 Nixon et al. (2019) proposed a new binning method which bins the data into equal\sphinxhyphen{}count bins. They refer to the resulting ECE as Adaptive Calibration Error (ACE). The ACE also accounts for all the predictions for all classes. This is equivalent to a sum of ECE for all classes.
 
 \sphinxAtStartPar
-We will adopt a modified version of the ACE and aim to measure the true ECE with equal\sphinxhyphen{}count binning but ignore the part about summing over all classes. This is equivalent to the ECE but only with equal\sphinxhyphen{}count binning. We will refer to the equal\sphinxhyphen{}width binning ECE as ECE\sphinxhyphen{}H and the equal\sphinxhyphen{}count binning ECE as ECE\sphinxhyphen{}C. Similarly, we will refer to the equal\sphinxhyphen{}width binning MCE as MCE\sphinxhyphen{}H and the equal\sphinxhyphen{}count binning MCE as MCE\sphinxhyphen{}C.
+We adopt a modified version of the ACE and aim to measure the true ECE with equal\sphinxhyphen{}count binning but ignore the part about summing over all classes. This is equivalent to the ECE but only with equal\sphinxhyphen{}count binning. We refer to the equal\sphinxhyphen{}width binning ECE as ECE\sphinxhyphen{}H and the equal\sphinxhyphen{}count binning ECE as ECE\sphinxhyphen{}C. Similarly, we will refer to the equal\sphinxhyphen{}width binning MCE as MCE\sphinxhyphen{}H and the equal\sphinxhyphen{}count binning MCE as MCE\sphinxhyphen{}C.
 
 
 \section{Pros of ECE and MCE}
@@ -1063,7 +1121,7 @@ the confidence. Because of that, ECE and MCE are widely used in the machine lear
 \section{Cons of ECE and MCE}
 \label{\detokenize{notebooks/ece_mce:Cons-of-ECE-and-MCE}}
 \sphinxAtStartPar
-The biggest disadvantage of using ECE and MCE is that they rely on the binning scheme, and results will depend on the binning scheme and the number of bins. It can be shown that the average ECE and MCE will always increase with the number of bins and the average ECE and MCE will change with the number of samples for a fixed number of bins. This causes problems when interpreting the results. We will do a simple experiment in the following section to show this. Because of the above reasons, we
+The biggest disadvantage of using ECE and MCE is that they rely on the binning scheme, and results will depend on the binning scheme and the number of bins. It can be shown that the expected ECE and MCE will always increase with the number of bins and the expected ECE and MCE will change with the number of samples for a fixed number of bins. This causes problems when interpreting the results. We will do a simple experiment in the following section to show this. Because of the above reasons, we
 recommend using ECE and MCE with other metrics that are not dependent on the binning scheme.
 
 
@@ -1358,7 +1416,7 @@ In order to calculate the Hosmer\sphinxhyphen{}Lemeshow test statistic, we need 
 \end{equation*}
 \sphinxAtStartPar
 where \(E_{1,m}\) is the expected number of class 1 events in the \(\text{m}^{th}\) bin, \(O_{1,m}\) is the observed number of class 1 events in the \(\text{m}^{th}\) bin, \(N_m\) is the total number of observations in the \(\text{m}^{th}\) bin, and \(M\) is the number of bins. The HL test statistic is distributed as a chi\sphinxhyphen{}squared distribution with \(M-2\) degrees of freedom. We can then use this test statistic to calculate the p\sphinxhyphen{}value for the test and determine
-whether we can reject the null hypothesis that the model is well\sphinxhyphen{}calibrated. Notice that the degree of freedom of HL test is \(M-2\) by default but sthe degree of freedom should be \(M\) instead when the samples is not used for training. We provides the option to specify the degree of freedom in the \sphinxcode{\sphinxupquote{calzone}}. The default value is still \(M-2\).
+whether we can reject the null hypothesis that the model is well\sphinxhyphen{}calibrated. Notice that the degree of freedom of HL test is \(M-2\) by default but the degree of freedom should be \(M\) when the samples is not used for training (Hosmer Jr et. al., 2013). We provides the option to specify the degree of freedom in the \sphinxcode{\sphinxupquote{calzone}}. The default value is still \(M-2\).
 
 
 \section{Pros of HL test}
@@ -1371,8 +1429,8 @@ for model calibration.
 \section{Cons of HL Test}
 \label{\detokenize{notebooks/hl_test:Cons-of-HL-Test}}
 \sphinxAtStartPar
-Many studies have shown that the HL test is not an ideal way to examine the calibration of a model. The biggest problem is that the HL test depends on the binning scheme used. Whether equal\sphinxhyphen{}width or equal\sphinxhyphen{}count binning and the number of bins used can affect the results of the HL test. It is shown that the standard 10 equal\sphinxhyphen{}width bins often have the wrong size and low statistical power. Therefore, it is recommended not to use the HL test to examine the calibration of a model. However, the HL test
-is still a useful tool to quickly check the calibration of a model and provide a reference for the calibration of a model.
+Many studies have shown that the HL test is not an ideal way to examine the calibration of a model. The biggest problem is that the HL test depends on the binning scheme used. Whether equal\sphinxhyphen{}width or equal\sphinxhyphen{}count binning and the number of bins used can affect the results of the HL test. It is shown that the standard 10 equal\sphinxhyphen{}width bins often have the wrong size and low statistical power. Therefore, it is recommended not to use the HL test to examine the calibration of a model (Hosmer et. al.,
+1997). However, the HL test is still a useful tool to quickly check the calibration of a model and provide a reference for the calibration of a model.
 
 
 \section{Calculating HL test statistics and p\sphinxhyphen{}value with calzone}
@@ -1509,10 +1567,10 @@ We can see the result from equal\sphinxhyphen{}width binning and equal\sphinxhyp
 \end{sphinxuseclass}
 \end{sphinxuseclass}
 
-\section{Size of HL test}
-\label{\detokenize{notebooks/hl_test:Size-of-HL-test}}
+\section{P\sphinxhyphen{}value of HL test}
+\label{\detokenize{notebooks/hl_test:P-value-of-HL-test}}
 \sphinxAtStartPar
-We will show the size of HL test. Notice that the size of HL test had been shown to depend on sample size, number of bin and binning scheme (Hosmer et. al. 1997). We will generate fake data to show the size of HL test.
+We will show the statistical size of HL test. The statistical size refer to the type 1 error rate of a statistical test and idealy should match the p\sphinxhyphen{}value . Notice that the size of HL test had been shown to depend on sample size, number of bin and binning scheme (Hosmer et. al. 1997). We will generate fake data to show the size of HL test.
 
 \begin{sphinxuseclass}{nbinput}
 \begin{sphinxuseclass}{nblast}
@@ -1705,6 +1763,9 @@ Hosmer, D. W., \& Lemesbow, S. (1980). Goodness of fit tests for the multiple lo
 \sphinxAtStartPar
 Hosmer, D. W., Hosmer, T., Cessie, S. L., \& Lemeshow, S. (1997). A COMPARISON OF GOODNESS\sphinxhyphen{}OF\sphinxhyphen{}FIT TESTS FOR THE LOGISTIC REGRESSION MODEL. 16.
 
+\sphinxAtStartPar
+Hosmer Jr, David W., Stanley Lemeshow, and Rodney X. Sturdivant. Applied logistic regression. John Wiley \& Sons, 2013.
+
 \sphinxstepscope
 
 
@@ -1714,7 +1775,7 @@ Hosmer, D. W., Hosmer, T., Cessie, S. L., \& Lemeshow, S. (1997). A COMPARISON O
 \section{Theoretical Background}
 \label{\detokenize{notebooks/cox:Theoretical-Background}}
 \sphinxAtStartPar
-Cox calibration analysis is both a logistic recalibration technique and a method to examine the current calibration of a model. To perform the analysis, we first need to fit a new logistic regression model using logit (log odds, aka \(\log\frac{\hat{p}}{1-\hat{p}}\)) as the predictor variable and the outcome as the target variable.
+Cox calibration analysis is both a logistic recalibration technique and a method to examine the current calibration of a model. To perform the analysis, we first to fit a logistic regression model using logit (log odds, aka \(\log\frac{\hat{p}}{1-\hat{p}}\)) as the predictor variable and the outcome as the target variable.
 \begin{equation*}
 \begin{split}p_{new} = \frac{1}{1+e^{-(a + b \cdot \log\frac{\hat{p}}{1-\hat{p}})}}\end{split}
 \end{equation*}
@@ -1734,7 +1795,7 @@ overall under\sphinxhyphen{} or over\sphinxhyphen{}confidence or if it is over\s
 \section{Cons of Cox calibration analysis}
 \label{\detokenize{notebooks/cox:Cons-of-Cox-calibration-analysis}}
 \sphinxAtStartPar
-Cox Calibration analysis can only assess weak calibration and only captures certain types of miscalibration (general over/under\sphinxhyphen{}confidence). A model can have \(a=0\) and \(b=1\) and still be miscalibrated.
+Cox Calibration analysis can only assess weak calibration , meaning whether \(P(Y=1|\hat{p}=p) = p\) for all \(p\). It only captures certain types of miscalibration (general over/under\sphinxhyphen{}confidence). A model can have \(a=0\) and \(b=1\) and still be miscalibrated. For example, a model is over\sphinxhyphen{}confident at low and high probabilities and under\sphinxhyphen{}confident at intermediate probabilities could has \(a=0\) and \(b=1\) but still be miscalibrated.
 
 
 \section{Calculating Cox slope and intercept with calzone}
@@ -1938,10 +1999,10 @@ x1             0.9942      0.029     34.212      0.000       0.937       1.051
 The resulting COX slope and intercept can be used to calibrate the model but it is beyond the scope of this package.
 
 
-\section{Size of COX slope and intecept test}
-\label{\detokenize{notebooks/cox:Size-of-COX-slope-and-intecept-test}}
+\section{P\sphinxhyphen{}value of COX slope and intecept test}
+\label{\detokenize{notebooks/cox:P-value-of-COX-slope-and-intecept-test}}
 \sphinxAtStartPar
-Although Cox calibration analysis is usually only used to estimate the overall calibration trend, the resulting estimates of the slope and intercept can also be used to test whether the model is well calibrated (moderate calibration). We will do a demostrate on the size of the slope and intercept test below
+Although Cox calibration analysis is usually only used to estimate the overall calibration trend, the resulting estimates of the slope and intercept can also be used to test whether the model is well calibrated (moderate calibration). We will do a demostrate on the statistical size of the slope and intercept test below
 
 \begin{sphinxuseclass}{nbinput}
 \begin{sphinxuseclass}{nblast}
@@ -2078,7 +2139,7 @@ The size of the Cox intercept test is:  0.05600000000000005
 \end{sphinxuseclass}
 \end{sphinxuseclass}
 \sphinxAtStartPar
-Both test doesn’t have the exact size but it is closer than the HL test.
+The test results in different size values but they are closer than with the HL test.
 
 
 \section{References}
@@ -2103,7 +2164,7 @@ Huang, Y., Li, W., Macheret, F., Gabriel, R. A., \& Ohno\sphinxhyphen{}Machado, 
 \sphinxAtStartPar
 Integrated Calibration Index (ICI) is essentially the same as expected calibration error (ECE) in terms of the idea. They both try to measure the average deviation of the predicted probabilities from the true probabilities. However, ECE is calculated by grouping the samples into bins and then calculating the weighted average of the deviation of the mean predicted probabilities from the empirical accuracy. ICI, on the other hand, is calculated by fitting a smooth curve using the samples itself
 and therefore doesn’t require binning. However, the choice of the curve fitting method can affect the result and is arbitrary. The most common choice is locally estimated scatterplot smoothing (LOESS) (Cleveland, 1979). People also use other methods such as polynomial fitting and spline fitting. Interestingly, not many people have looked into using COX regression results to calculate ICI, which is implemented in calzone. Notice that the Cox\sphinxhyphen{}ICI can be way off from the truth if the logistic
-regression is not a good fit.
+regression does not result in a good fit.
 
 \sphinxAtStartPar
 The formula for ICI is:
@@ -2122,7 +2183,7 @@ where \(p_i\) is the predicted probability of the \(i\)\sphinxhyphen{}th sample.
 \section{Pros of ICI}
 \label{\detokenize{notebooks/ici:Pros-of-ICI}}
 \sphinxAtStartPar
-The main advantage of ICI is that it skips the need for binning while still giving you an easily interpretable metric. It is essentially the same as ECE and can be interpreted as the average deviation from the true probability. ICI can capture any type of miscalibration if the calibration curve is well\sphinxhyphen{}described by the fitting method.
+The main advantage of ICI is that it skips the need for binning while still giving an easily interpretable metric. It is essentially the same as ECE and can be interpreted as the average deviation from the true probability. ICI can capture any type of miscalibration if the calibration curve is well\sphinxhyphen{}described by the fitting method.
 
 
 \section{Cons of ICI}
@@ -2402,7 +2463,7 @@ and the Speigelhalter’s Z\sphinxhyphen{}test is defined as:
 \begin{split}Z = \frac{B - E(B)}{\sqrt{\text{Var}(B)}} = \frac{ \sum_{i=1}^N (x_i - p_i)(1-2p_i)}{\sum_{i=1}^N (1-2p_i)^2 p_i (1-p_i)}\end{split}
 \end{equation*}
 \sphinxAtStartPar
-and \(Z\) is approximately standard normal distributed under the null hypothesis of calibration. Spiegelhalter’s Z\sphinxhyphen{}test has the right size in many situations and it is powerful in many situations. We recommend using Spiegelhalter’s Z\sphinxhyphen{}test to test the calibration of probabilistic models.
+and \(Z\) is approximately standard normal distributed under the null hypothesis of calibration. Spiegelhalter’s Z\sphinxhyphen{}test has the right size in many situations and it is powerful in many situations.
 
 
 \section{Pros of Spiegelhalter’s Z test}
@@ -2501,8 +2562,8 @@ We can also use the CalibrationMetrics class
 \end{sphinxuseclass}
 \end{sphinxuseclass}
 
-\section{Testing the size of Spiegelhalter’s z test}
-\label{\detokenize{notebooks/spiegelhalter_z:Testing-the-size-of-Spiegelhalter's-z-test}}
+\section{P\sphinxhyphen{}value of Spiegelhalter’s z test}
+\label{\detokenize{notebooks/spiegelhalter_z:P-value-of-Spiegelhalter's-z-test}}
 \sphinxAtStartPar
 Like to HL test, we can check whether the Spiegelhalter’s z test has the correct size.
 
@@ -2931,12 +2992,13 @@ In this example, we will use the example simulated dataset in the calzone packag
 \begin{sphinxuseclass}{nbinput}
 {
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
-\llap{\color{nbsphinxin}[1]:\,\hspace{\fboxrule}\hspace{\fboxsep}}\PYG{c+c1}{\PYGZsh{}\PYGZsh{}\PYGZsh{} import the packages and read the data}
+\llap{\color{nbsphinxin}[ ]:\,\hspace{\fboxrule}\hspace{\fboxsep}}\PYG{c+c1}{\PYGZsh{}\PYGZsh{}\PYGZsh{} import the packages and read the data}
 \PYG{k+kn}{import} \PYG{n+nn}{numpy} \PYG{k}{as} \PYG{n+nn}{np}
 \PYG{k+kn}{from} \PYG{n+nn}{calzone}\PYG{n+nn}{.}\PYG{n+nn}{utils} \PYG{k+kn}{import} \PYG{n}{data\PYGZus{}loader}
 \PYG{k+kn}{from} \PYG{n+nn}{calzone}\PYG{n+nn}{.}\PYG{n+nn}{metrics} \PYG{k+kn}{import} \PYG{n}{CalibrationMetrics}
 
 \PYG{n}{dataset} \PYG{o}{=} \PYG{n}{data\PYGZus{}loader}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{../../../example\PYGZus{}data/simulated\PYGZus{}data\PYGZus{}subgroup.csv}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{n}{np}\PYG{o}{.}\PYG{n}{loadtxt}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{../../../example\PYGZus{}data/simulated\PYGZus{}data\PYGZus{}subgroup.csv}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{,}\PYG{n}{dtype}\PYG{o}{=}\PYG{n+nb}{str}\PYG{p}{)}\PYG{p}{[}\PYG{p}{:}\PYG{l+m+mi}{5}\PYG{p}{]}\PYG{p}{)} \PYG{c+c1}{\PYGZsh{}first 5 lines of the csv files}
 \PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{Whether the dataset has subgroup:}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,}\PYG{n}{dataset}\PYG{o}{.}\PYG{n}{have\PYGZus{}subgroup}\PYG{p}{)}
 
 \PYG{c+c1}{\PYGZsh{}\PYGZsh{}\PYGZsh{} Create the CalibrationMetrics class}
@@ -2959,6 +3021,11 @@ In this example, we will use the example simulated dataset in the calzone packag
 
 
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
+['proba\_0,proba\_1,subgroup\_1,label'
+ '0.1444156178040511,0.8555843821959489,A,0'
+ '0.8552048445812981,0.1447951554187019,A,0'
+ '0.2569696048872897,0.7430303951127103,A,0'
+ '0.39931305655530125,0.6006869434446988,A,1']
 Whether the dataset has subgroup: True
 \end{sphinxVerbatim}
 
@@ -3293,10 +3360,10 @@ You can see the top\sphinxhyphen{}class ECE is the same as regular ECE.
 \sphinxstepscope
 
 
-\chapter{Running GUI}
-\label{\detokenize{notebooks/GUI:Running-GUI}}\label{\detokenize{notebooks/GUI::doc}}
+\chapter{Running the GUI}
+\label{\detokenize{notebooks/GUI:Running-the-GUI}}\label{\detokenize{notebooks/GUI::doc}}
 \sphinxAtStartPar
-GUI is currently under development and not all features from the command line are supported. To run GUI, you need to install nicegui using the following command:
+GUI is currently under development and not all features from the command line are supported. To run the GUI, you need to install nicegui using the following command:
 
 \begin{sphinxuseclass}{nbinput}
 \begin{sphinxuseclass}{nblast}

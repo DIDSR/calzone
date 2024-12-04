@@ -73,7 +73,7 @@
 <li class="toctree-l1"><a class="reference internal" href="prevalence_adjustment.html">Prevalence adjustment</a></li>
 <li class="toctree-l1"><a class="reference internal" href="subgroup.html">Subgroup analysis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="topclass.html">Multiclass extension</a></li>
-<li class="toctree-l1"><a class="reference internal" href="GUI.html">Running GUI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GUI.html">Running the GUI</a></li>
 <li class="toctree-l1"><a class="reference internal" href="validation.html">Validating metrics with external packages</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../modules.html">calzone</a></li>
 </ul>
@@ -119,8 +119,8 @@
 \[\text{MCE}_{top} = \max_{p_{top}}|\mathbb{P}(\hat{Y_{top}}=Y_{top}|\hat{P}=p_{top})-p_{top}|\]</div>
 <section id="Estimated-ECE-and-MCE">
 <h3>Estimated ECE and MCE<a class="headerlink" href="#Estimated-ECE-and-MCE" title="Link to this heading"></a></h3>
-<p>We can’t compute ECE and MCE directly from the data. Alternatively, we can group the data into bins and compute an Estimated ECE and MCE from the grouped data. In most literature, the estimated ECE and MCE are simply referred to as ECE and MCE. We adopt the same convention but want to remind the reader that the estimated ECE and MCE are not the same as the true ECE and MCE and they heavily depend on the binning method. In the text below, we will use the terms ECE and MCE to refer to the
-estimated ECE and MCE, and true ECE and MCE to refer to the true ECE and MCE.</p>
+<p>We can’t compute ECE and MCE directly from the data, but we can group the data into bins and compute an Estimated ECE and MCE from the grouped data. In most literature, the estimated ECE and MCE are simply referred to as ECE and MCE. We adopt the same convention but want to remind the reader that the estimated ECE and MCE are not the same as the true ECE and MCE and they heavily depend on the binning method. In the text below, we will use the terms ECE and MCE to refer to the estimated ECE and
+MCE, and true ECE and MCE to refer to the true ECE and MCE.</p>
 <div class="math notranslate nohighlight">
 \[\text{ECE}  = \sum_{m=1}^M \frac{|B_m|}{n} |acc(B_m) - conf(B_m)|\]</div>
 <p>where M is the number of bins, <span class="math notranslate nohighlight">\(B_m\)</span> is the m-th bin, <span class="math notranslate nohighlight">\(acc(B_m)\)</span> is the accuracy of the m-th bin, <span class="math notranslate nohighlight">\(conf(B_m)\)</span> is the mean predicted probability of the m-th bin, and <span class="math notranslate nohighlight">\(n\)</span> is the total number of samples. The ECE-topclass is a simple extension where only the top-class probability is used to group the data. We can define MCE similarly.</p>
@@ -128,7 +128,7 @@ estimated ECE and MCE, and true ECE and MCE to refer to the true ECE and MCE.</p
 \[\text{MCE}  = \max_m |acc(B_m) - conf(B_m)|\]</div>
 <p>Both ECE and MCE group the data based on the predicted probability. This means the resulting ECE and MCE depend on the binning method used. Traditionally, the data are grouped into 10 equal-width bins. However, if the data is not evenly distributed, the resulting ECE and MCE may not be a good representation of the model’s calibration.</p>
 <p>Nixon et al. (2019) proposed a new binning method which bins the data into equal-count bins. They refer to the resulting ECE as Adaptive Calibration Error (ACE). The ACE also accounts for all the predictions for all classes. This is equivalent to a sum of ECE for all classes.</p>
-<p>We will adopt a modified version of the ACE and aim to measure the true ECE with equal-count binning but ignore the part about summing over all classes. This is equivalent to the ECE but only with equal-count binning. We will refer to the equal-width binning ECE as ECE-H and the equal-count binning ECE as ECE-C. Similarly, we will refer to the equal-width binning MCE as MCE-H and the equal-count binning MCE as MCE-C.</p>
+<p>We adopt a modified version of the ACE and aim to measure the true ECE with equal-count binning but ignore the part about summing over all classes. This is equivalent to the ECE but only with equal-count binning. We refer to the equal-width binning ECE as ECE-H and the equal-count binning ECE as ECE-C. Similarly, we will refer to the equal-width binning MCE as MCE-H and the equal-count binning MCE as MCE-C.</p>
 </section>
 </section>
 <section id="Pros-of-ECE-and-MCE">
@@ -138,7 +138,7 @@ the confidence. Because of that, ECE and MCE are widely used in the machine lear
 </section>
 <section id="Cons-of-ECE-and-MCE">
 <h2>Cons of ECE and MCE<a class="headerlink" href="#Cons-of-ECE-and-MCE" title="Link to this heading"></a></h2>
-<p>The biggest disadvantage of using ECE and MCE is that they rely on the binning scheme, and results will depend on the binning scheme and the number of bins. It can be shown that the average ECE and MCE will always increase with the number of bins and the average ECE and MCE will change with the number of samples for a fixed number of bins. This causes problems when interpreting the results. We will do a simple experiment in the following section to show this. Because of the above reasons, we
+<p>The biggest disadvantage of using ECE and MCE is that they rely on the binning scheme, and results will depend on the binning scheme and the number of bins. It can be shown that the expected ECE and MCE will always increase with the number of bins and the expected ECE and MCE will change with the number of samples for a fixed number of bins. This causes problems when interpreting the results. We will do a simple experiment in the following section to show this. Because of the above reasons, we
 recommend using ECE and MCE with other metrics that are not dependent on the binning scheme.</p>
 </section>
 <section id="Calculating-ECE-and-MCE-with-calzone">

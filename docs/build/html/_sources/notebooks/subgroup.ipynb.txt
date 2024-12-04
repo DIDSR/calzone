@@ -18,13 +18,18 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 1,
+   "execution_count": null,
    "metadata": {},
    "outputs": [
     {
      "name": "stdout",
      "output_type": "stream",
      "text": [
+      "['proba_0,proba_1,subgroup_1,label'\n",
+      " '0.1444156178040511,0.8555843821959489,A,0'\n",
+      " '0.8552048445812981,0.1447951554187019,A,0'\n",
+      " '0.2569696048872897,0.7430303951127103,A,0'\n",
+      " '0.39931305655530125,0.6006869434446988,A,1']\n",
       "Whether the dataset has subgroup: True\n"
      ]
     }
@@ -36,6 +41,7 @@
     "from calzone.metrics import CalibrationMetrics\n",
     "\n",
     "dataset = data_loader('../../../example_data/simulated_data_subgroup.csv')\n",
+    "print(np.loadtxt('../../../example_data/simulated_data_subgroup.csv',dtype=str)[:5]) #first 5 lines of the csv files\n",
     "print(\"Whether the dataset has subgroup:\",dataset.have_subgroup)\n",
     "\n",
     "### Create the CalibrationMetrics class\n",
@@ -231,7 +237,7 @@
    "name": "python",
    "nbconvert_exporter": "python",
    "pygments_lexer": "ipython3",
-   "version": "3.12.4"
+   "version": "3.12.0"
   }
  },
  "nbformat": 4,

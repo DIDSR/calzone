@@ -60,7 +60,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#Pros-of-HL-test">Pros of HL test</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#Cons-of-HL-Test">Cons of HL Test</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#Calculating-HL-test-statistics-and-p-value-with-calzone">Calculating HL test statistics and p-value with calzone</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#Size-of-HL-test">Size of HL test</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#P-value-of-HL-test">P-value of HL test</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#Reference">Reference</a></li>
 </ul>
 </li>
@@ -70,7 +70,7 @@
 <li class="toctree-l1"><a class="reference internal" href="prevalence_adjustment.html">Prevalence adjustment</a></li>
 <li class="toctree-l1"><a class="reference internal" href="subgroup.html">Subgroup analysis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="topclass.html">Multiclass extension</a></li>
-<li class="toctree-l1"><a class="reference internal" href="GUI.html">Running GUI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GUI.html">Running the GUI</a></li>
 <li class="toctree-l1"><a class="reference internal" href="validation.html">Validating metrics with external packages</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../modules.html">calzone</a></li>
 </ul>
@@ -109,7 +109,7 @@ widely used in the literature and industry since it is simple to implement and i
 <div class="math notranslate nohighlight">
 \[\text{HL} = \sum_{m=1}^{M} \left[\frac{(O_{1,m}-E_{1,m})^2}{E_{1,m}} + \frac{(O_{0,m}-E_{0,m})^2}{E_{0,m}}\right]  = \sum_{m=1}^{M} \frac{(O_{1,m}-E_{1,m})^2}{E_{1,m}(1-\frac{E_{1,m}}{N_m})} \sim \chi^2_{M-2}\]</div>
 <p>where <span class="math notranslate nohighlight">\(E_{1,m}\)</span> is the expected number of class 1 events in the <span class="math notranslate nohighlight">\(\text{m}^{th}\)</span> bin, <span class="math notranslate nohighlight">\(O_{1,m}\)</span> is the observed number of class 1 events in the <span class="math notranslate nohighlight">\(\text{m}^{th}\)</span> bin, <span class="math notranslate nohighlight">\(N_m\)</span> is the total number of observations in the <span class="math notranslate nohighlight">\(\text{m}^{th}\)</span> bin, and <span class="math notranslate nohighlight">\(M\)</span> is the number of bins. The HL test statistic is distributed as a chi-squared distribution with <span class="math notranslate nohighlight">\(M-2\)</span> degrees of freedom. We can then use this test statistic to calculate the p-value for the test and determine
-whether we can reject the null hypothesis that the model is well-calibrated. Notice that the degree of freedom of HL test is <span class="math notranslate nohighlight">\(M-2\)</span> by default but sthe degree of freedom should be <span class="math notranslate nohighlight">\(M\)</span> instead when the samples is not used for training. We provides the option to specify the degree of freedom in the <code class="docutils literal notranslate"><span class="pre">calzone</span></code>. The default value is still <span class="math notranslate nohighlight">\(M-2\)</span>.</p>
+whether we can reject the null hypothesis that the model is well-calibrated. Notice that the degree of freedom of HL test is <span class="math notranslate nohighlight">\(M-2\)</span> by default but the degree of freedom should be <span class="math notranslate nohighlight">\(M\)</span> when the samples is not used for training (Hosmer Jr et. al., 2013). We provides the option to specify the degree of freedom in the <code class="docutils literal notranslate"><span class="pre">calzone</span></code>. The default value is still <span class="math notranslate nohighlight">\(M-2\)</span>.</p>
 </section>
 <section id="Pros-of-HL-test">
 <h2>Pros of HL test<a class="headerlink" href="#Pros-of-HL-test" title="Link to this heading"></a></h2>
@@ -118,8 +118,8 @@ for model calibration.</p>
 </section>
 <section id="Cons-of-HL-Test">
 <h2>Cons of HL Test<a class="headerlink" href="#Cons-of-HL-Test" title="Link to this heading"></a></h2>
-<p>Many studies have shown that the HL test is not an ideal way to examine the calibration of a model. The biggest problem is that the HL test depends on the binning scheme used. Whether equal-width or equal-count binning and the number of bins used can affect the results of the HL test. It is shown that the standard 10 equal-width bins often have the wrong size and low statistical power. Therefore, it is recommended not to use the HL test to examine the calibration of a model. However, the HL test
-is still a useful tool to quickly check the calibration of a model and provide a reference for the calibration of a model.</p>
+<p>Many studies have shown that the HL test is not an ideal way to examine the calibration of a model. The biggest problem is that the HL test depends on the binning scheme used. Whether equal-width or equal-count binning and the number of bins used can affect the results of the HL test. It is shown that the standard 10 equal-width bins often have the wrong size and low statistical power. Therefore, it is recommended not to use the HL test to examine the calibration of a model (Hosmer et. al.,
+1997). However, the HL test is still a useful tool to quickly check the calibration of a model and provide a reference for the calibration of a model.</p>
 </section>
 <section id="Calculating-HL-test-statistics-and-p-value-with-calzone">
 <h2>Calculating HL test statistics and p-value with calzone<a class="headerlink" href="#Calculating-HL-test-statistics-and-p-value-with-calzone" title="Link to this heading"></a></h2>
@@ -201,9 +201,9 @@ HL-C p-value:  0.9600610057855211
 </pre></div></div>
 </div>
 </section>
-<section id="Size-of-HL-test">
-<h2>Size of HL test<a class="headerlink" href="#Size-of-HL-test" title="Link to this heading"></a></h2>
-<p>We will show the size of HL test. Notice that the size of HL test had been shown to depend on sample size, number of bin and binning scheme (Hosmer et. al. 1997). We will generate fake data to show the size of HL test.</p>
+<section id="P-value-of-HL-test">
+<h2>P-value of HL test<a class="headerlink" href="#P-value-of-HL-test" title="Link to this heading"></a></h2>
+<p>We will show the statistical size of HL test. The statistical size refer to the type 1 error rate of a statistical test and idealy should match the p-value . Notice that the size of HL test had been shown to depend on sample size, number of bin and binning scheme (Hosmer et. al. 1997). We will generate fake data to show the size of HL test.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
@@ -318,6 +318,7 @@ Text(0.5, 1.0, &#39;P-value distribution of the HL test&#39;)
 <h2>Reference<a class="headerlink" href="#Reference" title="Link to this heading"></a></h2>
 <p>Hosmer, D. W., &amp; Lemesbow, S. (1980). Goodness of fit tests for the multiple logistic regression model. Communications in statistics-Theory and Methods, 9(10), 1043-1069.</p>
 <p>Hosmer, D. W., Hosmer, T., Cessie, S. L., &amp; Lemeshow, S. (1997). A COMPARISON OF GOODNESS-OF-FIT TESTS FOR THE LOGISTIC REGRESSION MODEL. 16.</p>
+<p>Hosmer Jr, David W., Stanley Lemeshow, and Rodney X. Sturdivant. Applied logistic regression. John Wiley &amp; Sons, 2013.</p>
 </section>
 </section>
 

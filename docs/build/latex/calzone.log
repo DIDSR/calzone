@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2024.10.4)  2 DEC 2024 12:37
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2024.10.4)  4 DEC 2024 14:22
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -890,80 +890,75 @@ LaTeX Font Info:    Font shape `T1/txtt/m/it' in size <10> not available
 (Font)              Font shape `T1/txtt/m/sl' tried instead on input line 195.
  [3]
 LaTeX Font Info:    Font shape `T1/txtt/b/n' in size <10> not available
-(Font)              Font shape `T1/txtt/bx/n' tried instead on input line 237.
- [4]
+(Font)              Font shape `T1/txtt/bx/n' tried instead on input line 240.
 LaTeX Font Info:    Trying to load font information for TS1+txtt on input line 
-334.
+257.
 
 (/usr/share/texlive/texmf-dist/tex/latex/txfonts/ts1txtt.fd
 File: ts1txtt.fd 2000/12/15 v3.1
-)
-Underfull \vbox (badness 2343) detected at line 389
+) [4]
+Overfull \vbox (2.27391pt too high) detected at line 374
  []
 
 [5]
-<notebooks_quickstart_16_1.png, id=379, 507.3354pt x 383.031pt>
-File: notebooks_quickstart_16_1.png Graphic file (type png)
-<use notebooks_quickstart_16_1.png>
-Package pdftex.def Info: notebooks_quickstart_16_1.png  used on input line 409.
-
-(pdftex.def)             Requested size: 469.77333pt x 354.69556pt.
- [6 <./notebooks_quickstart_16_1.png>]
-<notebooks_quickstart_18_1.png, id=386, 507.3354pt x 383.031pt>
-File: notebooks_quickstart_18_1.png Graphic file (type png)
-<use notebooks_quickstart_18_1.png>
-Package pdftex.def Info: notebooks_quickstart_18_1.png  used on input line 495.
+<notebooks_quickstart_17_1.png, id=379, 507.3354pt x 383.031pt>
+File: notebooks_quickstart_17_1.png Graphic file (type png)
+<use notebooks_quickstart_17_1.png>
+Package pdftex.def Info: notebooks_quickstart_17_1.png  used on input line 463.
 
 (pdftex.def)             Requested size: 469.77333pt x 354.69556pt.
 
-Underfull \vbox (badness 10000) detected at line 499
+Underfull \vbox (badness 10000) detected at line 467
  []
 
-[7]
-Overfull \vbox (0.79068pt too high) detected at line 561
- []
+[6] [7 <./notebooks_quickstart_17_1.png>]
+<notebooks_quickstart_19_1.png, id=390, 507.3354pt x 383.031pt>
+File: notebooks_quickstart_19_1.png Graphic file (type png)
+<use notebooks_quickstart_19_1.png>
+Package pdftex.def Info: notebooks_quickstart_19_1.png  used on input line 552.
 
-[8 <./notebooks_quickstart_18_1.png>]
-<notebooks_quickstart_20_1.png, id=396, 507.3354pt x 383.031pt>
-File: notebooks_quickstart_20_1.png Graphic file (type png)
-<use notebooks_quickstart_20_1.png>
-Package pdftex.def Info: notebooks_quickstart_20_1.png  used on input line 580.
+(pdftex.def)             Requested size: 469.77333pt x 354.69556pt.
+ [8 <./notebooks_quickstart_19_1.png>]
+<notebooks_quickstart_21_1.png, id=396, 507.3354pt x 383.031pt>
+File: notebooks_quickstart_21_1.png Graphic file (type png)
+<use notebooks_quickstart_21_1.png>
+Package pdftex.def Info: notebooks_quickstart_21_1.png  used on input line 637.
 
 (pdftex.def)             Requested size: 469.77333pt x 354.69556pt.
 
-Underfull \vbox (badness 10000) detected at line 623
+Underfull \vbox (badness 10000) detected at line 641
  []
 
-[9 <./notebooks_quickstart_20_1.png>]
-<notebooks_quickstart_20_3.png, id=403, 507.3354pt x 393.8715pt>
-File: notebooks_quickstart_20_3.png Graphic file (type png)
-<use notebooks_quickstart_20_3.png>
-Package pdftex.def Info: notebooks_quickstart_20_3.png  used on input line 642.
+[9] [10 <./notebooks_quickstart_21_1.png>]
+<notebooks_quickstart_21_3.png, id=407, 507.3354pt x 393.8715pt>
+File: notebooks_quickstart_21_3.png Graphic file (type png)
+<use notebooks_quickstart_21_3.png>
+Package pdftex.def Info: notebooks_quickstart_21_3.png  used on input line 699.
 
 (pdftex.def)             Requested size: 469.77333pt x 364.72809pt.
 
-Underfull \vbox (badness 10000) detected at line 685
+Underfull \vbox (badness 10000) detected at line 742
  []
 
-[10 <./notebooks_quickstart_20_3.png>]
-<notebooks_quickstart_20_5.png, id=409, 507.3354pt x 393.8715pt>
-File: notebooks_quickstart_20_5.png Graphic file (type png)
-<use notebooks_quickstart_20_5.png>
-Package pdftex.def Info: notebooks_quickstart_20_5.png  used on input line 705.
+[11 <./notebooks_quickstart_21_3.png>]
+<notebooks_quickstart_21_5.png, id=413, 507.3354pt x 393.8715pt>
+File: notebooks_quickstart_21_5.png Graphic file (type png)
+<use notebooks_quickstart_21_5.png>
+Package pdftex.def Info: notebooks_quickstart_21_5.png  used on input line 762.
 
 (pdftex.def)             Requested size: 469.77333pt x 364.72809pt.
 
-Underfull \vbox (badness 10000) detected at line 709
+Overfull \vbox (2.8179pt too high) detected at line 825
  []
 
-[11] [12 <./notebooks_quickstart_20_5.png>] [13] [14
+[12 <./notebooks_quickstart_21_5.png>] [13] [14
 
 ]
 Chapter 2.
 <mytable.png, id=427, 1344.222pt x 337.26pt>
 File: mytable.png Graphic file (type png)
 <use mytable.png>
-Package pdftex.def Info: mytable.png  used on input line 787.
+Package pdftex.def Info: mytable.png  used on input line 844.
 (pdftex.def)             Requested size: 469.74635pt x 117.84206pt.
 [15 <./mytable.png>] [16
 
@@ -973,10 +968,10 @@ Chapter 3.
 File: notebooks_reliability_diagram_3_0.png Graphic file (type png)
 <use notebooks_reliability_diagram_3_0.png>
 Package pdftex.def Info: notebooks_reliability_diagram_3_0.png  used on input l
-ine 856.
+ine 914.
 (pdftex.def)             Requested size: 469.77333pt x 364.72809pt.
 
-Underfull \vbox (badness 10000) detected at line 860
+Underfull \vbox (badness 10000) detected at line 918
  []
 
 [17]
@@ -984,14 +979,14 @@ Underfull \vbox (badness 10000) detected at line 860
 File: notebooks_reliability_diagram_5_0.png Graphic file (type png)
 <use notebooks_reliability_diagram_5_0.png>
 Package pdftex.def Info: notebooks_reliability_diagram_5_0.png  used on input l
-ine 893.
+ine 951.
 (pdftex.def)             Requested size: 469.77333pt x 364.72809pt.
 
-Underfull \vbox (badness 10000) detected at line 897
+Underfull \vbox (badness 10000) detected at line 955
  []
 
 [18 <./notebooks_reliability_diagram_3_0.png>]
-Underfull \vbox (badness 3240) detected at line 929
+Underfull \vbox (badness 3240) detected at line 987
  []
 
 [19 <./notebooks_reliability_diagram_5_0.png>]
@@ -999,10 +994,10 @@ Underfull \vbox (badness 3240) detected at line 929
 File: notebooks_reliability_diagram_8_0.png Graphic file (type png)
 <use notebooks_reliability_diagram_8_0.png>
 Package pdftex.def Info: notebooks_reliability_diagram_8_0.png  used on input l
-ine 956.
+ine 1014.
 (pdftex.def)             Requested size: 469.77333pt x 364.72809pt.
 
-Underfull \vbox (badness 10000) detected at line 975
+Underfull \vbox (badness 10000) detected at line 1033
  []
 
 [20 <./notebooks_reliability_diagram_8_0.png>]
@@ -1010,7 +1005,7 @@ Underfull \vbox (badness 10000) detected at line 975
 File: notebooks_reliability_diagram_9_0.png Graphic file (type png)
 <use notebooks_reliability_diagram_9_0.png>
 Package pdftex.def Info: notebooks_reliability_diagram_9_0.png  used on input l
-ine 990.
+ine 1048.
 (pdftex.def)             Requested size: 469.77333pt x 364.72809pt.
  [21 <./notebooks_reliability_diagram_9_0.png>] [22
 
@@ -1020,25 +1015,29 @@ Chapter 4.
 <notebooks_ece_mce_12_1.png, id=491, 401.8212pt x 327.3831pt>
 File: notebooks_ece_mce_12_1.png Graphic file (type png)
 <use notebooks_ece_mce_12_1.png>
-Package pdftex.def Info: notebooks_ece_mce_12_1.png  used on input line 1316.
+Package pdftex.def Info: notebooks_ece_mce_12_1.png  used on input line 1374.
 (pdftex.def)             Requested size: 418.56474pt x 341.02489pt.
  [26 <./notebooks_ece_mce_12_1.png>] [27] [28
 
 ]
 Chapter 5.
-[29] [30] [31]
+[29] [30]
+Overfull \vbox (3.31134pt too high) detected at line 1653
+ []
+
+[31]
 <notebooks_hl_test_13_1.png, id=523, 409.7709pt x 327.3831pt>
 File: notebooks_hl_test_13_1.png Graphic file (type png)
 <use notebooks_hl_test_13_1.png>
-Package pdftex.def Info: notebooks_hl_test_13_1.png  used on input line 1633.
+Package pdftex.def Info: notebooks_hl_test_13_1.png  used on input line 1691.
 (pdftex.def)             Requested size: 426.85823pt x 341.02489pt.
 <notebooks_hl_test_14_1.png, id=524, 409.7709pt x 327.3831pt>
 File: notebooks_hl_test_14_1.png Graphic file (type png)
 <use notebooks_hl_test_14_1.png>
-Package pdftex.def Info: notebooks_hl_test_14_1.png  used on input line 1688.
+Package pdftex.def Info: notebooks_hl_test_14_1.png  used on input line 1746.
 (pdftex.def)             Requested size: 426.85823pt x 341.02489pt.
 
-Underfull \vbox (badness 10000) detected at line 1692
+Underfull \vbox (badness 10000) detected at line 1750
  []
 
 [32 <./notebooks_hl_test_13_1.png>] [33 <./notebooks_hl_test_14_1.png>]
@@ -1054,7 +1053,7 @@ Chapter 7.
 <notebooks_ici_8_1.png, id=580, 409.7709pt x 327.3831pt>
 File: notebooks_ici_8_1.png Graphic file (type png)
 <use notebooks_ici_8_1.png>
-Package pdftex.def Info: notebooks_ici_8_1.png  used on input line 2352.
+Package pdftex.def Info: notebooks_ici_8_1.png  used on input line 2413.
 (pdftex.def)             Requested size: 426.85823pt x 341.02489pt.
  [44 <./notebooks_ici_8_1.png>]
 Chapter 8.
@@ -1065,10 +1064,10 @@ Chapter 8.
 File: notebooks_spiegelhalter_z_9_1.png Graphic file (type png)
 <use notebooks_spiegelhalter_z_9_1.png>
 Package pdftex.def Info: notebooks_spiegelhalter_z_9_1.png  used on input line 
-2622.
+2683.
 (pdftex.def)             Requested size: 426.85823pt x 341.02489pt.
 
-Underfull \vbox (badness 10000) detected at line 2626
+Underfull \vbox (badness 10000) detected at line 2687
  []
 
 [47] [48 <./notebooks_spiegelhalter_z_9_1.png>]
@@ -1077,18 +1076,14 @@ Chapter 9.
 
 ] [50] [51] [52]
 Chapter 10.
-
-Overfull \vbox (0.92192pt too high) detected at line 3052
- []
-
 [53
 
-] [54]
-Underfull \vbox (badness 10000) detected at line 3160
+]
+Underfull \vbox (badness 2343) detected at line 3140
  []
 
-
-Overfull \vbox (3.52196pt too high) detected at line 3160
+[54]
+Underfull \vbox (badness 10000) detected at line 3227
  []
 
 [55] [56]
@@ -1096,16 +1091,16 @@ Chapter 11.
 <notebooks_topclass_2_0.png, id=646, 507.3354pt x 393.8715pt>
 File: notebooks_topclass_2_0.png Graphic file (type png)
 <use notebooks_topclass_2_0.png>
-Package pdftex.def Info: notebooks_topclass_2_0.png  used on input line 3228.
+Package pdftex.def Info: notebooks_topclass_2_0.png  used on input line 3295.
 (pdftex.def)             Requested size: 469.77333pt x 364.72809pt.
 
-Underfull \vbox (badness 10000) detected at line 3232
+Underfull \vbox (badness 10000) detected at line 3299
  []
 
 [57
 
 ]
-Underfull \vbox (badness 10000) detected at line 3280
+Underfull \vbox (badness 10000) detected at line 3347
  []
 
 [58 <./notebooks_topclass_2_0.png>] [59] [60
@@ -1125,11 +1120,11 @@ LaTeX Font Info:    Font shape `TS1/txtt/m/it' in size <10> not available
 (Font)              Font shape `TS1/txtt/m/sl' tried instead on input line 1.
  [68]
 LaTeX Font Info:    Trying to load font information for U+fontawesomefree1 on i
-nput line 3932.
+nput line 3999.
 
 (/usr/share/texlive/texmf-dist/tex/latex/fontawesome5/ufontawesomefree1.fd)
 [69] [70] [71] [72] [73] [74]
-Overfull \hbox (73.01103pt too wide) in paragraph at lines 4753--4757
+Overfull \hbox (73.01103pt too wide) in paragraph at lines 4820--4824
 []\T1/qtm/m/n/10 Note: - If there is a header, it must be in the for-mat: proba
 _0,proba_1,...,subgroup_1(optional),subgroup_2(optional),...,label
  []
@@ -1257,20 +1252,20 @@ Underfull \hbox (badness 10000) in paragraph at lines 117--119
 [84
 
 ])
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 5430.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 5430.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 5497.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 5497.
  (./calzone.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 5430.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 5430.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 5497.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 5497.
 
 Package rerunfilecheck Info: File `calzone.out' has not changed.
-(rerunfilecheck)             Checksum: 86D41F9B7BF940A4A09522407336294A;11888.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 5430.
+(rerunfilecheck)             Checksum: EF8376D74A8CDD5FCD51D79244F8381B;11890.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 5497.
  ) 
 Here is how much of TeX's memory you used:
  19012 strings out of 481239
- 318628 string characters out of 5920377
- 675350 words of memory out of 5000000
+ 318629 string characters out of 5920377
+ 675361 words of memory out of 5000000
  33634 multiletter control sequences out of 15000+600000
  596176 words of font info for 75 fonts, out of 8000000 for 9000
  1142 hyphenation exceptions out of 8191
@@ -1298,7 +1293,7 @@ fonts/type1/public/tex-gyre/qtmri.pfb></usr/share/texlive/texmf-dist/fonts/type
 xfonts/t1xtt.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/txfonts/t1xt
 t.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/txfonts/tcxtt.pfb></usr
 /share/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb>
-Output written on calzone.pdf (88 pages, 1449106 bytes).
+Output written on calzone.pdf (88 pages, 1464158 bytes).
 PDF statistics:
  1003 PDF objects out of 1200 (max. 8388607)
  844 compressed objects within 9 object streams

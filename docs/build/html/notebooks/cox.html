@@ -61,7 +61,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#Pros-of-Cox-calibration-analysis">Pros of Cox calibration analysis</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#Cons-of-Cox-calibration-analysis">Cons of Cox calibration analysis</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#Calculating-Cox-slope-and-intercept-with-calzone">Calculating Cox slope and intercept with calzone</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#Size-of-COX-slope-and-intecept-test">Size of COX slope and intecept test</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#P-value-of-COX-slope-and-intecept-test">P-value of COX slope and intecept test</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#References">References</a></li>
 </ul>
 </li>
@@ -70,7 +70,7 @@
 <li class="toctree-l1"><a class="reference internal" href="prevalence_adjustment.html">Prevalence adjustment</a></li>
 <li class="toctree-l1"><a class="reference internal" href="subgroup.html">Subgroup analysis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="topclass.html">Multiclass extension</a></li>
-<li class="toctree-l1"><a class="reference internal" href="GUI.html">Running GUI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GUI.html">Running the GUI</a></li>
 <li class="toctree-l1"><a class="reference internal" href="validation.html">Validating metrics with external packages</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../modules.html">calzone</a></li>
 </ul>
@@ -103,7 +103,7 @@
 <h1>COX calibration analysis<a class="headerlink" href="#COX-calibration-analysis" title="Link to this heading"></a></h1>
 <section id="Theoretical-Background">
 <h2>Theoretical Background<a class="headerlink" href="#Theoretical-Background" title="Link to this heading"></a></h2>
-<p>Cox calibration analysis is both a logistic recalibration technique and a method to examine the current calibration of a model. To perform the analysis, we first need to fit a new logistic regression model using logit (log odds, aka <span class="math notranslate nohighlight">\(\log\frac{\hat{p}}{1-\hat{p}}\)</span>) as the predictor variable and the outcome as the target variable.</p>
+<p>Cox calibration analysis is both a logistic recalibration technique and a method to examine the current calibration of a model. To perform the analysis, we first to fit a logistic regression model using logit (log odds, aka <span class="math notranslate nohighlight">\(\log\frac{\hat{p}}{1-\hat{p}}\)</span>) as the predictor variable and the outcome as the target variable.</p>
 <div class="math notranslate nohighlight">
 \[p_{new} = \frac{1}{1+e^{-(a + b \cdot \log\frac{\hat{p}}{1-\hat{p}})}}\]</div>
 <p>In the case of perfect calibration, <span class="math notranslate nohighlight">\(P(Y=1|p=\hat{p}) = \hat{p}\)</span> and the new probability <span class="math notranslate nohighlight">\(p_{new}\)</span> is equal to the original probability <span class="math notranslate nohighlight">\(\hat{p}\)</span>. That means <span class="math notranslate nohighlight">\(a=0\)</span> and <span class="math notranslate nohighlight">\(b=1\)</span>. If <span class="math notranslate nohighlight">\(b&gt;1\)</span>, the model is under-confident at high probabilities and over-confident at low probabilities for the class-of-interest. If <span class="math notranslate nohighlight">\(b&lt;1\)</span>, the model is over-confident at high probabilities and under-confident at low probabilities for the class-of-interest. If <span class="math notranslate nohighlight">\(a&gt;0\)</span>, the model
@@ -117,7 +117,7 @@ overall under- or over-confidence or if it is over-confident in some ranges and 
 </section>
 <section id="Cons-of-Cox-calibration-analysis">
 <h2>Cons of Cox calibration analysis<a class="headerlink" href="#Cons-of-Cox-calibration-analysis" title="Link to this heading"></a></h2>
-<p>Cox Calibration analysis can only assess weak calibration and only captures certain types of miscalibration (general over/under-confidence). A model can have <span class="math notranslate nohighlight">\(a=0\)</span> and <span class="math notranslate nohighlight">\(b=1\)</span> and still be miscalibrated.</p>
+<p>Cox Calibration analysis can only assess weak calibration , meaning whether <span class="math notranslate nohighlight">\(P(Y=1|\hat{p}=p) = p\)</span> for all <span class="math notranslate nohighlight">\(p\)</span>. It only captures certain types of miscalibration (general over/under-confidence). A model can have <span class="math notranslate nohighlight">\(a=0\)</span> and <span class="math notranslate nohighlight">\(b=1\)</span> and still be miscalibrated. For example, a model is over-confident at low and high probabilities and under-confident at intermediate probabilities could has <span class="math notranslate nohighlight">\(a=0\)</span> and <span class="math notranslate nohighlight">\(b=1\)</span> but still be miscalibrated.</p>
 </section>
 <section id="Calculating-Cox-slope-and-intercept-with-calzone">
 <h2>Calculating Cox slope and intercept with calzone<a class="headerlink" href="#Calculating-Cox-slope-and-intercept-with-calzone" title="Link to this heading"></a></h2>
@@ -247,9 +247,9 @@ x1             0.9942      0.029     34.212      0.000       0.937       1.051
 </div>
 <p>The resulting COX slope and intercept can be used to calibrate the model but it is beyond the scope of this package.</p>
 </section>
-<section id="Size-of-COX-slope-and-intecept-test">
-<h2>Size of COX slope and intecept test<a class="headerlink" href="#Size-of-COX-slope-and-intecept-test" title="Link to this heading"></a></h2>
-<p>Although Cox calibration analysis is usually only used to estimate the overall calibration trend, the resulting estimates of the slope and intercept can also be used to test whether the model is well calibrated (moderate calibration). We will do a demostrate on the size of the slope and intercept test below</p>
+<section id="P-value-of-COX-slope-and-intecept-test">
+<h2>P-value of COX slope and intecept test<a class="headerlink" href="#P-value-of-COX-slope-and-intecept-test" title="Link to this heading"></a></h2>
+<p>Although Cox calibration analysis is usually only used to estimate the overall calibration trend, the resulting estimates of the slope and intercept can also be used to test whether the model is well calibrated (moderate calibration). We will do a demostrate on the statistical size of the slope and intercept test below</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
@@ -343,7 +343,7 @@ The size of the Cox slope test is:  0.039000000000000035
 The size of the Cox intercept test is:  0.05600000000000005
 </pre></div></div>
 </div>
-<p>Both test doesn’t have the exact size but it is closer than the HL test.</p>
+<p>The test results in different size values but they are closer than with the HL test.</p>
 </section>
 <section id="References">
 <h2>References<a class="headerlink" href="#References" title="Link to this heading"></a></h2>

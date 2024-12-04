@@ -20,14 +20,14 @@
 \contentsline {section}{\numberline {5.2}Pros of HL test}{29}{section.5.2}%
 \contentsline {section}{\numberline {5.3}Cons of HL Test}{30}{section.5.3}%
 \contentsline {section}{\numberline {5.4}Calculating HL test statistics and p\sphinxhyphen {}value with calzone}{30}{section.5.4}%
-\contentsline {section}{\numberline {5.5}Size of HL test}{31}{section.5.5}%
+\contentsline {section}{\numberline {5.5}P\sphinxhyphen {}value of HL test}{31}{section.5.5}%
 \contentsline {section}{\numberline {5.6}Reference}{33}{section.5.6}%
 \contentsline {chapter}{\numberline {6}COX calibration analysis}{35}{chapter.6}%
 \contentsline {section}{\numberline {6.1}Theoretical Background}{35}{section.6.1}%
 \contentsline {section}{\numberline {6.2}Pros of Cox calibration analysis}{35}{section.6.2}%
 \contentsline {section}{\numberline {6.3}Cons of Cox calibration analysis}{35}{section.6.3}%
 \contentsline {section}{\numberline {6.4}Calculating Cox slope and intercept with calzone}{36}{section.6.4}%
-\contentsline {section}{\numberline {6.5}Size of COX slope and intecept test}{37}{section.6.5}%
+\contentsline {section}{\numberline {6.5}P\sphinxhyphen {}value of COX slope and intecept test}{37}{section.6.5}%
 \contentsline {section}{\numberline {6.6}References}{39}{section.6.6}%
 \contentsline {chapter}{\numberline {7}Integrated Calibration Index (ICI)}{41}{chapter.7}%
 \contentsline {section}{\numberline {7.1}Theoretical Background}{41}{section.7.1}%
@@ -41,7 +41,7 @@
 \contentsline {section}{\numberline {8.2}Pros of Spiegelhalter’s Z test}{45}{section.8.2}%
 \contentsline {section}{\numberline {8.3}Cons of Spiegelhalter’s Z test}{46}{section.8.3}%
 \contentsline {section}{\numberline {8.4}Calculating the Spieegelhalter Z score and p\sphinxhyphen {}value using calzone}{46}{section.8.4}%
-\contentsline {section}{\numberline {8.5}Testing the size of Spiegelhalter’s z test}{46}{section.8.5}%
+\contentsline {section}{\numberline {8.5}P\sphinxhyphen {}value of Spiegelhalter’s z test}{46}{section.8.5}%
 \contentsline {section}{\numberline {8.6}Reference}{48}{section.8.6}%
 \contentsline {chapter}{\numberline {9}Prevalence adjustment}{49}{chapter.9}%
 \contentsline {section}{\numberline {9.1}Preform prevalence adjustment in calzone}{50}{section.9.1}%
@@ -49,7 +49,7 @@
 \contentsline {section}{\numberline {9.3}References}{52}{section.9.3}%
 \contentsline {chapter}{\numberline {10}Subgroup analysis}{53}{chapter.10}%
 \contentsline {chapter}{\numberline {11}Multiclass extension}{57}{chapter.11}%
-\contentsline {chapter}{\numberline {12}Running GUI}{61}{chapter.12}%
+\contentsline {chapter}{\numberline {12}Running the GUI}{61}{chapter.12}%
 \contentsline {chapter}{\numberline {13}Validating metrics with external packages}{63}{chapter.13}%
 \contentsline {section}{\numberline {13.1}Reliability diagram}{63}{section.13.1}%
 \contentsline {section}{\numberline {13.2}Expected calibration error and Z test}{64}{section.13.2}%

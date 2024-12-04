@@ -64,7 +64,7 @@
 <li class="toctree-l1"><a class="reference internal" href="prevalence_adjustment.html">Prevalence adjustment</a></li>
 <li class="toctree-l1"><a class="reference internal" href="subgroup.html">Subgroup analysis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="topclass.html">Multiclass extension</a></li>
-<li class="toctree-l1"><a class="reference internal" href="GUI.html">Running GUI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GUI.html">Running the GUI</a></li>
 <li class="toctree-l1"><a class="reference internal" href="validation.html">Validating metrics with external packages</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../modules.html">calzone</a></li>
 </ul>
@@ -101,9 +101,10 @@
 <h2>Guide to calzone and calibration metrics<a class="headerlink" href="#Guide-to-calzone-and-calibration-metrics" title="Link to this heading"></a></h2>
 <p>calzone aims to access whether a model achieves moderate calibration, meaning whether <span class="math notranslate nohighlight">\(\mathbb{P}(\hat{Y}=Y|\hat{P}=p)=p\)</span> for all <span class="math notranslate nohighlight">\(p\in[0,1]\)</span>.</p>
 <p>To accurately assess the calibration of machine learning models, it is essential to have a comprehensive and reprensative dataset with sufficient coverage of the prediction space. The calibration metrics is not meaningful if the dataset is not representative of true intended population.</p>
-<p>calzone takes in a csv dataset which contains the probability of each class and the true label. Most metrics in calzone only work with binary classification and which transforms the problem into 1-vs-rest when calcualte the metrics. Therefore, you need to specify the class-of-interest when using the metrics. The only exception is the <span class="math notranslate nohighlight">\(ECE_{top}\)</span> and <span class="math notranslate nohighlight">\(MCE_{top}\)</span> metrics which works for multi-class problems. See the corresponding documentation for more details.</p>
+<p>calzone takes in a csv dataset which contains the probability of each class and the true label. Most metrics in calzone only work with binary classification and which transforms the problem into 1-vs-rest when calcualte the metrics. Therefore, you need to specify the class-of-interest when using the metrics. The only exception is the Top-class Expected calibration error (<span class="math notranslate nohighlight">\(ECE_{top}\)</span>) and Top-class Maximum calibration error (<span class="math notranslate nohighlight">\(MCE_{top}\)</span>) metrics which only measure the calibration of
+the class with highest predicted probability hence works for multi-class problems. See the corresponding documentation for more details.</p>
 <p>We recommend visualizing calibration using reliability diagrams. If you observe general over- or under-estimation of probabilities for a given class, consider applying a prevalence adjustment to determine if it’s solely due to prevalence shift. After prevalence adjustment, plot the reliability diagrams again and examine the results of calibration metrics.</p>
-<p>For a general sense of average probability deviation, we recommend using the Cox and Loess integrated calibration index (ICI). To test for calibration, we suggest using Spiegelhalter’s z-test. Other metrics such as Expected Calibration Error (ECE), Cox slope/intercept, and Hosmer-Lemeshow (HL) test depends strongly on binning and should be used with caution.</p>
+<p>For a general sense of average probability deviation, we recommend using the Cox and Loess integrated calibration index (ICI) as they don’t depend on binning. Alternativly, ECE can be used to measure the same but the result will depend on the binning scheme you used. If the probabilities distribution is highly skewed toward 0 and 1, use equal-count binning for ECE.</p>
 <p>Please refer to the notebooks for detailed descriptions of each metric.</p>
 </section>
 </section>

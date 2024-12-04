@@ -4,14 +4,14 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "# Running GUI"
+    "# Running the GUI"
    ]
   },
   {
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "GUI is currently under development and not all features from the command line are supported. To run GUI, you need to install nicegui using the following command:"
+    "GUI is currently under development and not all features from the command line are supported. To run the GUI, you need to install nicegui using the following command:"
    ]
   },
   {
