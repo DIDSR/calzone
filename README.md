@@ -15,7 +15,7 @@ To accurately assess the calibration of machine learning models, it is essential
 
 ## Installation
 
-`calzone` package require installation of `numpy`, `scipy`, `matplotlib` and `statsmodels`. If you need to run GUI, `nicegui` is also required.
+`calzone` package require installation of `numpy`, `scipy`, `matplotlib` and `statsmodels`.
 
 You can install calzone using pip:
 ```
@@ -32,7 +32,7 @@ pip install .
 
 run `python cal_metrics.py -h` to see the help information and usage. To use the package in your Python code, please refer to the examples in the documentation pages. 
 
-To use GUI, run `python GUI_cal_metrics.py` (GUI is under development, use with caution.)
+To use GUI, run `python GUI_cal_metrics.py`. Support for the GUI is experiment and requires additional dependencies (i.e., `nicegui`).
 
 <img src="gui.png" width="500" alt="GUI">
 
