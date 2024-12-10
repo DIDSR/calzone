@@ -32,7 +32,7 @@ A GUI is available by running `python GUI_cal_metrics.py`. Support for the GUI i
 For a detailed manual and API reference, please visit our [documentation page](https://calzone-docs.readthedocs.io/en/latest/index.html).
 
 ## Support
-If you encounter any issues or have questions about the package, please [open an issue request](https://github.com/DIDSR/calzone/issues) or contact the authors:
+If you encounter any issues or have questions about the package, please [open an issue request](https://github.com/DIDSR/calzone/issues) or contact:
 * [Kwok Lung (Jason) Fan](mailto:kwoklung.fan@fda.hhs.gov?subject=calzone)
 * [Qian Cao](mailto:qian.cao@fda.hhs.gov?subject=calzone)
 
