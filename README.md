@@ -16,19 +16,11 @@ To accurately assess the calibration of machine learning models, it is essential
 
 ## Installation
 
-`calzone` package require installation of `numpy`, `scipy`, `matplotlib` and `statsmodels`.
-
 You can install calzone using pip:
 ```
-pip install -e "git+https://github.com/DIDSR/calzone.git#egg=calzone"
+pip install calzone-tool
 ```
 
-Alternatively, you can clone the repository and install it locally:
-```
-git clone https://github.com/DIDSR/calzone.git
-cd calzone
-pip install .
-```
 ## Usage
 
 run `python cal_metrics.py -h` to see the help information and usage. To use the package in your Python code, please refer to the examples in the documentation pages. 
