@@ -27,7 +27,8 @@ dependencies = [
 ]
 
 [project.urls]
-"Homepage" = "https://calzone-docs.readthedocs.io/en/latest/index.html"
+Homepage = "https://calzone-docs.readthedocs.io/en/latest/index.html"
+Issues = "https://github.com/DIDSR/calzone/issues"
 
 [project.scripts]
 calzone = "calzone.cli:main"
