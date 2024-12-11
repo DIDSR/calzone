@@ -4,9 +4,6 @@
 
 `calzone` is a comprehensive Python package for calculating and visualizing various metrics for assessing the calibration of models with probabilistic output. 
 
-To accurately assess the calibration of machine learning models, it is essential to have a comprehensive and reprensative dataset with sufficient coverage of the prediction space. The calibration metrics is not meaningful if the dataset is not representative of true intended population.
-
-
 ## Features
 
 - Supports multiple calibration metrics including Spiegelhalter's Z-test, Expected Calibration Error (ECE), Maximum Calibration Error (MCE), Hosmer-Lemeshow test, Cox regression analysis, and Loess regression analysis
@@ -15,6 +12,8 @@ To accurately assess the calibration of machine learning models, it is essential
 - Boostrapping for confidence intervals for each calibration metrics
 - Prevelance adjustment to account for prevalance change between enriched data and population data.
 - Multiclass extension by 1-vs-rest or top-class only
+
+To accurately assess the calibration of machine learning models, it is essential to have a comprehensive and reprensative dataset with sufficient coverage of the prediction space. The calibration metrics is not meaningful if the dataset is not representative of true intended population.
 
 ## Installation
 
