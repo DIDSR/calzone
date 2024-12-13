@@ -6,12 +6,12 @@
 
 ## Features
 
-- Supports multiple calibration metrics including Spiegelhalter's Z-test, Expected Calibration Error (ECE), Maximum Calibration Error (MCE), Hosmer-Lemeshow test, Cox regression analysis, and Loess regression analysis
-- Provides tools for creating reliability diagrams and ROC curves
-- Offers both equal-space and equal-frequency binning options
-- Boostrapping for confidence intervals for each calibration metrics
-- Prevelance adjustment to account for prevalance change between enriched data and population data.
-- Multiclass extension by 1-vs-rest or top-class only
+- Supports multiple calibration metrics including Spiegelhalter's Z-test, Expected Calibration Error (ECE), Maximum Calibration Error (MCE), Hosmer-Lemeshow (HL) test, Cox regression analysis, and Loess regression analysis.
+- Provides tools for creating reliability diagrams and ROC curves.
+- Offers equal-space and equal-frequency binning options.
+- Provides bootstrapped confidence intervals for each calibration metric.
+- Supports prevelance adjustment to account for prevalance differences between enriched data and population data.
+- Extends metrics to multiclass classification problems with one-vs-rest or top-class calculations.
 
 _To accurately assess the calibration of machine learning models, it is essential to have a comprehensive and representative dataset with sufficient coverage of the prediction space. The calibration metrics are not meaningful if the dataset is not representative of true intended population._
 
