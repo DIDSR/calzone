@@ -17,14 +17,14 @@ _To accurately assess the calibration of machine learning models, it is essentia
 
 ## Installation
 
-You can install calzone using pip:
+You can install the package using pip:
 ```
 pip install calzone-tool
 ```
 
 ## Usage
 
-run `python cal_metrics.py -h` to see the help information and usage. To use the package in your Python code, please refer to the examples in the documentation pages. 
+Run `python cal_metrics.py -h` to see the help information and usage. To use the package in your Python code, please refer to the examples in the documentation pages. 
 
 A GUI is available by running `python GUI_cal_metrics.py`. Support for the GUI is experiment and requires additional dependencies (i.e., `nicegui`).
 
