@@ -28,6 +28,23 @@ run `python cal_metrics.py -h` to see the help information and usage. To use the
 
 A GUI is available by running `python GUI_cal_metrics.py`. Support for the GUI is experiment and requires additional dependencies (i.e., `nicegui`).
 
+User can also use `calzone` inside python kernal. Here is an example of metrics calculation with simulated data.
+```python
+import numpy as np
+from scipy.stats import beta
+from calzone.metrics import CalibrationMetrics
+### Generate simulated data with beta-binomial distribution
+class1_proba = beta.rvs(0.5, 0.5, size=1000)
+class0_proba = 1 - class1_proba
+X = np.concatenate(
+    (class0_proba.reshape(-1, 1), class1_proba.reshape(-1, 1)), axis=1
+)
+
+Y = np.random.binomial(1, p=class1_proba)
+cal_metrics = CalibrationMetrics(class_to_calculate=1)
+cal_metrics.calculate_metrics(Y, X, metrics='all')
+```
+
 ## Documentation
 
 For a detailed manual and API reference, please visit our [documentation page](https://calzone-docs.readthedocs.io/en/latest/index.html).
