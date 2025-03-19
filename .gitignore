@@ -1,6 +1,7 @@
 *.pyc
 .vscode/*
 calzone.egg-info/
+calzone_tool.egg-info/
 example_data/*result*.csv
 example_data/*output*.csv
 example_data/*png

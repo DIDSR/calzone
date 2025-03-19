@@ -194,9 +194,10 @@ def update_checkboxes(changed_metric):
                           if metric != "all")
         metrics_checkboxes["all"].disabled = any_checked
 
+def main():
+    ui.run()
 
-ui.run()
-
+main()
 
 class local_file_picker(ui.dialog):
 

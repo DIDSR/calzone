@@ -31,10 +31,12 @@ Homepage = "https://calzone-docs.readthedocs.io/en/latest/index.html"
 Issues = "https://github.com/DIDSR/calzone/issues"
 
 [project.scripts]
-calzone = "calzone.cli:main"
+cal_metrics = "cal_metrics:main"
+GUI_cal_metrics = "GUI_cal_metrics:main"
 
 [tool.setuptools]
 packages = ["calzone"]
+py-modules = ["cal_metrics", "GUI_cal_metrics"]
 
 [tool.pytest.ini_options]
 addopts = "-v --cov=calzone"
