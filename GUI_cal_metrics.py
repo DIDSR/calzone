@@ -69,7 +69,7 @@ def run_program():
             return
         args.append("--hl_test_validation")
 
-    command = ["python", "cal_metrics.py"] + args
+    command = ["cal_metrics"] + args
     print("Running command:", " ".join(command))
 
     process = subprocess.Popen(command, stdout=subprocess.PIPE,

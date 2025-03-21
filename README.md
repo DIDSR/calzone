@@ -28,7 +28,7 @@ Run `python cal_metrics.py -h` to see the help information and usage. To use the
 
 A GUI is available by running `python GUI_cal_metrics.py`. Support for the GUI is experiment and requires additional dependencies (i.e., `nicegui`).
 
-Alternatively, you can run `cal_metrics` and `GUI_cal_metrics` directly after installation.
+Alternatively, you can run `cal_metrics`  directly after installation for Command line interface.
 
 User can also use `calzone` inside python kernal. Here is an example of metrics calculation with simulated data.
 ```python
