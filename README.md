@@ -1,5 +1,5 @@
 <p align="center">
-    <img src="https://github.com/DIDSR/calzone/blob/main/logo.png" width="300">
+    <img src="https://github.com/DIDSR/calzone/blob/main/logo.png" width="225">
 <!--     <img src="./docs/source/logo_firecamp.png" width="300"> -->
 
 </p>
