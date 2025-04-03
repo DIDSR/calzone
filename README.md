@@ -1,4 +1,10 @@
-# calzone: a python package for measuring calibration in probabilistic models
+<p align="center">
+    <img src="https://github.com/DIDSR/calzone/blob/main/logo.png" width="300">
+<!--     <img src="./docs/source/logo_firecamp.png" width="300"> -->
+
+</p>
+
+# Evaluating the Calibration of Probabilistic Models
 ![Docs](https://readthedocs.org/projects/calzone-docs/badge/)
 [![PyPI version](https://badge.fury.io/py/calzone-tool.svg)](https://badge.fury.io/py/calzone-tool)
 
