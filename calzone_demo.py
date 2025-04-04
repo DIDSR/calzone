@@ -231,10 +231,15 @@ def run_calibration(args):
 class local_file_picker(ui.dialog):
 
     def __init__(self, directory: str, *,
-                 upper_limit: Optional[str] = ..., multiple: bool = False,
-                 show_hidden_files: bool = False) -> None:
-        """
-        This local file picker is developed by nicegui author. 
+                 upper_limit: Optional[str] = ..., multiple: bool = False, show_hidden_files: bool = False) -> None:
+        """Local File Picker
+
+        This is a simple file picker that allows you to select a file from the local filesystem where NiceGUI is running.
+
+        :param directory: The directory to start in.
+        :param upper_limit: The directory to stop at (None: no limit, default: same as the starting directory).
+        :param multiple: Whether to allow multiple files to be selected.
+        :param show_hidden_files: Whether to show hidden files.
         """
         super().__init__()
 
@@ -253,15 +258,14 @@ class local_file_picker(ui.dialog):
             }, html_columns=[0]).classes('w-96').on('cellDoubleClicked', self.handle_double_click)
             with ui.row().classes('w-full justify-end'):
                 ui.button('Cancel', on_click=self.close).props('outline')
-                ui.button('Ok', on_click=self._handle_ok)
+                #ui.button('Ok', on_click=self._handle_ok)
         self.update_grid()
 
     def add_drives_toggle(self):
         if platform.system() == 'Windows':
             import win32api
             drives = win32api.GetLogicalDriveStrings().split('\000')[:-1]
-            self.drives_toggle = ui.toggle(drives, value=drives[0],
-                                           on_change=self.update_drive)
+            self.drives_toggle = ui.toggle(drives, value=drives[0], on_change=self.update_drive)
 
     def update_drive(self):
         self.path = Path(self.drives_toggle.value).expanduser()
@@ -301,7 +305,7 @@ class local_file_picker(ui.dialog):
         self.submit([r['path'] for r in rows])
 
 def run_program():
-    clear_cache()
+    #clear_cache()
     output_area.value = ""  # Clear the output area
     plot_image.clear()
     plot_image.set_source(None)  # Set the image source to None
@@ -333,6 +337,12 @@ def run_program():
             ui.notify("Error: HL test validation requires either HL-H or HL-C metric to be selected.", 
                     type="error")
             return
+    
+    if plot_checkbox.value:
+        if save_plot == "":
+            ui.notify("Error: No path has been provided for saving the plot.", 
+                    type="error")
+            return             
 
     args = Namespace(
         csv_file=str(csv_file),
@@ -392,36 +402,6 @@ def display_plot(plot_path):
     ui.update(plot_image)
 
 
-def clear_cache():
-    ui.run_javascript('''
-        function clearCache() {
-            if ('caches' in window) {
-                caches.keys().then(function(names) {
-                    for (let name of names)
-                        caches.delete(name);
-                });
-            }
-            
-            if (window.performance && window.performance.memory) {
-                window.performance.memory.usedJSHeapSize = 0;
-            }
-            
-            sessionStorage.clear();
-            localStorage.clear();
-            
-            document.cookie.split(";").forEach(function(c) { 
-                document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/"); 
-            });
-            
-            location.reload(true);
-        }
-        clearCache();
-    ''')
-
-    plot_image.clear()
-    plot_image.set_source(None)  # Set the image source to None
-    ui.update(plot_image)
-
 
 def update_csv_file_input(file_path):
     csv_file_input.value = file_path
@@ -475,8 +455,6 @@ with ui.row().classes('w-full justify-center'):
         verbose_checkbox = ui.checkbox('Print Verbose Output', value=True)
         topclass_checkbox = ui.checkbox('Transform to Top-class Problem', value=False)
         ui.button('Run', on_click=run_program).classes('w-full')
-        ui.button('Clear Browser Cache', on_click=clear_cache).classes('w-full')
-
 with ui.row().classes('w-full justify-center'):
     with ui.column().classes('w-2/3 p-4'):
         output_area = ui.textarea(label='Output').classes('w-full')
