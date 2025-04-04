@@ -65,7 +65,7 @@
 
 
 \title{calzone}
-\date{Dec 04, 2024}
+\date{Apr 04, 2025}
 \release{develop}
 \author{Kwok Lung "Jason" Fan, Qian Cao}
 \newcommand{\sphinxlogo}{\vbox{}}
@@ -85,9 +85,6 @@
 \pagestyle{normal}
 \phantomsection\label{\detokenize{index::doc}}
 
-
-\sphinxAtStartPar
-calzone is a Python package for calculation of various calibration metrics. This work is credited to Kwok Lung (Jason) Fan and Qian Cao.
 
 \sphinxAtStartPar
 The calzone package provides a suite of tools for assessing and improving the calibration of machine learning models, particularly for binary classification tasks. It offers calibration metrics and visualization tools for displaying reliability diagrams.  Please read the summary and guide section in this documentation first before using the package.
@@ -139,23 +136,20 @@ This tutorial provides a quick start to the calzone package, including a discuss
 \section{Installation}
 \label{\detokenize{notebooks/quickstart:Installation}}
 \sphinxAtStartPar
-Calzone dependencies are numpy, scipy, statsmodels and matplotlib. If you are experienced developer, you probably already have numpy, scipy and matplolib installed. If you don’t have a package install, you can install them with conda
+We recommend that you install \sphinxcode{\sphinxupquote{calzone}} from pip:
 
 \begin{sphinxuseclass}{nbinput}
 \begin{sphinxuseclass}{nblast}
 {
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
-\llap{\color{nbsphinxin}[ ]:\,\hspace{\fboxrule}\hspace{\fboxsep}}\PYG{n}{conda} \PYG{n}{install} \PYG{n}{numpy}
-\PYG{n}{conda} \PYG{n}{install} \PYG{n}{scipy}
-\PYG{n}{conda} \PYG{n}{install} \PYG{n}{matplotlib}
-\PYG{n}{conda} \PYG{n}{install} \PYG{n}{statsmodels}
+\llap{\color{nbsphinxin}[ ]:\,\hspace{\fboxrule}\hspace{\fboxsep}}\PYG{n}{pip} \PYG{n}{install} \PYG{n}{calzone}\PYG{o}{\PYGZhy{}}\PYG{n}{tool}
 \end{sphinxVerbatim}
 }
 
 \end{sphinxuseclass}
 \end{sphinxuseclass}
 \sphinxAtStartPar
-Alternatively, you can install the dependencies with pip
+Alternatively, you can install the package and its dependencies manually. Calzone has very few dependencies: NumPy, SciPy, Statsmodels and Matplotlib:
 
 \begin{sphinxuseclass}{nbinput}
 \begin{sphinxuseclass}{nblast}
@@ -171,7 +165,7 @@ Alternatively, you can install the dependencies with pip
 \end{sphinxuseclass}
 \end{sphinxuseclass}
 \sphinxAtStartPar
-Then, you can install the calzone package from github if you only want to use the calculator inside you python script:
+Then, the package can be installed directly from the GitHub repository:
 
 \begin{sphinxuseclass}{nbinput}
 \begin{sphinxuseclass}{nblast}
@@ -184,21 +178,8 @@ Then, you can install the calzone package from github if you only want to use th
 \end{sphinxuseclass}
 \end{sphinxuseclass}
 \sphinxAtStartPar
-If you want to run the command line interface or GUI interface, you need to clone the github repository. Notice that the GUI interface require install nicegui using \sphinxcode{\sphinxupquote{pip install nicegui}}.
+Note that if you wish to use the experimental GUI interface, you will also need the additional dependency NiceGUI (\sphinxcode{\sphinxupquote{pip install nicegui}}).
 
-\begin{sphinxuseclass}{nbinput}
-\begin{sphinxuseclass}{nblast}
-{
-\begin{sphinxVerbatim}[commandchars=\\\{\}]
-\llap{\color{nbsphinxin}[ ]:\,\hspace{\fboxrule}\hspace{\fboxsep}}\PYG{n}{git} \PYG{n}{clone} \PYG{n}{https}\PYG{p}{:}\PYG{o}{/}\PYG{o}{/}\PYG{n}{github}\PYG{o}{.}\PYG{n}{com}\PYG{o}{/}\PYG{n}{DIDSR}\PYG{o}{/}\PYG{n}{calzone}\PYG{o}{.}\PYG{n}{git}
-\PYG{n}{cd} \PYG{n}{calzone}
-\PYG{c+c1}{\PYGZsh{} install calzone}
-\PYG{n}{pip} \PYG{n}{install} \PYG{o}{\PYGZhy{}}\PYG{n}{e} \PYG{o}{.}
-\end{sphinxVerbatim}
-}
-
-\end{sphinxuseclass}
-\end{sphinxuseclass}
 
 \section{Command line interface}
 \label{\detokenize{notebooks/quickstart:Command-line-interface}}
@@ -460,7 +441,7 @@ Loess ICI: 0.006 (0.004, 0.016)
 
 \begin{sphinxuseclass}{output_area}
 \begin{sphinxuseclass}{}
-\noindent\sphinxincludegraphics[width=702\sphinxpxdimen,height=530\sphinxpxdimen]{{notebooks_quickstart_17_1}.png}
+\noindent\sphinxincludegraphics[width=702\sphinxpxdimen,height=530\sphinxpxdimen]{{notebooks_quickstart_16_1}.png}
 
 \end{sphinxuseclass}
 \end{sphinxuseclass}
@@ -549,7 +530,7 @@ Loess ICI: 0.074 (0.065, 0.083)
 
 \begin{sphinxuseclass}{output_area}
 \begin{sphinxuseclass}{}
-\noindent\sphinxincludegraphics[width=702\sphinxpxdimen,height=530\sphinxpxdimen]{{notebooks_quickstart_19_1}.png}
+\noindent\sphinxincludegraphics[width=702\sphinxpxdimen,height=530\sphinxpxdimen]{{notebooks_quickstart_18_1}.png}
 
 \end{sphinxuseclass}
 \end{sphinxuseclass}
@@ -634,7 +615,7 @@ Loess ICI: 0.037 (0.032, 0.043)
 
 \begin{sphinxuseclass}{output_area}
 \begin{sphinxuseclass}{}
-\noindent\sphinxincludegraphics[width=702\sphinxpxdimen,height=530\sphinxpxdimen]{{notebooks_quickstart_21_1}.png}
+\noindent\sphinxincludegraphics[width=702\sphinxpxdimen,height=530\sphinxpxdimen]{{notebooks_quickstart_20_1}.png}
 
 \end{sphinxuseclass}
 \end{sphinxuseclass}
@@ -696,7 +677,7 @@ Loess ICI: 0.006 (0.003, 0.016)
 
 \begin{sphinxuseclass}{output_area}
 \begin{sphinxuseclass}{}
-\noindent\sphinxincludegraphics[width=702\sphinxpxdimen,height=545\sphinxpxdimen]{{notebooks_quickstart_21_3}.png}
+\noindent\sphinxincludegraphics[width=702\sphinxpxdimen,height=545\sphinxpxdimen]{{notebooks_quickstart_20_3}.png}
 
 \end{sphinxuseclass}
 \end{sphinxuseclass}
@@ -759,7 +740,7 @@ Loess ICI: 0.07 (0.062, 0.078)
 
 \begin{sphinxuseclass}{output_area}
 \begin{sphinxuseclass}{}
-\noindent\sphinxincludegraphics[width=702\sphinxpxdimen,height=545\sphinxpxdimen]{{notebooks_quickstart_21_5}.png}
+\noindent\sphinxincludegraphics[width=702\sphinxpxdimen,height=545\sphinxpxdimen]{{notebooks_quickstart_20_5}.png}
 
 \end{sphinxuseclass}
 \end{sphinxuseclass}
@@ -3382,7 +3363,7 @@ Then simply run the following command on calzone directory:
 \begin{sphinxuseclass}{nblast}
 {
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
-\llap{\color{nbsphinxin}[ ]:\,\hspace{\fboxrule}\hspace{\fboxsep}}\PYG{n}{python} \PYG{n}{GUI\PYGZus{}cal\PYGZus{}metric}\PYG{o}{.}\PYG{n}{py}
+\llap{\color{nbsphinxin}[ ]:\,\hspace{\fboxrule}\hspace{\fboxsep}}\PYG{n}{python} \PYG{n}{calzoneGUI}\PYG{o}{.}\PYG{n}{py}
 \end{sphinxVerbatim}
 }
 
