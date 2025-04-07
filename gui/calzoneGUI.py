@@ -39,10 +39,11 @@ import numpy as np
 from calzone.metrics import CalibrationMetrics, get_CI
 from calzone.utils import *
 from calzone.vis import plot_reliability_diagram
-from matplotlib import pyplot as plt
 import io
 import sys
 from contextlib import redirect_stdout, redirect_stderr
+import matplotlib
+matplotlib.use("svg")
 
 def perform_calculation(probs, labels, args, suffix=""):
     """

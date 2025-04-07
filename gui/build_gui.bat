@@ -14,6 +14,7 @@ https://stackoverflow.com/questions/76214672/failed-to-initialize-python-runtime
 
 rem make a copy of calzone in the gui directory
 xcopy "..\calzone" ".\calzone" /E /I
+xcopy "../logo.png" ".\calzone" /E /I
 
 rem build
 nicegui-pack --onefile --name "Calzone" calzoneGUI.py

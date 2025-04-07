@@ -9,3 +9,6 @@ test_notebook/*
 build/
 dist/
 Calzone.spec
+gui/build/
+gui/dist/
+gui/calzone/
