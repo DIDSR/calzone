@@ -19,6 +19,8 @@ see: https://nicegui.io/documentation/section_configuration_deployment#package_f
 
 """
 
+import io
+import sys
 import argparse
 import subprocess
 from nicegui import ui, app, events
@@ -33,6 +35,7 @@ from nicegui import native
 from argparse import Namespace
 import argparse
 import numpy as np
+
 from calzone.metrics import CalibrationMetrics, get_CI
 from calzone.utils import *
 from calzone.vis import plot_reliability_diagram
@@ -479,7 +482,7 @@ def update_checkboxes(changed_metric):
 
 def main():
     
-    ui.run(reload=False, port=native.find_open_port())
+    ui.run(reload=False, port=native.find_open_port(), native=False)
 
 main()
 
