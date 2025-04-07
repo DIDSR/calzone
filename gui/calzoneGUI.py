@@ -36,6 +36,7 @@ import numpy as np
 from calzone.metrics import CalibrationMetrics, get_CI
 from calzone.utils import *
 from calzone.vis import plot_reliability_diagram
+from matplotlib import pyplot as plt
 import io
 import sys
 from contextlib import redirect_stdout, redirect_stderr
@@ -93,8 +94,10 @@ def perform_calculation(probs, labels, args, suffix=""):
         save_metrics_to_csv(result, keys, args.save_metrics, suffix)
 
     if args.plot:
-        plot_reliability(labels, probs, args, suffix)
-    return result
+        fig = plot_reliability(labels, probs, args, suffix)
+    else:
+        fig = None
+    return result, fig
 
 
 def print_metrics(result, keys, n_bootstrap, suffix):
@@ -176,11 +179,11 @@ def plot_reliability(labels, probs, args, suffix):
             diagram_filename = pathwithoutextension + "_" + suffix + ".csv"
         else:
             diagram_filename = None
-
-    valid_image_formats = ['.png', '.jpg', '.jpeg', '.gif', '.bmp', '.tiff', '.pdf']
-    if not any(filename.lower().endswith(fmt) for fmt in valid_image_formats):
-        print(filename)
-        raise ValueError("Invalid file format. Please provide a valid image format.")
+    if args.save_plot is not None:
+        valid_image_formats = ['.png', '.jpg', '.jpeg', '.gif', '.bmp', '.tiff', '.pdf']
+        if not any(filename.lower().endswith(fmt) for fmt in valid_image_formats):
+            print(filename)
+            raise ValueError("Invalid file format. Please provide a valid image format.")
 
     reliability, confidence, bin_edge, bin_count = reliability_diagram(
         y_true=labels,
@@ -189,7 +192,7 @@ def plot_reliability(labels, probs, args, suffix):
         class_to_plot=args.class_to_calculate,
         save_path=diagram_filename,
     )
-    plot_reliability_diagram(
+    fig = plot_reliability_diagram(
         reliability,
         confidence,
         bin_count,
@@ -198,7 +201,9 @@ def plot_reliability(labels, probs, args, suffix):
         error_bar=True,
         return_fig=True
     )
-    print("Plot saved to", filename)
+    if args.save_plot is not None:
+        print("Plot saved to", filename)
+    return fig
 
 
 def run_calibration(args):
@@ -208,11 +213,11 @@ def run_calibration(args):
         loader = loader.transform_topclass()
 
     if not loader.have_subgroup:
-        perform_calculation(
+        _ ,fig = perform_calculation(
             probs=loader.probs, labels=loader.labels, args=args, suffix=""
         )
     else:
-        perform_calculation(
+        _ ,fig = perform_calculation(
             probs=loader.probs, labels=loader.labels, args=args, suffix=""
         )
         for i, subgroup_column in enumerate(loader.subgroup_indices):
@@ -225,6 +230,7 @@ def run_calibration(args):
                     args=args,
                     suffix=f"subgroup_{i+1}_group_{subgroup_class}",
                 )
+    return 1, fig
 
 
 class local_file_picker(ui.dialog):
@@ -306,9 +312,6 @@ class local_file_picker(ui.dialog):
 def run_program():
     #clear_cache()
     output_area.value = ""  # Clear the output area
-    plot_image.clear()
-    plot_image.set_source(None)  # Set the image source to None
-    ui.update(plot_image)
     # Get values from UI elements
     csv_file = csv_file_input.value
     save_metrics = save_metrics_input.value
@@ -337,11 +340,11 @@ def run_program():
                     type="error")
             return
     
-    if plot_checkbox.value:
-        if save_plot == "":
-            ui.notify("Error: No path has been provided for saving the plot.", 
-                    type="error")
-            return             
+    # if plot_checkbox.value:
+    #     if save_plot == "":
+    #         ui.notify("Error: No path has been provided for saving the plot.", 
+    #                 type="error")
+    #         return             
 
     args = Namespace(
         csv_file=str(csv_file),
@@ -356,7 +359,7 @@ def run_program():
         plot=bool(plot_checkbox.value),
         #save_diagram_output=str(save_plot) if plot_checkbox.value else None,
         save_diagram_output=None,
-        save_plot=str(save_plot) if plot_checkbox.value else None,
+        save_plot=str(save_plot) if save_plot_input.value else None,
         verbose=bool(verbose_checkbox.value),
         topclass=bool(topclass_checkbox.value),
         hl_test_validation=bool(hl_test_validation_checkbox.value)
@@ -370,7 +373,7 @@ def run_program():
     #try:
     # Redirect stdout and stderr to capture all output
     with redirect_stdout(stdout_buffer), redirect_stderr(stderr_buffer):
-        result = run_calibration(args)
+        result, fig = run_calibration(args)
     
     # Get the captured output
     output = stdout_buffer.getvalue()
@@ -386,20 +389,18 @@ def run_program():
         ui.notify("Calibration metrics calculated successfully", type="positive")
     elif error:
         ui.notify("Completed with errors", type="warning")
-    
-    # except Exception as e:
-    #     # Handle any exceptions that might occur
-    #     output_area.value = f"Exception occurred: {str(e)}"
-    #     ui.notify(f"Error: {str(e)}", type="negative")
+    global plot_ui
     if plot_checkbox.value:
-            display_plot(save_plot)
+        if 'plot_ui' not in globals():
+            plot_ui = ui.pyplot(close=False, figsize=(8, 5))
+        with plot_ui:
+            plot_ui.fig = fig
 
+        #display_plot(plot_ui, fig)
 
-def display_plot(plot_path):
-    plot_image.clear()
-    plot_image.set_source(plot_path)
-    ui.update(plot_image)
-
+def display_plot(plot, fig):
+        plot.fig = fig
+        plot.update()
 
 
 def update_csv_file_input(file_path):
@@ -461,8 +462,6 @@ with ui.row().classes('w-full justify-center'):
 with ui.row().classes('w-full justify-center'):
     with ui.column().classes('w-2/3 p-4'):
         output_area = ui.textarea(label='Output').classes('w-full')
-    with ui.column().classes('w-1/3 p-4'):
-        plot_image = ui.image().classes('w-full')
 
 
 def update_checkboxes(changed_metric):
