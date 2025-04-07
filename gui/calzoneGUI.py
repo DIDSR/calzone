@@ -19,6 +19,8 @@ see: https://nicegui.io/documentation/section_configuration_deployment#package_f
 
 """
 
+import io
+import sys
 import argparse
 import subprocess
 from nicegui import ui, app, events
@@ -34,11 +36,11 @@ from nicegui import native
 from argparse import Namespace
 import argparse
 import numpy as np
+
 from calzone.metrics import CalibrationMetrics, get_CI
 from calzone.utils import *
 from calzone.vis import plot_reliability_diagram
-import io
-import sys
+
 from contextlib import redirect_stdout, redirect_stderr
 
 def perform_calculation(probs, labels, args, suffix=""):
@@ -415,7 +417,7 @@ async def pick_file() -> None:
 
 with ui.row().classes('w-full justify-center'):
     with ui.column().classes('w-1/3 p-4'):
-        ui.label('calzone GUI').classes('text-h4')
+        ui.label('CalzoneGUI').classes('text-h4')
         csv_file_input = ui.input(label='CSV File',
                                   placeholder='Enter absolute file path').classes('w-full')
         ui.button('choose file', on_click=pick_file)
@@ -477,7 +479,7 @@ def update_checkboxes(changed_metric):
 
 def main():
     
-    ui.run(reload=False, port=native.find_open_port())
+    ui.run(reload=False, port=native.find_open_port(), native=False)
 
 main()
 
