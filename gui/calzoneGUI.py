@@ -417,7 +417,7 @@ async def pick_file() -> None:
 
 with ui.row().classes('w-full justify-center'):
     with ui.column().classes('w-1/3 p-4'):
-        ui.label('CalzoneGUI').classes('text-h4')
+        ui.label('CalzoneGUI (Experimental)').classes('text-h4')
         csv_file_input = ui.input(label='CSV File',
                                   placeholder='Enter absolute file path').classes('w-full')
         ui.button('choose file', on_click=pick_file)
