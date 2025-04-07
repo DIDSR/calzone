@@ -32,7 +32,7 @@ pip install calzone-tool
 
 Run `python cal_metrics.py -h` to see the help information and usage. To use the package in your Python code, please refer to the examples in the documentation pages. 
 
-A GUI is available by running `python calzoneGUI.py` under the gui directory. Support for the GUI is experiment and requires additional dependencies (i.e., `nicegui`).
+A GUI is available by running `python calzoneGUI.py` under the gui directory. Support for the GUI is experiment and requires additional dependencies (i.e., `nicegui`). An experimental executable file (Calzone.exe) can be found under gui/dist.  
 
 Alternatively, you can run `cal_metrics`  directly after installation for Command line interface.
 
