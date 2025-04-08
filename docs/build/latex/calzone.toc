@@ -1,7 +1,7 @@
 \babel@toc {english}{}
 \contentsline {chapter}{\numberline {1}Quick Start}{3}{chapter.1}%
 \contentsline {section}{\numberline {1.1}Installation}{3}{section.1.1}%
-\contentsline {section}{\numberline {1.2}Command line interface}{4}{section.1.2}%
+\contentsline {section}{\numberline {1.2}Command line interface}{3}{section.1.2}%
 \contentsline {section}{\numberline {1.3}Using calzone in python}{12}{section.1.3}%
 \contentsline {chapter}{\numberline {2}Summary and guide for calzone}{15}{chapter.2}%
 \contentsline {section}{\numberline {2.1}Guide to calzone and calibration metrics}{15}{section.2.1}%

@@ -213,14 +213,18 @@ def cox_regression_analysis(
 
     # Fit the logistic regression model
     logit_model = sm.Logit(y_true, X)
+    
+    # Filter kwargs to only include parameters accepted by fit_constrained
+    fit_kwargs = {k:v for k,v in kwargs.items() if k in ['method', 'maxiter', 'tol', 'full_output']}
+    
     if fix_intercept == True:
         with contextlib.redirect_stdout(None):
-            logit_result = logit_model.fit_constrained("const=0", disp=0,**kwargs)
+            logit_result = logit_model.fit_constrained("const=0", disp=0, **fit_kwargs)
     elif fix_slope == True:
         with contextlib.redirect_stdout(None):
-            logit_result = logit_model.fit_constrained("x1=1", disp=0,**kwargs)    
+            logit_result = logit_model.fit_constrained("x1=1", disp=0, **fit_kwargs)    
     else:
-        logit_result = logit_model.fit(disp=0,**kwargs)
+        logit_result = logit_model.fit(disp=0, **fit_kwargs)
 
     # Print results if requested
     if print_results:

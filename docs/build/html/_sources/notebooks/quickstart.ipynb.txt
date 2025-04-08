@@ -25,7 +25,7 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "Calzone dependencies are numpy, scipy, statsmodels and matplotlib. If you are experienced developer, you probably already have numpy, scipy and matplolib installed. If you don't have a package install, you can install them with conda"
+    "We recommend that you install `calzone` from pip:"
    ]
   },
   {
@@ -38,17 +38,14 @@
    },
    "outputs": [],
    "source": [
-    "conda install numpy\n",
-    "conda install scipy\n",
-    "conda install matplotlib\n",
-    "conda install statsmodels"
+    "pip install calzone-tool"
    ]
   },
   {
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "Alternatively, you can install the dependencies with pip"
+    "Alternatively, you can install the package and its dependencies manually. Calzone has very few dependencies: NumPy, SciPy, Statsmodels and Matplotlib:"
    ]
   },
   {
@@ -71,7 +68,7 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "Then, you can install the calzone package from github if you only want to use the calculator inside you python script:"
+    "Then, the package can be installed directly from the GitHub repository:"
    ]
   },
   {
@@ -95,23 +92,7 @@
     }
    },
    "source": [
-    "If you want to run the command line interface or GUI interface, you need to clone the github repository. Notice that the GUI interface require install nicegui using `pip install nicegui`."
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": null,
-   "metadata": {
-    "vscode": {
-     "languageId": "shellscript"
-    }
-   },
-   "outputs": [],
-   "source": [
-    "git clone https://github.com/DIDSR/calzone.git\n",
-    "cd calzone\n",
-    "# install calzone\n",
-    "pip install -e ."
+    "Note that if you wish to use the experimental GUI interface, you will also need the additional dependency NiceGUI (`pip install nicegui`)."
    ]
   },
   {
@@ -608,7 +589,7 @@
  ],
  "metadata": {
   "kernelspec": {
-   "display_name": "uq",
+   "display_name": "Python 3 (ipykernel)",
    "language": "python",
    "name": "python3"
   },
@@ -622,9 +603,9 @@
    "name": "python",
    "nbconvert_exporter": "python",
    "pygments_lexer": "ipython3",
-   "version": "3.12.0"
+   "version": "3.12.7"
   }
  },
  "nbformat": 4,
- "nbformat_minor": 2
+ "nbformat_minor": 4
 }

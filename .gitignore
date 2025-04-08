@@ -6,3 +6,8 @@ example_data/*result*.csv
 example_data/*output*.csv
 example_data/*png
 test_notebook/*
+build/
+dist/
+Calzone.spec
+gui/build/
+gui/calzone/
