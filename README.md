@@ -8,7 +8,7 @@
 ![Docs](https://readthedocs.org/projects/calzone-docs/badge/)
 [![PyPI version](https://badge.fury.io/py/calzone-tool.svg)](https://badge.fury.io/py/calzone-tool)
 
-`calzone` is a comprehensive Python package for calculating and visualizing metrics for assessing the calibration of models with probabilistic output.
+`Calzone` is a comprehensive Python package for calculating and visualizing metrics for assessing the calibration of models with probabilistic output.
 
 ## Features
 
@@ -30,28 +30,28 @@ pip install calzone-tool
 
 ## Usage
 
-Run `python cal_metrics.py -h` to see the help information and usage. To use the package in your Python code, please refer to the examples in the documentation pages. 
-
-A GUI is available by running `python calzoneGUI.py` under the gui directory. Support for the GUI is experiment and requires additional dependencies (i.e., `nicegui`). An experimental executable file (Calzone.exe) can be found under gui/dist.  
-
-Alternatively, you can run `cal_metrics`  directly after installation for Command line interface.
-
-User can also use `calzone` inside python kernal. Here is an example of metrics calculation with simulated data.
+Using `Calzone` in Python:
 ```python
 import numpy as np
 from scipy.stats import beta
 from calzone.metrics import CalibrationMetrics
-### Generate simulated data with beta-binomial distribution
+
+# Generate simulated data with beta-binomial distribution.
 class1_proba = beta.rvs(0.5, 0.5, size=1000)
 class0_proba = 1 - class1_proba
 X = np.concatenate(
     (class0_proba.reshape(-1, 1), class1_proba.reshape(-1, 1)), axis=1
 )
-
 Y = np.random.binomial(1, p=class1_proba)
+
+# Calculate calibration metrics.
 cal_metrics = CalibrationMetrics(class_to_calculate=1)
 cal_metrics.calculate_metrics(Y, X, metrics='all')
 ```
+
+Also, an experimental build of the graphical user interface can now be downloaded at https://github.com/DIDSR/calzone/releases/tag/v0.0.1-alpha.
+
+Alternatively, you can run `cal_metrics` for a command line interface.
 
 ## Documentation
 
