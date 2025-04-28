@@ -172,9 +172,12 @@ def plot_reliability(labels, probs, args, suffix):
         filename = args.save_plot
         diagram_filename = args.save_diagram_output or None
     else:
-        split_filename = args.save_plot.split(".")
-        pathwithoutextension = ".".join(split_filename[:-1])
-        filename = pathwithoutextension + "_" + suffix + "." + split_filename[-1]
+        if args.save_plot is not None:
+            split_filename = args.save_plot.split(".")
+            pathwithoutextension = ".".join(split_filename[:-1])
+            filename = pathwithoutextension + "_" + suffix + "." + split_filename[-1]
+        else:
+            filename = None
         if args.save_diagram_output:
             split_filename = args.save_diagram_output.split(".")
             pathwithoutextension = ".".join(split_filename[:-1])
@@ -252,9 +255,6 @@ def run_calibration(args):
         if args.plot_hist_roc:
             fig2 = plot_hist_roc(loader.labels, loader.probs, args)
     else:
-        _ ,fig = perform_calculation(
-            probs=loader.probs, labels=loader.labels, args=args, suffix=""
-        )
         for i, subgroup_column in enumerate(loader.subgroup_indices):
             for j, subgroup_class in enumerate(loader.subgroups_class[i]):
                 proba = loader.probs[loader.subgroups_index[i][j], :]
@@ -265,8 +265,12 @@ def run_calibration(args):
                     args=args,
                     suffix=f"subgroup_{i+1}_group_{subgroup_class}",
                 )
-                if args.plot_hist_roc:
-                    fig2 = plot_hist_roc(label, proba, args)
+
+        _ ,fig = perform_calculation(
+            probs=loader.probs, labels=loader.labels, args=args, suffix=""
+        )
+        if args.plot_hist_roc:
+            fig2 = plot_hist_roc(label, proba, args)
     return 1, fig, fig2
 
 
@@ -377,11 +381,6 @@ def run_program():
                     type="error")
             return
     
-    # if plot_checkbox.value:
-    #     if save_plot == "":
-    #         ui.notify("Error: No path has been provided for saving the plot.", 
-    #                 type="error")
-    #         return             
 
     args = Namespace(
         csv_file=str(csv_file),
