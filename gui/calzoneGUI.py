@@ -222,7 +222,7 @@ def plot_hist_roc(labels, probs, args):
     ax1.hist(pos_scores, bins=20, alpha=0.5, label='Class-of-interest', density=False)
     ax1.hist(neg_scores, bins=20, alpha=0.5, label='Rest', density=False)
     ax1.set_xlabel('Prediction score')
-    ax1.set_ylabel('Density')
+    ax1.set_ylabel('Count')
     ax1.legend()
     ax1.set_title('Score distributions')
     
