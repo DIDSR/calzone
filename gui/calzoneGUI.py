@@ -20,9 +20,7 @@ see: https://nicegui.io/documentation/section_configuration_deployment#package_f
 """
 
 import io
-import sys
-import argparse
-import subprocess
+import os
 from nicegui import ui, app, events
 from typing import Optional
 from pathlib import Path
@@ -35,7 +33,6 @@ from nicegui import native
 from argparse import Namespace
 import argparse
 import numpy as np
-
 from calzone.metrics import CalibrationMetrics, get_CI
 from calzone.utils import *
 from calzone.vis import plot_reliability_diagram
@@ -43,6 +40,7 @@ import io
 import sys
 from contextlib import redirect_stdout, redirect_stderr
 import matplotlib
+import matplotlib.pyplot as plt
 matplotlib.use("svg")
 
 def perform_calculation(probs, labels, args, suffix=""):
@@ -209,6 +207,37 @@ def plot_reliability(labels, probs, args, suffix):
         print("Plot saved to", filename)
     return fig
 
+def plot_hist_roc(labels, probs, args):
+    if args.class_to_calculate is None:
+        class_to_calculate = 1
+    else:
+        class_to_calculate = args.class_to_calculate
+    # Calculate ROC curve
+    # Create figure with two subplots
+    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12, 5))
+    labels = labels.flatten()
+    # Plot histogram
+    pos_scores = probs[labels == class_to_calculate, class_to_calculate]
+    neg_scores = probs[labels != class_to_calculate, class_to_calculate]
+    ax1.hist(pos_scores, bins=20, alpha=0.5, label='Class-of-interest', density=False)
+    ax1.hist(neg_scores, bins=20, alpha=0.5, label='Rest', density=False)
+    ax1.set_xlabel('Prediction score')
+    ax1.set_ylabel('Density')
+    ax1.legend()
+    ax1.set_title('Score distributions')
+    
+    # Plot ROC curve
+    fpr, tpr, roc_auc = make_roc_curve(labels, probs, class_to_plot=class_to_calculate)
+    ax2.plot(fpr, tpr, label=f'ROC curve (AUC = {roc_auc:.3f})')
+    ax2.plot([0, 1], [0, 1], 'k--')
+    ax2.set_xlabel('False Positive Rate')
+    ax2.set_ylabel('True Positive Rate') 
+    ax2.legend()
+    ax2.set_title('ROC Curve')
+    
+    plt.tight_layout()
+    return fig
+
 
 def run_calibration(args):
     loader = data_loader(args.csv_file)
@@ -220,6 +249,8 @@ def run_calibration(args):
         _ ,fig = perform_calculation(
             probs=loader.probs, labels=loader.labels, args=args, suffix=""
         )
+        if args.plot_hist_roc:
+            fig2 = plot_hist_roc(loader.labels, loader.probs, args)
     else:
         _ ,fig = perform_calculation(
             probs=loader.probs, labels=loader.labels, args=args, suffix=""
@@ -234,7 +265,9 @@ def run_calibration(args):
                     args=args,
                     suffix=f"subgroup_{i+1}_group_{subgroup_class}",
                 )
-    return 1, fig
+                if args.plot_hist_roc:
+                    fig2 = plot_hist_roc(label, proba, args)
+    return 1, fig, fig2
 
 
 class local_file_picker(ui.dialog):
@@ -361,6 +394,7 @@ def run_program():
         bootstrap_ci=float(bootstrap_ci_input.value) if perform_bootstrap_checkbox.value else None,
         prevalence_adjustment=bool(prevalence_adjustment_checkbox.value),
         plot=bool(plot_checkbox.value),
+        plot_hist_roc=bool(plot_hist_roc_checkbox.value),
         #save_diagram_output=str(save_plot) if plot_checkbox.value else None,
         save_diagram_output=None,
         save_plot=str(save_plot) if save_plot_input.value else None,
@@ -377,7 +411,7 @@ def run_program():
     #try:
     # Redirect stdout and stderr to capture all output
     with redirect_stdout(stdout_buffer), redirect_stderr(stderr_buffer):
-        result, fig = run_calibration(args)
+        result, fig, fig2 = run_calibration(args)
     
     # Get the captured output
     output = stdout_buffer.getvalue()
@@ -394,13 +428,18 @@ def run_program():
     elif error:
         ui.notify("Completed with errors", type="warning")
     global plot_ui
+    global plot_ui2
     if plot_checkbox.value:
         if 'plot_ui' not in globals():
             plot_ui = ui.pyplot(close=False, figsize=(8, 5))
         with plot_ui:
             plot_ui.fig = fig
-
-        #display_plot(plot_ui, fig)
+    # Add display for fig2 when plot_hist_roc is checked
+    if plot_hist_roc_checkbox.value and fig2 is not None:
+        if 'plot_ui2' not in globals():
+            plot_ui2 = ui.pyplot(close=False, figsize=(12, 5))
+        with plot_ui2:
+            plot_ui2.fig = fig2
 
 def display_plot(plot, fig):
         plot.fig = fig
@@ -418,11 +457,12 @@ async def pick_file() -> None:
 
 
 
-
+print(os.path.join(Path(__file__).parent.parent, 'logo.png'))
+logo_path=app.add_media_file(local_file= os.path.join(Path(__file__).parent.parent, 'logo.png'),strict=False)
 with ui.row().classes('w-full justify-center'):
     with ui.column().classes('w-1/3 p-4'):
         with ui.row().classes('items-center gap-4'):
-            ui.image('../logo.png').classes('w-24 h-24')  # Made logo bigger
+            ui.image(logo_path).classes('w-24 h-24')
             ui.label('Calzone GUI (experimental)').classes('text-h4')
         csv_file_input = ui.input(label='CSV File',
                                   placeholder='Enter absolute file path').classes('w-full')
@@ -445,6 +485,7 @@ with ui.row().classes('w-full justify-center'):
                                                      value=False)
         ui.label('Plot:')
         plot_checkbox = ui.checkbox('Plot Reliability Diagram', value=False)
+        plot_hist_roc_checkbox = ui.checkbox('Plot Score Histogram and ROC', value=False)
         plot_bins_input = ui.number(label='Number of Bins for Reliability Diagram',
                                     value=10, min=2, step=1)
         save_plot_input = ui.input(label='Save Plot to',
@@ -466,7 +507,8 @@ with ui.row().classes('w-full justify-center'):
 with ui.row().classes('w-full justify-center'):
     with ui.column().classes('w-2/3 p-4'):
         output_area = ui.textarea(label='Output').classes('w-full')
-
+        plot_ui = ui.pyplot(close=False, figsize=(8, 5))
+        plot_ui2 = ui.pyplot(close=False, figsize=(12, 5))
 
 def update_checkboxes(changed_metric):
     if changed_metric == "all":
@@ -482,7 +524,6 @@ def update_checkboxes(changed_metric):
         metrics_checkboxes["all"].disabled = any_checked
 
 def main():
-    
     ui.run(reload=False, port=native.find_open_port(), native=False)
 
 main()
