@@ -455,13 +455,11 @@ async def pick_file() -> None:
         update_csv_file_input(result[0])
 
 
-
-print(os.path.join(Path(__file__).parent.parent, 'logo.png'))
-logo_path=app.add_media_file(local_file= os.path.join(Path(__file__).parent.parent, 'logo.png'),strict=False)
+app.add_static_files(url_path='/static',local_directory=os.path.dirname(__file__))
 with ui.row().classes('w-full justify-center'):
     with ui.column().classes('w-1/3 p-4'):
         with ui.row().classes('items-center gap-4'):
-            ui.image(logo_path).classes('w-24 h-24')
+            ui.image("static/logo.png").classes('w-24 h-24')
             ui.label('Calzone GUI (experimental)').classes('text-h4')
         csv_file_input = ui.input(label='CSV File',
                                   placeholder='Enter absolute file path').classes('w-full')
