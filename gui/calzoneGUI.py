@@ -194,6 +194,7 @@ def plot_reliability(labels, probs, args, suffix):
         y_true=labels,
         y_proba=probs,
         num_bins=args.plot_bins,
+        is_equal_freq=args.equal_count,
         class_to_plot=args.class_to_calculate,
         save_path=diagram_filename,
     )
@@ -254,6 +255,8 @@ def run_calibration(args):
         )
         if args.plot_hist_roc:
             fig2 = plot_hist_roc(loader.labels, loader.probs, args)
+        else:
+            fig2 = None
     else:
         for i, subgroup_column in enumerate(loader.subgroup_indices):
             for j, subgroup_class in enumerate(loader.subgroups_class[i]):
@@ -271,6 +274,8 @@ def run_calibration(args):
         )
         if args.plot_hist_roc:
             fig2 = plot_hist_roc(label, proba, args)
+        else:
+            fig2 = None
     return 1, fig, fig2
 
 
@@ -393,6 +398,7 @@ def run_program():
         bootstrap_ci=float(bootstrap_ci_input.value) if perform_bootstrap_checkbox.value else None,
         prevalence_adjustment=bool(prevalence_adjustment_checkbox.value),
         plot=bool(plot_checkbox.value),
+        equal_count=bool(plot_equal_count_checkbox.value),
         plot_hist_roc=bool(plot_hist_roc_checkbox.value),
         #save_diagram_output=str(save_plot) if plot_checkbox.value else None,
         save_diagram_output=None,
@@ -482,6 +488,7 @@ with ui.row().classes('w-full justify-center'):
                                                      value=False)
         ui.label('Plot:')
         plot_checkbox = ui.checkbox('Plot Reliability Diagram', value=False)
+        plot_equal_count_checkbox = ui.checkbox('Use equal-count bin for Reliability Diagram', value=False)
         plot_hist_roc_checkbox = ui.checkbox('Plot Score Histogram and ROC', value=False)
         plot_bins_input = ui.number(label='Number of Bins for Reliability Diagram',
                                     value=10, min=2, step=1)
