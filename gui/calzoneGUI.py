@@ -234,6 +234,21 @@ def plot_hist_roc(labels, probs, args):
     fpr, tpr, roc_auc = make_roc_curve(labels, probs, class_to_plot=class_to_calculate)
     ax2.plot(fpr, tpr, label=f'ROC curve (AUC = {roc_auc:.3f})')
     ax2.plot([0, 1], [0, 1], 'k--')
+
+    # Add threshold points
+    thresholds = [0.2, 0.4, 0.6, 0.8]
+    for thresh in thresholds:
+        # Find closest threshold point
+        pred_labels = (probs[:, class_to_calculate] >= thresh).astype(int)
+        fp = np.sum((pred_labels == 1) & (labels != class_to_calculate))
+        tp = np.sum((pred_labels == 1) & (labels == class_to_calculate))
+        fpr_point = fp / np.sum(labels != class_to_calculate)
+        tpr_point = tp / np.sum(labels == class_to_calculate)
+        # Plot point and label
+        ax2.plot(fpr_point, tpr_point, 'rx', markersize=6)
+        ax2.annotate(f'p={thresh}', (fpr_point, tpr_point), xytext=(6, 6), 
+                    textcoords='offset points')
+
     ax2.set_xlabel('False Positive Rate')
     ax2.set_ylabel('True Positive Rate') 
     ax2.legend()
