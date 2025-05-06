@@ -66,7 +66,7 @@ def make_roc_curve(y_true, y_proba, class_to_plot=None):
         return fpr, tpr
 
     def calculate_auc(fpr, tpr):
-        return np.trapz(tpr, fpr)
+        return np.abs(np.trapezoid(tpr, fpr))
 
     if class_to_plot is not None:
         # Plot ROC for a single class

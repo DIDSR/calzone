@@ -17,4 +17,4 @@ xcopy "..\calzone" ".\calzone" /E /I
 xcopy "../logo.png" ".\calzone" /E /I
 
 rem build
-nicegui-pack --onefile --name "Calzone" calzoneGUI.py
+nicegui-pack --onefile --name "Calzone" calzoneGUI.py --add-data logo.png;logo.png --icon logo.png
