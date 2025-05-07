@@ -19,7 +19,7 @@
 - Supports prevelance adjustment to account for prevalance differences between enriched data and population data.
 - Extends metrics to multiclass classification problems with one-vs-rest or top-class calculations.
 
-_To accurately assess the calibration of machine learning models, it is essential to have a comprehensive and representative dataset with sufficient coverage of the prediction space. The calibration metrics are not meaningful if the dataset is not representative of true intended population._
+_To accurately assess the calibration of machine learning models, it is essential to have a **comprehensive and representative testing dataset** with sufficient coverage of the prediction space that is also **independent of the model development dataset** (for training, tuning, and calibration). The calibration metrics are not meaningful if the dataset is not representative of true intended population._
 
 ## Installation
 
