@@ -49,7 +49,7 @@ cal_metrics = CalibrationMetrics(class_to_calculate=1)
 cal_metrics.calculate_metrics(Y, X, metrics='all')
 ```
 
-Also, an experimental build of the graphical user interface can now be downloaded at https://github.com/DIDSR/calzone/releases/tag/v0.0.1-alpha.
+Also, an experimental build of the graphical user interface can now be downloaded at [https://github.com/DIDSR/calzone/releases/tag/v0.0.1-alpha](https://github.com/DIDSR/calzone/releases/tag/v0.0.2-alpha).
 
 Alternatively, you can run `cal_metrics` for a command line interface.
 
