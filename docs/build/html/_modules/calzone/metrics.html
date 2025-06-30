@@ -1,23 +1,21 @@
+
+
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" data-content_root="../../">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>calzone.metrics &mdash; calzone develop documentation</title>
-      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
-      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
 
   
-  <!--[if lt IE 9]>
-    <script src="../../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
-        <script src="../../_static/jquery.js?v=5d32c60e"></script>
-        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../_static/documentation_options.js?v=16816911"></script>
-        <script src="../../_static/doctools.js?v=9a2dae69"></script>
-        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
-        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=16816911"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" /> 
@@ -46,7 +44,6 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../index.html">Welcome to the documentation for calzone</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../notebooks/quickstart.html">Quick Start</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../notebooks/metrics_summary.html">Summary and guide for calzone</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../notebooks/reliability_diagram.html">Reliability diagram</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../notebooks/ece_mce.html">Exepected Calibration Error(ECE) and Maximum Calibration Error (MCE)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../notebooks/hl_test.html">Hosmer-Lemeshow test (HL test)</a></li>
@@ -96,17 +93,17 @@
 <span class="n">__maintainer__</span> <span class="o">=</span> <span class="s2">&quot;Kwok Lung Jason Fan&quot;</span>
 <span class="n">__email__</span> <span class="o">=</span> <span class="s2">&quot;kwoklung.fan@fda.hhs.gov&quot;</span>
 <span class="n">__status__</span> <span class="o">=</span> <span class="s2">&quot;Development&quot;</span>
-<span class="kn">import</span> <span class="nn">scipy.stats</span> <span class="k">as</span> <span class="nn">stats</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">.utils</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="kn">import</span> <span class="nn">statsmodels.api</span> <span class="k">as</span> <span class="nn">sm</span>
-<span class="kn">import</span> <span class="nn">statsmodels.nonparametric.smoothers_lowess</span> <span class="k">as</span> <span class="nn">lowess</span>
-<span class="kn">import</span> <span class="nn">numpy.lib.recfunctions</span> <span class="k">as</span> <span class="nn">rf</span>
-<span class="kn">import</span> <span class="nn">contextlib</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">scipy.stats</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">stats</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.utils</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">statsmodels.api</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sm</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">statsmodels.nonparametric.smoothers_lowess</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">lowess</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy.lib.recfunctions</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">rf</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">contextlib</span>
 
 <div class="viewcode-block" id="hosmer_lemeshow_test">
 <a class="viewcode-back" href="../../calzone.html#calzone.metrics.hosmer_lemeshow_test">[docs]</a>
-<span class="k">def</span> <span class="nf">hosmer_lemeshow_test</span><span class="p">(</span><span class="n">reliability</span><span class="p">,</span> <span class="n">confidence</span><span class="p">,</span> <span class="n">bin_count</span><span class="p">,</span> <span class="n">df</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">hosmer_lemeshow_test</span><span class="p">(</span><span class="n">reliability</span><span class="p">,</span> <span class="n">confidence</span><span class="p">,</span> <span class="n">bin_count</span><span class="p">,</span> <span class="n">df</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Compute the Hosmer-Lemeshow test for goodness of fit.</span>
 
@@ -165,7 +162,7 @@
 
 <div class="viewcode-block" id="calculate_ece_mce">
 <a class="viewcode-back" href="../../calzone.html#calzone.metrics.calculate_ece_mce">[docs]</a>
-<span class="k">def</span> <span class="nf">calculate_ece_mce</span><span class="p">(</span><span class="n">reliability</span><span class="p">,</span> <span class="n">confindence</span><span class="p">,</span> <span class="n">bin_counts</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">calculate_ece_mce</span><span class="p">(</span><span class="n">reliability</span><span class="p">,</span> <span class="n">confindence</span><span class="p">,</span> <span class="n">bin_counts</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Calculate Expected Calibration Error (ECE) and Maximum Calibration Error (MCE).</span>
 
@@ -205,7 +202,7 @@
 
 <div class="viewcode-block" id="spiegelhalter_z_test">
 <a class="viewcode-back" href="../../calzone.html#calzone.metrics.spiegelhalter_z_test">[docs]</a>
-<span class="k">def</span> <span class="nf">spiegelhalter_z_test</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_proba</span><span class="p">,</span> <span class="n">class_to_calculate</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">spiegelhalter_z_test</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_proba</span><span class="p">,</span> <span class="n">class_to_calculate</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Perform Spiegelhalter&#39;s Z-test for calibration of probabilistic predictions.</span>
 
@@ -258,7 +255,7 @@
 
 <div class="viewcode-block" id="cox_regression_analysis">
 <a class="viewcode-back" href="../../calzone.html#calzone.metrics.cox_regression_analysis">[docs]</a>
-<span class="k">def</span> <span class="nf">cox_regression_analysis</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">cox_regression_analysis</span><span class="p">(</span>
     <span class="n">y_true</span><span class="p">,</span>
     <span class="n">y_proba</span><span class="p">,</span>
     <span class="n">epsilon</span><span class="o">=</span><span class="mf">1e-7</span><span class="p">,</span>
@@ -341,7 +338,7 @@
 
 <div class="viewcode-block" id="cal_ICI_cox">
 <a class="viewcode-back" href="../../calzone.html#calzone.metrics.cal_ICI_cox">[docs]</a>
-<span class="k">def</span> <span class="nf">cal_ICI_cox</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">cal_ICI_cox</span><span class="p">(</span>
     <span class="n">coef</span><span class="p">,</span> <span class="n">intercept</span><span class="p">,</span> <span class="n">y_proba</span><span class="p">,</span> <span class="n">class_to_calculate</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">epsilon</span><span class="o">=</span><span class="mf">1e-7</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
 <span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
@@ -383,7 +380,7 @@
 
 <div class="viewcode-block" id="lowess_regression_analysis">
 <a class="viewcode-back" href="../../calzone.html#calzone.metrics.lowess_regression_analysis">[docs]</a>
-<span class="k">def</span> <span class="nf">lowess_regression_analysis</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">lowess_regression_analysis</span><span class="p">(</span>
     <span class="n">y_true</span><span class="p">,</span>
     <span class="n">y_proba</span><span class="p">,</span>
     <span class="n">epsilon</span><span class="o">=</span><span class="mf">1e-7</span><span class="p">,</span>
@@ -448,7 +445,7 @@
 
 <div class="viewcode-block" id="cal_ICI_func">
 <a class="viewcode-back" href="../../calzone.html#calzone.metrics.cal_ICI_func">[docs]</a>
-<span class="k">def</span> <span class="nf">cal_ICI_func</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">y_proba</span><span class="p">,</span> <span class="n">class_to_calculate</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">cal_ICI_func</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">y_proba</span><span class="p">,</span> <span class="n">class_to_calculate</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Calculate the Integrated Calibration Index (ICI) for a given calibration function.</span>
 
@@ -478,7 +475,7 @@
 
 <div class="viewcode-block" id="cal_ICI">
 <a class="viewcode-back" href="../../calzone.html#calzone.metrics.cal_ICI">[docs]</a>
-<span class="k">def</span> <span class="nf">cal_ICI</span><span class="p">(</span><span class="n">y_adjust</span><span class="p">,</span> <span class="n">y_proba</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">cal_ICI</span><span class="p">(</span><span class="n">y_adjust</span><span class="p">,</span> <span class="n">y_proba</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 
 <span class="sd">    Calculate the Integrated Calibration Index (ICI) for given adjusted probabilities.</span>
@@ -504,7 +501,7 @@
 
 <div class="viewcode-block" id="logit_func">
 <a class="viewcode-back" href="../../calzone.html#calzone.metrics.logit_func">[docs]</a>
-<span class="k">def</span> <span class="nf">logit_func</span><span class="p">(</span><span class="n">coef</span><span class="p">,</span> <span class="n">intercept</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">logit_func</span><span class="p">(</span><span class="n">coef</span><span class="p">,</span> <span class="n">intercept</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Create a logistic function with given coefficient and intercept.</span>
 
@@ -525,7 +522,7 @@
 
 <div class="viewcode-block" id="get_CI">
 <a class="viewcode-back" href="../../calzone.html#calzone.metrics.get_CI">[docs]</a>
-<span class="k">def</span> <span class="nf">get_CI</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.05</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_CI</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.05</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Calculate confidence intervals for each field in the result.</span>
 
@@ -553,14 +550,14 @@
 
 <div class="viewcode-block" id="CalibrationMetrics">
 <a class="viewcode-back" href="../../calzone.html#calzone.metrics.CalibrationMetrics">[docs]</a>
-<span class="k">class</span> <span class="nc">CalibrationMetrics</span><span class="p">:</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">CalibrationMetrics</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A class for calculating calibration metrics for classification models.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="CalibrationMetrics.__init__">
 <a class="viewcode-back" href="../../calzone.html#calzone.metrics.CalibrationMetrics.__init__">[docs]</a>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">class_to_calculate</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">num_bins</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">class_to_calculate</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">num_bins</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Initialize the CalibrationMetrics class.</span>
 
@@ -574,7 +571,7 @@
 
 <div class="viewcode-block" id="CalibrationMetrics.calculate_metrics">
 <a class="viewcode-back" href="../../calzone.html#calzone.metrics.CalibrationMetrics.calculate_metrics">[docs]</a>
-    <span class="k">def</span> <span class="nf">calculate_metrics</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">calculate_metrics</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">y_true</span><span class="p">,</span>
         <span class="n">y_proba</span><span class="p">,</span>
@@ -779,7 +776,7 @@
 
 <div class="viewcode-block" id="CalibrationMetrics.bootstrap">
 <a class="viewcode-back" href="../../calzone.html#calzone.metrics.CalibrationMetrics.bootstrap">[docs]</a>
-    <span class="k">def</span> <span class="nf">bootstrap</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">bootstrap</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">y_true</span><span class="p">,</span>
         <span class="n">y_proba</span><span class="p">,</span>
@@ -853,7 +850,7 @@
 
 <div class="viewcode-block" id="CalibrationMetrics.optimal_prevalence_adjustment">
 <a class="viewcode-back" href="../../calzone.html#calzone.metrics.CalibrationMetrics.optimal_prevalence_adjustment">[docs]</a>
-    <span class="k">def</span> <span class="nf">optimal_prevalence_adjustment</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">y_true</span><span class="p">,</span> <span class="n">y_proba</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">optimal_prevalence_adjustment</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">y_true</span><span class="p">,</span> <span class="n">y_proba</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Perform optimal prevalence adjustment and return adjusted probabilities.</span>
 

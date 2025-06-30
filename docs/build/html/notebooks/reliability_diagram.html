@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" data-content_root="../">
 <head>
@@ -5,28 +7,24 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Reliability diagram &mdash; calzone develop documentation</title>
-      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
-      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../_static/nbsphinx-code-cells.css?v=2aa19091" />
 
   
-  <!--[if lt IE 9]>
-    <script src="../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
-        <script src="../_static/jquery.js?v=5d32c60e"></script>
-        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../_static/documentation_options.js?v=16816911"></script>
-        <script src="../_static/doctools.js?v=9a2dae69"></script>
-        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
-        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=16816911"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+      <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Exepected Calibration Error(ECE) and Maximum Calibration Error (MCE)" href="ece_mce.html" />
-    <link rel="prev" title="Summary and guide for calzone" href="metrics_summary.html" /> 
+    <link rel="prev" title="&lt;no title&gt;" href="metrics_summary.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -52,7 +50,6 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../index.html">Welcome to the documentation for calzone</a></li>
 <li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick Start</a></li>
-<li class="toctree-l1"><a class="reference internal" href="metrics_summary.html">Summary and guide for calzone</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Reliability diagram</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#References">References</a></li>
 </ul>
@@ -102,9 +99,9 @@
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### Import the necessary libraries and load the data</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">calzone.utils</span> <span class="kn">import</span> <span class="n">reliability_diagram</span><span class="p">,</span><span class="n">data_loader</span>
-<span class="kn">from</span> <span class="nn">calzone.vis</span> <span class="kn">import</span> <span class="n">plot_reliability_diagram</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">calzone.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">reliability_diagram</span><span class="p">,</span><span class="n">data_loader</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">calzone.vis</span><span class="w"> </span><span class="kn">import</span> <span class="n">plot_reliability_diagram</span>
 <span class="c1">### loading the data</span>
 <span class="n">wellcal_dataloader</span> <span class="o">=</span> <span class="n">data_loader</span><span class="p">(</span><span class="n">data_path</span><span class="o">=</span><span class="s2">&quot;../../../example_data/simulated_welldata.csv&quot;</span><span class="p">)</span>
 </pre></div>
@@ -156,9 +153,9 @@
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### We will artificially drop the prevalence of class 1</span>
 <span class="c1"># The top-class reliability diagram will still look good</span>
 <span class="c1"># But the class-1 reliability diagram will be very bad</span>
-<span class="kn">from</span> <span class="nn">calzone.utils</span> <span class="kn">import</span> <span class="n">softmax_to_logits</span>
-<span class="kn">from</span> <span class="nn">scipy.special</span> <span class="kn">import</span> <span class="n">softmax</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">calzone.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">softmax_to_logits</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.special</span><span class="w"> </span><span class="kn">import</span> <span class="n">softmax</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 
 <span class="n">test_dataloader</span> <span class="o">=</span> <span class="n">data_loader</span><span class="p">(</span><span class="n">data_path</span><span class="o">=</span><span class="s2">&quot;../../../example_data/simulated_welldata.csv&quot;</span><span class="p">)</span>
 <span class="n">class_1_index</span> <span class="o">=</span> <span class="p">(</span><span class="n">test_dataloader</span><span class="o">.</span><span class="n">labels</span><span class="o">==</span><span class="mi">1</span><span class="p">)</span>
@@ -225,7 +222,7 @@
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="metrics_summary.html" class="btn btn-neutral float-left" title="Summary and guide for calzone" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="metrics_summary.html" class="btn btn-neutral float-left" title="&lt;no title&gt;" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="ece_mce.html" class="btn btn-neutral float-right" title="Exepected Calibration Error(ECE) and Maximum Calibration Error (MCE)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 

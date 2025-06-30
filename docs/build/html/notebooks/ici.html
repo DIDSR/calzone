@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" data-content_root="../">
 <head>
@@ -5,23 +7,19 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Integrated Calibration Index (ICI) &mdash; calzone develop documentation</title>
-      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
-      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../_static/nbsphinx-code-cells.css?v=2aa19091" />
 
   
-  <!--[if lt IE 9]>
-    <script src="../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
-        <script src="../_static/jquery.js?v=5d32c60e"></script>
-        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../_static/documentation_options.js?v=16816911"></script>
-        <script src="../_static/doctools.js?v=9a2dae69"></script>
-        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
-        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=16816911"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+      <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -52,7 +50,6 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../index.html">Welcome to the documentation for calzone</a></li>
 <li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick Start</a></li>
-<li class="toctree-l1"><a class="reference internal" href="metrics_summary.html">Summary and guide for calzone</a></li>
 <li class="toctree-l1"><a class="reference internal" href="reliability_diagram.html">Reliability diagram</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ece_mce.html">Exepected Calibration Error(ECE) and Maximum Calibration Error (MCE)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="hl_test.html">Hosmer-Lemeshow test (HL test)</a></li>
@@ -129,8 +126,8 @@ regression does not result in a good fit.</p>
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">calzone.utils</span> <span class="kn">import</span> <span class="n">reliability_diagram</span><span class="p">,</span><span class="n">data_loader</span>
-<span class="kn">from</span> <span class="nn">calzone.metrics</span> <span class="kn">import</span> <span class="n">cox_regression_analysis</span><span class="p">,</span><span class="n">lowess_regression_analysis</span><span class="p">,</span><span class="n">cal_ICI_cox</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">calzone.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">reliability_diagram</span><span class="p">,</span><span class="n">data_loader</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">calzone.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">cox_regression_analysis</span><span class="p">,</span><span class="n">lowess_regression_analysis</span><span class="p">,</span><span class="n">cal_ICI_cox</span>
 
 <span class="c1">### loading the data</span>
 <span class="n">wellcal_dataloader</span> <span class="o">=</span> <span class="n">data_loader</span><span class="p">(</span><span class="n">data_path</span><span class="o">=</span><span class="s2">&quot;../../../example_data/simulated_welldata.csv&quot;</span><span class="p">)</span>
@@ -161,7 +158,7 @@ Loess ICI: 0.00558856942568957
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">calzone.metrics</span> <span class="kn">import</span> <span class="n">CalibrationMetrics</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">calzone.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">CalibrationMetrics</span>
 <span class="n">calmetrics</span> <span class="o">=</span> <span class="n">CalibrationMetrics</span><span class="p">()</span>
 <span class="n">calmetrics</span><span class="o">.</span><span class="n">calculate_metrics</span><span class="p">(</span><span class="n">wellcal_dataloader</span><span class="o">.</span><span class="n">labels</span><span class="p">,</span> <span class="n">wellcal_dataloader</span><span class="o">.</span><span class="n">probs</span><span class="p">,</span> <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;COX&#39;</span><span class="p">,</span><span class="s1">&#39;Loess&#39;</span><span class="p">])</span>
 </pre></div>
@@ -225,11 +222,11 @@ Loess ICI (span = 0.3):  0.07692218401743334
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### ploting the curve</span>
-<span class="kn">from</span> <span class="nn">calzone.metrics</span> <span class="kn">import</span> <span class="n">logit_func</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">from</span> <span class="nn">calzone.utils</span> <span class="kn">import</span> <span class="n">reliability_diagram</span>
-<span class="kn">from</span> <span class="nn">calzone.vis</span> <span class="kn">import</span> <span class="n">plot_reliability_diagram</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">calzone.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">logit_func</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">calzone.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">reliability_diagram</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">calzone.vis</span><span class="w"> </span><span class="kn">import</span> <span class="n">plot_reliability_diagram</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="n">cox_func</span><span class="o">=</span> <span class="n">logit_func</span><span class="p">(</span><span class="n">coef</span><span class="o">=</span><span class="n">cox_slope</span><span class="p">,</span> <span class="n">intercept</span><span class="o">=</span><span class="n">cox_intercept</span><span class="p">)</span>
 <span class="n">proba_class1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">miscal_dataloader</span><span class="o">.</span><span class="n">probs</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span><span class="mf">1e-10</span><span class="p">,</span><span class="mi">1</span><span class="o">-</span><span class="mf">1e-10</span><span class="p">))</span>
 <span class="n">cox_p_correct</span><span class="o">=</span><span class="n">cox_func</span><span class="p">(</span><span class="n">proba_class1</span><span class="p">)</span>

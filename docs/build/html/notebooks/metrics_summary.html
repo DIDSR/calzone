@@ -1,26 +1,24 @@
+
+
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" data-content_root="../">
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Summary and guide for calzone &mdash; calzone develop documentation</title>
-      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
-      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+  <title>&lt;no title&gt; &mdash; calzone develop documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
 
   
-  <!--[if lt IE 9]>
-    <script src="../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
-        <script src="../_static/jquery.js?v=5d32c60e"></script>
-        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../_static/documentation_options.js?v=16816911"></script>
-        <script src="../_static/doctools.js?v=9a2dae69"></script>
-        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
-        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=16816911"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+      <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -48,13 +46,9 @@
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
-<ul class="current">
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="../index.html">Welcome to the documentation for calzone</a></li>
 <li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick Start</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Summary and guide for calzone</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#Guide-to-calzone-and-calibration-metrics">Guide to calzone and calibration metrics</a></li>
-</ul>
-</li>
 <li class="toctree-l1"><a class="reference internal" href="reliability_diagram.html">Reliability diagram</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ece_mce.html">Exepected Calibration Error(ECE) and Maximum Calibration Error (MCE)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="hl_test.html">Hosmer-Lemeshow test (HL test)</a></li>
@@ -83,7 +77,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">Summary and guide for calzone</li>
+      <li class="breadcrumb-item active">&lt;no title&gt;</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/notebooks/metrics_summary.ipynb.txt" rel="nofollow"> View page source</a>
       </li>
@@ -93,21 +87,249 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="Summary-and-guide-for-calzone">
-<h1>Summary and guide for calzone<a class="headerlink" href="#Summary-and-guide-for-calzone" title="Link to this heading"></a></h1>
-<p>We provide a summary of the calibration metrics provides by calzone, including the pros and cons of each metrics. For a more detailed explanation of each metrics and how to calculate them using calzone, please refer to the specific notebook.</p>
-<p><img alt="alt text" src="../_images/mytable.png" /></p>
-<section id="Guide-to-calzone-and-calibration-metrics">
-<h2>Guide to calzone and calibration metrics<a class="headerlink" href="#Guide-to-calzone-and-calibration-metrics" title="Link to this heading"></a></h2>
-<p>calzone aims to access whether a model achieves moderate calibration, meaning whether <span class="math notranslate nohighlight">\(\mathbb{P}(\hat{Y}=Y|\hat{P}=p)=p\)</span> for all <span class="math notranslate nohighlight">\(p\in[0,1]\)</span>.</p>
-<p>To accurately assess the calibration of machine learning models, it is essential to have a comprehensive and reprensative dataset with sufficient coverage of the prediction space. The calibration metrics is not meaningful if the dataset is not representative of true intended population.</p>
-<p>calzone takes in a csv dataset which contains the probability of each class and the true label. Most metrics in calzone only work with binary classification and which transforms the problem into 1-vs-rest when calcualte the metrics. Therefore, you need to specify the class-of-interest when using the metrics. The only exception is the Top-class Expected calibration error (<span class="math notranslate nohighlight">\(ECE_{top}\)</span>) and Top-class Maximum calibration error (<span class="math notranslate nohighlight">\(MCE_{top}\)</span>) metrics which only measure the calibration of
-the class with highest predicted probability hence works for multi-class problems. See the corresponding documentation for more details.</p>
-<p>We recommend visualizing calibration using reliability diagrams. If you observe general over- or under-estimation of probabilities for a given class, consider applying a prevalence adjustment to determine if it’s solely due to prevalence shift. After prevalence adjustment, plot the reliability diagrams again and examine the results of calibration metrics.</p>
-<p>For a general sense of average probability deviation, we recommend using the Cox and Loess integrated calibration index (ICI) as they don’t depend on binning. Alternativly, ECE can be used to measure the same but the result will depend on the binning scheme you used. If the probabilities distribution is highly skewed toward 0 and 1, use equal-count binning for ECE.</p>
-<p>Please refer to the notebooks for detailed descriptions of each metric.</p>
-</section>
-</section>
+  <dl>
+<dt>{</dt><dd><dl>
+<dt>“cells”: [</dt><dd><dl>
+<dt>{</dt><dd><p>“cell_type”: “markdown”,
+“metadata”: {},
+“source”: [</p>
+<blockquote>
+<div><p>“# Summary and guide for calzonen”,
+“n”,
+“We provide a summary of the calibration metrics provides by calzone, including the pros and cons of each metrics. For a more detailed explanation of each metrics and how to calculate them using calzone, please refer to the specific notebook.”</p>
+</div></blockquote>
+<p>]</p>
+</dd>
+</dl>
+<p>},
+{</p>
+<blockquote>
+<div><p>“cell_type”: “code”,
+“execution_count”: 3,</p>
+<blockquote>
+<div><blockquote>
+<div><p>“nbsphinx”: {</p>
+</div></blockquote>
+<p>“hide_input”: true</p>
+</div></blockquote>
+</div></blockquote>
+<dl>
+<dt>},</dt><dd><dl>
+<dt>“outputs”: [</dt><dd><dl>
+<dt>{</dt><dd><dl>
+<dt>“data”: {</dt><dd><dl class="simple">
+<dt>“text/html”: [</dt><dd><p>“&lt;style type=&quot;text/css&quot;&gt;n”,
+“#T_696e7 th {n”,
+“  text-align: center;n”,
+“}n”,
+“#T_696e7_row0_col0, #T_696e7_row0_col1, #T_696e7_row0_col2, #T_696e7_row0_col3, #T_696e7_row0_col4, #T_696e7_row1_col0, #T_696e7_row1_col1, #T_696e7_row1_col2, #T_696e7_row1_col3, #T_696e7_row1_col4, #T_696e7_row2_col0, #T_696e7_row2_col1, #T_696e7_row2_col2, #T_696e7_row2_col3, #T_696e7_row2_col4, #T_696e7_row3_col0, #T_696e7_row3_col1, #T_696e7_row3_col2, #T_696e7_row3_col3, #T_696e7_row3_col4, #T_696e7_row4_col0, #T_696e7_row4_col1, #T_696e7_row4_col2, #T_696e7_row4_col3, #T_696e7_row4_col4, #T_696e7_row5_col0, #T_696e7_row5_col1, #T_696e7_row5_col2, #T_696e7_row5_col3, #T_696e7_row5_col4 {n”,
+“  text-align: left;n”,
+“  white-space: pre-wrap;n”,
+“}n”,
+“&lt;/style&gt;n”,
+“&lt;table id=&quot;T_696e7&quot;&gt;n”,
+“  &lt;thead&gt;n”,
+“    &lt;tr&gt;n”,
+“      &lt;th id=&quot;T_696e7_level0_col0&quot; class=&quot;col_heading level0 col0&quot; &gt;Metrics&lt;/th&gt;n”,
+“      &lt;th id=&quot;T_696e7_level0_col1&quot; class=&quot;col_heading level0 col1&quot; &gt;Description&lt;/th&gt;n”,
+“      &lt;th id=&quot;T_696e7_level0_col2&quot; class=&quot;col_heading level0 col2&quot; &gt;Pros&lt;/th&gt;n”,
+“      &lt;th id=&quot;T_696e7_level0_col3&quot; class=&quot;col_heading level0 col3&quot; &gt;Cons&lt;/th&gt;n”,
+“      &lt;th id=&quot;T_696e7_level0_col4&quot; class=&quot;col_heading level0 col4&quot; &gt;Meaning&lt;/th&gt;n”,
+“    &lt;/tr&gt;n”,
+“  &lt;/thead&gt;n”,
+“  &lt;tbody&gt;n”,
+“    &lt;tr&gt;n”,
+“      &lt;td id=&quot;T_696e7_row0_col0&quot; class=&quot;data row0 col0&quot; &gt;Expected calibration error&lt;br&gt;(ECE)&lt;/td&gt;n”,
+“      &lt;td id=&quot;T_696e7_row0_col1&quot; class=&quot;data row0 col1&quot; &gt;&lt;div&gt;Using binned reliability diagram&lt;br&gt;(equal-width or equal-count binning),&lt;br&gt;sum of absolute difference, weighted by bin count.&lt;/div&gt;&lt;/td&gt;n”,
+“      &lt;td id=&quot;T_696e7_row0_col2&quot; class=&quot;data row0 col2&quot; &gt;&lt;div&gt;• Intuitive&lt;br&gt;• Easy to calculate&lt;/div&gt;&lt;/td&gt;n”,
+“      &lt;td id=&quot;T_696e7_row0_col3&quot; class=&quot;data row0 col3&quot; &gt;&lt;div&gt;• Depend on binning &lt;br&gt;• Depend on class-by-class/top-class&lt;/div&gt;&lt;/td&gt;n”,
+“      &lt;td id=&quot;T_696e7_row0_col4&quot; class=&quot;data row0 col4&quot; &gt;&lt;div&gt;Average deviation from&lt;br&gt;true probability&lt;/div&gt;&lt;/td&gt;n”,
+“    &lt;/tr&gt;n”,
+“    &lt;tr&gt;n”,
+“      &lt;td id=&quot;T_696e7_row1_col0&quot; class=&quot;data row1 col0&quot; &gt;Maximum calibration error&lt;br&gt;(MCE)&lt;/td&gt;n”,
+“      &lt;td id=&quot;T_696e7_row1_col1&quot; class=&quot;data row1 col1&quot; &gt;&lt;div&gt;Using binned reliability diagram&lt;br&gt;(equal-width or equal-count binning),&lt;br&gt;Maximum absolute difference.&lt;/div&gt;&lt;/td&gt;n”,
+“      &lt;td id=&quot;T_696e7_row1_col2&quot; class=&quot;data row1 col2&quot; &gt;&lt;div&gt;• Intuitive&lt;br&gt;• Easy to calculate&lt;/div&gt;&lt;/td&gt;n”,
+“      &lt;td id=&quot;T_696e7_row1_col3&quot; class=&quot;data row1 col3&quot; &gt;&lt;div&gt;• Depend on binning &lt;br&gt;• Depend on class-by-class/top-class&lt;/div&gt;&lt;/td&gt;n”,
+“      &lt;td id=&quot;T_696e7_row1_col4&quot; class=&quot;data row1 col4&quot; &gt;&lt;div&gt;Maximum deviation from&lt;br&gt;true probability&lt;/div&gt;&lt;/td&gt;n”,
+“    &lt;/tr&gt;n”,
+“    &lt;tr&gt;n”,
+“      &lt;td id=&quot;T_696e7_row2_col0&quot; class=&quot;data row2 col0&quot; &gt;Hosmer-Lemeshow test&lt;/td&gt;n”,
+“      &lt;td id=&quot;T_696e7_row2_col1&quot; class=&quot;data row2 col1&quot; &gt;&lt;div&gt;Using binned reliability diagram&lt;br&gt;(equal-width or equal-count binning),&lt;br&gt;Chi-squared based test using expected and observed.&lt;/div&gt;&lt;/td&gt;n”,
+“      &lt;td id=&quot;T_696e7_row2_col2&quot; class=&quot;data row2 col2&quot; &gt;&lt;div&gt;• Intuitive&lt;br&gt;• Statistical meaning&lt;/div&gt;&lt;/td&gt;n”,
+“      &lt;td id=&quot;T_696e7_row2_col3&quot; class=&quot;data row2 col3&quot; &gt;&lt;div&gt;• Depend on binning &lt;br&gt;• Low power&lt;br&gt;• Wrong coverage&lt;/div&gt;&lt;/td&gt;n”,
+“      &lt;td id=&quot;T_696e7_row2_col4&quot; class=&quot;data row2 col4&quot; &gt;&lt;div&gt;Test of&lt;br&gt;calibration&lt;/div&gt;&lt;/td&gt;n”,
+“    &lt;/tr&gt;n”,
+“    &lt;tr&gt;n”,
+“      &lt;td id=&quot;T_696e7_row3_col0&quot; class=&quot;data row3 col0&quot; &gt;Spiegelhalter’s z test&lt;/td&gt;n”,
+“      &lt;td id=&quot;T_696e7_row3_col1&quot; class=&quot;data row3 col1&quot; &gt;&lt;div&gt;Decomposition of brier score.&lt;br&gt;Normal distributed&lt;br&gt; &lt;/div&gt;&lt;/td&gt;n”,
+“      &lt;td id=&quot;T_696e7_row3_col2&quot; class=&quot;data row3 col2&quot; &gt;&lt;div&gt;• Doesn’t rely on binning&lt;br&gt;• Statistical meaning&lt;/div&gt;&lt;/td&gt;n”,
+“      &lt;td id=&quot;T_696e7_row3_col3&quot; class=&quot;data row3 col3&quot; &gt;&lt;div&gt;• Doesn’t detect prevalence shift&lt;/div&gt;&lt;/td&gt;n”,
+“      &lt;td id=&quot;T_696e7_row3_col4&quot; class=&quot;data row3 col4&quot; &gt;&lt;div&gt;Test of&lt;br&gt;calibration&lt;/div&gt;&lt;/td&gt;n”,
+“    &lt;/tr&gt;n”,
+“    &lt;tr&gt;n”,
+“      &lt;td id=&quot;T_696e7_row4_col0&quot; class=&quot;data row4 col0&quot; &gt;Cox’s analysis&lt;/td&gt;n”,
+“      &lt;td id=&quot;T_696e7_row4_col1&quot; class=&quot;data row4 col1&quot; &gt;&lt;div&gt;Logistic regression of the logits&lt;br&gt; &lt;br&gt; &lt;/div&gt;&lt;/td&gt;n”,
+“      &lt;td id=&quot;T_696e7_row4_col2&quot; class=&quot;data row4 col2&quot; &gt;&lt;div&gt;• Doesn’t rely on binning&lt;br&gt;• Hints at miscalibration type&lt;/div&gt;&lt;/td&gt;n”,
+“      &lt;td id=&quot;T_696e7_row4_col3&quot; class=&quot;data row4 col3&quot; &gt;&lt;div&gt;• Failed to capture some miscalibration&lt;/div&gt;&lt;/td&gt;n”,
+“      &lt;td id=&quot;T_696e7_row4_col4&quot; class=&quot;data row4 col4&quot; &gt;&lt;div&gt;A logit fit to the&lt;br&gt;calibration curve&lt;/div&gt;&lt;/td&gt;n”,
+“    &lt;/tr&gt;n”,
+“    &lt;tr&gt;n”,
+“      &lt;td id=&quot;T_696e7_row5_col0&quot; class=&quot;data row5 col0&quot; &gt;Integrated calibration index&lt;br&gt; (ICI)&lt;/td&gt;n”,
+“      &lt;td id=&quot;T_696e7_row5_col1&quot; class=&quot;data row5 col1&quot; &gt;&lt;div&gt;Similar to ECE, using smooth fit (usually losse)&lt;br&gt;instead of binning to get&lt;br&gt;the calibration curve&lt;/div&gt;&lt;/td&gt;n”,
+“      &lt;td id=&quot;T_696e7_row5_col2&quot; class=&quot;data row5 col2&quot; &gt;&lt;div&gt;• Doesn’t rely on binning&lt;br&gt;• Capture all kind of miscalibration&lt;/div&gt;&lt;/td&gt;n”,
+“      &lt;td id=&quot;T_696e7_row5_col3&quot; class=&quot;data row5 col3&quot; &gt;&lt;div&gt;• Depend on the choice of curve fitting&lt;br&gt;• Depend on fitting parameters&lt;/div&gt;&lt;/td&gt;n”,
+“      &lt;td id=&quot;T_696e7_row5_col4&quot; class=&quot;data row5 col4&quot; &gt;&lt;div&gt;Average deviation from&lt;br&gt;true probability&lt;/div&gt;&lt;/td&gt;n”,
+“    &lt;/tr&gt;n”,
+“  &lt;/tbody&gt;n”,
+“&lt;/table&gt;n”</p>
+</dd>
+</dl>
+<p>],
+“text/plain”: [</p>
+<blockquote>
+<div><p>“&lt;IPython.core.display.HTML object&gt;”</p>
+</div></blockquote>
+<p>]</p>
+</dd>
+</dl>
+<p>},
+“metadata”: {},
+“output_type”: “display_data”</p>
+</dd>
+</dl>
+<p>}</p>
+</dd>
+</dl>
+<p>],
+“source”: [</p>
+<blockquote>
+<div><p>“import pandas as pdn”,
+“from IPython.display import display, HTMLn”,
+“data = {n”,
+“    ‘Metrics’: [‘Expected calibration error&lt;br&gt;(ECE)’, ‘Maximum calibration error&lt;br&gt;(MCE)’, ‘Hosmer-Lemeshow test’, &quot;Spiegelhalter’s z test&quot;, &quot;Cox’s analysis&quot;, ‘Integrated calibration index&lt;br&gt; (ICI)’],n”,
+“    ‘Description’: [n”,
+“        ‘&lt;div&gt;Using binned reliability diagram&lt;br&gt;(equal-width or equal-count binning),&lt;br&gt;sum of absolute difference, weighted by bin count.&lt;/div&gt;’,n”,
+“        ‘&lt;div&gt;Using binned reliability diagram&lt;br&gt;(equal-width or equal-count binning),&lt;br&gt;Maximum absolute difference.&lt;/div&gt;’,n”,
+“        ‘&lt;div&gt;Using binned reliability diagram&lt;br&gt;(equal-width or equal-count binning),&lt;br&gt;Chi-squared based test using expected and observed.&lt;/div&gt;’,n”,
+“        ‘&lt;div&gt;Decomposition of brier score.&lt;br&gt;Normal distributed&lt;br&gt; &lt;/div&gt;’,n”,
+“        ‘&lt;div&gt;Logistic regression of the logits&lt;br&gt; &lt;br&gt; &lt;/div&gt;’,n”,
+“        ‘&lt;div&gt;Similar to ECE, using smooth fit (usually losse)&lt;br&gt;instead of binning to get&lt;br&gt;the calibration curve&lt;/div&gt;’n”,
+“    ],n”,
+“    ‘Pros’: [n”,
+“        ‘&lt;div&gt;• Intuitive&lt;br&gt;• Easy to calculate&lt;/div&gt;’,n”,
+“        ‘&lt;div&gt;• Intuitive&lt;br&gt;• Easy to calculate&lt;/div&gt;’,n”,
+“        ‘&lt;div&gt;• Intuitive&lt;br&gt;• Statistical meaning&lt;/div&gt;’,n”,
+“        ‘&lt;div&gt;• Doesn\’t rely on binning&lt;br&gt;• Statistical meaning&lt;/div&gt;’,n”,
+“        ‘&lt;div&gt;• Doesn\’t rely on binning&lt;br&gt;• Hints at miscalibration type&lt;/div&gt;’,n”,
+“        ‘&lt;div&gt;• Doesn\’t rely on binning&lt;br&gt;• Capture all kind of miscalibration&lt;/div&gt;’n”,
+“    ],n”,
+“    ‘Cons’: [n”,
+“        ‘&lt;div&gt;• Depend on binning &lt;br&gt;• Depend on class-by-class/top-class&lt;/div&gt;’,n”,
+“        ‘&lt;div&gt;• Depend on binning &lt;br&gt;• Depend on class-by-class/top-class&lt;/div&gt;’,n”,
+“        ‘&lt;div&gt;• Depend on binning &lt;br&gt;• Low power&lt;br&gt;• Wrong coverage&lt;/div&gt;’,n”,
+“        ‘&lt;div&gt;• Doesn\’t detect prevalence shift&lt;/div&gt;’,n”,
+“        ‘&lt;div&gt;• Failed to capture some miscalibration&lt;/div&gt;’,n”,
+“        ‘&lt;div&gt;• Depend on the choice of curve fitting&lt;br&gt;• Depend on fitting parameters&lt;/div&gt;’n”,
+“    ],n”,
+“    ‘Meaning’: [n”,
+“        ‘&lt;div&gt;Average deviation from&lt;br&gt;true probability&lt;/div&gt;’,n”,
+“        ‘&lt;div&gt;Maximum deviation from&lt;br&gt;true probability&lt;/div&gt;’,n”,
+“        ‘&lt;div&gt;Test of&lt;br&gt;calibration&lt;/div&gt;’,n”,
+“        ‘&lt;div&gt;Test of&lt;br&gt;calibration&lt;/div&gt;’,n”,
+“        ‘&lt;div&gt;A logit fit to the&lt;br&gt;calibration curve&lt;/div&gt;’,n”,
+“        ‘&lt;div&gt;Average deviation from&lt;br&gt;true probability&lt;/div&gt;’n”,
+“    ]n”,
+“}n”,
+“df = pd.DataFrame(data)n”,
+“n”,
+“# Apply custom stylingn”,
+“styled_df = df.style.set_properties(<a href="#id1"><span class="problematic" id="id2">**</span></a>{‘text-align’: ‘left’, ‘white-space’: ‘pre-wrap’})n”,
+“styled_df = styled_df.set_table_styles([dict(selector=’th’, props=[(‘text-align’, ‘center’)])])n”,
+“n”,
+“styled_df = styled_df.hide(axis=&quot;index&quot;)n”,
+“n”,
+“# Display the styled dataframen”,
+“display(HTML(styled_df.to_html(escape=False)))n”,
+“# ### Export PNG format of the tablen”,
+“# import dataframe_image as dfin”,
+“n”,
+“# dfi.export(styled_df,&quot;mytable.png&quot;,table_conversion = ‘matplotlib’,dpi=300)”</p>
+</div></blockquote>
+<p>]</p>
+</dd>
+</dl>
+<p>},
+{</p>
+<blockquote>
+<div><p>“cell_type”: “markdown”,
+“metadata”: {},
+“source”: [</p>
+<blockquote>
+<div><p>“### PNG version of the table for formatting problemn”,
+“![alt text](mytable.png &quot;Title&quot;)”</p>
+</div></blockquote>
+<p>]</p>
+</div></blockquote>
+<p>},
+{</p>
+<blockquote>
+<div><p>“cell_type”: “markdown”,
+“metadata”: {},
+“source”: [</p>
+<blockquote>
+<div><p>“## Guide to calzone and calibration metricsn”,
+“n”,
+“calzone aims to access whether a model achieves moderate calibration, meaning whether $\mathbb{P}(D=1|\hat{P}=p)=p$ for all $p\in[0,1]$.n”,
+“n”,
+“To accurately assess the calibration of machine learning models, it is essential to have a comprehensive and reprensative dataset with sufficient coverage of the prediction space. The calibration metrics is not meaningful if the dataset is not representative of true intended population.n”,
+“n”,
+“calzone takes in a csv dataset which contains the probability of each class and the true label. Most metrics in calzone only work with binary classification and which transforms the problem into 1-vs-rest when calcualte the metrics. Therefore, you need to specify the class-of-interest when using the metrics. The only exception is the Top-class Expected calibration error ($ECE_{top}$) and Top-class Maximum calibration error ($MCE_{top}$) metrics which only measure the calibration of the class with highest predicted probability hence works for multi-class problems. See the corresponding documentation for more details.n”,
+“n”,
+“n”,
+“We recommend visualizing calibration using reliability diagrams. If you observe general over- or under-estimation of probabilities for a given class, consider applying a prevalence adjustment to determine if it’s solely due to prevalence shift. After prevalence adjustment, plot the reliability diagrams again and examine the results of calibration metrics.n”,
+“n”,
+“For a general sense of average probability deviation, we recommend using the Cox and Loess integrated calibration index (ICI) as they don’t depend on binning. Alternativly, ECE can be used to measure the same but the result will depend on the binning scheme you used. If the probabilities distribution is highly skewed toward 0 and 1, use equal-count binning for ECE. n”,
+“n”,
+“Please refer to the notebooks for detailed descriptions of each metric.”</p>
+</div></blockquote>
+<p>]</p>
+</div></blockquote>
+<p>}</p>
+</dd>
+</dl>
+<p>],
+“metadata”: {</p>
+<blockquote>
+<div><dl class="simple">
+<dt>“kernelspec”: {</dt><dd><p>“display_name”: “general”,
+“language”: “python”,
+“name”: “python3”</p>
+</dd>
+</dl>
+<p>},
+“language_info”: {</p>
+<blockquote>
+<div><dl class="simple">
+<dt>“codemirror_mode”: {</dt><dd><p>“name”: “ipython”,
+“version”: 3</p>
+</dd>
+</dl>
+<p>},
+“file_extension”: “.py”,
+“mimetype”: “text/x-python”,
+“name”: “python”,
+“nbconvert_exporter”: “python”,
+“pygments_lexer”: “ipython3”,
+“version”: “3.13.5”</p>
+</div></blockquote>
+<p>}</p>
+</div></blockquote>
+<p>},
+“nbformat”: 4,
+“nbformat_minor”: 2</p>
+</dd>
+</dl>
+<p>}</p>
 
 
            </div>
