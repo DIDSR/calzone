@@ -50,6 +50,7 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../index.html">Welcome to the documentation for calzone</a></li>
 <li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="metrics_summary.html">Summary and guide for calzone</a></li>
 <li class="toctree-l1"><a class="reference internal" href="reliability_diagram.html">Reliability diagram</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ece_mce.html">Exepected Calibration Error(ECE) and Maximum Calibration Error (MCE)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="hl_test.html">Hosmer-Lemeshow test (HL test)</a></li>
@@ -95,7 +96,7 @@
              
   <section id="Prevalence-adjustment">
 <h1>Prevalence adjustment<a class="headerlink" href="#Prevalence-adjustment" title="Link to this heading"></a></h1>
-<p>In this notebook, we will discuss how prevalence will affect the calibration of the model in a binary classification problem and how to adjust for prevalence differences.</p>
+<p>In this notebook, we will discuss how prevalence will affect the calibration of the model in a binary classification problem and how to adjust for prevalence differences.Prevalence shift happens when the proportion of positive and negative cases in your evaluation data is different from what the model was trained on. This can cause the predicted probabilities to be systematically off, even if the model itself hasn’t changed.</p>
 <p>When we discuss calibration, we usually refer to whether the probability output by the model matches the posterior probability of the true outcome.</p>
 <div class="math notranslate nohighlight">
 \[P(D=1|\hat{p} = p) = p ,\forall p \in [0,1]\]</div>

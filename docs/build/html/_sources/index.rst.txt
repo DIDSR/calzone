@@ -18,8 +18,7 @@ Key features of calzone include:
 * Command line interface scripts for batch processing
 * Multi-class extension by using 1-vs-rest or top-class only
 
-To accurately assess the calibration of machine learning models, it is essential to have a comprehensive and reprensative dataset with sufficient coverage of the prediction space. The calibration metrics is not meaningful if the dataset is not representative of true intended population.
-
+To accurately assess the calibration of a machine learning model, it's important to use a dataset that's both comprehensive and representative of the intended population. Calibration metrics such as reliability diagrams or expected calibration error aren't meaningful if the dataset doesn't reflect the real-world data the model is meant to operate on. For example, if certain prediction ranges or subgroups are underrepresented, the model might appear well-calibrated overall but actually perform poorly in those regions. In other words, without sufficient coverage of the prediction space, especially across relevant clinical or demographic groups, calibration results can be misleading. Ensuring good coverage helps make sure that the evaluation actually reflects how the model will behave in practice.
 
 We hope you find calzone useful in your machine learning projects!
 

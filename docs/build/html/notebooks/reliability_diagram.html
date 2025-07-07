@@ -24,7 +24,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Exepected Calibration Error(ECE) and Maximum Calibration Error (MCE)" href="ece_mce.html" />
-    <link rel="prev" title="&lt;no title&gt;" href="metrics_summary.html" /> 
+    <link rel="prev" title="Summary and guide for calzone" href="metrics_summary.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -50,6 +50,7 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../index.html">Welcome to the documentation for calzone</a></li>
 <li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="metrics_summary.html">Summary and guide for calzone</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Reliability diagram</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#References">References</a></li>
 </ul>
@@ -125,8 +126,8 @@
 <img alt="../_images/notebooks_reliability_diagram_3_0.png" src="../_images/notebooks_reliability_diagram_3_0.png" />
 </div>
 </div>
-<p>The error bar in the reliability diagram is the 95% confidence interval calculated using wilson score interval which assume that samples in a bin is a series of Bernoulli trials with the success probability equal to the mean predicted probability. The confidence interval is only for reference and might not be exact.</p>
-<p>Since we have a binary classification problem, The mean predicted probability will not go below 0.5 for the top-class reliability diagram. We will proceed to plot the class 1 reliability diagram.</p>
+<p>The error bar in the reliability diagram is the 95% confidence interval calculated using the Wilson score interval, which assumes that samples in a bin are a series of Bernoulli trials with the success probability equal to the mean predicted probability. The confidence interval is only for reference and might not be exact.</p>
+<p>Since we have a binary classification problem, the mean predicted probability will not go below 0.5 for the top-class reliability diagram. We will proceed to plot the class 1 reliability diagram.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
 </pre></div>
@@ -145,7 +146,7 @@
 <img alt="../_images/notebooks_reliability_diagram_5_0.png" src="../_images/notebooks_reliability_diagram_5_0.png" />
 </div>
 </div>
-<p>Class-by-class reliability diagrams reveal more information about the model’s calibration. The top-class reliability diagram could be misleading as it could shows reasonable calibration for the top-class, but the model could be overconfident for the other classes. We can demonstrate in the following example.</p>
+<p>Class-by-class reliability diagrams reveal more information about the model’s calibration. The top-class reliability diagram could be misleading, as it might show reasonable calibration for the top class, while the model could be overconfident for the other classes. We demonstrate this in the following example.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[40]:
 </pre></div>
@@ -174,10 +175,11 @@
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[42]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### Create and plot the top-class reliability diagram</span>
+<span class="c1"># The reliability diagram still closely resembles the well-calibrated one</span>
 <span class="n">reliability</span><span class="p">,</span><span class="n">confindence</span><span class="p">,</span><span class="n">bin_edges</span><span class="p">,</span><span class="n">bin_counts</span> <span class="o">=</span> <span class="n">reliability_diagram</span><span class="p">(</span><span class="n">test_dataloader</span><span class="o">.</span><span class="n">labels</span><span class="p">,</span> <span class="n">test_dataloader</span><span class="o">.</span><span class="n">probs</span><span class="p">,</span> <span class="n">num_bins</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span><span class="n">class_to_plot</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
 <span class="n">plot_reliability_diagram</span><span class="p">(</span><span class="n">reliability</span><span class="p">,</span><span class="n">confindence</span><span class="p">,</span><span class="n">bin_counts</span><span class="p">,</span><span class="n">error_bar</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;Top class reliability diagram for mis calibrated data&#39;</span><span class="p">)</span>
 <br/></pre></div>
@@ -191,10 +193,11 @@
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[43]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### Create and plot the class-by-class reliability diagram</span>
+<span class="c1"># The reliability diagrams for class 1 and class 0 are very bad</span>
 <span class="n">reliability_0</span><span class="p">,</span><span class="n">confindence_0</span><span class="p">,</span><span class="n">bin_edges</span><span class="p">,</span><span class="n">bin_counts_0</span> <span class="o">=</span> <span class="n">reliability_diagram</span><span class="p">(</span><span class="n">test_dataloader</span><span class="o">.</span><span class="n">labels</span><span class="p">,</span> <span class="n">test_dataloader</span><span class="o">.</span><span class="n">probs</span><span class="p">,</span> <span class="n">num_bins</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span><span class="n">class_to_plot</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 <span class="n">reliability_1</span><span class="p">,</span><span class="n">confindence_1</span><span class="p">,</span><span class="n">bin_edges</span><span class="p">,</span><span class="n">bin_counts_1</span> <span class="o">=</span> <span class="n">reliability_diagram</span><span class="p">(</span><span class="n">test_dataloader</span><span class="o">.</span><span class="n">labels</span><span class="p">,</span> <span class="n">test_dataloader</span><span class="o">.</span><span class="n">probs</span><span class="p">,</span> <span class="n">num_bins</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span><span class="n">class_to_plot</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 <span class="n">reliability</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">((</span><span class="n">reliability_0</span><span class="p">,</span><span class="n">reliability_1</span><span class="p">))</span>
@@ -211,7 +214,7 @@
 <img alt="../_images/notebooks_reliability_diagram_9_0.png" src="../_images/notebooks_reliability_diagram_9_0.png" />
 </div>
 </div>
-<p>The example shows us that the prevalence shift in the testing data could lead to mis-calibration in a posterior sense. Calzone provides a method to calibrate it. The prevalence is not related to the model and the model could still have the correct likelihood ratio. See more discussion in the prevalence adjustment section.</p>
+<p>The example shows that prevalence shift in the testing data can lead to miscalibration in a posterior sense. Calzone provides a method to adjust for this. Prevalence is independent of the model itself, and the model may still produce correct likelihood ratios. See the prevalence adjustment section for more discussion.</p>
 <section id="References">
 <h2>References<a class="headerlink" href="#References" title="Link to this heading"></a></h2>
 <p>Bröcker, J., &amp; Smith, L. A. (2007). Increasing the Reliability of Reliability Diagrams. Weather and Forecasting, 22(3), 651–661. <a class="reference external" href="https://doi.org/10.1175/WAF993.1">https://doi.org/10.1175/WAF993.1</a></p>
@@ -222,7 +225,7 @@
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="metrics_summary.html" class="btn btn-neutral float-left" title="&lt;no title&gt;" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="metrics_summary.html" class="btn btn-neutral float-left" title="Summary and guide for calzone" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="ece_mce.html" class="btn btn-neutral float-right" title="Exepected Calibration Error(ECE) and Maximum Calibration Error (MCE)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
