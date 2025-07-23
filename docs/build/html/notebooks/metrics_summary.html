@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" data-content_root="../">
 <head>
@@ -5,22 +7,18 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Summary and guide for calzone &mdash; calzone develop documentation</title>
-      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
-      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
 
   
-  <!--[if lt IE 9]>
-    <script src="../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
-        <script src="../_static/jquery.js?v=5d32c60e"></script>
-        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../_static/documentation_options.js?v=16816911"></script>
-        <script src="../_static/doctools.js?v=9a2dae69"></script>
-        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
-        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=16816911"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+      <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -52,7 +50,10 @@
 <li class="toctree-l1"><a class="reference internal" href="../index.html">Welcome to the documentation for calzone</a></li>
 <li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick Start</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Summary and guide for calzone</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#Guide-to-calzone-and-calibration-metrics">Guide to calzone and calibration metrics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#PNG-version-of-the-table-for-formatting-problem">PNG version of the table for formatting problem</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#Guide-to-calzone-and-calibration-metrics">Guide to calzone and calibration metrics</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="reliability_diagram.html">Reliability diagram</a></li>
@@ -96,16 +97,21 @@
   <section id="Summary-and-guide-for-calzone">
 <h1>Summary and guide for calzone<a class="headerlink" href="#Summary-and-guide-for-calzone" title="Link to this heading"></a></h1>
 <p>We provide a summary of the calibration metrics provides by calzone, including the pros and cons of each metrics. For a more detailed explanation of each metrics and how to calculate them using calzone, please refer to the specific notebook.</p>
+<section id="PNG-version-of-the-table-for-formatting-problem">
+<h2>PNG version of the table for formatting problem<a class="headerlink" href="#PNG-version-of-the-table-for-formatting-problem" title="Link to this heading"></a></h2>
 <p><img alt="alt text" src="../_images/mytable.png" /></p>
 <section id="Guide-to-calzone-and-calibration-metrics">
-<h2>Guide to calzone and calibration metrics<a class="headerlink" href="#Guide-to-calzone-and-calibration-metrics" title="Link to this heading"></a></h2>
-<p>calzone aims to access whether a model achieves moderate calibration, meaning whether <span class="math notranslate nohighlight">\(\mathbb{P}(\hat{Y}=Y|\hat{P}=p)=p\)</span> for all <span class="math notranslate nohighlight">\(p\in[0,1]\)</span>.</p>
-<p>To accurately assess the calibration of machine learning models, it is essential to have a comprehensive and reprensative dataset with sufficient coverage of the prediction space. The calibration metrics is not meaningful if the dataset is not representative of true intended population.</p>
+<h3>Guide to calzone and calibration metrics<a class="headerlink" href="#Guide-to-calzone-and-calibration-metrics" title="Link to this heading"></a></h3>
+<p>calzone aims to access whether a model achieves moderate calibration, meaning whether <span class="math notranslate nohighlight">\(\mathbb{P}(D=1|\hat{P}=p)=p\)</span> for all <span class="math notranslate nohighlight">\(p\in[0,1]\)</span>.</p>
+<p>To accurately assess the calibration of a machine learning model, it’s important to use a dataset that’s both comprehensive and representative of the intended population. Calibration metrics such as reliability diagrams or expected calibration error aren’t meaningful if the dataset doesn’t reflect the real-world data the model is meant to operate on. For example, if certain prediction ranges or subgroups are underrepresented, the model might appear well-calibrated overall but actually perform
+poorly in those regions. In other words, without sufficient coverage of the prediction space, especially across relevant clinical or demographic groups, calibration results can be misleading. Ensuring good coverage helps make sure that the evaluation actually reflects how the model will behave in practice.</p>
 <p>calzone takes in a csv dataset which contains the probability of each class and the true label. Most metrics in calzone only work with binary classification and which transforms the problem into 1-vs-rest when calcualte the metrics. Therefore, you need to specify the class-of-interest when using the metrics. The only exception is the Top-class Expected calibration error (<span class="math notranslate nohighlight">\(ECE_{top}\)</span>) and Top-class Maximum calibration error (<span class="math notranslate nohighlight">\(MCE_{top}\)</span>) metrics which only measure the calibration of
 the class with highest predicted probability hence works for multi-class problems. See the corresponding documentation for more details.</p>
-<p>We recommend visualizing calibration using reliability diagrams. If you observe general over- or under-estimation of probabilities for a given class, consider applying a prevalence adjustment to determine if it’s solely due to prevalence shift. After prevalence adjustment, plot the reliability diagrams again and examine the results of calibration metrics.</p>
-<p>For a general sense of average probability deviation, we recommend using the Cox and Loess integrated calibration index (ICI) as they don’t depend on binning. Alternativly, ECE can be used to measure the same but the result will depend on the binning scheme you used. If the probabilities distribution is highly skewed toward 0 and 1, use equal-count binning for ECE.</p>
+<p>We recommend using reliability diagrams to visualize calibration. If you notice that the model consistently over- or underestimates probabilities for a certain class, it’s worth checking whether that’s just due to a prevalence shift. Prevalence shift happens when the proportion of positive and negative cases in your evaluation data is different from what the model was trained on. This can cause the predicted probabilities to be systematically off, even if the model itself hasn’t changed. You can
+check for this by applying a prevalence adjustment and then re-plotting the reliability diagrams. After the adjustment, take another look at the calibration metrics to see if the issue persists. This helps separate problems caused by distribution shift from those that are due to poor calibration.</p>
+<p>For a general sense of average probability deviation, we recommend using the Cox and Loess integrated calibration index (ICI) as they don’t depend on binning. Alternatively, ECE can be used to measure the same but the result will depend on the binning scheme you used. If the probabilities distribution is highly skewed toward 0 and 1, use equal-count binning for ECE.</p>
 <p>Please refer to the notebooks for detailed descriptions of each metric.</p>
+</section>
 </section>
 </section>
 

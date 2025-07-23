@@ -48,11 +48,16 @@ bibliography: paper.bib
 `calzone` is a Python package for evaluating the calibration of probabilistic outputs of classifier models. It provides a set of functions for visualizing calibration and computing of calibration metrics given a representative dataset with the model's predictions and the true class labels. The metrics provided in `calzone` include: Expected Calibration Error (ECE), Maximum Calibration Error (MCE), Hosmer-Lemeshow (HL) statistic, Integrated Calibration Index (ICI), Spiegelhalter's Z-statistics and Cox's calibration slope/intercept. The package is designed with versatility in mind. For many of the metrics, users can adjust the binning scheme and toggle between top-class or class-wise calculations. 
 
 # Statement of need
-Classification is one of the most common applications in machine learning. Examination of the discrimination performance (resolution), such as AUC or Se/Sp are also used to evaluate model performance. These metrics may be sufficient if the output of the model is not meant to be a calibrated probability.
+Classification is one of the most common applications in machine learning. Examination of the discrimination performance (resolution), such as Area under the curve (AUC) or Sensitivty(Se, also known as true positive rate or Specifity(Sp, also known as 1 - false positive rate) are also used to evaluate model performance @statistical_learning. These metrics may be sufficient if the output of the model is not meant to be a calibrated probability.
 
 @DIAMOND199285 showed that the resolution (i.e., high performance) of a model does not indicate the reliability/calibration of the model. Calibration is the agreement between predicted and true probabilities, $P(D=1|\hat{p}=p) = p$, defined as moderate calibration by @Calster_weak_cal and also known as model reliability. @Brocker_decompose later showed that any proper scoring rule can be decomposed into the resolution and reliability. Thus, a model with high resolution may still lack reliability. In high-risk applications like medical diagnosis, reliability aids interpretability for treatment decisions.
 
-The `calzone` package offers functions and classes for visualizing and evaluating calibration metrics with a representative dataset. Existing libraries like `scikit-learn` lack comprehensive calibration metrics, and others like `uncertainty-toolbox` focus on calibration methods rather than assessment [@uncertaintyToolbox].
+
+ While existing libraries such as `scikit-learn` include basic tools like reliability diagrams and expected calibration error, they lack support for more comprehensive and flexible evaluation metrics—such as reliability diagrams with error bars, class-conditional calibration error, different binning schemes, or statistical significance testing for miscalibration. Other libraries, such as `ml-calibration`, `uncertainty-toolbox`, and `pycaleva`, primarily focus on only one aspect of calibration. For example, `ml-calibration` provides advanced controls for plotting reliability diagrams and computing smooth expected calibration error but does not include statistical tests for miscalibration [@ml-calibration]. The `uncertainty-toolbox` focuses on calibration methods rather than assessment [@uncertaintyToolbox]. The `pycaleva` package overlaps with many functionalities in calzone, but it does not support Cox's calibration analysis, Wald intervals for reliability, or custom curve fitting methods for expected calibration error [@pycaleva].
+
+ The `calzone` package offers functions and classes for visualizing and evaluating calibration metrics using representative datasets.
+
+In contrast, calzone emphasizes diagnostic tools for calibration assessment. It includes a wider set of calibration metrics, statistical tests (e.g., hypothesis testing for miscalibration), and visualization tools tailored for classification tasks with multiple classes. The package is designed to help users not only visualize miscalibration but also quantify and statistically validate it in a consistent and interpretable way.
 
 # Software description
 
@@ -85,7 +90,7 @@ plot_reliability_diagram(
 
 ## Calibration metrics
 
-`calzone` provides functions to compute various calibration metrics. The `CalibrationMetrics()` class allows the user to compute the calibration metrics in a more convenient way. The following are metrics that are currently supported in `calzone`: 
+`calzone` provides functions to compute various calibration metrics, including methods to compute expected calibration error and statistical tests to assess calibration. These functions provide quantitative metrics for users to evaluate the calibration performance of the model. The `CalibrationMetrics()` class allows the user to compute the calibration metrics in a more convenient way. The following are metrics that are currently supported in `calzone`: 
 
 ### Expected Calibration Error (ECE) and Maximum Calibration Error (MCE)
 Expected Calibration Error (ECE) and Maximum Calibration Error (MCE) [@guo_calibration;@Naeini_ece] measure the average and maximum deviation between predicted and true probabilities. `calzone` supports equal-width (ECE-H) and equal-count (ECE-C) binning. Users can compute these metrics for the top-class (highest probability) or class-of-interest (one-vs-rest classification).
