@@ -698,7 +698,9 @@ them to observed outcomes.</p>
 5. If subgroups are present, extracts subgroup classes and their indices.</p>
 <p>Note:
 - If there is a header, it must be in the format: proba_0,proba_1,…,subgroup_1(optional),subgroup_2(optional),…,label
-- If there is no header, the columns must be in the order of proba_0,proba_1,…,label</p>
+- If there is no header, the columns must be in the order of proba_0,proba_1,…,label
+- Raises ValueError if the format is wrong.
+- Probability columns must be 2 or more.</p>
 </dd></dl>
 
 <dl class="py method">

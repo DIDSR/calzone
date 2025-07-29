@@ -30,4 +30,8 @@ jobs:
         pip install .
     - name: run main metrics class
       run: |
-        python tests/main.py
+        python tests/test_metrics.py
+    - name: Run tests
+      run: |
+        if [ -f tests/test_requirements.txt ]; then pip install -r tests/test_requirements.txt; fi
+        python tests/test_metrics.py
