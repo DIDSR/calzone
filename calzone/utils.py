@@ -377,6 +377,8 @@ class data_loader:
         Note:
         - If there is a header, it must be in the format: proba_0,proba_1,...,subgroup_1(optional),subgroup_2(optional),...,label
         - If there is no header, the columns must be in the order of proba_0,proba_1,...,label
+        - Raises ValueError if the format is wrong.
+        - Probability columns must be 2 or more.
         """
         self.data_path = data_path
         self.Header = np.loadtxt(self.data_path, delimiter=",", max_rows=1, dtype=str)
@@ -388,33 +390,43 @@ class data_loader:
             self.have_subgroup = True
         else:
             self.have_subgroup = False
-        if not self.have_subgroup:
-            if self.Header[-1] == "label":
-                self.data = np.loadtxt(self.data_path, delimiter=",", skiprows=1)
-                self.probs = self.data[:, :-1]
-                self.labels = self.data[:, -1:].astype(int)
+        try:
+            if not self.have_subgroup:
+                if self.Header[-1] == "label":
+                    self.data = np.loadtxt(self.data_path, delimiter=",", skiprows=1)
+                    if self.data.shape[1] < 3:
+                        raise ValueError("Data must have at least two probability columns and one label column.")
+                    self.probs = self.data[:, :-1]
+                    self.labels = self.data[:, -1:].astype(int)
+                else:
+                    self.data = np.loadtxt(self.data_path, delimiter=",")
+                    if self.data.shape[1] < 3:
+                        raise ValueError("Data must have at least two probability columns and one label column.")
+                    self.probs = self.data[:, :-1].astype(float)
+                    self.labels = self.data[:, -1:].astype(int)
             else:
-                self.data = np.loadtxt(self.data_path, delimiter=",")
-                self.probs = self.data[:, :-1].astype(float)
+                self.data = np.loadtxt(self.data_path, delimiter=",", skiprows=1, dtype=str)
+                expected_cols = len(self.subgroups) + 2 + 1  # 2+ prob columns, subgroup columns, 1 label
+                if self.data.shape[1] < expected_cols:
+                    raise ValueError("Data format is incorrect: must have at least two probability columns, subgroup columns, and one label column.")
+                self.probs = self.data[:, :self.data.shape[1] - len(self.subgroups) - 1].astype(float)
                 self.labels = self.data[:, -1:].astype(int)
-        else:
-            self.data = np.loadtxt(self.data_path, delimiter=",", skiprows=1, dtype=str)
-            self.probs = self.data[:, : -len(self.subgroups) - 1].astype(float)
-            self.labels = self.data[:, -1:].astype(int)
-            self.subgroups_class = []
-            self.subgroups_index = []
-            for i, subgroup in enumerate(self.subgroups):
-                self.subgroups_class.append(
-                    np.unique(self.data[:, self.subgroup_indices[i]])
-                )
-                indices = []
-                for j, subgroup_class in enumerate(self.subgroups_class[i]):
-                    indices.append(
-                        np.where(
-                            self.data[:, self.subgroup_indices[i]] == subgroup_class
-                        )[0]
+                self.subgroups_class = []
+                self.subgroups_index = []
+                for i, subgroup in enumerate(self.subgroups):
+                    self.subgroups_class.append(
+                        np.unique(self.data[:, self.subgroup_indices[i]])
                     )
-                self.subgroups_index.append(indices)
+                    indices = []
+                    for j, subgroup_class in enumerate(self.subgroups_class[i]):
+                        indices.append(
+                            np.where(
+                                self.data[:, self.subgroup_indices[i]] == subgroup_class
+                            )[0]
+                        )
+                    self.subgroups_index.append(indices)
+        except Exception as e:
+            raise ValueError(f"Error loading data: {e}")
 
     def transform_topclass(self):
         """
@@ -431,7 +443,6 @@ class data_loader:
         new_loader.labels = (
             (self.labels.flatten() == top_class).astype(int).reshape(-1, 1)
         )
-        new_loader.data = np.column_stack((new_loader.probs, new_loader.labels))
         return new_loader
 
 class fake_binary_data_generator:

@@ -1,0 +1,24 @@
+# Test requirements for calzone package validation tests
+# These are optional dependencies used for cross-validation against external packages
+# Install with: pip install -r test_requirements.txt
+
+# Core testing framework
+pytest>=6.0.0
+
+# For reliability diagram validation
+scikit-learn>=1.0.0
+
+# For ECE and Spiegelhalter Z test validation  
+mapie>=0.6.0
+
+# Additional dependencies for data handling in tests
+pandas>=1.3.0
+
+# For relplot reliability diagram validation
+relplot>=1.0.0
+
+# For pycaleva calibration metrics validation
+pycaleva>=0.8.0
+
+# Note: Core dependencies (numpy, scipy, matplotlib, statsmodels) 
+# are already specified in the main requirements.txt and pyproject.toml
