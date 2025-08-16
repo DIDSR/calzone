@@ -9,6 +9,7 @@
   <title>Summary and guide for calzone &mdash; calzone develop documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/nbsphinx-code-cells.css?v=2aa19091" />
 
   
       <script src="../_static/jquery.js?v=5d32c60e"></script>
@@ -97,6 +98,83 @@
   <section id="Summary-and-guide-for-calzone">
 <h1>Summary and guide for calzone<a class="headerlink" href="#Summary-and-guide-for-calzone" title="Link to this heading"></a></h1>
 <p>We provide a summary of the calibration metrics provides by calzone, including the pros and cons of each metrics. For a more detailed explanation of each metrics and how to calculate them using calzone, please refer to the specific notebook.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">display</span><span class="p">(</span><span class="n">HTML</span><span class="p">(</span><span class="n">styled_df</span><span class="o">.</span><span class="n">to_html</span><span class="p">(</span><span class="n">escape</span><span class="o">=</span><span class="kc">False</span><span class="p">)))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area rendered_html docutils container">
+<style type="text/css">
+#T_f1c3f th {
+  text-align: center;
+}
+#T_f1c3f_row0_col0, #T_f1c3f_row0_col1, #T_f1c3f_row0_col2, #T_f1c3f_row0_col3, #T_f1c3f_row0_col4, #T_f1c3f_row1_col0, #T_f1c3f_row1_col1, #T_f1c3f_row1_col2, #T_f1c3f_row1_col3, #T_f1c3f_row1_col4, #T_f1c3f_row2_col0, #T_f1c3f_row2_col1, #T_f1c3f_row2_col2, #T_f1c3f_row2_col3, #T_f1c3f_row2_col4, #T_f1c3f_row3_col0, #T_f1c3f_row3_col1, #T_f1c3f_row3_col2, #T_f1c3f_row3_col3, #T_f1c3f_row3_col4, #T_f1c3f_row4_col0, #T_f1c3f_row4_col1, #T_f1c3f_row4_col2, #T_f1c3f_row4_col3, #T_f1c3f_row4_col4, #T_f1c3f_row5_col0, #T_f1c3f_row5_col1, #T_f1c3f_row5_col2, #T_f1c3f_row5_col3, #T_f1c3f_row5_col4 {
+  text-align: left;
+  white-space: pre-wrap;
+}
+</style>
+<table id="T_f1c3f">
+  <thead>
+    <tr>
+      <th id="T_f1c3f_level0_col0" class="col_heading level0 col0" >Metrics</th>
+      <th id="T_f1c3f_level0_col1" class="col_heading level0 col1" >Description</th>
+      <th id="T_f1c3f_level0_col2" class="col_heading level0 col2" >Pros</th>
+      <th id="T_f1c3f_level0_col3" class="col_heading level0 col3" >Cons</th>
+      <th id="T_f1c3f_level0_col4" class="col_heading level0 col4" >Meaning</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td id="T_f1c3f_row0_col0" class="data row0 col0" >Expected calibration error<br>(ECE)</td>
+      <td id="T_f1c3f_row0_col1" class="data row0 col1" ><div>Using binned reliability diagram<br>(equal-width or equal-count binning),<br>sum of absolute difference, weighted by bin count.</div></td>
+      <td id="T_f1c3f_row0_col2" class="data row0 col2" ><div>• Intuitive<br>• Easy to calculate</div></td>
+      <td id="T_f1c3f_row0_col3" class="data row0 col3" ><div>• Depend on binning <br>• Depend on class-by-class/top-class</div></td>
+      <td id="T_f1c3f_row0_col4" class="data row0 col4" ><div>Average deviation from<br>true probability</div></td>
+    </tr>
+    <tr>
+      <td id="T_f1c3f_row1_col0" class="data row1 col0" >Maximum calibration error<br>(MCE)</td>
+      <td id="T_f1c3f_row1_col1" class="data row1 col1" ><div>Using binned reliability diagram<br>(equal-width or equal-count binning),<br>Maximum absolute difference.</div></td>
+      <td id="T_f1c3f_row1_col2" class="data row1 col2" ><div>• Intuitive<br>• Easy to calculate</div></td>
+      <td id="T_f1c3f_row1_col3" class="data row1 col3" ><div>• Depend on binning <br>• Depend on class-by-class/top-class</div></td>
+      <td id="T_f1c3f_row1_col4" class="data row1 col4" ><div>Maximum deviation from<br>true probability</div></td>
+    </tr>
+    <tr>
+      <td id="T_f1c3f_row2_col0" class="data row2 col0" >Hosmer-Lemeshow test</td>
+      <td id="T_f1c3f_row2_col1" class="data row2 col1" ><div>Using binned reliability diagram<br>(equal-width or equal-count binning),<br>Chi-squared based test using expected and observed.</div></td>
+      <td id="T_f1c3f_row2_col2" class="data row2 col2" ><div>• Intuitive<br>• Statistical meaning</div></td>
+      <td id="T_f1c3f_row2_col3" class="data row2 col3" ><div>• Depend on binning <br>• Low power<br>• Wrong coverage</div></td>
+      <td id="T_f1c3f_row2_col4" class="data row2 col4" ><div>Test of<br>calibration</div></td>
+    </tr>
+    <tr>
+      <td id="T_f1c3f_row3_col0" class="data row3 col0" >Spiegelhalter's z test</td>
+      <td id="T_f1c3f_row3_col1" class="data row3 col1" ><div>Decomposition of brier score.<br>Normal distributed<br> </div></td>
+      <td id="T_f1c3f_row3_col2" class="data row3 col2" ><div>• Doesn't rely on binning<br>• Statistical meaning</div></td>
+      <td id="T_f1c3f_row3_col3" class="data row3 col3" ><div>• Doesn't detect prevalence shift</div></td>
+      <td id="T_f1c3f_row3_col4" class="data row3 col4" ><div>Test of<br>calibration</div></td>
+    </tr>
+    <tr>
+      <td id="T_f1c3f_row4_col0" class="data row4 col0" >Cox's analysis</td>
+      <td id="T_f1c3f_row4_col1" class="data row4 col1" ><div>Logistic regression of the logits<br> <br> </div></td>
+      <td id="T_f1c3f_row4_col2" class="data row4 col2" ><div>• Doesn't rely on binning<br>• Hints at miscalibration type</div></td>
+      <td id="T_f1c3f_row4_col3" class="data row4 col3" ><div>• Failed to capture some miscalibration</div></td>
+      <td id="T_f1c3f_row4_col4" class="data row4 col4" ><div>A logit fit to the<br>calibration curve</div></td>
+    </tr>
+    <tr>
+      <td id="T_f1c3f_row5_col0" class="data row5 col0" >Integrated calibration index<br> (ICI)</td>
+      <td id="T_f1c3f_row5_col1" class="data row5 col1" ><div>Similar to ECE, using smooth fit (usually losse)<br>instead of binning to get<br>the calibration curve</div></td>
+      <td id="T_f1c3f_row5_col2" class="data row5 col2" ><div>• Doesn't rely on binning<br>• Capture all kind of miscalibration</div></td>
+      <td id="T_f1c3f_row5_col3" class="data row5 col3" ><div>• Depend on the choice of curve fitting<br>• Depend on fitting parameters</div></td>
+      <td id="T_f1c3f_row5_col4" class="data row5 col4" ><div>Average deviation from<br>true probability</div></td>
+    </tr>
+  </tbody>
+</table></div>
+</div>
 <section id="PNG-version-of-the-table-for-formatting-problem">
 <h2>PNG version of the table for formatting problem<a class="headerlink" href="#PNG-version-of-the-table-for-formatting-problem" title="Link to this heading"></a></h2>
 <p><img alt="alt text" src="../_images/mytable.png" /></p>
