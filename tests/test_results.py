@@ -83,9 +83,12 @@ class TestValidationAgainstExternalPackages:
     def test_ece_against_mapie(self):
         """Test Expected Calibration Error implementation against MAPIE."""
         try:
-            from mapie.metrics import top_label_ece
+            from mapie.metrics.calibration import top_label_ece 
         except ImportError:
-            pytest.skip("MAPIE not available")
+            try: # older version
+                from mapie.metrics import top_label_ece
+            except ImportError:
+                pytest.skip("MAPIE not available")
         
         # Calculate reliability diagrams for top class
         calzone_reliability_topclass_H, calzone_confidence_topclass_H, bin_edge_topclass_H, bin_count_topclass_H = reliability_diagram(
