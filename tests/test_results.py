@@ -140,9 +140,12 @@ class TestValidationAgainstExternalPackages:
     def test_spiegelhalter_z_against_mapie(self):
         """Test Spiegelhalter's Z test statistic against MAPIE."""
         try:
-            from mapie.metrics import spiegelhalter_statistic
+            from mapie.metrics.calibration import spiegelhalter_statistic
         except ImportError:
-            pytest.skip("MAPIE not available")
+            try:
+                from mapie.metrics import spiegelhalter_statistic
+            except ImportError:
+                pytest.skip("MAPIE not available")
         
         # Compare the Z statistics (not p-values as MAPIE uses one-sided test)
         mapie_z_stat = spiegelhalter_statistic(
