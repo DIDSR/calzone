@@ -45,10 +45,10 @@ bibliography: paper.bib
 ---
 
 # Summary
-`Calzone` is a Python package for evaluating the calibration of probabilistic outputs of classifier models. It provides a set of functions for visualizing calibration and computing of calibration metrics given a representative dataset with the model's predictions and the true class labels. The metrics provided in `Calzone` include: Expected Calibration Error (ECE), Maximum Calibration Error (MCE), Hosmer-Lemeshow (HL) statistic, Integrated Calibration Index (ICI), Spiegelhalter's Z-statistics and Cox's calibration slope/intercept. The package is designed with versatility in mind. For many of the metrics, users can adjust the binning scheme and toggle between top-class or class-wise calculations. 
+`Calzone` is a Python package for evaluating the calibration of probabilistic outputs of classifier models. It provides a set of functions for visualizing calibration and computing of calibration metrics given a representative dataset with the model's predictions and the true class labels. The metrics provided in `Calzone` include: expected calibration error (ECE), maximum calibration error (MCE), Hosmer-Lemeshow (HL) statistic, integrated calibration index (ICI), Spiegelhalter's Z-statistics and Cox's calibration slope/intercept. The package is designed with versatility in mind. For many of the metrics, users can adjust the binning scheme and toggle between top-class or class-wise calculations. 
 
 # Statement of need
-Classification is one of the most common applications in machine learning. Metrics associated with discrimination performance (resolution), such as Area under the curve (AUC),  Sensitivity (Se, true positive rate), and Specifity (Sp, 1 - false positive rate) are typically used to characterize classification performance @statistical_learning. These metrics may be sufficient if the outputs of the model are not meant to be interpreted as a probability.
+Classification is one of the most common applications in machine learning. Metrics associated with discrimination performance (resolution), such as area under the curve (AUC),  sensitivity (Se, true positive rate), and specifity (Sp, 1 - false positive rate) are typically used to characterize classification performance @statistical_learning. These metrics may be sufficient if the outputs of the model are not meant to be interpreted as a probability.
 
 However, @DIAMOND199285 showed that the resolution (i.e., high performance) of a model does not indicate the reliability/calibration of the model. Calibration is the agreement between predicted and true probabilities, $P(D=1|\hat{p}=p) = p$, defined as moderate calibration by @Calster_weak_cal, also known as model reliability. @Brocker_decompose later showed that any proper scoring rule can be decomposed into the resolution and reliability. Thus, a model with high resolution may still lack reliability. In high-risk medical applications such as computer-aided diagnosis, reliability enables the correct interpretation of model output, and for making downstream treatment decisions.
 
@@ -88,7 +88,7 @@ plot_reliability_diagram(
 `Calzone` provides functions to compute various calibration metrics, including methods to compute expected calibration error and statistical tests to assess calibration. These functions provide quantitative metrics for users to evaluate the calibration performance of the model. The `CalibrationMetrics()` class allows the user to compute the calibration metrics in a more convenient way. The following are metrics that are currently supported in `Calzone`: 
 
 ### Expected Calibration Error (ECE) and Maximum Calibration Error (MCE)
-Expected Calibration Error (ECE) and Maximum Calibration Error (MCE) [@guo_calibration;@Naeini_ece] measure the average and maximum deviation between predicted and true probabilities. `Calzone` supports equal-width (ECE-H) and equal-count (ECE-C) binning. Users can compute these metrics for the top-class (highest probability) or class-of-interest (one-vs-rest classification).
+Expected calibration error (ECE) and maximum calibration error (MCE) [@guo_calibration;@Naeini_ece] measure the average and maximum deviation between predicted and true probabilities. `Calzone` supports equal-width (ECE-H) and equal-count (ECE-C) binning. Users can compute these metrics for the top-class (highest probability) or class-of-interest (one-vs-rest classification).
 
 ### Hosmer-Lemeshow statistic (HL)
 The Hosmer-Lemeshow (HL) test [@hl_test] evaluates model calibration using a chi-square test comparing observed and expected events in bins. The null hypothesis is that the model is well calibrated. `Calzone` supports equal-width (ECE-H) and equal-count (ECE-C) binning. The test statistic is:
@@ -103,7 +103,7 @@ Cox's calibration slope/intercept assesses model calibration without binning [@C
 A slope >1 indicates overconfidence at high probabilities and underconfidence at low probabilities, while a slope <1 indicates the opposite. A positive intercept indicates general overconfidence. Even with ideal slope and intercept, non-linear miscalibration may still exist.
 
 ### Integrated calibration index (ICI)
-The Integrated Calibration Index (ICI) measures the average deviation between predicted and true probabilities using curve smoothing techniques [@ICI_austin]. It is calculated as:
+The integrated calibration index (ICI) measures the average deviation between predicted and true probabilities using curve smoothing techniques [@ICI_austin]. It is calculated as:
 $$
 \text{ICI} = \frac{1}{n}\sum_{i=1}^{n} |f(p_i)-p_i|
 $$
