@@ -4,7 +4,7 @@ Unit tests for calzone.utils module.
 import numpy as np
 import pytest
 from calzone import utils
-
+import os
 def test_softmax_to_logits_basic():
     print("Running test_softmax_to_logits_basic...")
     probs = np.array([[0.2, 0.8], [0.5, 0.5]])
@@ -64,10 +64,38 @@ def test_fake_binary_data_generator():
 def test_data_loader():
     print("Running test_data_loader...")
     # Only test instantiation, as methods may not be fully implemented
-    loader = utils.data_loader('../example_data/simulated_welldata.csv')
+    loader = utils.data_loader(os.path.join(os.path.dirname(__file__), 'test_data.csv'))
     assert hasattr(loader, 'data_path')
     new_loader = loader.transform_topclass()
     assert isinstance(new_loader, utils.data_loader)
+
+def test_make_roc_curve():
+    print("Running test_make_roc_curve...")
+    # Binary case
+    y_true = np.array([0, 1, 1, 0, 1, 0, 1, 0])
+    y_proba = np.array([
+        [0.8, 0.2],
+        [0.3, 0.7],
+        [0.4, 0.6],
+        [0.9, 0.1],
+        [0.2, 0.8],
+        [0.7, 0.3],
+        [0.1, 0.9],
+        [0.6, 0.4],
+    ])
+    # Test single class
+    fpr, tpr, roc_auc = utils.make_roc_curve(y_true, y_proba, class_to_plot=1)
+    assert isinstance(fpr, np.ndarray)
+    assert isinstance(tpr, np.ndarray)
+    assert isinstance(roc_auc, float)
+    # Test multiclass output (should be lists)
+    fpr2, tpr2, roc_auc2 = utils.make_roc_curve(y_true, y_proba)
+    assert isinstance(fpr2, list)
+    assert isinstance(tpr2, list)
+    assert isinstance(roc_auc2, list)
+    assert all(isinstance(x, np.ndarray) for x in fpr2)
+    assert all(isinstance(x, np.ndarray) for x in tpr2)
+    assert all(isinstance(x, float) for x in roc_auc2)
 
 def run_utils_test():
     """Run all utility tests manually."""
@@ -78,6 +106,7 @@ def run_utils_test():
     test_transform_topclass()
     test_fake_binary_data_generator()
     test_data_loader()
+    test_make_roc_curve()
     print("All utils tests ran.")
 
 if __name__ == "__main__":
