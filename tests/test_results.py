@@ -13,6 +13,15 @@ import pytest
 from calzone.utils import reliability_diagram, data_loader
 from calzone.metrics import calculate_ece_mce, spiegelhalter_z_test, hosmer_lemeshow_test
 import os
+from sklearn.calibration import calibration_curve
+import relplot as rp
+from pycaleva import CalibrationEvaluator
+
+# Handle version conflicts for MAPIE imports
+try:
+    from mapie.metrics.calibration import top_label_ece, spiegelhalter_statistic
+except ImportError:
+    from mapie.metrics import top_label_ece, spiegelhalter_statistic
 
 
 class TestValidationAgainstExternalPackages:
@@ -28,11 +37,6 @@ class TestValidationAgainstExternalPackages:
     
     def test_reliability_diagram_against_sklearn(self):
         """Test reliability diagram implementation against scikit-learn."""
-        try:
-            from sklearn.calibration import calibration_curve
-        except ImportError:
-            pytest.skip("scikit-learn not available")
-        
         # scikit-learn implementation
         scikit_reliability_H, scikit_confidence_H = calibration_curve(
             self.wellcal_dataloader.labels, 
@@ -82,14 +86,6 @@ class TestValidationAgainstExternalPackages:
     
     def test_ece_against_mapie(self):
         """Test Expected Calibration Error implementation against MAPIE."""
-        try:
-            from mapie.metrics.calibration import top_label_ece 
-        except ImportError:
-            try: # older version
-                from mapie.metrics import top_label_ece
-            except ImportError:
-                pytest.skip("MAPIE not available")
-        
         # Calculate reliability diagrams for top class
         calzone_reliability_topclass_H, calzone_confidence_topclass_H, bin_edge_topclass_H, bin_count_topclass_H = reliability_diagram(
             self.wellcal_dataloader.labels, 
@@ -139,14 +135,6 @@ class TestValidationAgainstExternalPackages:
     
     def test_spiegelhalter_z_against_mapie(self):
         """Test Spiegelhalter's Z test statistic against MAPIE."""
-        try:
-            from mapie.metrics.calibration import spiegelhalter_statistic
-        except ImportError:
-            try:
-                from mapie.metrics import spiegelhalter_statistic
-            except ImportError:
-                pytest.skip("MAPIE not available")
-        
         # Compare the Z statistics (not p-values as MAPIE uses one-sided test)
         mapie_z_stat = spiegelhalter_statistic(
             self.wellcal_dataloader.labels, 
@@ -195,11 +183,6 @@ class TestValidationAgainstExternalPackages:
 
     def test_reliability_diagram_against_relplot(self):
         """Test calzone reliability diagram against relplot's prepare_rel_diagram_binned."""
-        try:
-            import relplot as rp
-        except ImportError:
-            pytest.skip("relplot not available")
-
         # Calculate reliability diagram using calzone
         calzone_reliability_H, calzone_confidence_H, bin_edge_H, bin_count_H = reliability_diagram(
             self.wellcal_dataloader.labels,
@@ -222,11 +205,6 @@ class TestValidationAgainstExternalPackages:
 
     def test_hosmer_lemeshow_and_spiegelhalterz_against_pycaleva(self):
         """Test HL-C score and SpiegelhalterZ p-value against pycaleva CalibrationEvaluator."""
-        try:
-            from pycaleva import CalibrationEvaluator
-        except ImportError:
-            pytest.skip("pycaleva not available")
-
         # Calculate metrics using calzone
         from calzone.metrics import CalibrationMetrics
         metrics = CalibrationMetrics(class_to_calculate=1)
@@ -263,49 +241,23 @@ def run_validation_tests():
     
     print("Running validation tests against external packages...")
     
-    try:
-        test_instance.test_reliability_diagram_against_sklearn()
-        print("✓ Reliability diagram validation against scikit-learn passed")
-    except ImportError:
-        print("- Skipped reliability diagram test (scikit-learn not available)")
-    except Exception as e:
-        print(f"✗ Reliability diagram test failed: {e}")
+    test_instance.test_reliability_diagram_against_sklearn()
+    print("✓ Reliability diagram validation against scikit-learn passed")
 
-    try:
-        test_instance.test_ece_against_mapie()
-        print("✓ ECE validation against MAPIE passed")
-    except ImportError:
-        print("- Skipped ECE test (MAPIE not available)")
-    except Exception as e:
-        print(f"✗ ECE test failed: {e}")
+    test_instance.test_ece_against_mapie()
+    print("✓ ECE validation against MAPIE passed")
 
-    try:
-        test_instance.test_reliability_diagram_against_relplot()
-        print("✓ Reliability diagram validation against relplot passed")
-    except ImportError:
-        print("- Skipped Reliability diagram test (relplot not available)")
-    except Exception as e:
-        print(f"✗ Reliability diagram test failed: {e}")
+    test_instance.test_reliability_diagram_against_relplot()
+    print("✓ Reliability diagram validation against relplot passed")
 
-    try:
-        test_instance.test_spiegelhalter_z_against_mapie()
-        print("✓ Spiegelhalter Z test validation against MAPIE passed")
-    except ImportError:
-        print("- Skipped Spiegelhalter Z test (MAPIE not available)")
-    except Exception as e:
-        print(f"✗ Spiegelhalter Z test failed: {e}")
+    test_instance.test_spiegelhalter_z_against_mapie()
+    print("✓ Spiegelhalter Z test validation against MAPIE passed")
 
-    try:
-        test_instance.test_hosmer_lemeshow_and_spiegelhalterz_against_pycaleva()
-        print("✓ Hosmer-Lemeshow and Spiegelhalter Z test validation against pycaleva passed")
-    except Exception as e:
-        print(f"✗ Hosmer-Lemeshow and Spiegelhalter Z test validation against pycaleva failed: {e}")
+    test_instance.test_hosmer_lemeshow_and_spiegelhalterz_against_pycaleva()
+    print("✓ Hosmer-Lemeshow and Spiegelhalter Z test validation against pycaleva passed")
 
-    try:
-        test_instance.test_hosmer_lemeshow_test_structure()
-        print("✓ Hosmer-Lemeshow test structure validation passed")
-    except Exception as e:
-        print(f"✗ Hosmer-Lemeshow test failed: {e}")
+    test_instance.test_hosmer_lemeshow_test_structure()
+    print("✓ Hosmer-Lemeshow test structure validation passed")
     
     print("Validation tests completed.")
 
