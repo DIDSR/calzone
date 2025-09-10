@@ -4,6 +4,7 @@
 
 # Core testing framework
 pytest>=6.0.0
+pytest-cov>=4.0.0
 
 # For reliability diagram validation
 scikit-learn>=1.0.0
