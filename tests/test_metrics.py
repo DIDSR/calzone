@@ -38,6 +38,32 @@ def run_test_metrics():
     metrics = CalibrationMetrics(class_to_calculate=1)
     results = metrics.calculate_metrics(y_true, y_proba, metrics='all')
     assert isinstance(results, dict)
-    ### Determintistic results given the random seed
+    print("✓ CalibrationMetrics results are in dictionary format")
+    
+    ### Deterministic results given the random seed
     assert results['ECE-H'] < 0.05
+    print(f"✓ ECE-H value is {results['ECE-H']:.4f} < 0.05")
+    
     assert results['HL-H p-value'] > 0.05
+    print(f"✓ HL-H p-value is {results['HL-H p-value']:.4f} > 0.05")
+
+    # Additional border-case: Cox regression with fix_intercept=True
+    from calzone.metrics import cox_regression_analysis
+    coef, intercept, coef_ci, intercept_ci = cox_regression_analysis(
+        y_true, y_proba, fix_intercept=True
+    )
+    assert isinstance(coef, float)
+    assert isinstance(intercept, float)
+    assert isinstance(coef_ci, (tuple, np.ndarray))
+    assert isinstance(intercept_ci, (tuple, np.ndarray))
+    print("✓ Cox regression finished when fix_intercept=True")
+
+    # Additional border-case: Cox regression with fix_slope=True
+    coef2, intercept2, coef_ci2, intercept_ci2 = cox_regression_analysis(
+        y_true, y_proba, fix_slope=True
+    )
+    assert isinstance(coef2, float)
+    assert isinstance(intercept2, float)    
+    assert isinstance(coef_ci2, (tuple, np.ndarray))
+    assert isinstance(intercept_ci2, (tuple, np.ndarray))
+    print("✓ Cox regression finished when fix_slope=True")

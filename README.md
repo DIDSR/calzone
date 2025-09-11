@@ -53,6 +53,30 @@ Also, an experimental build of the graphical user interface can now be downloade
 
 Alternatively, you can run `cal_metrics` for a command line interface.
 
+
+## Running the Tests
+
+To run the full test suite, including validation against external packages, you need to install additional test dependencies listed in `tests/test_requirements.txt`:
+
+```bash
+pip install -r tests/test_requirements.txt
+```
+
+You can then run the main test scripts directly:
+
+```bash
+python tests/test_metrics.py
+python tests/test_results.py
+```
+
+Or run all tests together using:
+
+```bash
+python tests/main.py
+```
+
+Some tests require optional external packages (e.g., `scikit-learn`, `mapie`, `relplot`, `pycaleva`). Tests that depend on these will be skipped if the packages are not installed.
+
 ## Documentation
 
 For a detailed manual and API reference, please visit our [documentation page](https://calzone-docs.readthedocs.io/en/latest/index.html).
