@@ -6,6 +6,8 @@ This directory contains test files for the calzone package.
 
 - `test_metrics.py`: Basic tests for calibration metrics using synthetic data
 - `test_results.py`: Validation tests that compare calzone implementations against external packages (scikit-learn, MAPIE)
+- `test_utils.py`: Testing utility functions such as dataloader and ROC curve making
+- `test_vis.py`: Tests for visualization functions
 - `main.py`: Main test runner that executes all tests
 
 ## Running Tests
@@ -46,5 +48,7 @@ The validation tests require additional packages for cross-validation:
 - `scikit-learn`: For reliability diagram validation
 - `mapie`: For ECE and Spiegelhalter Z test validation
 - `pandas`: For data handling
+- `pycaleva`: For HL and Spiegelhalter test validation
+- `relplot`: For advanced reliability diagram
 
 These are optional dependencies and tests will be skipped if not available.

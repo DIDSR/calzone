@@ -67,6 +67,8 @@ You can then run the main test scripts directly:
 ```bash
 python tests/test_metrics.py
 python tests/test_results.py
+python tests/test_utils.py
+python tests/test_vis.py
 ```
 
 Or run all tests together using:
