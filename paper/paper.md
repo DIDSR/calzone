@@ -61,7 +61,7 @@ To evaluate the calibration of a model, users need a representative dataset from
 
 ## Reliability Diagram
 
-The reliability diagram is a graphical representation of the calibration[@Murphy_reliability;@Brocker_reldia]. It groups the predicted probabilities into bins and plots the mean predicted probability against the empirical frequency in each bin. The reliability diagram can be used to qualitatively assess the calibration of the model. The confidence intervals of the empirical frequency are calculated using Wilson's score interval [@wilson_interval].
+The reliability diagram is a graphical representation of the calibration [@Murphy_reliability;@Brocker_reldia]. It groups the predicted probabilities into bins and plots the mean predicted probability against the empirical frequency in each bin. The reliability diagram can be used to qualitatively assess the calibration of the model. The confidence intervals of the empirical frequency are calculated using Wilson's score interval [@wilson_interval].
 ```python
 from calzone.utils import reliability_diagram
 from calzone.vis import plot_reliability_diagram
@@ -167,7 +167,7 @@ where $\eta$ is the testing data prevalence, $\eta'$ is the training data preval
 `Calzone` supports multiclass classification using a 1-vs-rest approach or top-class calibration. In top-class calibration, class 1 probability is the highest predicted probability, and class 0 is 1 minus this probability. Metrics interpretation may change in this transformation.
 
 ## Verification of methods
-To ensure the accuracy and reliability of the metrics implemented in `Calzone`, we performed comprehensive validation against established external packages. Reliability diagrams were compared with `sklearn.calibration.calibration_curve()`[@scikit], top-class ECE and Spiegelhalter's Z scores were validated against `MAPIE`[@taquet2022mapie], and the Hosmer-Lemeshow statistic was checked against `ResourceSelection` [@ResourceSelection] in R. Additional tests were conducted using the `relplot` and `pycaleva` Python packages to further confirm metric consistency. All differences were within 0.1%, demonstrating strong agreement. These validation tests are documented in `test_results.py`. Furthermore, synthetic data tests (see `test_metrics.py`) were used to confirm the expected behavior of the calibration metrics under controlled conditions.
+To ensure the accuracy and reliability of the metrics implemented in `Calzone`, we performed comprehensive validation against established external packages. Reliability diagrams were compared with `sklearn.calibration.calibration_curve()` [@scikit], top-class ECE and Spiegelhalter's Z scores were validated against `MAPIE` [@taquet2022mapie], and the Hosmer-Lemeshow statistic was checked against `ResourceSelection` [@ResourceSelection] in R. Additional tests were conducted using the `relplot` and `pycaleva` Python packages to further confirm metric consistency. All differences were within 0.1%, demonstrating strong agreement. These validation tests are documented in `test_results.py`. Furthermore, synthetic data tests (see `test_metrics.py`) were used to confirm the expected behavior of the calibration metrics under controlled conditions.
 
 ## Command line interface
 `Calzone` offers a command line interface for visualizing calibration curves, calculating metrics, and confidence intervals. Run `python cal_metrics.py -h` for help.
