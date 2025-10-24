@@ -7,12 +7,13 @@
 # Evaluating the Calibration of Probabilistic Models
 ![Docs](https://readthedocs.org/projects/calzone-docs/badge/)
 [![PyPI version](https://badge.fury.io/py/calzone-tool.svg)](https://badge.fury.io/py/calzone-tool)
+[![DOI](https://joss.theoj.org/papers/10.21105/joss.08026/status.svg)](https://doi.org/10.21105/joss.08026)
 
 `Calzone` is a comprehensive Python package for calculating and visualizing metrics for assessing the calibration of models with probabilistic output.
 
 ## Features
 
-- Supports multiple calibration metrics including Spiegelhalter's Z-test, Expected Calibration Error (ECE), Maximum Calibration Error (MCE), Hosmer-Lemeshow (HL) test, Cox regression analysis, and Loess regression analysis.
+- Supports multiple calibration metrics, including Spiegelhalter's Z-test, Expected Calibration Error (ECE), Maximum Calibration Error (MCE), Hosmer-Lemeshow (HL) test, Cox regression analysis, and Loess regression analysis.
 - Provides tools for creating reliability diagrams and ROC curves.
 - Offers equal-space and equal-frequency binning options.
 - Provides bootstrapped confidence intervals for each calibration metric.
@@ -88,5 +89,23 @@ If you encounter any issues or have questions about the package, please [open an
 * [Kwok Lung (Jason) Fan](mailto:kwoklung.fan@fda.hhs.gov?subject=calzone)
 * [Qian Cao](mailto:qian.cao@fda.hhs.gov?subject=calzone)
 
-## Disclaimer 
-This software and documentation (the "Software") were developed at the Food and Drug Administration (FDA) by employees of the Federal Government in the course of their official duties. Pursuant to Title 17, Section 105 of the United States Code, this work is not subject to copyright protection and is in the public domain. Permission is hereby granted, free of charge, to any person obtaining a copy of the Software, to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, or sell copies of the Software or derivatives, and to permit persons to whom the Software is furnished to do so. FDA assumes no responsibility whatsoever for use by other parties of the Software, its source code, documentation or compiled executables, and makes no guarantees, expressed or implied, about its quality, reliability, or any other characteristic. Further, use of this code in no way implies endorsement by the FDA or confers any advantage in regulatory decisions. Although this software can be redistributed and/or modified freely, we ask that any derivative works bear some notice that they are derived from it, and any modified versions bear some notice that they have been modified.
+## Cite
+If you found this project useful in your academic work, we appreciate citing it using the following BibTeX entry:
+
+```bibtex
+@article{Fan2025Calzone,
+  title   = {Calzone: A Python package for measuring calibration of probabilistic models for classification},
+  author  = {Fan, Kwok Lung and Pennello, Gene and Liu, Qi and Petrick, Nicholas and Samala, Ravi K. and Samuelson, Frank W. and Thompson, Yee Lam Elim and Cao, Qian},
+  year    = {2025},
+  journal = {Journal of Open Source Software},
+  volume  = {10},
+  number  = {114},
+  pages   = {8026},
+  doi     = {10.21105/joss.08026},
+  url     = {https://doi.org/10.21105/joss.08026},
+}
+```
+
+## Disclaimer regarding Regulatory Science Tools
+The enclosed tool is part of the [Catalog of Regulatory Science Tools](https://cdrh-rst.fda.gov/), which provides a peer-reviewed resource for stakeholders to use where standards and qualified Medical Device Development Tools (MDDTs) do not yet exist. These tools do not replace FDA-recognized standards or MDDTs. This catalog collates a variety of regulatory science tools that the FDA's Center for Devices and Radiological Health's (CDRH) Office of Science and Engineering Labs (OSEL) developed. These tools use the most innovative science to support medical device development and patient access to safe and effective medical devices. If you are considering using a tool from this catalog in your marketing submissions, note that these tools have not been qualified as [Medical Device Development Tools](https://www.fda.gov/medical-devices/medical-device-development-tools-mddt) and the FDA has not evaluated the suitability of these tools within any specific context of use. You may [request feedback or meetings for medical device submissions](https://www.fda.gov/regulatory-information/search-fda-guidance-documents/requests-feedback-and-meetings-medical-device-submissions-q-submission-program) as part of the Q-Submission Program.
+For more information about the Catalog of Regulatory Science Tools, email [RST_CDRH@fda.hhs.gov](mailto:RST_CDRH@fda.hhs.gov).
